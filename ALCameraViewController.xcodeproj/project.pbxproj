@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
 		FA5FA3431B3AFA2B00497C62 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */; };
 		FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */; };
 		FA787F1C1B4326F100B6B86E /* ALCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALPermissionsView.swift; sourceTree = "<group>"; };
 		FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
 		FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCropOverlay.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				FAF058441B31618D008E5592 /* AppDelegate.swift */,
 				FAF058461B31618D008E5592 /* ViewController.swift */,
+				FA52EE0A1B44129B00E16B6F /* ViewController.xib */,
 				FAF058421B31618D008E5592 /* Supporting Files */,
 			);
 			path = Example;
@@ -271,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */,
 				FAF0584F1B31618D008E5592 /* LaunchScreen.xib in Resources */,
 				FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */,
 				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
