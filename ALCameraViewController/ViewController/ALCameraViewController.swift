@@ -76,6 +76,7 @@ public class ALCameraViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.blackColor()
         view.addSubview(imageView)
         view.addSubview(cameraView)
         
@@ -133,7 +134,7 @@ public class ALCameraViewController: UIViewController {
         cameraButton.addTarget(self, action: "capturePhoto", forControlEvents: UIControlEvents.TouchUpInside)
         swapButton.addTarget(self, action: "swapCamera", forControlEvents: UIControlEvents.TouchUpInside)
         libraryButton.addTarget(self, action: "showLibrary", forControlEvents: UIControlEvents.TouchUpInside)
-        
+        closeButton.addTarget(self, action: "close", forControlEvents: UIControlEvents.TouchUpInside)
         layoutCamera()
     }
     
