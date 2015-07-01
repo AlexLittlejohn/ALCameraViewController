@@ -46,7 +46,7 @@ public class ALCameraView: UIView {
     
     private func createPreview() {
         session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSessionPresetPhoto
+        session.sessionPreset = AVCaptureSessionPresetHigh
         
         device = cameraWithPosition(currentPosition)
         
