@@ -31,7 +31,7 @@ public extension ALCameraViewController {
         }
         
         
-        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: "dismiss")
+        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: "dismiss")
         
         return navigationController
     }
@@ -136,7 +136,7 @@ public class ALCameraViewController: UIViewController {
         view.addSubview(closeButton)
         
         closeButton.addTarget(self, action: "close", forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.setImage(UIImage(named: "retakeButton"), forState: UIControlState.Normal)
+        closeButton.setImage(UIImage(named: "retakeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
         closeButton.sizeToFit()
         
         let size = view.frame.size
@@ -171,12 +171,12 @@ public class ALCameraViewController: UIViewController {
     
     private func layoutCamera() {
         
-        cameraButton.setImage(UIImage(named: "cameraButton"), forState: UIControlState.Normal)
-        cameraButton.setImage(UIImage(named: "cameraButtonHighlighted"), forState: UIControlState.Highlighted)
+        cameraButton.setImage(UIImage(named: "cameraButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
+        cameraButton.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Highlighted)
 
-        closeButton.setImage(UIImage(named: "closeButton"), forState: UIControlState.Normal)
-        swapButton.setImage(UIImage(named: "swapButton"), forState: UIControlState.Normal)
-        libraryButton.setImage(UIImage(named: "libraryButton"), forState: UIControlState.Normal)
+        closeButton.setImage(UIImage(named: "closeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
+        swapButton.setImage(UIImage(named: "swapButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
+        libraryButton.setImage(UIImage(named: "libraryButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
         
         cameraButton.sizeToFit()
         closeButton.sizeToFit()

@@ -43,12 +43,12 @@ class ALImageCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = UIImage(named: "ALPlaceholder")
+        imageView.image = UIImage(named: "ALPlaceholder", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)
     }
     
     func configureWithModel(model: ALImageModel) {
         
-        imageView.image = UIImage(named: "ALPlaceholder")
+        imageView.image = UIImage(named: "ALPlaceholder", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)
         
         if tag != 0 {
             model.imageManager.cancelImageRequest(PHImageRequestID(tag))

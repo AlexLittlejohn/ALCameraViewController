@@ -44,7 +44,7 @@ internal class ALPermissionsView: UIView {
         descriptionLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         descriptionLabel.text = LocalizedString("permissions.description")
         
-        let icon = UIImage(named: "permissionsIcon")!
+        let icon = UIImage(named: "permissionsIcon", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)!
         iconView.image = icon
         
         addSubview(iconView)
