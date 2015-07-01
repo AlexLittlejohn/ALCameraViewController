@@ -1,0 +1,306 @@
+//
+//  ALCameraViewController.swift
+//  ALCameraViewController
+//
+//  Created by Alex Littlejohn on 2015/06/17.
+//  Copyright (c) 2015 zero. All rights reserved.
+//
+
+import UIKit
+import AVFoundation
+
+public typealias ALCameraViewCompletion = (UIImage?) -> Void
+
+public extension ALCameraViewController {
+    class func imagePickerViewController(croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UINavigationController {
+        let imagePicker = ALImagePickerViewController()
+        let navigationController = UINavigationController(rootViewController: imagePicker)
+        
+        navigationController.navigationBar.barTintColor = UIColor.clearColor()
+        
+        imagePicker.onSelectionComplete = { image in
+            if image != nil {
+                let confirmController = ALConfirmViewController(image: image!, allowsCropping: croppingEnabled)
+                confirmController.onComplete = completion
+                confirmController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+                imagePicker.presentViewController(confirmController, animated: true, completion: nil)
+            } else {
+                completion(nil)
+            }
+        }
+        
+        
+        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: "dismiss")
+        
+        return navigationController
+    }
+}
+
+public class ALCameraViewController: UIViewController {
+    
+    let cameraView = ALCameraView()
+    let imageView = UIImageView()
+    let cameraOverlay = ALCropOverlay()
+    let cameraButton = UIButton()
+    
+    let closeButton = UIButton()
+    let swapButton = UIButton()
+    let libraryButton = UIButton()
+    
+    var onCompletion: ALCameraViewCompletion?
+    var allowCropping: Bool
+    
+    var verticalPadding: CGFloat = 30
+    var horizontalPadding: CGFloat = 30
+    
+    public init(croppingEnabled: Bool, completion: ALCameraViewCompletion) {
+        allowCropping = croppingEnabled
+        super.init(nibName: nil, bundle: nil)
+        onCompletion = completion
+        commonInit()
+    }
+    
+    public required init(coder aDecoder: NSCoder) {
+        allowCropping = false
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    public override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Slide
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(imageView)
+        view.addSubview(cameraView)
+        
+        if allowCropping {
+            layoutCropView()
+        }
+        
+        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.frame = view.bounds
+        cameraView.frame = view.bounds
+    }
+    
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        checkPermissions()
+    }
+    
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        SpringAnimation {
+            self.cameraBeginState()
+        }
+    }
+    
+    private func commonInit() {
+        if UIScreen.mainScreen().bounds.size.width <= 320 {
+            verticalPadding = 15
+            horizontalPadding = 15
+        }
+    }
+
+    private func checkPermissions() {
+        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+            startCamera()
+        } else {
+            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
+                dispatch_async(dispatch_get_main_queue()) {
+                    if granted == true {
+                        self.startCamera()
+                    } else {
+                        self.showNoPermissionsView()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func showNoPermissionsView() {
+        let permissionsView = ALPermissionsView(frame: view.bounds)
+        view.addSubview(permissionsView)
+    }
+    
+    private func startCamera() {
+        cameraView.startSession()
+        cameraButton.addTarget(self, action: "capturePhoto", forControlEvents: UIControlEvents.TouchUpInside)
+        swapButton.addTarget(self, action: "swapCamera", forControlEvents: UIControlEvents.TouchUpInside)
+        libraryButton.addTarget(self, action: "showLibrary", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        layoutCamera()
+    }
+    
+    private func layoutCropView() {
+        let width = view.frame.size.width - horizontalPadding
+        let height = width
+        let x = horizontalPadding/2
+        
+        let cameraButtonY = view.frame.size.height - (verticalPadding + 80)
+        let y = cameraButtonY/2 - height/2
+        let frame = CGRectMake(x, y, width, height)
+        
+        view.addSubview(cameraOverlay)
+        cameraOverlay.frame = frame
+    }
+    
+    private func layoutCamera() {
+        
+        cameraButton.setImage(UIImage(named: "cameraButton"), forState: UIControlState.Normal)
+        cameraButton.setImage(UIImage(named: "cameraButtonHighlighted"), forState: UIControlState.Highlighted)
+
+        closeButton.setImage(UIImage(named: "closeButton"), forState: UIControlState.Normal)
+        swapButton.setImage(UIImage(named: "swapButton"), forState: UIControlState.Normal)
+        libraryButton.setImage(UIImage(named: "libraryButton"), forState: UIControlState.Normal)
+        
+        cameraButton.sizeToFit()
+        closeButton.sizeToFit()
+        swapButton.sizeToFit()
+        libraryButton.sizeToFit()
+        
+        view.addSubview(cameraButton)
+        view.addSubview(libraryButton)
+        view.addSubview(closeButton)
+        view.addSubview(swapButton)
+        
+        cameraButton.enabled = true
+        
+        cameraBeginState()
+        
+        SpringAnimation {
+            self.cameraEndState()
+        }
+    }
+    
+    private func cameraBeginState() {
+        let size = view.frame.size
+
+        let cameraSize = cameraButton.frame.size
+        
+        let yOffset = cameraSize.height + verticalPadding*2
+        
+        
+        let cameraX = size.width/2 - cameraSize.width/2
+        let cameraY = size.height - (cameraSize.height + verticalPadding)
+        
+        cameraButton.frame.origin = CGPointMake(cameraX, cameraY + yOffset)
+        cameraButton.alpha = 0
+        
+        let closeSize = closeButton.frame.size
+        
+        let initialX = size.width/2 - closeSize.width/2
+        let closeY = cameraY + (cameraSize.height - closeSize.height)/2
+        
+        closeButton.frame.origin = CGPointMake(initialX, closeY + yOffset)
+        closeButton.alpha = 0
+        
+        let librarySize = libraryButton.frame.size
+        let libraryY = closeY
+        
+        libraryButton.frame.origin = CGPointMake(initialX, libraryY + yOffset)
+        libraryButton.alpha = 0
+        
+        let swapSize = swapButton.frame.size
+        let swapY = closeY
+        
+        swapButton.frame.origin = CGPointMake(initialX, swapY + yOffset)
+        swapButton.alpha = 0
+    }
+    
+    private func cameraEndState() {
+        let size = view.frame.size
+        
+        let cameraSize = cameraButton.frame.size
+        let cameraX = size.width/2 - cameraSize.width/2
+        let cameraY = size.height - (cameraSize.height + verticalPadding)
+        
+        cameraButton.frame.origin = CGPointMake(cameraX, cameraY)
+        cameraButton.alpha = 1
+        
+        let closeSize = closeButton.frame.size
+        let closeX = horizontalPadding
+        let closeY = cameraY + (cameraSize.height - closeSize.height)/2
+        
+        closeButton.frame.origin = CGPointMake(closeX, closeY)
+        closeButton.alpha = 1
+        
+        let librarySize = libraryButton.frame.size
+        let libraryX = size.width - (librarySize.width + horizontalPadding)
+        let libraryY = closeY
+        
+        libraryButton.frame.origin = CGPointMake(libraryX, libraryY)
+        libraryButton.alpha = 1
+        
+        let swapSize = swapButton.frame.size
+        let swapSpace = libraryX - (cameraX + cameraSize.width)
+        let swapX = (cameraX + cameraSize.width) + (swapSpace/2 - swapSize.width/2)
+        let swapY = closeY
+        
+        swapButton.frame.origin = CGPointMake(swapX, swapY)
+        swapButton.alpha = 1
+    }
+    
+    internal func capturePhoto() {
+        cameraButton.enabled = false
+        cameraView.capturePhoto { image in
+            self.layoutCameraResult(image)
+        }
+    }
+    
+    internal func close() {
+        onCompletion?(nil)
+    }
+    
+    internal func showLibrary() {
+        let imagePicker = ALCameraViewController.imagePickerViewController(allowCropping) { image in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            if image != nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.onCompletion?(image!)
+                }
+            }
+        }
+        
+        imagePicker.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+
+        presentViewController(imagePicker, animated: true) {
+            self.cameraView.stopSession()
+        }
+    }
+    
+    internal func onConfirmComplete(image: UIImage?) {
+        dismissViewControllerAnimated(true, completion: nil)
+        onCompletion?(image)
+    }
+    
+    internal func swapCamera() {
+        cameraView.swapCameraInput()
+    }
+    
+    internal func layoutCameraResult(image: UIImage) {
+        SpringAnimation {
+            self.cameraBeginState()
+        }
+        
+        cameraView.stopSession()
+        
+        let confirmViewController = ALConfirmViewController(image: image, allowsCropping: allowCropping)
+        
+        confirmViewController.onComplete = { image in
+            if image == nil {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                self.onCompletion?(image)
+            }
+        }
+        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        
+        presentViewController(confirmViewController, animated: true, completion: nil)
+    }
+}
