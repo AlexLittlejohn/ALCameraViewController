@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     @IBAction func openCamera(sender: AnyObject) {
@@ -27,14 +26,10 @@ class ViewController: UIViewController {
         }
         
         presentViewController(cameraViewController, animated: true, completion: nil)
-        
     }
     
     @IBAction func croppingChanged(sender: AnyObject) {
-        
         croppingEnabled = !croppingEnabled
-        
     }
-
 }
 
