@@ -22,7 +22,6 @@
 		FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058441B31618D008E5592 /* AppDelegate.swift */; };
 		FAF058471B31618D008E5592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058461B31618D008E5592 /* ViewController.swift */; };
 		FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584B1B31618D008E5592 /* Images.xcassets */; };
-		FAF0584F1B31618D008E5592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584D1B31618D008E5592 /* LaunchScreen.xib */; };
 		FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */; };
 		FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* ALCameraViewController.swift */; };
 		FAF058681B3175C5008E5592 /* ALCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* ALCameraView.swift */; };
@@ -57,7 +56,6 @@
 		FAF058441B31618D008E5592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAF058461B31618D008E5592 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FAF0584B1B31618D008E5592 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		FAF0584E1B31618D008E5592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALCameraViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF058591B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALCameraViewControllerTests.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 		FAF058421B31618D008E5592 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FAF0584D1B31618D008E5592 /* LaunchScreen.xib */,
 				FAF0584B1B31618D008E5592 /* Images.xcassets */,
 				FAF058431B31618D008E5592 /* Info.plist */,
 			);
@@ -275,7 +272,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */,
-				FAF0584F1B31618D008E5592 /* LaunchScreen.xib in Resources */,
 				FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */,
 				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
@@ -330,18 +326,6 @@
 			targetProxy = FAF058551B31618D008E5592 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		FAF0584D1B31618D008E5592 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAF0584E1B31618D008E5592 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = .;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FAF0585C1B31618D008E5592 /* Debug */ = {
@@ -431,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -441,6 +426,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
