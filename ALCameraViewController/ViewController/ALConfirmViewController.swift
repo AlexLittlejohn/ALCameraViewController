@@ -42,6 +42,14 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    internal override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    internal override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Slide
+    }
+    
     internal override func viewDidLoad() {
         super.viewDidLoad()
 

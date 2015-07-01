@@ -60,9 +60,14 @@ internal class ALImagePickerViewController: UIViewController {
     
     private var assets: [PHAsset] = []
     
+    internal override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNeedsStatusBarAppearanceUpdate()
         view.backgroundColor = UIColor(white: 0.2, alpha: 1)
         view.addSubview(collectionView)
 

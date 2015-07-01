@@ -16,7 +16,8 @@ public extension ALCameraViewController {
         let imagePicker = ALImagePickerViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
-        navigationController.navigationBar.barTintColor = UIColor.clearColor()
+        navigationController.navigationBar.barTintColor = UIColor.blackColor()
+        navigationController.navigationBar.barStyle = UIBarStyle.Black
         
         imagePicker.onSelectionComplete = { image in
             if image != nil {
@@ -48,20 +49,24 @@ public class ALCameraViewController: UIViewController {
     let libraryButton = UIButton()
     
     var onCompletion: ALCameraViewCompletion?
-    var allowCropping: Bool
+    var allowCropping = false
     
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
     public init(croppingEnabled: Bool, completion: ALCameraViewCompletion) {
-        allowCropping = croppingEnabled
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
+        allowCropping = croppingEnabled
+        commonInit()
+    }
+    
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
     }
     
     public required init(coder aDecoder: NSCoder) {
-        allowCropping = false
         super.init(coder: aDecoder)
         commonInit()
     }
