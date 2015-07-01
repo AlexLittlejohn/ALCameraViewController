@@ -141,9 +141,9 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func layoutButtons() {
-        confirmButton.setImage(UIImage(named: "confirmButton"), forState: UIControlState.Normal)
+        confirmButton.setImage(UIImage(named: "confirmButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
         confirmButton.addTarget(self, action: "confirmPhoto", forControlEvents: UIControlEvents.TouchUpInside)
-        cancelButton.setImage(UIImage(named: "retakeButton"), forState: UIControlState.Normal)
+        cancelButton.setImage(UIImage(named: "retakeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
         cancelButton.addTarget(self, action: "cancel", forControlEvents: UIControlEvents.TouchUpInside)
         
         confirmButton.sizeToFit()
