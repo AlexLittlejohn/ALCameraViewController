@@ -41,6 +41,11 @@ class ALImageCell: UICollectionViewCell {
         imageView.frame = CGRectMake(0, 0, ALImageCellSize.width, ALImageCellSize.height)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = UIImage(named: "ALPlaceholder")
+    }
+    
     func configureWithModel(model: ALImageModel) {
         
         imageView.image = UIImage(named: "ALPlaceholder")
