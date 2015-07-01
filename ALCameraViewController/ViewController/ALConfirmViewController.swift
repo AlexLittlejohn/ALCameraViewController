@@ -72,6 +72,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             let x = horizontalPadding/2
             let cameraButtonY = view.frame.size.height - (verticalPadding + 80)
             let y = cameraButtonY/2 - height/2
+            let yy = view.frame.size.height - (y + height)
             let frame = CGRectMake(x, y, width, height)
             let scaleWidth = frame.size.width / scrollView.contentSize.width
             let scaleHeight = frame.size.height / scrollView.contentSize.height
@@ -80,7 +81,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             view.addSubview(cropView)
             
             cropView.frame = frame
-            scrollView.contentInset = UIEdgeInsetsMake(cropView.frame.origin.y, cropView.frame.origin.x, cropView.frame.origin.y, cropView.frame.origin.x)
+            scrollView.contentInset = UIEdgeInsetsMake(cropView.frame.origin.y, cropView.frame.origin.x, yy, cropView.frame.origin.x)
         } else {
             let frame = view.frame
             let scaleWidth = frame.size.width / scrollView.contentSize.width
