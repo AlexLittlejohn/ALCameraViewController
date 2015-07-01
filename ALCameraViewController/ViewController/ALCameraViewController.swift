@@ -84,6 +84,7 @@ public class ALCameraViewController: UIViewController {
         view.backgroundColor = UIColor.blackColor()
         view.addSubview(imageView)
         view.addSubview(cameraView)
+        view.addSubview(closeButton)
         
         if allowCropping {
             layoutCropView()
@@ -132,6 +133,19 @@ public class ALCameraViewController: UIViewController {
     private func showNoPermissionsView() {
         let permissionsView = ALPermissionsView(frame: view.bounds)
         view.addSubview(permissionsView)
+        
+        view.bringSubviewToFront(closeButton)
+        
+        closeButton.addTarget(self, action: "close", forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.setImage(UIImage(named: "closeButton"), forState: UIControlState.Normal)
+        closeButton.sizeToFit()
+        
+        let size = view.frame.size
+        let closeSize = closeButton.frame.size
+        let closeX = horizontalPadding
+        let closeY = size.height - (closeSize.height + verticalPadding)
+        
+        closeButton.frame.origin = CGPointMake(closeX, closeY)
     }
     
     private func startCamera() {
@@ -172,7 +186,7 @@ public class ALCameraViewController: UIViewController {
         
         view.addSubview(cameraButton)
         view.addSubview(libraryButton)
-        view.addSubview(closeButton)
+        
         view.addSubview(swapButton)
         
         cameraButton.enabled = true
