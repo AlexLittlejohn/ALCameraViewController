@@ -15,7 +15,7 @@ internal func SpringAnimation(animations: () -> Void) {
 }
 
 internal func LocalizedString(key: String) -> String {
-    return NSLocalizedString(key, tableName: "ALCameraView", comment: key)
+    return NSLocalizedString(key, tableName: "ALCameraView", bundle: NSBundle(forClass: ALCameraViewController.self), comment: key)
 }
 
 extension UIImage {
