@@ -11,3 +11,5 @@
 
 "permissions.library.title" = "Photos Access Denied";
 "permissions.library.description" = "Please enable photo library access in your privacy settings";
+
+"permissions.settings" = "Settings";
