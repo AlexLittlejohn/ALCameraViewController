@@ -28,6 +28,25 @@ class ViewController: UIViewController {
         presentViewController(cameraViewController, animated: true, completion: nil)
     }
     
+    @IBAction func openLibrary(sender: AnyObject) {
+        let libraryViewController = ALCameraViewController.imagePickerViewController(croppingEnabled) { (image) -> Void in
+            self.imageView.image = image
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        presentViewController(libraryViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func openCropper(sender: AnyObject) {
+        let image = UIImage(named: "image.jpg")!
+        let croppingViewController = ALCameraViewController.croppingViewController(image, croppingEnabled: true) { image in
+            self.imageView.image = image
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        presentViewController(croppingViewController, animated: true, completion: nil)
+    }
+    
     @IBAction func croppingChanged(sender: AnyObject) {
         croppingEnabled = !croppingEnabled
     }
