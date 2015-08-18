@@ -10,6 +10,7 @@
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
 		FA5FA3431B3AFA2B00497C62 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */; };
 		FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */; };
+		FA778A411B8319D8005807E7 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA778A401B8319D8005807E7 /* image.jpg */; };
 		FA787F1C1B4326F100B6B86E /* ALCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */; };
 		FA7E6B9B1B429012000E1B14 /* ALConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */; };
 		FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8231371B3BF8F700A837BE /* ALCameraView.strings */; };
@@ -42,6 +43,7 @@
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALPermissionsView.swift; sourceTree = "<group>"; };
 		FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
+		FA778A401B8319D8005807E7 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 		FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCropOverlay.swift; sourceTree = "<group>"; };
 		FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALConfirmViewController.swift; sourceTree = "<group>"; };
 		FA8231371B3BF8F700A837BE /* ALCameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ALCameraView.strings; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		FAF058641B316628008E5592 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				FA778A401B8319D8005807E7 /* image.jpg */,
 				FAF058441B31618D008E5592 /* AppDelegate.swift */,
 				FAF058461B31618D008E5592 /* ViewController.swift */,
 				FA52EE0A1B44129B00E16B6F /* ViewController.xib */,
@@ -275,6 +278,7 @@
 				FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */,
 				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
+				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

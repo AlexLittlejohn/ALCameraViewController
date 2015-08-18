@@ -12,7 +12,7 @@ import AVFoundation
 public typealias ALCameraViewCompletion = (UIImage?) -> Void
 
 public extension ALCameraViewController {
-    class func imagePickerViewController(croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UINavigationController {
+    public class func imagePickerViewController(croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UINavigationController {
         let imagePicker = ALImagePickerViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
@@ -34,6 +34,12 @@ public extension ALCameraViewController {
         imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: "dismiss")
         
         return navigationController
+    }
+    
+    public class func croppingViewController(image: UIImage, croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UIViewController {
+        let cropper = ALConfirmViewController(image: image, allowsCropping: croppingEnabled)
+        cropper.onComplete = completion
+        return cropper
     }
 }
 
