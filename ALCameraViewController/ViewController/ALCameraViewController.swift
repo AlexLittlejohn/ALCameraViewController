@@ -46,7 +46,6 @@ public extension ALCameraViewController {
 public class ALCameraViewController: UIViewController {
     
     let cameraView = ALCameraView()
-    let imageView = UIImageView()
     let cameraOverlay = ALCropOverlay()
     let cameraButton = UIButton()
     
@@ -72,7 +71,7 @@ public class ALCameraViewController: UIViewController {
         commonInit()
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
@@ -88,7 +87,6 @@ public class ALCameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.blackColor()
-        view.addSubview(imageView)
         view.addSubview(cameraView)
         
         
@@ -96,8 +94,6 @@ public class ALCameraViewController: UIViewController {
             layoutCropView()
         }
         
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
-        imageView.frame = view.bounds
         cameraView.frame = view.bounds
     }
     
@@ -110,6 +106,16 @@ public class ALCameraViewController: UIViewController {
         super.viewWillDisappear(animated)
         SpringAnimation {
             self.cameraBeginState()
+        }
+    }
+    
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        cameraView.frame = view.bounds
+        
+        SpringAnimation {
+            self.cameraEndState()
         }
     }
     
@@ -225,13 +231,11 @@ public class ALCameraViewController: UIViewController {
         closeButton.frame.origin = CGPointMake(initialX, closeY + yOffset)
         closeButton.alpha = 0
         
-        let librarySize = libraryButton.frame.size
         let libraryY = closeY
         
         libraryButton.frame.origin = CGPointMake(initialX, libraryY + yOffset)
         libraryButton.alpha = 0
         
-        let swapSize = swapButton.frame.size
         let swapY = closeY
         
         swapButton.frame.origin = CGPointMake(initialX, swapY + yOffset)

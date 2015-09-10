@@ -54,11 +54,11 @@ internal class ALCameraShot: NSObject {
         var scaledWidth = targetWidth;
         var scaledHeight = targetHeight;
         
-        var thumbnailPoint = cropRect.origin;
+        let thumbnailPoint = cropRect.origin;
         
         if (CGSizeEqualToSize(imageSize, cropRect.size) == false) {
-            var widthFactor = targetWidth / width;
-            var heightFactor = targetHeight / height;
+            let widthFactor = targetWidth / width;
+            let heightFactor = targetHeight / height;
             
             if (widthFactor > heightFactor) {
                 scaleFactor = widthFactor;
@@ -103,8 +103,8 @@ internal class ALCameraShot: NSObject {
         var thumbnailPoint = CGPointMake(0, 0);
         
         if (CGSizeEqualToSize(imageSize, cropSize) == false) {
-            var widthFactor = targetWidth / width;
-            var heightFactor = targetHeight / height;
+            let widthFactor = targetWidth / width;
+            let heightFactor = targetHeight / height;
             
             if (widthFactor > heightFactor) {
                 scaleFactor = widthFactor;

@@ -44,16 +44,28 @@ public class ALCameraView: UIView {
         }
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        if let p = preview {
+            p.frame = bounds
+        }
+    }
+    
     private func createPreview() {
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetHigh
         
         device = cameraWithPosition(currentPosition)
         
-        var error = NSErrorPointer()
         let outputSettings = [AVVideoCodecKey:AVVideoCodecJPEG]
         
-        input = AVCaptureDeviceInput(device: device, error: error)
+        do {
+            input = try AVCaptureDeviceInput(device: device)
+        } catch let error as NSError {
+            input = nil
+            print("Error: \(error.localizedDescription)")
+            return
+        }
         
         if session.canAddInput(input) {
             session.addInput(input)
@@ -91,7 +103,7 @@ public class ALCameraView: UIView {
                 var correctedImage = image
                 
                 if self.currentPosition == AVCaptureDevicePosition.Front {
-                    correctedImage = UIImage(CGImage: image.CGImage, scale: image.scale, orientation:.UpMirrored)!
+                    correctedImage = UIImage(CGImage: image.CGImage!, scale: image.scale, orientation:.UpMirrored)
                 }
                 
                 completion(correctedImage)
@@ -112,8 +124,13 @@ public class ALCameraView: UIView {
                 device = cameraWithPosition(currentPosition)
             }
             
-            var error = NSErrorPointer()
-            input = AVCaptureDeviceInput(device: device, error: error)
+            let error = NSErrorPointer()
+            do {
+                input = try AVCaptureDeviceInput(device: device)
+            } catch let error1 as NSError {
+                error.memory = error1
+                input = nil
+            }
             
             session.addInput(input)
             session.commitConfiguration()
