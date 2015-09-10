@@ -38,7 +38,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    internal required init(coder aDecoder: NSCoder) {
+    internal required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -63,39 +63,29 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         scrollView.contentSize = imageView.frame.size
         scrollView.delegate = self
         
-        var minScale: CGFloat
-        
         if allowsCropping {
-            
-            let width = view.frame.size.width - horizontalPadding
-            let height = width
-            let x = horizontalPadding/2
-            let cameraButtonY = view.frame.size.height - (verticalPadding + 80)
-            let y = cameraButtonY/2 - height/2
-            let yy = view.frame.size.height - (y + height)
-            let frame = CGRectMake(x, y, width, height)
-            let scaleWidth = frame.size.width / scrollView.contentSize.width
-            let scaleHeight = frame.size.height / scrollView.contentSize.height
-            minScale = fmax(scaleWidth, scaleHeight)
-            
             view.addSubview(cropView)
-            
-            cropView.frame = frame
-            scrollView.contentInset = UIEdgeInsetsMake(cropView.frame.origin.y, cropView.frame.origin.x, yy, cropView.frame.origin.x)
-        } else {
-            let frame = view.frame
-            let scaleWidth = frame.size.width / scrollView.contentSize.width
-            let scaleHeight = frame.size.height / scrollView.contentSize.height
-            minScale = fmin(scaleWidth, scaleHeight)
         }
         
-        scrollView.minimumZoomScale = minScale
+        let scale = calculateMinimumScale()
+        
+        scrollView.minimumZoomScale = scale
         scrollView.maximumZoomScale = 1
-        scrollView.zoomScale = minScale
+        scrollView.zoomScale = scale
         
         layoutButtons()
         confirmationBeginState()
         centerScrollViewContents()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    func rotate() {
+        
+    }
+    
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        
     }
     
     internal override func viewWillAppear(animated: Bool) {
@@ -112,6 +102,56 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         SpringAnimation {
             self.confirmationBeginState()
         }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        scrollView.frame = view.bounds
+        SpringAnimation {
+            self.confirmationEndState()
+        }
+        
+        centerScrollViewContents()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        centerScrollViewContents()
+        
+        let scale = calculateMinimumScale()
+        
+        print("scale: \(scale)")
+        
+        scrollView.minimumZoomScale = scale
+        scrollView.setZoomScale(scale, animated: true)
+    }
+
+    private func calculateMinimumScale() -> CGFloat {
+        var minScale: CGFloat
+        
+        if allowsCropping {
+            
+            let width = view.frame.size.width - horizontalPadding
+            let height = width
+            let x = horizontalPadding/2
+            let cameraButtonY = view.frame.size.height - (verticalPadding + 80)
+            let y = cameraButtonY/2 - height/2
+            let yy = view.frame.size.height - (y + height)
+            let frame = CGRectMake(x, y, width, height)
+            let scaleWidth = frame.size.width / scrollView.contentSize.width
+            let scaleHeight = frame.size.height / scrollView.contentSize.height
+            minScale = fmax(scaleWidth, scaleHeight)
+            
+            cropView.frame = frame
+            scrollView.contentInset = UIEdgeInsetsMake(cropView.frame.origin.y, cropView.frame.origin.x, yy, cropView.frame.origin.x)
+        } else {
+            let frame = view.frame
+            let scaleWidth = frame.size.width / scrollView.contentSize.width
+            let scaleHeight = frame.size.height / scrollView.contentSize.height
+            minScale = fmin(scaleWidth, scaleHeight)
+        }
+        
+        return minScale
     }
     
     private func centerScrollViewContents() {

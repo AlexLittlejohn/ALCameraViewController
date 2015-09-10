@@ -9,7 +9,7 @@
 import UIKit
 
 internal func SpringAnimation(animations: () -> Void) {
-    UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.BeginFromCurrentState, animations: {
+    UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.BeginFromCurrentState], animations: {
         animations()
         }, completion: nil)
 }
@@ -21,7 +21,7 @@ internal func LocalizedString(key: String) -> String {
 extension UIImage {
     func crop(frame: CGRect, scale: CGFloat) -> UIImage {
         
-        var drawPoint = CGPointZero
+        let drawPoint = CGPointZero
         
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
         
