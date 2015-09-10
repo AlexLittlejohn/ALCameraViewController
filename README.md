@@ -14,7 +14,7 @@ A camera view controller with custom image picker and image cropping. Written in
 - Image cropping (square only)
 
 ### Installation & Requirements
-This project requires Xcode 6.3 to run and compiles with swift 1.2
+This project requires Xcode 7 to run and compiles with swift 2.0
 
 ALCameraViewController is available on CocoaPods. Add the following to your Podfile:
 
