@@ -132,7 +132,7 @@ internal class ALImagePickerViewController: UIViewController {
                 if let i = image {
                     
                     dispatch_async(dispatch_get_main_queue()) {
-                        onSelectionComplete?(i)
+                        self.onSelectionComplete?(i)
                     }
                 }
             })
