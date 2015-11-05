@@ -83,16 +83,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     internal func rotate() {
-        var rotation: Double = 0
-        
-        if UIDevice.currentDevice().orientation == .LandscapeLeft {
-            rotation = 90
-        } else if UIDevice.currentDevice().orientation == .LandscapeRight {
-            rotation = 270
-        } else if UIDevice.currentDevice().orientation == .PortraitUpsideDown {
-            rotation = 180
-        }
-        
+        let rotation = currentRotation()
         let rads = CGFloat(radians(rotation))
         
         UIView.animateWithDuration(0.3) {
@@ -150,12 +141,16 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         if allowsCropping {
             
-            let width = view.frame.size.width - horizontalPadding
+            let size = view.frame.size
+            let minDimension = size.width < size.height ? size.width : size.height
+            let maxDimension = size.width > size.height ? size.width : size.height
+            
+            let width = minDimension - horizontalPadding
             let height = width
             let x = horizontalPadding/2
-            let cameraButtonY = view.frame.size.height - (verticalPadding + 80)
+            let cameraButtonY = maxDimension - (verticalPadding + 80)
             let y = cameraButtonY/2 - height/2
-            let yy = view.frame.size.height - (y + height)
+            let yy = maxDimension - (y + height)
             let frame = CGRectMake(x, y, width, height)
             let scaleWidth = frame.size.width / scrollView.contentSize.width
             let scaleHeight = frame.size.height / scrollView.contentSize.height
