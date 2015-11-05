@@ -8,6 +8,10 @@
 
 import UIKit
 
+internal func radians(degrees: Double) -> Double {
+    return degrees / 180 * M_PI
+}
+
 internal func SpringAnimation(animations: () -> Void) {
     UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.BeginFromCurrentState], animations: {
         animations()
