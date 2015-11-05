@@ -54,6 +54,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 
         view.addSubview(scrollView)
+        view.backgroundColor = UIColor.blackColor()
         
         imageView.image = image
         imageView.sizeToFit()
@@ -77,11 +78,31 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         confirmationBeginState()
         centerScrollViewContents()
         
+        rotate()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
-    func rotate() {
+    internal func rotate() {
+        var rotation: Double = 0
         
+        if UIDevice.currentDevice().orientation == .LandscapeLeft {
+            rotation = 90
+        } else if UIDevice.currentDevice().orientation == .LandscapeRight {
+            rotation = 270
+        } else if UIDevice.currentDevice().orientation == .PortraitUpsideDown {
+            rotation = 180
+        }
+        
+        let rads = CGFloat(radians(rotation))
+        
+        UIView.animateWithDuration(0.3) {
+            self.confirmButton.transform = CGAffineTransformMakeRotation(rads)
+            self.cancelButton.transform = CGAffineTransformMakeRotation(rads)
+        }
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
     }
     
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
@@ -119,9 +140,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         centerScrollViewContents()
         
         let scale = calculateMinimumScale()
-        
-        print("scale: \(scale)")
-        
+                
         scrollView.minimumZoomScale = scale
         scrollView.setZoomScale(scale, animated: true)
     }

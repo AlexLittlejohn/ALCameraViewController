@@ -95,6 +95,13 @@ public class ALCameraViewController: UIViewController {
         }
         
         cameraView.frame = view.bounds
+        
+        rotate()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -116,6 +123,27 @@ public class ALCameraViewController: UIViewController {
         
         SpringAnimation {
             self.cameraEndState()
+        }
+    }
+    
+    internal func rotate() {
+        var rotation: Double = 0
+        
+        if UIDevice.currentDevice().orientation == .LandscapeLeft {
+            rotation = 90
+        } else if UIDevice.currentDevice().orientation == .LandscapeRight {
+            rotation = 270
+        } else if UIDevice.currentDevice().orientation == .PortraitUpsideDown {
+            rotation = 180
+        }
+        
+        let rads = CGFloat(radians(rotation))
+        
+        UIView.animateWithDuration(0.3) {
+            self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
+            self.closeButton.transform = CGAffineTransformMakeRotation(rads)
+            self.swapButton.transform = CGAffineTransformMakeRotation(rads)
+            self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
         }
     }
     
