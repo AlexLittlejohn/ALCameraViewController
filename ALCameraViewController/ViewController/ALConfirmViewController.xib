@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ALConfirmViewController" customModule="ALCameraViewController" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="yRi-ES-LfN" id="PUm-mc-H7R"/>
+                <outlet property="confirmButton" destination="ASf-ZD-cIs" id="mpH-Eg-IbA"/>
+                <outlet property="cropOverlay" destination="lnA-tb-Sap" id="34E-zk-Axd"/>
+                <outlet property="scrollView" destination="oUR-U3-uEM" id="rF0-ZM-RmA"/>
+                <outlet property="view" destination="iN0-l3-epB" id="FcS-Dy-kqF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oUR-U3-uEM">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <animations/>
+                    <variation key="heightClass=compact" ambiguous="YES">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                    </variation>
+                    <variation key="heightClass=compact-widthClass=regular" ambiguous="YES">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="400"/>
+                    </variation>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASf-ZD-cIs">
+                    <rect key="frame" x="224" y="526" width="44" height="44"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="J7n-mn-Ebe"/>
+                        <constraint firstAttribute="width" constant="44" id="YWt-e6-Bvy"/>
+                    </constraints>
+                    <state key="normal" image="confirmButton"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRi-ES-LfN">
+                    <rect key="frame" x="328" y="526" width="44" height="44"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="FdJ-mW-Tx6"/>
+                        <constraint firstAttribute="width" constant="44" id="urS-JS-i1S"/>
+                    </constraints>
+                    <state key="normal" image="retakeButton"/>
+                </button>
+                <view hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYd-D9-K5d">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="ALCropOverlay" customModule="ALCameraViewController" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="lnA-tb-Sap" secondAttribute="height" multiplier="1:1" id="lv8-l9-lJq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="lnA-tb-Sap" firstAttribute="centerY" secondItem="KYd-D9-K5d" secondAttribute="centerY" id="1uu-Bd-bz3"/>
+                <constraint firstAttribute="bottom" secondItem="yRi-ES-LfN" secondAttribute="bottom" constant="30" id="7jo-lC-34t"/>
+                <constraint firstItem="KYd-D9-K5d" firstAttribute="leading" secondItem="yRi-ES-LfN" secondAttribute="trailing" id="CcA-mG-BLU"/>
+                <constraint firstItem="yRi-ES-LfN" firstAttribute="top" secondItem="KYd-D9-K5d" secondAttribute="bottom" id="Ck2-xk-HbG"/>
+                <constraint firstAttribute="bottom" secondItem="ASf-ZD-cIs" secondAttribute="bottom" constant="30" id="DZ5-WA-3ZQ"/>
+                <constraint firstItem="oUR-U3-uEM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J3N-Vr-euu"/>
+                <constraint firstAttribute="trailing" secondItem="KYd-D9-K5d" secondAttribute="trailing" id="JLk-PT-5kn"/>
+                <constraint firstItem="lnA-tb-Sap" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="P5N-Xh-C1z"/>
+                <constraint firstItem="ASf-ZD-cIs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="Rwi-4K-QRb"/>
+                <constraint firstItem="ASf-ZD-cIs" firstAttribute="bottom" secondItem="yRi-ES-LfN" secondAttribute="top" constant="-60" id="TLl-L0-yLb"/>
+                <constraint firstItem="ASf-ZD-cIs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-54" id="WSF-pa-4wb"/>
+                <constraint firstItem="KYd-D9-K5d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Yhb-Y3-ngX"/>
+                <constraint firstItem="KYd-D9-K5d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aj9-Xh-WHL"/>
+                <constraint firstAttribute="bottom" secondItem="lnA-tb-Sap" secondAttribute="bottom" constant="15" id="eMF-sY-QhQ"/>
+                <constraint firstAttribute="trailing" secondItem="lnA-tb-Sap" secondAttribute="trailing" constant="15" id="efC-ff-52c"/>
+                <constraint firstItem="lnA-tb-Sap" firstAttribute="centerX" secondItem="KYd-D9-K5d" secondAttribute="centerX" id="hpa-Qn-uzT"/>
+                <constraint firstAttribute="bottom" secondItem="oUR-U3-uEM" secondAttribute="bottom" id="iw9-Cg-Kkk"/>
+                <constraint firstItem="oUR-U3-uEM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kDN-mM-6KE"/>
+                <constraint firstItem="yRi-ES-LfN" firstAttribute="leading" secondItem="ASf-ZD-cIs" secondAttribute="trailing" constant="60" id="m1F-XR-hgU"/>
+                <constraint firstAttribute="trailing" secondItem="oUR-U3-uEM" secondAttribute="trailing" id="mL3-PM-TEd"/>
+                <constraint firstAttribute="bottom" secondItem="KYd-D9-K5d" secondAttribute="bottom" id="o6j-Qo-hB5"/>
+                <constraint firstItem="lnA-tb-Sap" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ohf-4f-yKs"/>
+                <constraint firstItem="ASf-ZD-cIs" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-54" id="pNU-uB-Igt"/>
+                <constraint firstItem="yRi-ES-LfN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="v0q-tU-ywG"/>
+                <constraint firstAttribute="trailing" secondItem="KYd-D9-K5d" secondAttribute="trailing" id="wTn-DN-uQO"/>
+                <constraint firstItem="KYd-D9-K5d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wn3-We-BBK"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="KYd-D9-K5d"/>
+                    <exclude reference="lnA-tb-Sap"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="CcA-mG-BLU"/>
+                    <exclude reference="JLk-PT-5kn"/>
+                    <exclude reference="Yhb-Y3-ngX"/>
+                    <exclude reference="aj9-Xh-WHL"/>
+                    <exclude reference="o6j-Qo-hB5"/>
+                    <exclude reference="wTn-DN-uQO"/>
+                    <exclude reference="wn3-We-BBK"/>
+                    <exclude reference="1uu-Bd-bz3"/>
+                    <exclude reference="P5N-Xh-C1z"/>
+                    <exclude reference="eMF-sY-QhQ"/>
+                    <exclude reference="efC-ff-52c"/>
+                    <exclude reference="hpa-Qn-uzT"/>
+                    <exclude reference="ohf-4f-yKs"/>
+                    <exclude reference="DZ5-WA-3ZQ"/>
+                    <exclude reference="Rwi-4K-QRb"/>
+                    <exclude reference="TLl-L0-yLb"/>
+                    <exclude reference="WSF-pa-4wb"/>
+                    <exclude reference="pNU-uB-Igt"/>
+                    <exclude reference="7jo-lC-34t"/>
+                    <exclude reference="Ck2-xk-HbG"/>
+                    <exclude reference="m1F-XR-hgU"/>
+                    <exclude reference="v0q-tU-ywG"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact">
+                <mask key="subviews">
+                    <include reference="KYd-D9-K5d"/>
+                    <include reference="lnA-tb-Sap"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="CcA-mG-BLU"/>
+                    <include reference="Yhb-Y3-ngX"/>
+                    <include reference="o6j-Qo-hB5"/>
+                    <include reference="wTn-DN-uQO"/>
+                    <include reference="P5N-Xh-C1z"/>
+                    <include reference="eMF-sY-QhQ"/>
+                    <include reference="hpa-Qn-uzT"/>
+                    <include reference="Rwi-4K-QRb"/>
+                    <include reference="TLl-L0-yLb"/>
+                    <include reference="pNU-uB-Igt"/>
+                    <include reference="v0q-tU-ywG"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="KYd-D9-K5d"/>
+                    <include reference="lnA-tb-Sap"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="JLk-PT-5kn"/>
+                    <include reference="aj9-Xh-WHL"/>
+                    <include reference="wn3-We-BBK"/>
+                    <include reference="1uu-Bd-bz3"/>
+                    <include reference="efC-ff-52c"/>
+                    <include reference="ohf-4f-yKs"/>
+                    <include reference="DZ5-WA-3ZQ"/>
+                    <include reference="WSF-pa-4wb"/>
+                    <include reference="7jo-lC-34t"/>
+                    <include reference="Ck2-xk-HbG"/>
+                    <include reference="m1F-XR-hgU"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="confirmButton" width="44" height="44"/>
+        <image name="retakeButton" width="44" height="44"/>
+    </resources>
+</document>
