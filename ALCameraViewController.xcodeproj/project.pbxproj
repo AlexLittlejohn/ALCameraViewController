@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41E42B51BEC6F680028B993 /* ALImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E42B41BEC6F680028B993 /* ALImageExtensions.swift */; };
+		C41E42B71BEC98520028B993 /* ALConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */; };
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
 		FA5FA3431B3AFA2B00497C62 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */; };
 		FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C41E42B41BEC6F680028B993 /* ALImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageExtensions.swift; sourceTree = "<group>"; };
+		C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ALConfirmViewController.xib; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALPermissionsView.swift; sourceTree = "<group>"; };
 		FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 				FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */,
 				FAF058651B316695008E5592 /* ALCameraViewController.swift */,
 				FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */,
+				C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 				FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */,
 				FA8231391B3C296C00A837BE /* ALUtilities.swift */,
 				FAF058691B317894008E5592 /* ALCameraShot.swift */,
+				C41E42B41BEC6F680028B993 /* ALImageExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 			files = (
 				FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */,
 				FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */,
+				C41E42B71BEC98520028B993 /* ALConfirmViewController.xib in Resources */,
 				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
@@ -305,6 +312,7 @@
 				FAB50C001B413E8C009905B9 /* ALImagePickerViewController.swift in Sources */,
 				FAF0586A1B317894008E5592 /* ALCameraShot.swift in Sources */,
 				FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */,
+				C41E42B51BEC6F680028B993 /* ALImageExtensions.swift in Sources */,
 				FAB50C011B413E8C009905B9 /* ALImagePickerViewDelegate.swift in Sources */,
 				FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */,
 				FAF058471B31618D008E5592 /* ViewController.swift in Sources */,
