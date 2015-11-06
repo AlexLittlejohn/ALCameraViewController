@@ -36,33 +36,3 @@ internal func currentRotation() -> Double {
     return rotation
 }
 
-extension UIImage {
-    func crop(frame: CGRect, scale: CGFloat) -> UIImage {
-        let screenScale = UIScreen.mainScreen().scale
-        var mutableRect = frame
-        mutableRect.origin.x *= screenScale
-        mutableRect.origin.y *= screenScale
-        mutableRect.size.width *= screenScale
-        mutableRect.size.height *= screenScale
-        let drawPoint = CGPointZero
-        UIGraphicsBeginImageContextWithOptions(mutableRect.size, false, 0)
-        let context = UIGraphicsGetCurrentContext()
-        CGContextTranslateCTM(context, -mutableRect.origin.x, -mutableRect.origin.y)
-        CGContextScaleCTM(context, scale * screenScale, scale * screenScale)
-        drawAtPoint(drawPoint)
-        let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-        return croppedImage
-    }
-    
-    func rotate(degrees: Double) -> UIImage {
-        UIGraphicsBeginImageContext(size)
-        let context = UIGraphicsGetCurrentContext()
-        let rads = CGFloat(radians(degrees))
-        CGContextRotateCTM(context, rads)
-        drawAtPoint(CGPointMake(0, 0))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-}
