@@ -15,6 +15,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var cropOverlay: ALCropOverlay!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var centeringView: UIView!
     
     var allowsCropping: Bool = false
     var image: UIImage? {
@@ -79,7 +80,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let scale = calculateMinimumScale()
+        let scale = calculateMinimumScale(view.frame.size)
         let frame = allowsCropping ? cropOverlay.frame : view.bounds
 
         scrollView.contentInset = calculateScrollViewInsets(frame)
@@ -89,28 +90,49 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         centerImageViewOnRotate()
     }
     
-    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        super.willAnimateRotationToInterfaceOrientation(toInterfaceOrientation, duration: duration)
-        let scale = calculateMinimumScale()
-        let frame = allowsCropping ? cropOverlay.frame : view.bounds
-        UIView.animateWithDuration(duration) {
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        let scale = calculateMinimumScale(size)
+        var frame = view.bounds
+        
+        if allowsCropping {
+            frame = cropOverlay.frame
+            let centeringFrame = centeringView.frame
+            var origin: CGPoint
+            
+            if size.width > size.height { // landscape
+                let offset = (size.width - centeringFrame.size.height)
+                let expectedX = (centeringFrame.size.height/2 - frame.size.height/2) + offset
+                origin = CGPointMake(expectedX, frame.origin.x)
+            } else {
+                let expectedY = (centeringFrame.size.width/2 - frame.size.width/2)
+                origin = CGPointMake(frame.origin.y, expectedY)
+            }
+            
+            frame.origin = origin
+        } else {
+            frame.size = size
+        }
+        
+        coordinator.animateAlongsideTransition({ context in
             self.scrollView.contentInset = self.calculateScrollViewInsets(frame)
             self.scrollView.minimumZoomScale = scale
             self.scrollView.zoomScale = scale
             self.centerScrollViewContents()
             self.centerImageViewOnRotate()
-        }
+            }, completion: nil)
     }
-
-    private func calculateMinimumScale() -> CGFloat {
-        var size = view.frame.size
+    
+    private func calculateMinimumScale(size: CGSize) -> CGFloat {
+        var _size = size
         
         if allowsCropping {
-            size = cropOverlay.frame.size
+            _size = cropOverlay.frame.size
         }
         
-        let scaleWidth = size.width / image!.size.width
-        let scaleHeight = size.height / image!.size.height
+        let scaleWidth = _size.width / image!.size.width
+        let scaleHeight = _size.height / image!.size.height
         
         var scale: CGFloat
         
