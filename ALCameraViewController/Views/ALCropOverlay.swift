@@ -25,7 +25,6 @@ internal class ALCropOverlay: UIView {
     
     internal init() {
         super.init(frame: CGRectZero)
-        
         createLines()
     }
 
