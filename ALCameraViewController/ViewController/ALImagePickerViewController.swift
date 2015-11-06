@@ -13,9 +13,8 @@ internal let StringsTableName = "ALImagePickerStrings"
 internal let ImageCellIdentifier = "ImageCellIdentifier"
 
 internal let defaultItemSpacing: CGFloat = 1
-internal let defaultColumns: CGFloat = 4
-internal let defaultCellWidth = (UIScreen.mainScreen().bounds.size.width - ((defaultColumns * defaultItemSpacing) - defaultItemSpacing))/defaultColumns
-internal let defaultCellSize = CGSizeMake(defaultCellWidth, defaultCellWidth)
+internal let defaultPortraitColumns: CGFloat = 4
+internal let defaultLandscapeColumns: CGFloat = 4
 
 internal typealias ALLibraryImageSelection = (ALImageModel) -> Void
 
@@ -25,21 +24,16 @@ internal enum ALSelectionType {
 
 internal class ALImagePickerViewController: UIViewController {
     
-    /// Horizontal and vertical cell spacing
-    internal var itemSpacing: CGFloat = defaultItemSpacing {
-        didSet {
-            updateLayout()
-        }
-    }
-    
     /// Number of columns
-    internal var columns: CGFloat = defaultColumns {
-        didSet {
-            updateLayout()
+    private var columns: CGFloat {
+        get {
+            var _columns = defaultPortraitColumns
+            if UIDevice.currentDevice().orientation == .LandscapeLeft || UIDevice.currentDevice().orientation == .LandscapeRight {
+                _columns = defaultLandscapeColumns
+            }
+            return _columns
         }
     }
-    
-    private var cellSize: CGSize = defaultCellSize
     
     internal var onSelectionComplete: ALCameraViewCompletion?
     
@@ -48,7 +42,10 @@ internal class ALImagePickerViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = defaultCellSize
+        let cellWidth = (UIScreen.mainScreen().bounds.size.width - ((self.columns * defaultItemSpacing) - defaultItemSpacing))/self.columns
+        let cellSize = CGSizeMake(cellWidth, cellWidth)
+        
+        layout.itemSize = cellSize
         layout.minimumInteritemSpacing = defaultItemSpacing
         layout.minimumLineSpacing = defaultItemSpacing
         layout.sectionInset = UIEdgeInsetsZero
@@ -103,23 +100,11 @@ internal class ALImagePickerViewController: UIViewController {
         view.addSubview(permissionsView)
     }
     
-    private func updateLayout() {
-        let cellWidth = (UIScreen.mainScreen().bounds.size.width - ((defaultColumns * itemSpacing) - itemSpacing))/defaultColumns
-        cellSize = CGSizeMake(cellWidth, cellWidth)
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = cellSize
-        layout.minimumInteritemSpacing = itemSpacing
-        layout.minimumLineSpacing = itemSpacing
-        layout.sectionInset = UIEdgeInsetsZero
-        
-        collectionView.setCollectionViewLayout(layout, animated: true)
-        collectionView.reloadData()
-    }
-    
     private func configureCollectionView() {
         imageManager.stopCachingImagesForAllAssets()
         let scale = UIScreen.mainScreen().scale
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellSize = layout.itemSize
         let thumbnailSize = CGSizeMake(cellSize.width * scale, cellSize.height * scale)
         imageManager.startCachingImagesForAssets(assets, targetSize: thumbnailSize, contentMode: .AspectFill, options: nil)
         
