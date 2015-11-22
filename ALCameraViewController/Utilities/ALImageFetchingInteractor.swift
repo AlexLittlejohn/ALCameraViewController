@@ -43,15 +43,18 @@ public class ALImageFetchingInteractor {
     
     private func onAuthorized() {
         let options = PHFetchOptions()
-        let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
-        
-        var imageAssets = [PHAsset]()
-        
-        for asset in assets {
-            imageAssets.append(asset as! PHAsset)
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
+            var imageAssets = [PHAsset]()
+            for asset in assets {
+                imageAssets.append(asset as! PHAsset)
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.success?(assets: imageAssets)
+            }
         }
-        
-        success?(assets: imageAssets)
     }
     
     private func onDeniedOrRestricted() {
