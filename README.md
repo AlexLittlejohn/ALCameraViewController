@@ -8,10 +8,11 @@ A camera view controller with custom image picker and image cropping. Written in
 
 ### Features
 
-- Front facing andrear facing camera support
-- Simple and clean look with smooth animations
+- Front facing and rear facing camera support
+- Simple and clean look
 - Custom image picker with permission checking
 - Image cropping (square only)
+- Flash light support
 
 ### Installation & Requirements
 This project requires Xcode 7 to run and compiles with swift 2.0
