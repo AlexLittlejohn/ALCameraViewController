@@ -40,4 +40,4 @@ presentViewController(cameraViewController, animated: true, completion: nil)
 ```
 
 ## License
-ALTextInputBar is available under the MIT license. See the LICENSE file for more info.
+ALCameraViewController is available under the MIT license. See the LICENSE file for more info.
