@@ -82,6 +82,12 @@ public class ALCameraViewController: UIViewController {
         commonInit()
     }
     
+    convenience public init(croppingEnabled: Bool, completion: ALCameraViewCompletion, allowsLibraryAccess: Bool) {
+        self.init(croppingEnabled: croppingEnabled, completion: completion)
+        self.libraryButton.enabled = allowsLibraryAccess
+        self.libraryButton.hidden = !allowsLibraryAccess
+    }
+    
     public override func prefersStatusBarHidden() -> Bool {
         return true
     }
