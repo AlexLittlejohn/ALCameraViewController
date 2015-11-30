@@ -74,7 +74,6 @@
                             <rect key="frame" x="176" y="28" width="51" height="31"/>
                             <animations/>
                             <connections>
-                                <action selector="croppingChanged:" destination="-1" eventType="valueChanged" id="Pbj-TI-PFl"/>
                                 <action selector="libraryChanged:" destination="-1" eventType="valueChanged" id="rmf-Du-yj3"/>
                             </connections>
                         </switch>
