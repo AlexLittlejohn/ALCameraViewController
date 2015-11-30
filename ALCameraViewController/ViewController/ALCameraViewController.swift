@@ -65,10 +65,12 @@ public class ALCameraViewController: UIViewController {
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
-    public init(croppingEnabled: Bool, completion: ALCameraViewCompletion) {
+    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: ALCameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
+        libraryButton.enabled = allowsLibraryAccess
+        libraryButton.hidden = !allowsLibraryAccess
         commonInit()
     }
     
@@ -253,8 +255,12 @@ public class ALCameraViewController: UIViewController {
         
         let swapSize = swapButton.frame.size
         let swapSpace = libraryX - (cameraX + cameraSize.width)
-        let swapX = (cameraX + cameraSize.width) + (swapSpace/2 - swapSize.width/2)
+        var swapX = (cameraX + cameraSize.width) + (swapSpace/2 - swapSize.width/2)
         let swapY = closeY
+        
+        if libraryButton.hidden {
+            swapX = libraryX
+        }
         
         swapButton.frame.origin = CGPointMake(swapX, swapY)
         swapButton.alpha = 1
