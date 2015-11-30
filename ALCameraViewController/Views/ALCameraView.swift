@@ -30,17 +30,15 @@ public class ALCameraView: UIView {
     }
     
     public func stopSession() {
-        if session != nil {
-            dispatch_async(cameraQueue) {
-                self.session.stopRunning()
-                self.preview.removeFromSuperlayer()
-                
-                self.session = nil
-                self.input = nil
-                self.imageOutput = nil
-                self.preview = nil
-                self.device = nil
-            }
+        dispatch_async(cameraQueue) {
+            self.session?.stopRunning()
+            self.preview?.removeFromSuperlayer()
+            
+            self.session = nil
+            self.input = nil
+            self.imageOutput = nil
+            self.preview = nil
+            self.device = nil
         }
     }
     
