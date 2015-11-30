@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="ALCameraViewController" customModuleProvider="target">
@@ -17,12 +18,14 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I4G-in-XtY">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <animations/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHP-Db-zQM">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgD-PF-WNE">
-                            <rect key="frame" x="71" y="29" width="41" height="29"/>
+                            <rect key="frame" x="70" y="28" width="41" height="29"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <state key="normal" title="Library">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -32,7 +35,8 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueZ-zt-fUN">
-                            <rect key="frame" x="122" y="29" width="48" height="29"/>
+                            <rect key="frame" x="121" y="28" width="48" height="29"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <state key="normal" title="Cropper">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,53 +45,77 @@
                                 <action selector="openCropper:" destination="-1" eventType="touchUpInside" id="UI3-cG-fHO"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cropping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-yb-h3L">
+                            <rect key="frame" x="258" y="65" width="53.5" height="17"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-W6-S2W">
+                            <rect key="frame" x="15" y="28" width="45" height="29"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                            <state key="normal" title="Camera">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="openCamera:" destination="-1" eventType="touchUpInside" id="P8J-OX-nXK"/>
+                            </connections>
+                        </button>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kvv-7d-Re7">
+                            <rect key="frame" x="260" y="28" width="51" height="31"/>
+                            <animations/>
+                            <connections>
+                                <action selector="croppingChanged:" destination="-1" eventType="valueChanged" id="Qfx-Tz-nqy"/>
+                            </connections>
+                        </switch>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPj-mG-Hu1">
+                            <rect key="frame" x="176" y="28" width="51" height="31"/>
+                            <animations/>
+                            <connections>
+                                <action selector="croppingChanged:" destination="-1" eventType="valueChanged" id="Pbj-TI-PFl"/>
+                                <action selector="libraryChanged:" destination="-1" eventType="valueChanged" id="rmf-Du-yj3"/>
+                            </connections>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Library Access" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFc-CF-Vtc">
+                            <rect key="frame" x="158" y="65" width="84.5" height="17"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="kvv-7d-Re7" firstAttribute="centerX" secondItem="3e8-yb-h3L" secondAttribute="centerX" id="03O-8V-75Q"/>
+                        <constraint firstItem="3e8-yb-h3L" firstAttribute="leading" secondItem="VFc-CF-Vtc" secondAttribute="trailing" constant="15.5" id="4Jt-tB-SUL"/>
+                        <constraint firstItem="VFc-CF-Vtc" firstAttribute="top" secondItem="JPj-mG-Hu1" secondAttribute="bottom" constant="6" id="6Pj-pH-zeh"/>
+                        <constraint firstItem="JPj-mG-Hu1" firstAttribute="top" secondItem="kvv-7d-Re7" secondAttribute="top" id="7aB-or-fz9"/>
+                        <constraint firstItem="JPj-mG-Hu1" firstAttribute="centerX" secondItem="VFc-CF-Vtc" secondAttribute="centerX" id="9gI-Mi-9w4"/>
+                        <constraint firstItem="3e8-yb-h3L" firstAttribute="top" secondItem="kvv-7d-Re7" secondAttribute="bottom" constant="6" id="SdV-Ft-rmy"/>
+                        <constraint firstItem="kvv-7d-Re7" firstAttribute="top" secondItem="QHP-Db-zQM" secondAttribute="top" constant="28" id="W5O-yZ-i38"/>
                         <constraint firstItem="ueZ-zt-fUN" firstAttribute="centerY" secondItem="cgD-PF-WNE" secondAttribute="centerY" id="Yzq-B3-DNV"/>
+                        <constraint firstAttribute="trailing" secondItem="3e8-yb-h3L" secondAttribute="trailing" constant="8.5" id="ZKC-Ah-kcn"/>
+                        <constraint firstItem="cgD-PF-WNE" firstAttribute="centerY" secondItem="YHP-W6-S2W" secondAttribute="centerY" id="cYp-Ej-9Ae"/>
                         <constraint firstItem="ueZ-zt-fUN" firstAttribute="leading" secondItem="cgD-PF-WNE" secondAttribute="trailing" constant="10" id="lHU-oD-cKM"/>
-                        <constraint firstAttribute="height" constant="70" id="s71-ge-v5z"/>
+                        <constraint firstItem="YHP-W6-S2W" firstAttribute="leading" secondItem="QHP-Db-zQM" secondAttribute="leading" constant="15" id="lWS-ni-lO4"/>
+                        <constraint firstItem="cgD-PF-WNE" firstAttribute="leading" secondItem="YHP-W6-S2W" secondAttribute="trailing" constant="10" id="qr4-NW-qgn"/>
+                        <constraint firstAttribute="height" constant="100" id="s71-ge-v5z"/>
+                        <constraint firstItem="YHP-W6-S2W" firstAttribute="top" secondItem="QHP-Db-zQM" secondAttribute="top" constant="28" id="xrT-P5-K1h"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-W6-S2W">
-                    <rect key="frame" x="16" y="29" width="45" height="29"/>
-                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                    <state key="normal" title="Camera">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="openCamera:" destination="-1" eventType="touchUpInside" id="P8J-OX-nXK"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cropping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-yb-h3L">
-                    <rect key="frame" x="197.5" y="35" width="53.5" height="17"/>
-                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kvv-7d-Re7">
-                    <rect key="frame" x="261" y="28" width="51" height="31"/>
-                    <connections>
-                        <action selector="croppingChanged:" destination="-1" eventType="valueChanged" id="Qfx-Tz-nqy"/>
-                    </connections>
-                </switch>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="kvv-7d-Re7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="0LD-k5-hc7"/>
                 <constraint firstItem="I4G-in-XtY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3AX-fE-Hk9"/>
                 <constraint firstAttribute="bottom" secondItem="I4G-in-XtY" secondAttribute="bottom" id="3lv-gB-kJY"/>
-                <constraint firstItem="kvv-7d-Re7" firstAttribute="centerY" secondItem="3e8-yb-h3L" secondAttribute="centerY" id="3mA-OG-BID"/>
                 <constraint firstItem="QHP-Db-zQM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6X2-HK-7yY"/>
-                <constraint firstItem="YHP-W6-S2W" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="8Ez-hg-Gaw"/>
-                <constraint firstItem="cgD-PF-WNE" firstAttribute="centerY" secondItem="YHP-W6-S2W" secondAttribute="centerY" id="F8d-se-Df5"/>
-                <constraint firstItem="3e8-yb-h3L" firstAttribute="centerY" secondItem="YHP-W6-S2W" secondAttribute="centerY" id="JV2-xt-qqY"/>
-                <constraint firstAttribute="trailing" secondItem="kvv-7d-Re7" secondAttribute="trailing" constant="10" id="U2r-E8-u6Z"/>
                 <constraint firstAttribute="trailing" secondItem="QHP-Db-zQM" secondAttribute="trailing" id="UKI-40-dOB"/>
                 <constraint firstAttribute="trailing" secondItem="I4G-in-XtY" secondAttribute="trailing" id="YSb-RL-EaX"/>
-                <constraint firstItem="kvv-7d-Re7" firstAttribute="leading" secondItem="3e8-yb-h3L" secondAttribute="trailing" constant="10" id="aX3-h5-lg4"/>
                 <constraint firstItem="I4G-in-XtY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hv9-n7-2WA"/>
-                <constraint firstItem="cgD-PF-WNE" firstAttribute="leading" secondItem="YHP-W6-S2W" secondAttribute="trailing" constant="10" id="viZ-VJ-dje"/>
                 <constraint firstItem="QHP-Db-zQM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x5W-Fe-hte"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

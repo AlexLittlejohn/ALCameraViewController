@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     var croppingEnabled: Bool = false
+    var libraryEnabled: Bool = true
     
     @IBOutlet weak var imageView: UIImageView!
     
@@ -20,7 +21,7 @@ class ViewController: UIViewController {
     
     @IBAction func openCamera(sender: AnyObject) {
         
-        let cameraViewController = ALCameraViewController(croppingEnabled: croppingEnabled) { (image) -> Void in
+        let cameraViewController = ALCameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled) { (image) -> Void in
             self.imageView.image = image
             self.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -45,6 +46,10 @@ class ViewController: UIViewController {
         }
         
         presentViewController(croppingViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func libraryChanged(sender: AnyObject) {
+        libraryEnabled = !libraryEnabled
     }
     
     @IBAction func croppingChanged(sender: AnyObject) {
