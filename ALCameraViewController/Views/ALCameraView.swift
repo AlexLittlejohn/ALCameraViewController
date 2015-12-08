@@ -17,29 +17,23 @@ public class ALCameraView: UIView {
     var imageOutput: AVCaptureStillImageOutput!
     var preview: AVCaptureVideoPreviewLayer!
     
-    let cameraQueue = dispatch_queue_create("com.zero.ALCameraViewController.Queue", DISPATCH_QUEUE_SERIAL);
     
     public var currentPosition = AVCaptureDevicePosition.Back
     
     public func startSession() {
         createPreview()
-        
-        dispatch_async(cameraQueue) {
-            self.session.startRunning()
-        }
+        session.startRunning()
     }
     
     public func stopSession() {
-        dispatch_async(cameraQueue) {
-            self.session?.stopRunning()
-            self.preview?.removeFromSuperlayer()
-            
-            self.session = nil
-            self.input = nil
-            self.imageOutput = nil
-            self.preview = nil
-            self.device = nil
-        }
+        session?.stopRunning()
+        preview?.removeFromSuperlayer()
+      
+        session = nil
+        input = nil
+        imageOutput = nil
+        preview = nil
+        device = nil
     }
     
     public override func layoutSubviews() {
@@ -95,18 +89,16 @@ public class ALCameraView: UIView {
     }
     
     public func capturePhoto(completion: ALCameraShotCompletion) {
-        dispatch_async(cameraQueue) {
-            let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
-            ALCameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
-                
-                var correctedImage = image
-                
-                if self.currentPosition == .Front {
-                    correctedImage = image.fixFrontCameraOrientation()
-                }
-                
-                completion(correctedImage)
-            }
+        let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
+        ALCameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
+        
+          var correctedImage = image
+        
+          if self.currentPosition == .Front {
+            correctedImage = image.fixFrontCameraOrientation()
+          }
+        
+          completion(correctedImage)
         }
     }
 

@@ -126,9 +126,5 @@ internal class ALImagePickerViewController: UIViewController {
         collectionView.registerClass(ALImageCell.self, forCellWithReuseIdentifier: ImageCellIdentifier)
         collectionView.delegate = collectionViewDelegate
         collectionView.dataSource = collectionViewDelegate
-        
-        dispatch_after(1, dispatch_get_main_queue()) {
-            self.collectionView.reloadData()
-        }
     }
 }
