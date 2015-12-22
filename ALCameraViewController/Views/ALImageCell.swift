@@ -54,8 +54,8 @@ class ALImageCell: UICollectionViewCell {
             model.imageManager.cancelImageRequest(PHImageRequestID(tag))
         }
         
-        tag = Int(model.imageManager.requestImageForAsset(model.imageAsset, targetSize: ALThumbnailSize, contentMode: .AspectFill, options: nil) { (image, info) -> Void in
-                self.imageView.image = image
+        tag = Int(model.imageManager.requestImageForAsset(model.imageAsset, targetSize: ALThumbnailSize, contentMode: .AspectFill, options: nil) { image, info in
+            self.imageView.image = image
         })
         
         layout()

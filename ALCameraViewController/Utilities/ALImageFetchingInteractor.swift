@@ -26,6 +26,8 @@ public class ALImageFetchingInteractor {
     private var authRequested = false
     private let errorDomain = "com.zero.imageFetcher"
     
+    let libraryQueue = dispatch_queue_create("com.zero.ALCameraViewController.LibraryQueue", DISPATCH_QUEUE_SERIAL);
+    
     public func onSuccess(success: ALImageFetchingInteractorSuccess) -> Self {
         self.success = success
         return self
@@ -44,8 +46,7 @@ public class ALImageFetchingInteractor {
     private func onAuthorized() {
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        dispatch_async(libraryQueue) {
             let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
             var imageAssets = [PHAsset]()
             for asset in assets {
@@ -61,7 +62,10 @@ public class ALImageFetchingInteractor {
         let errorString = NSLocalizedString("error.access-denied", tableName: StringsTableName, comment: "error.access-denied")
         let errorInfo = [NSLocalizedDescriptionKey: errorString]
         let error = NSError(domain: errorDomain, code: 0, userInfo: errorInfo)
-        failure?(error: error)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.failure?(error: error)
+        }
     }
     
     private func handleAuthorization(status: PHAuthorizationStatus) -> Void {
