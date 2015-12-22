@@ -22,10 +22,9 @@ public class ALCameraView: UIView {
     public var currentPosition = AVCaptureDevicePosition.Back
     
     public func startSession() {
-        createPreview()
-        
         dispatch_async(cameraQueue) {
-            self.session.startRunning()
+            self.createSession()
+            self.session?.startRunning()
         }
     }
     
@@ -49,10 +48,15 @@ public class ALCameraView: UIView {
         }
     }
     
-    private func createPreview() {
+    private func createSession() {
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetHigh
-        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.createPreview()
+        }
+    }
+    
+    private func createPreview() {
         device = cameraWithPosition(currentPosition)
         
         let outputSettings = [AVVideoCodecKey:AVVideoCodecJPEG]
@@ -135,5 +139,4 @@ public class ALCameraView: UIView {
             session.commitConfiguration()
         }
     }
-
 }
