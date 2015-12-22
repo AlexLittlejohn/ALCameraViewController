@@ -27,17 +27,6 @@ extension UIImage {
         return croppedImage
     }
     
-    func rotate(degrees: Double) -> UIImage {
-        UIGraphicsBeginImageContext(size)
-        let context = UIGraphicsGetCurrentContext()
-        let rads = CGFloat(radians(degrees))
-        CGContextRotateCTM(context, rads)
-        drawAtPoint(CGPointZero)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-    
     func fixFrontCameraOrientation() -> UIImage {
         var newOrient:UIImageOrientation
         switch imageOrientation {
