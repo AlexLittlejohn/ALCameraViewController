@@ -101,13 +101,6 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        imageManager.stopCachingImagesForAllAssets()
-        let scale = UIScreen.mainScreen().scale
-        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        let cellSize = layout.itemSize
-        let thumbnailSize = CGSizeMake(cellSize.width * scale, cellSize.height * scale)
-        imageManager.startCachingImagesForAssets(assets, targetSize: thumbnailSize, contentMode: .AspectFill, options: nil)
-        
         let items = assets.map({ asset in
             return ALImageModel(imageAsset: asset, imageManager: self.imageManager)
         })
@@ -115,10 +108,7 @@ internal class ALImagePickerViewController: UIViewController {
         collectionViewDelegate = ALImagePickerViewDelegate(items: items) { item in
             self.imageManager.requestImageForAsset(item.imageAsset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: nil, resultHandler: { image, info in
                 if let i = image {
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.onSelectionComplete?(i)
-                    }
+                    self.onSelectionComplete?(i)
                 }
             })
         }
