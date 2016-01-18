@@ -196,10 +196,10 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             var cropFrame = cropOverlay.frame
             cropFrame.origin.x += scrollView.contentOffset.x
             cropFrame.origin.y += scrollView.contentOffset.y
-            cropFrame.origin.x *= scrollView.zoomScale
-            cropFrame.origin.y *= scrollView.zoomScale
-            cropFrame.size.width *= scrollView.zoomScale
-            cropFrame.size.height *= scrollView.zoomScale
+            cropFrame.origin.x /= scrollView.zoomScale
+            cropFrame.origin.y /= scrollView.zoomScale
+            cropFrame.size.width /= scrollView.zoomScale
+            cropFrame.size.height /= scrollView.zoomScale
 
             var croppedImage: UIImage? = nil
             if let i = image {
