@@ -106,7 +106,11 @@ internal class ALImagePickerViewController: UIViewController {
         })
         
         collectionViewDelegate = ALImagePickerViewDelegate(items: items) { item in
-            self.imageManager.requestImageForAsset(item.imageAsset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: nil, resultHandler: { image, info in
+            
+            let options = PHImageRequestOptions()
+            options.deliveryMode = .HighQualityFormat
+            
+            self.imageManager.requestImageForAsset(item.imageAsset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: options, resultHandler: { image, info in
                 if let i = image {
                     self.onSelectionComplete?(i)
                 }
