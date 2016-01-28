@@ -137,9 +137,9 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         var scale: CGFloat
         
         if allowsCropping {
-            scale = fmax(scaleWidth, scaleHeight)
+            scale = max(scaleWidth, scaleHeight)
         } else {
-            scale = fmin(scaleWidth, scaleHeight)
+            scale = min(scaleWidth, scaleHeight)
         }
         
         return scale
