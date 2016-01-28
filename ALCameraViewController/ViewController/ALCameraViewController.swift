@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 public typealias ALCameraViewCompletion = (UIImage?) -> Void
 
@@ -65,6 +66,15 @@ public class ALCameraViewController: UIViewController {
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
+    lazy var volumeView: MPVolumeView = { [unowned self] in
+        let view = MPVolumeView()
+        view.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+        
+        return view
+    }()
+    
+    let volume = AVAudioSession.sharedInstance().outputVolume
+    
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: ALCameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
@@ -84,6 +94,11 @@ public class ALCameraViewController: UIViewController {
         commonInit()
     }
     
+    deinit {
+        try! AVAudioSession.sharedInstance().setActive(false)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     public override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -95,8 +110,10 @@ public class ALCameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.blackColor()
+        view.addSubview(volumeView)
         view.addSubview(cameraView)
         
+        try! AVAudioSession.sharedInstance().setActive(true)
         
         if allowCropping {
             layoutCropView()
@@ -106,6 +123,7 @@ public class ALCameraViewController: UIViewController {
         
         rotate()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "volumeChanged", name: "AVSystemController_SystemVolumeDidChangeNotification", object: nil)
     }
     
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -134,6 +152,12 @@ public class ALCameraViewController: UIViewController {
             self.swapButton.transform = CGAffineTransformMakeRotation(rads)
             self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
         }
+    }
+    
+    func volumeChanged() {
+        guard let slider = volumeView.subviews.filter({ $0 is UISlider }).first as? UISlider else { return }
+        slider.setValue(volume, animated: false)
+        capturePhoto()
     }
     
     private func commonInit() {
