@@ -58,6 +58,13 @@ public class ALCameraView: UIView {
     
     private func createPreview() {
         device = cameraWithPosition(currentPosition)
+        if device.hasFlash {
+            do {
+                try device.lockForConfiguration()
+                device.flashMode = .Auto
+                device.unlockForConfiguration()
+            } catch _ {}
+        }
         
         let outputSettings = [AVVideoCodecKey:AVVideoCodecJPEG]
         
