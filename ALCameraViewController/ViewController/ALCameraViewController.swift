@@ -69,7 +69,7 @@ public class ALCameraViewController: UIViewController {
     lazy var volumeView: MPVolumeView = { [unowned self] in
         let view = MPVolumeView()
         view.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-        
+        view.alpha = 0.01
         return view
     }()
     
@@ -111,6 +111,7 @@ public class ALCameraViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.blackColor()
         view.addSubview(volumeView)
+        view.sendSubviewToBack(volumeView)
         view.addSubview(cameraView)
         
         try! AVAudioSession.sharedInstance().setActive(true)
@@ -235,7 +236,7 @@ public class ALCameraViewController: UIViewController {
         closeButton.setImage(UIImage(named: "closeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
         swapButton.setImage(UIImage(named: "swapButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
         libraryButton.setImage(UIImage(named: "libraryButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
-        flashButton.setImage(UIImage(named: "flashOffIcon", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
+        flashButton.setImage(UIImage(named: "flashAutoIcon", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
         
         cameraButton.sizeToFit()
         closeButton.sizeToFit()
@@ -329,30 +330,37 @@ public class ALCameraViewController: UIViewController {
     }
     
     internal func toggleFlash() {
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        if (device.hasTorch) {
+        if let device = cameraView.device where device.hasFlash {
             do {
                 try device.lockForConfiguration()
-                if (device.torchMode == AVCaptureTorchMode.On) {
-                    device.torchMode = AVCaptureTorchMode.Off
-                    toggleFlashButton(false)
+                if device.flashMode == .On {
+                    device.flashMode = .Off
+                    toggleFlashButton(.Off)
+                } else if device.flashMode == .Off {
+                    device.flashMode = .Auto
+                    toggleFlashButton(.Auto)
                 } else {
-                    try device.setTorchModeOnWithLevel(AVCaptureMaxAvailableTorchLevel)
-                    toggleFlashButton(true)
+                    device.flashMode = .On
+                    toggleFlashButton(.On)
                 }
                 device.unlockForConfiguration()
-            } catch {
-                print(error)
-            }
+            } catch _ { }
         }
     }
     
-    internal func toggleFlashButton(on: Bool) {
-        var imageName = "flashOffIcon"
-        if on {
-            imageName = "flashOnIcon"
+    internal func toggleFlashButton(mode: AVCaptureFlashMode) {
+        
+        let image: String
+        switch mode {
+        case .Auto:
+            image = "flashAutoIcon"
+        case .On:
+            image = "flashOnIcon"
+        case .Off:
+            image = "flashOffIcon"
         }
-        flashButton.setImage(UIImage(named: imageName, inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
+        
+        flashButton.setImage(UIImage(named: image, inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
     }
     
     internal func swapCamera() {
