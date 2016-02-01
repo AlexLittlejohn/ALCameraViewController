@@ -29,7 +29,7 @@ internal class ALCameraShot: NSObject {
             }
         }
 */
-        videoConnection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)
+        videoConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)
         
         videoConnection?.videoOrientation = videoOrientation
         
@@ -38,6 +38,8 @@ internal class ALCameraShot: NSObject {
                 let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
                 let image = UIImage(data: imageData)!
                 completion(image)
+            } else {
+                completion(UIImage())
             }
         })
     }
