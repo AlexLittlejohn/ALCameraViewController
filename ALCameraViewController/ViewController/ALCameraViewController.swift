@@ -297,9 +297,16 @@ public class ALCameraViewController: UIViewController {
     }
     
     internal func capturePhoto() {
-        cameraButton.enabled = false
-        cameraView.capturePhoto { image in
-            self.layoutCameraResult(image)
+        
+        guard let output = cameraView.imageOutput, connection = output.connectionWithMediaType(AVMediaTypeVideo) else {
+            return
+        }
+        
+        if connection.enabled {
+            cameraButton.enabled = false
+            cameraView.capturePhoto { image in
+                self.layoutCameraResult(image)
+            }
         }
     }
     
