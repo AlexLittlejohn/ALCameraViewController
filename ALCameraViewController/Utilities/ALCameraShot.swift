@@ -14,7 +14,8 @@ public typealias ALCameraShotCompletion = (UIImage) -> Void
 internal class ALCameraShot: NSObject {
     func takePhoto(stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cropSize: CGSize, completion: ALCameraShotCompletion) {
         var videoConnection: AVCaptureConnection? = nil
-        
+      
+      /*
         for connection in stillImageOutput.connections {
             for port in (connection as! AVCaptureConnection).inputPorts {
                 if port.mediaType == AVMediaTypeVideo {
@@ -27,6 +28,8 @@ internal class ALCameraShot: NSObject {
                 break;
             }
         }
+*/
+        videoConnection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)
         
         videoConnection?.videoOrientation = videoOrientation
         
