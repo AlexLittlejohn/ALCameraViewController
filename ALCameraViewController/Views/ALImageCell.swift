@@ -46,15 +46,15 @@ class ALImageCell: UICollectionViewCell {
         imageView.image = UIImage(named: "ALPlaceholder", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)
     }
     
-    func configureWithModel(model: ALImageModel) {
+    func configureWithModel(model: PHAsset) {
         
         imageView.image = UIImage(named: "ALPlaceholder", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)
         
         if tag != 0 {
-            model.imageManager.cancelImageRequest(PHImageRequestID(tag))
+            PHImageManager.defaultManager().cancelImageRequest(PHImageRequestID(tag))
         }
         
-        tag = Int(model.imageManager.requestImageForAsset(model.imageAsset, targetSize: ALThumbnailSize, contentMode: .AspectFill, options: nil) { image, info in
+        tag = Int(PHImageManager.defaultManager().requestImageForAsset(model, targetSize: ALThumbnailSize, contentMode: .AspectFill, options: nil) { image, info in
             self.imageView.image = image
         })
         
