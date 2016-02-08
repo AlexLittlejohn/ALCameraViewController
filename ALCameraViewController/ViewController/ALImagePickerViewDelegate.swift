@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import Photos
 
 internal class ALImagePickerViewDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     internal let onSelection: ALLibraryImageSelection
-    internal let items: [ALImageModel]
+    internal let items: [PHAsset]
     
-    internal init(items: [ALImageModel], selection: ALLibraryImageSelection) {
+    internal init(items: [PHAsset], selection: ALLibraryImageSelection) {
         self.onSelection = selection
         self.items = items
         super.init()
     }
     
-    func itemAtIndexPath(indexPath: NSIndexPath) -> ALImageModel {
+    func itemAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
         return items[indexPath.row]
     }
     
@@ -40,8 +41,6 @@ internal class ALImagePickerViewDelegate: NSObject, UICollectionViewDataSource, 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath) as! ALImageCell
         
         cell.configureWithModel(model)
-        
-        model.view = cell
         
         return cell
     }

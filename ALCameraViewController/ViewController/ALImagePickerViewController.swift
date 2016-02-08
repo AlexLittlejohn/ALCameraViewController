@@ -16,7 +16,7 @@ internal let defaultItemSpacing: CGFloat = 1
 internal let defaultPortraitColumns: CGFloat = 4
 internal let defaultLandscapeColumns: CGFloat = 4
 
-internal typealias ALLibraryImageSelection = (ALImageModel) -> Void
+internal typealias ALLibraryImageSelection = (PHAsset) -> Void
 
 internal enum ALSelectionType {
     case SingleSelection, MultipleSelection, NoSelection
@@ -36,9 +36,6 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     internal var onSelectionComplete: ALCameraViewCompletion?
-    
-    private var imageManager = PHCachingImageManager()
-    private var selectedItems = [ALImageModel]()
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -101,16 +98,12 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        let items = assets.map({ asset in
-            return ALImageModel(imageAsset: asset, imageManager: self.imageManager)
-        })
-        
-        collectionViewDelegate = ALImagePickerViewDelegate(items: items) { item in
+        collectionViewDelegate = ALImagePickerViewDelegate(items: assets) { [unowned self] item in
             
             let options = PHImageRequestOptions()
             options.deliveryMode = .HighQualityFormat
             
-            self.imageManager.requestImageForAsset(item.imageAsset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: options, resultHandler: { image, info in
+            PHImageManager.defaultManager().requestImageForAsset(item, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: options, resultHandler: { image, info in
                 if let i = image {
                     self.onSelectionComplete?(i)
                 }

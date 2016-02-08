@@ -19,7 +19,6 @@
 		FA82313A1B3C296C00A837BE /* ALUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8231391B3C296C00A837BE /* ALUtilities.swift */; };
 		FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */; };
 		FAB50BFC1B413E8C009905B9 /* ALImageFetchingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */; };
-		FAB50BFD1B413E8C009905B9 /* ALImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF21B413E8C009905B9 /* ALImageModel.swift */; };
 		FAB50C001B413E8C009905B9 /* ALImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */; };
 		FAB50C011B413E8C009905B9 /* ALImagePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */; };
 		FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058441B31618D008E5592 /* AppDelegate.swift */; };
@@ -54,7 +53,6 @@
 		FA8231391B3C296C00A837BE /* ALUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALUtilities.swift; sourceTree = "<group>"; };
 		FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageCell.swift; sourceTree = "<group>"; };
 		FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageFetchingInteractor.swift; sourceTree = "<group>"; };
-		FAB50BF21B413E8C009905B9 /* ALImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageModel.swift; sourceTree = "<group>"; };
 		FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewController.swift; sourceTree = "<group>"; };
 		FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewDelegate.swift; sourceTree = "<group>"; };
 		FAF0583F1B31618D008E5592 /* ALCameraViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALCameraViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,14 +109,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		FAB50BF11B413E8C009905B9 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				FAB50BF21B413E8C009905B9 /* ALImageModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		FAB50C021B4140AB009905B9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,7 +142,6 @@
 		FAF058411B31618D008E5592 /* ALCameraViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FAB50BF11B413E8C009905B9 /* Models */,
 				FAB50C021B4140AB009905B9 /* Utilities */,
 				FAB50BEA1B413E41009905B9 /* ViewController */,
 				FAB50BEB1B413E4E009905B9 /* Views */,
@@ -317,7 +306,6 @@
 				FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */,
 				FAF058471B31618D008E5592 /* ViewController.swift in Sources */,
 				FAF058681B3175C5008E5592 /* ALCameraView.swift in Sources */,
-				FAB50BFD1B413E8C009905B9 /* ALImageModel.swift in Sources */,
 				FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */,
 				FA787F1C1B4326F100B6B86E /* ALCropOverlay.swift in Sources */,
 			);
