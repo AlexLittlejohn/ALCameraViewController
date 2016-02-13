@@ -20,7 +20,6 @@
 		FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */; };
 		FAB50BFC1B413E8C009905B9 /* ALImageFetchingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */; };
 		FAB50C001B413E8C009905B9 /* ALImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */; };
-		FAB50C011B413E8C009905B9 /* ALImagePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */; };
 		FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058441B31618D008E5592 /* AppDelegate.swift */; };
 		FAF058471B31618D008E5592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058461B31618D008E5592 /* ViewController.swift */; };
 		FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584B1B31618D008E5592 /* Images.xcassets */; };
@@ -54,7 +53,6 @@
 		FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageCell.swift; sourceTree = "<group>"; };
 		FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageFetchingInteractor.swift; sourceTree = "<group>"; };
 		FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewController.swift; sourceTree = "<group>"; };
-		FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewDelegate.swift; sourceTree = "<group>"; };
 		FAF0583F1B31618D008E5592 /* ALCameraViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALCameraViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF058431B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF058441B31618D008E5592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */,
-				FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */,
 				FAF058651B316695008E5592 /* ALCameraViewController.swift */,
 				FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */,
 				C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */,
@@ -302,7 +299,6 @@
 				FAF0586A1B317894008E5592 /* ALCameraShot.swift in Sources */,
 				FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */,
 				C41E42B51BEC6F680028B993 /* ALImageExtensions.swift in Sources */,
-				FAB50C011B413E8C009905B9 /* ALImagePickerViewDelegate.swift in Sources */,
 				FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */,
 				FAF058471B31618D008E5592 /* ViewController.swift in Sources */,
 				FAF058681B3175C5008E5592 /* ALCameraView.swift in Sources */,

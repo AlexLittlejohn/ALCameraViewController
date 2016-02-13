@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-public typealias ALImageFetchingInteractorSuccess = (assets: [PHAsset]) -> ()
+public typealias ALImageFetchingInteractorSuccess = (assets: PHFetchResult) -> ()
 public typealias ALImageFetchingInteractorFailure = (error: NSError) -> ()
 
 extension PHFetchResult: SequenceType {
@@ -48,12 +48,8 @@ public class ALImageFetchingInteractor {
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         dispatch_async(libraryQueue) {
             let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
-            var imageAssets = [PHAsset]()
-            for asset in assets {
-                imageAssets.append(asset as! PHAsset)
-            }
             dispatch_async(dispatch_get_main_queue()) {
-                self.success?(assets: imageAssets)
+                self.success?(assets: assets)
             }
         }
     }

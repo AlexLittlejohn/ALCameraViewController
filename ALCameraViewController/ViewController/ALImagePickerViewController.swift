@@ -16,8 +16,6 @@ internal let defaultItemSpacing: CGFloat = 1
 internal let defaultPortraitColumns: CGFloat = 4
 internal let defaultLandscapeColumns: CGFloat = 4
 
-internal typealias ALLibraryImageSelection = (PHAsset) -> Void
-
 internal enum ALSelectionType {
     case SingleSelection, MultipleSelection, NoSelection
 }
@@ -50,9 +48,7 @@ internal class ALImagePickerViewController: UIViewController {
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
         }()
     
-    private var collectionViewDelegate: ALImagePickerViewDelegate?
-    
-    private var assets: [PHAsset] = []
+    private var assets: PHFetchResult!
     
     internal override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
@@ -72,6 +68,11 @@ internal class ALImagePickerViewController: UIViewController {
             .onSuccess(onSuccess)
             .fetch()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.userInteractionEnabled = true
+    }
 
     internal override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -82,7 +83,7 @@ internal class ALImagePickerViewController: UIViewController {
         onSelectionComplete?(nil)
     }
     
-    private func onSuccess(photos: [PHAsset]) {
+    private func onSuccess(photos: PHFetchResult) {
         assets = photos
         configureCollectionView()
     }
@@ -98,20 +99,46 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionViewDelegate = ALImagePickerViewDelegate(items: assets) { [unowned self] item in
-            
-            let options = PHImageRequestOptions()
-            options.deliveryMode = .HighQualityFormat
-            
-            PHImageManager.defaultManager().requestImageForAsset(item, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: options, resultHandler: { image, info in
-                if let i = image {
-                    self.onSelectionComplete?(i)
-                }
-            })
-        }
-
         collectionView.registerClass(ALImageCell.self, forCellWithReuseIdentifier: ImageCellIdentifier)
-        collectionView.delegate = collectionViewDelegate
-        collectionView.dataSource = collectionViewDelegate
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    func itemAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
+        return assets[indexPath.row] as! PHAsset
+    }
+}
+
+// MARK: - UICollectionViewDataSource -
+extension ALImagePickerViewController : UICollectionViewDataSource {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return assets.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let model = itemAtIndexPath(indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath) as! ALImageCell
+        
+        cell.configureWithModel(model)
+        
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate -
+extension ALImagePickerViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let item = itemAtIndexPath(indexPath)
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .HighQualityFormat
+        
+        collectionView.userInteractionEnabled = false
+        
+        PHImageManager.defaultManager().requestImageForAsset(item, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: options, resultHandler: { [weak self] image, info in
+            if let i = image {
+                self?.onSelectionComplete?(i)
+            }
+        })
     }
 }
