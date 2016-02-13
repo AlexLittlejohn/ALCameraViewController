@@ -11,7 +11,7 @@ import Photos
 
 internal let itemSpacing: CGFloat = 1
 internal let columns: CGFloat = 4
-internal let screenWidth = (UIScreen.mainScreen().bounds.size.width - ((columns * itemSpacing) - itemSpacing))/columns
+internal let screenWidth = (UIScreen.mainScreen().bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
 internal let scale = UIScreen.mainScreen().scale
 public let ALImageCellSize = CGSizeMake(screenWidth, screenWidth)
 public let ALThumbnailSize = CGSizeMake(ALImageCellSize.width * scale, ALImageCellSize.height * scale)
@@ -38,7 +38,7 @@ class ALImageCell: UICollectionViewCell {
     }
 
     func layout() {
-        imageView.frame = CGRectMake(0, 0, ALImageCellSize.width, ALImageCellSize.height)
+        imageView.frame = CGRect(x: 0, y: 0, width: ALImageCellSize.width, height: ALImageCellSize.height)
     }
     
     override func prepareForReuse() {

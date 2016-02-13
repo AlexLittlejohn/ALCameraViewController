@@ -198,7 +198,7 @@ public class ALCameraViewController: UIViewController {
         let closeX = horizontalPadding
         let closeY = size.height - (closeSize.height + verticalPadding)
         
-        closeButton.frame.origin = CGPointMake(closeX, closeY)
+        closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
     }
     
     private func startCamera() {
@@ -222,7 +222,7 @@ public class ALCameraViewController: UIViewController {
         
         let cameraButtonY = maxDimension - (verticalPadding + 80)
         let y = cameraButtonY/2 - height/2
-        let frame = CGRectMake(x, y, width, height)
+        let frame = CGRect(x: x, y: y, width: width, height: height)
         
         view.addSubview(cameraOverlay)
         cameraOverlay.frame = frame
@@ -261,21 +261,21 @@ public class ALCameraViewController: UIViewController {
         let cameraX = size.width/2 - cameraSize.width/2
         let cameraY = size.height - (cameraSize.height + verticalPadding)
         
-        cameraButton.frame.origin = CGPointMake(cameraX, cameraY)
+        cameraButton.frame.origin = CGPoint(x: cameraX, y: cameraY)
         cameraButton.alpha = 1
         
         let closeSize = closeButton.frame.size
         let closeX = horizontalPadding
         let closeY = cameraY + (cameraSize.height - closeSize.height)/2
         
-        closeButton.frame.origin = CGPointMake(closeX, closeY)
+        closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
         closeButton.alpha = 1
         
         let librarySize = libraryButton.frame.size
         let libraryX = size.width - (librarySize.width + horizontalPadding)
         let libraryY = closeY
         
-        libraryButton.frame.origin = CGPointMake(libraryX, libraryY)
+        libraryButton.frame.origin = CGPoint(x: libraryX, y: libraryY)
         libraryButton.alpha = 1
         
         let swapSize = swapButton.frame.size
@@ -287,13 +287,13 @@ public class ALCameraViewController: UIViewController {
             swapX = libraryX
         }
         
-        swapButton.frame.origin = CGPointMake(swapX, swapY)
+        swapButton.frame.origin = CGPoint(x: swapX, y: swapY)
         swapButton.alpha = 1
         
         let flashX = libraryX
         let flashY = verticalPadding
         
-        flashButton.frame.origin = CGPointMake(flashX, flashY)
+        flashButton.frame.origin = CGPoint(x: flashX, y: flashY)
     }
     
     internal func capturePhoto() {

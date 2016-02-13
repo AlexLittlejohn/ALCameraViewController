@@ -44,7 +44,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func commonInit() {
-        if UIScreen.mainScreen().bounds.size.width <= 320 {
+        if UIScreen.mainScreen().bounds.width <= 320 {
             horizontalPadding = 15
         }
     }
@@ -102,12 +102,12 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             var origin: CGPoint
             
             if size.width > size.height { // landscape
-                let offset = (size.width - centeringFrame.size.height)
-                let expectedX = (centeringFrame.size.height/2 - frame.size.height/2) + offset
-                origin = CGPointMake(expectedX, frame.origin.x)
+                let offset = (size.width - centeringFrame.height)
+                let expectedX = (centeringFrame.height/2 - frame.height/2) + offset
+                origin = CGPoint(x: expectedX, y: frame.origin.x)
             } else {
-                let expectedY = (centeringFrame.size.width/2 - frame.size.width/2)
-                origin = CGPointMake(frame.origin.y, expectedY)
+                let expectedY = (centeringFrame.width/2 - frame.width/2)
+                origin = CGPoint(x: frame.origin.y, y: expectedY)
             }
             
             frame.origin = origin
@@ -146,10 +146,9 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func calculateScrollViewInsets(frame: CGRect) -> UIEdgeInsets {
-        let size = view.frame.size
-        let bottom = size.height - (frame.origin.y + frame.size.height)
-        let right = size.width - (frame.origin.x + frame.size.width)
-        let insets = UIEdgeInsetsMake(frame.origin.y, frame.origin.x, bottom, right)
+        let bottom = view.frame.height - (frame.origin.y + frame.height)
+        let right = view.frame.width - (frame.origin.x + frame.width)
+        let insets = UIEdgeInsets(top: frame.origin.y, left: frame.origin.x, bottom: bottom, right: right)
         return insets
     }
     
@@ -158,7 +157,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             let size = allowsCropping ? cropOverlay.frame.size : scrollView.frame.size
             let scrollInsets = scrollView.contentInset
             let imageSize = imageView.frame.size
-            var contentOffset = CGPointMake(-scrollInsets.left, -scrollInsets.top)
+            var contentOffset = CGPoint(x: -scrollInsets.left, y: -scrollInsets.top)
             contentOffset.x -= (size.width - imageSize.width) / 2
             contentOffset.y -= (size.height - imageSize.height) / 2
             scrollView.contentOffset = contentOffset
@@ -168,7 +167,7 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     private func centerScrollViewContents() {
         let size = allowsCropping ? cropOverlay.frame.size : scrollView.frame.size
         let imageSize = imageView.frame.size
-        var imageOrigin = CGPointZero
+        var imageOrigin = CGPoint.zero
         
         if imageSize.width < size.width {
             imageOrigin.x = (size.width - imageSize.width) / 2

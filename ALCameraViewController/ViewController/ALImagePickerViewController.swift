@@ -37,7 +37,7 @@ internal class ALImagePickerViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let cellWidth = (UIScreen.mainScreen().bounds.size.width - ((self.columns * defaultItemSpacing) - defaultItemSpacing))/self.columns
+        let cellWidth = (UIScreen.mainScreen().bounds.width - ((self.columns * defaultItemSpacing) - defaultItemSpacing))/self.columns
         let cellSize = CGSizeMake(cellWidth, cellWidth)
         
         layout.itemSize = cellSize
@@ -45,7 +45,7 @@ internal class ALImagePickerViewController: UIViewController {
         layout.minimumLineSpacing = defaultItemSpacing
         layout.sectionInset = UIEdgeInsetsZero
         
-        return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+        return UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         }()
     
     private var assets: PHFetchResult!
@@ -90,8 +90,6 @@ internal class ALImagePickerViewController: UIViewController {
     
     private func onFailure(error: NSError) {
         let permissionsView = ALPermissionsView(frame: view.bounds)
-        
-        
         permissionsView.titleLabel.text = LocalizedString("permissions.library.title")
         permissionsView.descriptionLabel.text = LocalizedString("permissions.library.description")
         
