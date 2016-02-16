@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     
@@ -18,27 +19,27 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var centeringView: UIView!
     
     var allowsCropping: Bool = false
-    var image: UIImage? {
-        didSet {
-            imageView.image = image
-            imageView.sizeToFit()
-        }
-    }
-    
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
     var onComplete: ALCameraViewCompletion?
     
-    internal init(image: UIImage, allowsCropping: Bool) {
-        self.allowsCropping = allowsCropping
-        self.image = image
+    var asset: PHAsset?
+    
+    var targetSize: CGSize {
+        let scale = UIScreen.mainScreen().scale
+        let targetSize = CGSize(width: view.bounds.width * scale, height: view.bounds.height * scale)
+        return targetSize
+    }
+    
+    init(asset: PHAsset, allowsCropping: Bool) {
+        self.asset = asset
+        self.allowsCropping = true
         super.init(nibName: "ALConfirmViewController", bundle: NSBundle(forClass: ALCameraViewController.self))
         commonInit()
     }
     
     internal required init?(coder aDecoder: NSCoder) {
-        self.image = UIImage()
         super.init(coder: aDecoder)
         commonInit()
     }
@@ -47,6 +48,10 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         if UIScreen.mainScreen().bounds.width <= 320 {
             horizontalPadding = 15
         }
+//        
+//        if let a = asset {
+//            
+//        }
     }
     
     internal override func prefersStatusBarHidden() -> Bool {
@@ -62,8 +67,22 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
 
         view.backgroundColor = UIColor.blackColor()
         
-        imageView.image = image
-        imageView.sizeToFit()
+        guard let asset = asset else {
+            return
+        }
+        
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .HighQualityFormat
+        options.networkAccessAllowed = true
+        
+        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: options) { [weak self] image, info in
+            if let i = image {
+                
+            }
+        }
+        
+        
+
         
         scrollView.addSubview(imageView)
         scrollView.delegate = self
@@ -77,6 +96,8 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         buttonActions()
     }
+    
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
