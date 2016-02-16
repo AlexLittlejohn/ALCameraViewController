@@ -39,13 +39,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openCropper(sender: AnyObject) {
-        let image = UIImage(named: "image.jpg")!
-        let croppingViewController = ALCameraViewController.croppingViewController(image, croppingEnabled: true) { image in
-            self.imageView.image = image
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        
-        presentViewController(croppingViewController, animated: true, completion: nil)
+//        let image = UIImage(named: "image.jpg")!
+//        let croppingViewController = ALCameraViewController.croppingViewController(image, croppingEnabled: true) { image in
+//            self.imageView.image = image
+//            self.dismissViewControllerAnimated(true, completion: nil)
+//        }
+//        
+//        presentViewController(croppingViewController, animated: true, completion: nil)
     }
     
     @IBAction func libraryChanged(sender: AnyObject) {

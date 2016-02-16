@@ -67,8 +67,12 @@ public class SingleImageFetcher {
             
             print(normalizedRect)
             
-            options.normalizedCropRect = normalizedRect
+            options.normalizedCropRect = CGRect(x: 0, y: 0, width: 0.4, height: 0.5)
             options.resizeMode = .Exact
+            
+            let dimension = CGFloat(min(asset.pixelWidth, asset.pixelHeight))
+            
+            targetSize = CGSize(width: dimension, height: dimension)
             
             contentMode = .AspectFit
         }
