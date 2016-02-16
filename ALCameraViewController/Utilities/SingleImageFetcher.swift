@@ -58,6 +58,7 @@ public class SingleImageFetcher {
         var contentMode = PHImageContentMode.AspectFill
         
         let options = PHImageRequestOptions()
+        options.deliveryMode = .HighQualityFormat
 
         if let cropRect = cropRect {
             
@@ -70,8 +71,6 @@ public class SingleImageFetcher {
             options.resizeMode = .Exact
             
             contentMode = .AspectFit
-        } else {
-            options.deliveryMode = .HighQualityFormat
         }
         
         PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: contentMode, options: options) { image, _ in

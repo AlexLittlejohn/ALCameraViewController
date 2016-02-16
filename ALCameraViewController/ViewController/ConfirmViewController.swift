@@ -241,7 +241,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 //            cropRect.size.width *= scale
 //            cropRect.size.height *= scale
             
-            fetcher.setCropRect(CGRect(x: 40, y: 50, width: 100, height: 100))
+            fetcher.setCropRect(cropRect)
         }
         
         fetcher.fetch()
