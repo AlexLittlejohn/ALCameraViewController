@@ -16,7 +16,7 @@ extension UIImage {
         }
         
         let drawPoint = CGPointZero
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+        UIGraphicsBeginImageContext(frame.size)
         let context = UIGraphicsGetCurrentContext()
         CGContextTranslateCTM(context, -frame.origin.x, -frame.origin.y)
         drawAtPoint(drawPoint)

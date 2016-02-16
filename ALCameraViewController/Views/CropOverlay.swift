@@ -1,5 +1,5 @@
 //
-//  ALCropOverlay.swift
+//  CropOverlay.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class ALCropOverlay: UIView {
+internal class CropOverlay: UIView {
 
     var outerLines = [UIView]()
     var horizontalLines = [UIView]()

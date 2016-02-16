@@ -9,20 +9,21 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Photos
 
 public typealias ALCameraViewCompletion = (UIImage?) -> Void
 
 public extension ALCameraViewController {
     public class func imagePickerViewController(croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UINavigationController {
-        let imagePicker = ALImagePickerViewController()
+        let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
         navigationController.navigationBar.barTintColor = UIColor.blackColor()
         navigationController.navigationBar.barStyle = UIBarStyle.Black
         
-        imagePicker.onSelectionComplete = { image in
-            if image != nil {
-                let confirmController = ALConfirmViewController(image: image!, allowsCropping: croppingEnabled)
+        imagePicker.onSelectionComplete = { asset in
+            if asset != nil {
+                let confirmController = ConfirmViewController(asset: asset!, allowsCropping: croppingEnabled)
                 confirmController.onComplete = { image in
                     if let i = image {
                         completion(i)
@@ -37,22 +38,16 @@ public extension ALCameraViewController {
             }
         }
         
-        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: "dismiss")
+        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: "dismiss")
         
         return navigationController
-    }
-    
-    public class func croppingViewController(image: UIImage, croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UIViewController {
-        let cropper = ALConfirmViewController(image: image, allowsCropping: croppingEnabled)
-        cropper.onComplete = completion
-        return cropper
     }
 }
 
 public class ALCameraViewController: UIViewController {
     
-    let cameraView = ALCameraView()
-    let cameraOverlay = ALCropOverlay()
+    let cameraView = CameraView()
+    let cameraOverlay = CropOverlay()
     let cameraButton = UIButton()
     
     let closeButton = UIButton()
@@ -116,10 +111,6 @@ public class ALCameraViewController: UIViewController {
         
         try! AVAudioSession.sharedInstance().setActive(true)
         
-        if allowCropping {
-            layoutCropView()
-        }
-        
         cameraView.frame = view.bounds
         
         rotate()
@@ -140,7 +131,7 @@ public class ALCameraViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         cameraView.frame = view.bounds
-        cameraEndState()
+        layoutCamera()
     }
     
     internal func rotate() {
@@ -185,12 +176,12 @@ public class ALCameraViewController: UIViewController {
     }
     
     private func showNoPermissionsView() {
-        let permissionsView = ALPermissionsView(frame: view.bounds)
+        let permissionsView = PermissionsView(frame: view.bounds)
         view.addSubview(permissionsView)
         view.addSubview(closeButton)
         
         closeButton.addTarget(self, action: "close", forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.setImage(UIImage(named: "retakeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
+        closeButton.setImage(UIImage(named: "retakeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
         closeButton.sizeToFit()
         
         let size = view.frame.size
@@ -203,6 +194,13 @@ public class ALCameraViewController: UIViewController {
     
     private func startCamera() {
         cameraView.startSession()
+        
+        view.addSubview(cameraButton)
+        view.addSubview(libraryButton)
+        view.addSubview(closeButton)
+        view.addSubview(swapButton)
+        view.addSubview(flashButton)
+        
         cameraButton.addTarget(self, action: "capturePhoto", forControlEvents: .TouchUpInside)
         swapButton.addTarget(self, action: "swapCamera", forControlEvents: .TouchUpInside)
         libraryButton.addTarget(self, action: "showLibrary", forControlEvents: .TouchUpInside)
@@ -211,32 +209,15 @@ public class ALCameraViewController: UIViewController {
         layoutCamera()
     }
     
-    private func layoutCropView() {
-        
-        let size = view.frame.size
-        let minDimension = size.width < size.height ? size.width : size.height
-        let maxDimension = size.width > size.height ? size.width : size.height
-        let width = minDimension - horizontalPadding
-        let height = width
-        let x = horizontalPadding/2
-        
-        let cameraButtonY = maxDimension - (verticalPadding + 80)
-        let y = cameraButtonY/2 - height/2
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        view.addSubview(cameraOverlay)
-        cameraOverlay.frame = frame
-    }
-    
     private func layoutCamera() {
         
-        cameraButton.setImage(UIImage(named: "cameraButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
-        cameraButton.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Highlighted)
+        cameraButton.setImage(UIImage(named: "cameraButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        cameraButton.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Highlighted)
 
-        closeButton.setImage(UIImage(named: "closeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
-        swapButton.setImage(UIImage(named: "swapButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
-        libraryButton.setImage(UIImage(named: "libraryButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
-        flashButton.setImage(UIImage(named: "flashAutoIcon", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
+        closeButton.setImage(UIImage(named: "closeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        swapButton.setImage(UIImage(named: "swapButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        libraryButton.setImage(UIImage(named: "libraryButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        flashButton.setImage(UIImage(named: "flashAutoIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
         
         cameraButton.sizeToFit()
         closeButton.sizeToFit()
@@ -244,17 +225,12 @@ public class ALCameraViewController: UIViewController {
         libraryButton.sizeToFit()
         flashButton.sizeToFit()
         
-        view.addSubview(cameraButton)
-        view.addSubview(libraryButton)
-        view.addSubview(closeButton)
-        view.addSubview(swapButton)
-        view.addSubview(flashButton)
+        if allowCropping {
+            layoutCropView()
+        }
         
         cameraButton.enabled = true
-        cameraEndState()
-    }
-    
-    private func cameraEndState() {
+
         let size = view.frame.size
         
         let cameraSize = cameraButton.frame.size
@@ -296,6 +272,23 @@ public class ALCameraViewController: UIViewController {
         flashButton.frame.origin = CGPoint(x: flashX, y: flashY)
     }
     
+    private func layoutCropView() {
+        
+        let size = view.frame.size
+        let minDimension = size.width < size.height ? size.width : size.height
+        let maxDimension = size.width > size.height ? size.width : size.height
+        let width = minDimension - horizontalPadding
+        let height = width
+        let x = horizontalPadding/2
+        
+        let cameraButtonY = maxDimension - (verticalPadding + 80)
+        let y = cameraButtonY/2 - height/2
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        view.addSubview(cameraOverlay)
+        cameraOverlay.frame = frame
+    }
+    
     internal func capturePhoto() {
         
         guard let output = cameraView.imageOutput, connection = output.connectionWithMediaType(AVMediaTypeVideo) else {
@@ -305,9 +298,22 @@ public class ALCameraViewController: UIViewController {
         if connection.enabled {
             cameraButton.enabled = false
             cameraView.capturePhoto { image in
-                self.layoutCameraResult(image)
+                self.saveImage(image)
             }
         }
+    }
+    
+    internal func saveImage(image: UIImage) {
+        
+        SingleImageSaver()
+            .setImage(image)
+            .onSuccess { asset in
+                self.layoutCameraResult(asset)
+            }
+            .onFailure { error in
+                print(error)
+            }
+            .save()
     }
     
     internal func close() {
@@ -375,10 +381,10 @@ public class ALCameraViewController: UIViewController {
         flashButton.hidden = cameraView.currentPosition == AVCaptureDevicePosition.Front
     }
     
-    internal func layoutCameraResult(image: UIImage) {
+    internal func layoutCameraResult(asset: PHAsset) {
         cameraView.stopSession()
         
-        let confirmViewController = ALConfirmViewController(image: image, allowsCropping: allowCropping)
+        let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
         
         confirmViewController.onComplete = { image in
             if image == nil {

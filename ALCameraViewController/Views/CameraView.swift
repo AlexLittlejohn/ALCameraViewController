@@ -1,5 +1,5 @@
 //
-//  ALCameraView.swift
+//  CameraView.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/17.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-public class ALCameraView: UIView {
+public class CameraView: UIView {
     
     var session: AVCaptureSession!
     var input: AVCaptureDeviceInput!
@@ -108,7 +108,7 @@ public class ALCameraView: UIView {
     public func capturePhoto(completion: ALCameraShotCompletion) {
         dispatch_async(cameraQueue) {
             let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
-            ALCameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
+            CameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
                 
                 var correctedImage = image
                 

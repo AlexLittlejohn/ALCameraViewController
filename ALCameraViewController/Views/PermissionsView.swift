@@ -1,5 +1,5 @@
 //
-//  ALPermissionsView.swift
+//  PermissionsView.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/24.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class ALPermissionsView: UIView {
+internal class PermissionsView: UIView {
    
     let iconView = UIImageView()
     let titleLabel = UILabel()
@@ -45,7 +45,7 @@ internal class ALPermissionsView: UIView {
         descriptionLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         descriptionLabel.text = LocalizedString("permissions.description")
         
-        let icon = UIImage(named: "permissionsIcon", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)!
+        let icon = UIImage(named: "permissionsIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)!
         iconView.image = icon
         
         settingsButton.contentEdgeInsets = UIEdgeInsetsMake(6, 12, 6, 12)

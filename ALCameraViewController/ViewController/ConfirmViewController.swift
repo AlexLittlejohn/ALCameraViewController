@@ -7,40 +7,34 @@
 //
 
 import UIKit
+import Photos
 
-internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
+internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     let imageView = UIImageView()
-    @IBOutlet weak var cropOverlay: ALCropOverlay!
+    @IBOutlet weak var cropOverlay: CropOverlay!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var centeringView: UIView!
     
     var allowsCropping: Bool = false
-    var image: UIImage? {
-        didSet {
-            imageView.image = image
-            imageView.sizeToFit()
-        }
-    }
-    
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
     var onComplete: ALCameraViewCompletion?
     
-    internal init(image: UIImage, allowsCropping: Bool) {
+    var asset: PHAsset!
+    
+    internal init(asset: PHAsset, allowsCropping: Bool) {
         self.allowsCropping = allowsCropping
-        self.image = image
-        super.init(nibName: "ALConfirmViewController", bundle: NSBundle(forClass: ALCameraViewController.self))
+        self.asset = asset
+        super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
         commonInit()
     }
     
     internal required init?(coder aDecoder: NSCoder) {
-        self.image = UIImage()
         super.init(coder: aDecoder)
-        commonInit()
     }
     
     func commonInit() {
@@ -62,20 +56,26 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
 
         view.backgroundColor = UIColor.blackColor()
         
-        imageView.image = image
-        imageView.sizeToFit()
-        
         scrollView.addSubview(imageView)
         scrollView.delegate = self
         scrollView.maximumZoomScale = 1
         
-        if allowsCropping {
-            cropOverlay.hidden = false
-        } else {
-            cropOverlay.hidden = true
+        cropOverlay.hidden = true
+        
+        guard let asset = asset else {
+            return
         }
         
-        buttonActions()
+        SingleImageFetcher()
+            .setAsset(asset)
+            .setTargetSize(largestPhotoSize())
+            .onSuccess { image in
+                self.configureWithImage(image)
+            }
+            .onFailure { error in
+                
+            }
+            .fetch()
     }
     
     override func viewWillLayoutSubviews() {
@@ -124,6 +124,20 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             }, completion: nil)
     }
     
+    private func configureWithImage(image: UIImage) {
+        if allowsCropping {
+            cropOverlay.hidden = false
+        } else {
+            cropOverlay.hidden = true
+        }
+        
+        buttonActions()
+        
+        imageView.image = image
+        imageView.sizeToFit()
+        view.setNeedsLayout()
+    }
+    
     private func calculateMinimumScale(size: CGSize) -> CGFloat {
         var _size = size
         
@@ -131,8 +145,12 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
             _size = cropOverlay.frame.size
         }
         
-        let scaleWidth = _size.width / image!.size.width
-        let scaleHeight = _size.height / image!.size.height
+        guard let image = imageView.image else {
+            return 1
+        }
+        
+        let scaleWidth = _size.width / image.size.width
+        let scaleHeight = _size.height / image.size.height
         
         var scale: CGFloat
         
@@ -190,24 +208,43 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     internal func confirmPhoto() {
+        
+        let fetcher = SingleImageFetcher()
+            .onSuccess { image in
+                self.onComplete?(image)
+            }
+            .onFailure { error in
+            
+            }
+            .setAsset(asset)
+        
         if allowsCropping {
             
-            var cropFrame = cropOverlay.frame
-            cropFrame.origin.x += scrollView.contentOffset.x
-            cropFrame.origin.y += scrollView.contentOffset.y
-            cropFrame.origin.x /= scrollView.zoomScale
-            cropFrame.origin.y /= scrollView.zoomScale
-            cropFrame.size.width /= scrollView.zoomScale
-            cropFrame.size.height /= scrollView.zoomScale
+            var cropRect = cropOverlay.frame
+            cropRect.origin.x += scrollView.contentOffset.x
+            cropRect.origin.y += scrollView.contentOffset.y
+            cropRect.origin.x /= scrollView.zoomScale
+            cropRect.origin.y /= scrollView.zoomScale
+            cropRect.size.width /= scrollView.zoomScale
+            cropRect.size.height /= scrollView.zoomScale
             
-            var croppedImage: UIImage? = nil
-            if let i = image {
-                croppedImage = i.crop(cropFrame, scale: 1)
-            }
-            onComplete?(croppedImage)
-        } else {
-            onComplete?(image)
+//            guard let image = imageView.image else {
+//                return
+//            }
+//            
+//            let imageSize = image.size
+//            
+//            let scale = imageSize.width / CGFloat(asset.pixelWidth)
+//            
+//            cropRect.origin.x *= scale
+//            cropRect.origin.y *= scale
+//            cropRect.size.width *= scale
+//            cropRect.size.height *= scale
+            
+            fetcher.setCropRect(CGRect(x: 40, y: 50, width: 100, height: 100))
         }
+        
+        fetcher.fetch()
     }
     
     internal func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {

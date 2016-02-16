@@ -9,44 +9,26 @@
 import UIKit
 import Photos
 
-internal let StringsTableName = "ALImagePickerStrings"
-internal let ImageCellIdentifier = "ImageCellIdentifier"
+internal let ImageCellIdentifier = "ImageCell"
 
 internal let defaultItemSpacing: CGFloat = 1
-internal let defaultPortraitColumns: CGFloat = 4
-internal let defaultLandscapeColumns: CGFloat = 4
 
-internal enum ALSelectionType {
-    case SingleSelection, MultipleSelection, NoSelection
-}
+typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
 
-internal class ALImagePickerViewController: UIViewController {
+internal class PhotoLibraryViewController: UIViewController {
     
-    /// Number of columns
-    private var columns: CGFloat {
-        get {
-            var _columns = defaultPortraitColumns
-            if UIDevice.currentDevice().orientation == .LandscapeLeft || UIDevice.currentDevice().orientation == .LandscapeRight {
-                _columns = defaultLandscapeColumns
-            }
-            return _columns
-        }
-    }
-    
-    internal var onSelectionComplete: ALCameraViewCompletion?
+    internal var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let cellWidth = (UIScreen.mainScreen().bounds.width - ((self.columns * defaultItemSpacing) - defaultItemSpacing))/self.columns
-        let cellSize = CGSizeMake(cellWidth, cellWidth)
         
-        layout.itemSize = cellSize
+        layout.itemSize = CameraGlobals.shared.photoLibraryThumbnailSize
         layout.minimumInteritemSpacing = defaultItemSpacing
         layout.minimumLineSpacing = defaultItemSpacing
         layout.sectionInset = UIEdgeInsetsZero
         
         return UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        }()
+    }()
     
     private var assets: PHFetchResult!
     
@@ -63,7 +45,7 @@ internal class ALImagePickerViewController: UIViewController {
 
         collectionView.backgroundColor = UIColor.clearColor()
         
-        ALImageFetchingInteractor()
+        ImageFetcher()
             .onFailure(onFailure)
             .onSuccess(onSuccess)
             .fetch()
@@ -80,7 +62,7 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     internal func dismiss() {
-        onSelectionComplete?(nil)
+        onSelectionComplete?(asset: nil)
     }
     
     private func onSuccess(photos: PHFetchResult) {
@@ -89,7 +71,7 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     private func onFailure(error: NSError) {
-        let permissionsView = ALPermissionsView(frame: view.bounds)
+        let permissionsView = PermissionsView(frame: view.bounds)
         permissionsView.titleLabel.text = LocalizedString("permissions.library.title")
         permissionsView.descriptionLabel.text = LocalizedString("permissions.library.description")
         
@@ -97,7 +79,7 @@ internal class ALImagePickerViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView.registerClass(ALImageCell.self, forCellWithReuseIdentifier: ImageCellIdentifier)
+        collectionView.registerClass(ImageCell.self, forCellWithReuseIdentifier: ImageCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -108,7 +90,7 @@ internal class ALImagePickerViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource -
-extension ALImagePickerViewController : UICollectionViewDataSource {
+extension PhotoLibraryViewController : UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
@@ -116,7 +98,7 @@ extension ALImagePickerViewController : UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let model = itemAtIndexPath(indexPath)
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath) as! ALImageCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath) as! ImageCell
         
         cell.configureWithModel(model)
         
@@ -125,18 +107,9 @@ extension ALImagePickerViewController : UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate -
-extension ALImagePickerViewController : UICollectionViewDelegateFlowLayout {
+extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let item = itemAtIndexPath(indexPath)
-        let options = PHImageRequestOptions()
-        options.deliveryMode = .HighQualityFormat
-        
-        collectionView.userInteractionEnabled = false
-        
-        PHImageManager.defaultManager().requestImageForAsset(item, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: options, resultHandler: { [weak self] image, info in
-            if let i = image {
-                self?.onSelectionComplete?(i)
-            }
-        })
+        let asset = itemAtIndexPath(indexPath)
+        onSelectionComplete?(asset: asset)
     }
 }
