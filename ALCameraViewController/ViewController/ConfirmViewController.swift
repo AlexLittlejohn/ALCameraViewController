@@ -223,25 +223,16 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             var cropRect = cropOverlay.frame
             cropRect.origin.x += scrollView.contentOffset.x
             cropRect.origin.y += scrollView.contentOffset.y
-            cropRect.origin.x /= scrollView.zoomScale
-            cropRect.origin.y /= scrollView.zoomScale
-            cropRect.size.width /= scrollView.zoomScale
-            cropRect.size.height /= scrollView.zoomScale
             
-//            guard let image = imageView.image else {
-//                return
-//            }
-//            
-//            let imageSize = image.size
-//            
-//            let scale = imageSize.width / CGFloat(asset.pixelWidth)
-//            
-//            cropRect.origin.x *= scale
-//            cropRect.origin.y *= scale
-//            cropRect.size.width *= scale
-//            cropRect.size.height *= scale
+            let normalizedX = cropRect.origin.x / imageView.frame.width
+            let normalizedY = cropRect.origin.y / imageView.frame.height
             
-            fetcher.setCropRect(cropRect)
+            let normalizedWidth = cropRect.width / imageView.frame.width
+            let normalizedHeight = cropRect.height / imageView.frame.height
+            
+            let normalizedRect = CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
+            
+            fetcher.setCropRect(normalizedRect)
         }
         
         fetcher.fetch()

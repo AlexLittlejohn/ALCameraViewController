@@ -55,29 +55,22 @@ public class SingleImageFetcher {
             return self
         }
         
-        var contentMode = PHImageContentMode.AspectFill
-        
         let options = PHImageRequestOptions()
         options.deliveryMode = .HighQualityFormat
 
         if let cropRect = cropRect {
-            
-            let transform = CGAffineTransformMakeScale(1 / CGFloat(asset.pixelWidth), 1 / CGFloat(asset.pixelHeight))
-            let normalizedRect = CGRectApplyAffineTransform(cropRect, transform)
-            
-            print(normalizedRect)
-            
-            options.normalizedCropRect = CGRect(x: 0, y: 0, width: 0.4, height: 0.5)
+
+            options.normalizedCropRect = cropRect
             options.resizeMode = .Exact
             
-            let dimension = CGFloat(min(asset.pixelWidth, asset.pixelHeight))
+            let targetWidth = floor(CGFloat(asset.pixelWidth) * cropRect.width)
+            let targetHeight = floor(CGFloat(asset.pixelHeight) * cropRect.height)
+            let dimension = min(targetHeight, targetWidth)
             
             targetSize = CGSize(width: dimension, height: dimension)
-            
-            contentMode = .AspectFit
         }
         
-        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: contentMode, options: options) { image, _ in
+        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFill, options: options) { image, _ in
             if let image = image {
                 self.success?(image: image)
             } else {
