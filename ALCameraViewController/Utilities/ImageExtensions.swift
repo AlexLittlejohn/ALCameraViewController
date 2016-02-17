@@ -10,17 +10,15 @@ import UIKit
 
 extension UIImage {
     func crop(frame: CGRect, scale: CGFloat) -> UIImage {
-        let screenScale = UIScreen.mainScreen().scale
-        var mutableRect = frame
-        mutableRect.origin.x *= screenScale
-        mutableRect.origin.y *= screenScale
-        mutableRect.size.width *= screenScale
-        mutableRect.size.height *= screenScale
+        
+        if frame.size == size && frame.origin == CGPoint.zero {
+            return self
+        }
+        
         let drawPoint = CGPointZero
-        UIGraphicsBeginImageContextWithOptions(mutableRect.size, false, 0)
+        UIGraphicsBeginImageContext(frame.size)
         let context = UIGraphicsGetCurrentContext()
-        CGContextTranslateCTM(context, -mutableRect.origin.x, -mutableRect.origin.y)
-        CGContextScaleCTM(context, scale * screenScale, scale * screenScale)
+        CGContextTranslateCTM(context, -frame.origin.x, -frame.origin.y)
         drawAtPoint(drawPoint)
         let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();

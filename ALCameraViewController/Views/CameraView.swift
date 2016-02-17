@@ -1,5 +1,5 @@
 //
-//  ALCameraView.swift
+//  CameraView.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/17.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-public class ALCameraView: UIView {
+public class CameraView: UIView {
     
     var session: AVCaptureSession!
     var input: AVCaptureDeviceInput!
@@ -18,6 +18,8 @@ public class ALCameraView: UIView {
     var preview: AVCaptureVideoPreviewLayer!
     
     let cameraQueue = dispatch_queue_create("com.zero.ALCameraViewController.Queue", DISPATCH_QUEUE_SERIAL);
+    
+    let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
     public var currentPosition = AVCaptureDevicePosition.Back
     
@@ -48,6 +50,71 @@ public class ALCameraView: UIView {
         }
     }
     
+    public func configureFocus() {
+        
+        if let gestureRecognizers = gestureRecognizers {
+            for gesture in gestureRecognizers {
+                removeGestureRecognizer(gesture)
+            }
+        }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: "focus:")
+        addGestureRecognizer(tapGesture)
+        userInteractionEnabled = true
+        addSubview(focusView)
+        
+        focusView.hidden = true
+        
+        let lines = focusView.horizontalLines + focusView.verticalLines + focusView.outerLines
+        
+        lines.forEach { line in
+            line.alpha = 0
+        }
+        
+    }
+    
+    internal func focus(gesture: UITapGestureRecognizer) {
+        let point = gesture.locationInView(self)
+        guard let device = device else { return }
+        do { try device.lockForConfiguration() } catch {
+            return
+        }
+        
+        if device.isFocusModeSupported(.Locked) {
+            
+            let focusPoint = CGPoint(x: point.x / frame.width, y: point.y / frame.height)
+            
+            device.focusPointOfInterest = focusPoint
+            device.unlockForConfiguration()
+            
+            focusView.hidden = false
+            focusView.center = point
+            focusView.alpha = 0
+            focusView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+
+            bringSubviewToFront(focusView)
+            
+            UIView.animateKeyframesWithDuration(1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+                
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.15, animations: { () -> Void in
+                    self.focusView.alpha = 1
+                    self.focusView.transform = CGAffineTransformIdentity
+                })
+                
+                UIView.addKeyframeWithRelativeStartTime(0.80, relativeDuration: 0.20, animations: { () -> Void in
+                    self.focusView.alpha = 0
+                    self.focusView.transform = CGAffineTransformMakeScale(0.8, 0.8)
+                })
+                
+                
+            }, completion: { finished in
+                if finished {
+                    self.focusView.hidden = true
+                }
+            })
+        }
+    }
+    
     private func createSession() {
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetHigh
@@ -58,6 +125,13 @@ public class ALCameraView: UIView {
     
     private func createPreview() {
         device = cameraWithPosition(currentPosition)
+        if device.hasFlash {
+            do {
+                try device.lockForConfiguration()
+                device.flashMode = .Auto
+                device.unlockForConfiguration()
+            } catch _ {}
+        }
         
         let outputSettings = [AVVideoCodecKey:AVVideoCodecJPEG]
         
@@ -82,6 +156,7 @@ public class ALCameraView: UIView {
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill
         preview.frame = bounds
         
+
         layer.addSublayer(preview)
     }
     
@@ -101,7 +176,7 @@ public class ALCameraView: UIView {
     public func capturePhoto(completion: ALCameraShotCompletion) {
         dispatch_async(cameraQueue) {
             let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
-            ALCameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
+            CameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
                 
                 var correctedImage = image
                 

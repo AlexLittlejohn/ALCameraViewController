@@ -1,5 +1,5 @@
 //
-//  ALCropOverlay.swift
+//  CropOverlay.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class ALCropOverlay: UIView {
+internal class CropOverlay: UIView {
 
     var outerLines = [UIView]()
     var horizontalLines = [UIView]()
@@ -27,6 +27,11 @@ internal class ALCropOverlay: UIView {
         super.init(frame: CGRectZero)
         createLines()
     }
+    
+    internal override init(frame: CGRect) {
+        super.init(frame: frame)
+        createLines()
+    }
 
     internal required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -42,19 +47,19 @@ internal class ALCropOverlay: UIView {
             var lineFrame: CGRect
             switch (i) {
             case 0:
-                lineFrame = CGRectMake(0, 0, size.width, lineWidth)
+                lineFrame = CGRect(x: 0, y: 0, width: size.width, height: lineWidth)
                 break
             case 1:
-                lineFrame = CGRectMake(size.width - lineWidth, 0, lineWidth, size.height)
+                lineFrame = CGRect(x: size.width - lineWidth, y: 0, width: lineWidth, height:  size.height)
                 break
             case 2:
-                lineFrame = CGRectMake(0, size.height - lineWidth, size.width, lineWidth)
+                lineFrame = CGRect(x: 0, y: size.height - lineWidth, width: size.width, height:  lineWidth)
                 break
             case 3:
-                lineFrame = CGRectMake(0, 0, lineWidth, size.height)
+                lineFrame = CGRect(x: 0, y: 0, width: lineWidth, height: size.height)
                 break
             default:
-                lineFrame = CGRectZero
+                lineFrame = CGRect.zero
                 break
             }
             
@@ -69,20 +74,20 @@ internal class ALCropOverlay: UIView {
             
             switch (i) {
             case 0:
-                verticalFrame = CGRectMake(-cornerDepth, -cornerDepth, cornerDepth, cornerWidth)
-                horizontalFrame = CGRectMake(-cornerDepth, -cornerDepth, cornerWidth, cornerDepth)
+                verticalFrame = CGRect(x: -cornerDepth, y:  -cornerDepth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: -cornerDepth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
                 break
             case 1:
-                verticalFrame = CGRectMake(size.width, -cornerDepth, cornerDepth, cornerWidth)
-                horizontalFrame = CGRectMake(size.width + cornerDepth - cornerWidth, -cornerDepth, cornerWidth, cornerDepth)
+                verticalFrame = CGRect(x: size.width, y:  -cornerDepth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: size.width + cornerDepth - cornerWidth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
                 break
             case 2:
-                verticalFrame = CGRectMake(-cornerDepth, size.height + cornerDepth - cornerWidth, cornerDepth, cornerWidth)
-                horizontalFrame = CGRectMake(-cornerDepth, size.height, cornerWidth, cornerDepth)
+                verticalFrame = CGRect(x: -cornerDepth, y:  size.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: -cornerDepth, y:  size.height, width:  cornerWidth, height:  cornerDepth)
                 break
             case 3:
-                verticalFrame = CGRectMake(size.width, size.height + cornerDepth - cornerWidth, cornerDepth, cornerWidth)
-                horizontalFrame = CGRectMake(size.width + cornerDepth - cornerWidth, size.height, cornerWidth, cornerDepth)
+                verticalFrame = CGRect(x: size.width, y:  size.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: size.width + cornerDepth - cornerWidth, y:  size.height, width:  cornerWidth, height:  cornerDepth)
                 break
             default:
                 verticalFrame = CGRectZero
@@ -103,8 +108,8 @@ internal class ALCropOverlay: UIView {
             
             let spacing = (padding * CGFloat(i + 1)) + (lineThickness * CGFloat(i))
             
-            hLine.frame = CGRectMake(0, spacing, size.width, lineThickness)
-            vLine.frame = CGRectMake(spacing, 0, lineThickness, size.height)
+            hLine.frame = CGRect(x: 0, y: spacing, width: size.width, height:  lineThickness)
+            vLine.frame = CGRect(x: spacing, y: 0, width: lineThickness, height: size.height)
         }
         
     }

@@ -9,8 +9,8 @@
 import UIKit
 import Photos
 
-public typealias ALImageFetchingInteractorSuccess = (assets: [PHAsset]) -> ()
-public typealias ALImageFetchingInteractorFailure = (error: NSError) -> ()
+public typealias ImageFetcherSuccess = (assets: PHFetchResult) -> ()
+public typealias ImageFetcherFailure = (error: NSError) -> ()
 
 extension PHFetchResult: SequenceType {
     public func generate() -> NSFastGenerator {
@@ -18,22 +18,22 @@ extension PHFetchResult: SequenceType {
     }
 }
 
-public class ALImageFetchingInteractor {
+public class ImageFetcher {
 
-    private var success: ALImageFetchingInteractorSuccess?
-    private var failure: ALImageFetchingInteractorFailure?
+    private var success: ImageFetcherSuccess?
+    private var failure: ImageFetcherFailure?
     
     private var authRequested = false
     private let errorDomain = "com.zero.imageFetcher"
     
     let libraryQueue = dispatch_queue_create("com.zero.ALCameraViewController.LibraryQueue", DISPATCH_QUEUE_SERIAL);
     
-    public func onSuccess(success: ALImageFetchingInteractorSuccess) -> Self {
+    public func onSuccess(success: ImageFetcherSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(failure: ALImageFetchingInteractorFailure) -> Self {
+    public func onFailure(failure: ImageFetcherFailure) -> Self {
         self.failure = failure
         return self
     }
@@ -48,21 +48,14 @@ public class ALImageFetchingInteractor {
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         dispatch_async(libraryQueue) {
             let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
-            var imageAssets = [PHAsset]()
-            for asset in assets {
-                imageAssets.append(asset as! PHAsset)
-            }
             dispatch_async(dispatch_get_main_queue()) {
-                self.success?(assets: imageAssets)
+                self.success?(assets: assets)
             }
         }
     }
     
     private func onDeniedOrRestricted() {
-        let errorString = NSLocalizedString("error.access-denied", tableName: StringsTableName, comment: "error.access-denied")
-        let errorInfo = [NSLocalizedDescriptionKey: errorString]
-        let error = NSError(domain: errorDomain, code: 0, userInfo: errorInfo)
-        
+        let error = errorWithKey("error.access-denied", domain: errorDomain)
         dispatch_async(dispatch_get_main_queue()) {
             self.failure?(error: error)
         }

@@ -7,28 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C41E42B51BEC6F680028B993 /* ALImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E42B41BEC6F680028B993 /* ALImageExtensions.swift */; };
-		C41E42B71BEC98520028B993 /* ALConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */; };
+		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
+		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
+		C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
+		C41E42B51BEC6F680028B993 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E42B41BEC6F680028B993 /* ImageExtensions.swift */; };
+		C41E42B71BEC98520028B993 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41E42B61BEC98520028B993 /* ConfirmViewController.xib */; };
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
-		FA5FA3431B3AFA2B00497C62 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */; };
+		FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
 		FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */; };
 		FA778A411B8319D8005807E7 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA778A401B8319D8005807E7 /* image.jpg */; };
-		FA787F1C1B4326F100B6B86E /* ALCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */; };
-		FA7E6B9B1B429012000E1B14 /* ALConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */; };
-		FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8231371B3BF8F700A837BE /* ALCameraView.strings */; };
-		FA82313A1B3C296C00A837BE /* ALUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8231391B3C296C00A837BE /* ALUtilities.swift */; };
-		FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */; };
-		FAB50BFC1B413E8C009905B9 /* ALImageFetchingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */; };
-		FAB50BFD1B413E8C009905B9 /* ALImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF21B413E8C009905B9 /* ALImageModel.swift */; };
-		FAB50C001B413E8C009905B9 /* ALImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */; };
-		FAB50C011B413E8C009905B9 /* ALImagePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */; };
+		FA787F1C1B4326F100B6B86E /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* CropOverlay.swift */; };
+		FA7E6B9B1B429012000E1B14 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */; };
+		FA8231381B3BF8F700A837BE /* CameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8231371B3BF8F700A837BE /* CameraView.strings */; };
+		FA82313A1B3C296C00A837BE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8231391B3C296C00A837BE /* Utilities.swift */; };
+		FAB50BFB1B413E8C009905B9 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BEE1B413E8C009905B9 /* ImageCell.swift */; };
+		FAB50BFC1B413E8C009905B9 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF01B413E8C009905B9 /* ImageFetcher.swift */; };
+		FAB50C001B413E8C009905B9 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */; };
 		FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058441B31618D008E5592 /* AppDelegate.swift */; };
 		FAF058471B31618D008E5592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058461B31618D008E5592 /* ViewController.swift */; };
 		FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584B1B31618D008E5592 /* Images.xcassets */; };
 		FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */; };
 		FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* ALCameraViewController.swift */; };
-		FAF058681B3175C5008E5592 /* ALCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* ALCameraView.swift */; };
-		FAF0586A1B317894008E5592 /* ALCameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058691B317894008E5592 /* ALCameraShot.swift */; };
+		FAF058681B3175C5008E5592 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* CameraView.swift */; };
+		FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058691B317894008E5592 /* CameraShot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,21 +43,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C41E42B41BEC6F680028B993 /* ALImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageExtensions.swift; sourceTree = "<group>"; };
-		C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ALConfirmViewController.xib; sourceTree = "<group>"; };
+		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
+		C40665451C73A94100EB9751 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
+		C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
+		C41E42B41BEC6F680028B993 /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		C41E42B61BEC98520028B993 /* ConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALPermissionsView.swift; sourceTree = "<group>"; };
+		FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
 		FA778A401B8319D8005807E7 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
-		FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCropOverlay.swift; sourceTree = "<group>"; };
-		FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALConfirmViewController.swift; sourceTree = "<group>"; };
-		FA8231371B3BF8F700A837BE /* ALCameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ALCameraView.strings; sourceTree = "<group>"; };
-		FA8231391B3C296C00A837BE /* ALUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALUtilities.swift; sourceTree = "<group>"; };
-		FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageCell.swift; sourceTree = "<group>"; };
-		FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageFetchingInteractor.swift; sourceTree = "<group>"; };
-		FAB50BF21B413E8C009905B9 /* ALImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageModel.swift; sourceTree = "<group>"; };
-		FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewController.swift; sourceTree = "<group>"; };
-		FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewDelegate.swift; sourceTree = "<group>"; };
+		FA787F1B1B4326F100B6B86E /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
+		FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		FA8231371B3BF8F700A837BE /* CameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = CameraView.strings; sourceTree = "<group>"; };
+		FA8231391B3C296C00A837BE /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		FAB50BEE1B413E8C009905B9 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		FAB50BF01B413E8C009905B9 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		FAF0583F1B31618D008E5592 /* ALCameraViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALCameraViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF058431B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF058441B31618D008E5592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,8 +68,8 @@
 		FAF058591B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALCameraViewControllerTests.swift; sourceTree = "<group>"; };
 		FAF058651B316695008E5592 /* ALCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraViewController.swift; sourceTree = "<group>"; };
-		FAF058671B3175C5008E5592 /* ALCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraView.swift; sourceTree = "<group>"; };
-		FAF058691B317894008E5592 /* ALCameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraShot.swift; sourceTree = "<group>"; };
+		FAF058671B3175C5008E5592 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		FAF058691B317894008E5592 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,11 +93,10 @@
 		FAB50BEA1B413E41009905B9 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FAB50BF91B413E8C009905B9 /* ALImagePickerViewController.swift */,
-				FAB50BFA1B413E8C009905B9 /* ALImagePickerViewDelegate.swift */,
+				FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */,
 				FAF058651B316695008E5592 /* ALCameraViewController.swift */,
-				FA7E6B9A1B429012000E1B14 /* ALConfirmViewController.swift */,
-				C41E42B61BEC98520028B993 /* ALConfirmViewController.xib */,
+				FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */,
+				C41E42B61BEC98520028B993 /* ConfirmViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -103,29 +104,24 @@
 		FAB50BEB1B413E4E009905B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FAB50BEE1B413E8C009905B9 /* ALImageCell.swift */,
-				FA5FA3421B3AFA2B00497C62 /* ALPermissionsView.swift */,
-				FAF058671B3175C5008E5592 /* ALCameraView.swift */,
-				FA787F1B1B4326F100B6B86E /* ALCropOverlay.swift */,
+				FAB50BEE1B413E8C009905B9 /* ImageCell.swift */,
+				FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */,
+				FAF058671B3175C5008E5592 /* CameraView.swift */,
+				FA787F1B1B4326F100B6B86E /* CropOverlay.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		FAB50BF11B413E8C009905B9 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				FAB50BF21B413E8C009905B9 /* ALImageModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		FAB50C021B4140AB009905B9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FAB50BF01B413E8C009905B9 /* ALImageFetchingInteractor.swift */,
-				FA8231391B3C296C00A837BE /* ALUtilities.swift */,
-				FAF058691B317894008E5592 /* ALCameraShot.swift */,
-				C41E42B41BEC6F680028B993 /* ALImageExtensions.swift */,
+				FAB50BF01B413E8C009905B9 /* ImageFetcher.swift */,
+				C40665431C73A47C00EB9751 /* SingleImageSaver.swift */,
+				C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */,
+				FA8231391B3C296C00A837BE /* Utilities.swift */,
+				FAF058691B317894008E5592 /* CameraShot.swift */,
+				C41E42B41BEC6F680028B993 /* ImageExtensions.swift */,
+				C40665451C73A94100EB9751 /* CameraGlobals.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -152,11 +148,10 @@
 		FAF058411B31618D008E5592 /* ALCameraViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FAB50BF11B413E8C009905B9 /* Models */,
 				FAB50C021B4140AB009905B9 /* Utilities */,
 				FAB50BEA1B413E41009905B9 /* ViewController */,
 				FAB50BEB1B413E4E009905B9 /* Views */,
-				FA8231371B3BF8F700A837BE /* ALCameraView.strings */,
+				FA8231371B3BF8F700A837BE /* CameraView.strings */,
 				FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */,
 			);
 			path = ALCameraViewController;
@@ -283,8 +278,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */,
-				FA8231381B3BF8F700A837BE /* ALCameraView.strings in Resources */,
-				C41E42B71BEC98520028B993 /* ALConfirmViewController.xib in Resources */,
+				FA8231381B3BF8F700A837BE /* CameraView.strings in Resources */,
+				C41E42B71BEC98520028B993 /* ConfirmViewController.xib in Resources */,
 				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
@@ -305,21 +300,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA7E6B9B1B429012000E1B14 /* ALConfirmViewController.swift in Sources */,
-				FA5FA3431B3AFA2B00497C62 /* ALPermissionsView.swift in Sources */,
-				FAB50BFC1B413E8C009905B9 /* ALImageFetchingInteractor.swift in Sources */,
-				FA82313A1B3C296C00A837BE /* ALUtilities.swift in Sources */,
-				FAB50C001B413E8C009905B9 /* ALImagePickerViewController.swift in Sources */,
-				FAF0586A1B317894008E5592 /* ALCameraShot.swift in Sources */,
+				FA7E6B9B1B429012000E1B14 /* ConfirmViewController.swift in Sources */,
+				FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */,
+				FAB50BFC1B413E8C009905B9 /* ImageFetcher.swift in Sources */,
+				FA82313A1B3C296C00A837BE /* Utilities.swift in Sources */,
+				FAB50C001B413E8C009905B9 /* PhotoLibraryViewController.swift in Sources */,
+				FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */,
 				FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */,
-				C41E42B51BEC6F680028B993 /* ALImageExtensions.swift in Sources */,
-				FAB50C011B413E8C009905B9 /* ALImagePickerViewDelegate.swift in Sources */,
-				FAB50BFB1B413E8C009905B9 /* ALImageCell.swift in Sources */,
+				C41E42B51BEC6F680028B993 /* ImageExtensions.swift in Sources */,
+				FAB50BFB1B413E8C009905B9 /* ImageCell.swift in Sources */,
+				C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */,
 				FAF058471B31618D008E5592 /* ViewController.swift in Sources */,
-				FAF058681B3175C5008E5592 /* ALCameraView.swift in Sources */,
-				FAB50BFD1B413E8C009905B9 /* ALImageModel.swift in Sources */,
+				FAF058681B3175C5008E5592 /* CameraView.swift in Sources */,
+				C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */,
 				FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */,
-				FA787F1C1B4326F100B6B86E /* ALCropOverlay.swift in Sources */,
+				C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */,
+				FA787F1C1B4326F100B6B86E /* CropOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +428,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,6 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

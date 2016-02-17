@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ALConfirmViewController" customModule="ALCameraViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmViewController" customModule="ALCameraViewController" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="yRi-ES-LfN" id="PUm-mc-H7R"/>
                 <outlet property="centeringView" destination="KYd-D9-K5d" id="CmX-BA-VtZ"/>
@@ -46,11 +46,11 @@
                     </constraints>
                     <state key="normal" image="retakeButton"/>
                 </button>
-                <view hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYd-D9-K5d">
+                <view hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KYd-D9-K5d">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="ALCropOverlay" customModule="ALCameraViewController" customModuleProvider="target">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="CropOverlay" customModule="ALCameraViewController" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -115,10 +115,6 @@
                     <exclude reference="vnU-ey-3GX"/>
                     <exclude reference="wTn-DN-uQO"/>
                     <exclude reference="wn3-We-BBK"/>
-                    <exclude reference="7A6-HH-MEu"/>
-                    <exclude reference="8mU-82-Hf6"/>
-                    <exclude reference="92s-g3-wfK"/>
-                    <exclude reference="Cuy-cw-jOk"/>
                     <exclude reference="1uu-Bd-bz3"/>
                     <exclude reference="GAL-ck-d0B"/>
                     <exclude reference="P5N-Xh-C1z"/>
@@ -129,6 +125,10 @@
                     <exclude reference="fPc-8D-E0O"/>
                     <exclude reference="hpa-Qn-uzT"/>
                     <exclude reference="ohf-4f-yKs"/>
+                    <exclude reference="7A6-HH-MEu"/>
+                    <exclude reference="8mU-82-Hf6"/>
+                    <exclude reference="92s-g3-wfK"/>
+                    <exclude reference="Cuy-cw-jOk"/>
                     <exclude reference="89L-rE-rmd"/>
                     <exclude reference="DZ5-WA-3ZQ"/>
                     <exclude reference="Rwi-4K-QRb"/>
@@ -188,14 +188,14 @@
                     <include reference="YBv-2a-KdQ"/>
                     <include reference="hPp-8q-A1p"/>
                     <include reference="vnU-ey-3GX"/>
-                    <include reference="7A6-HH-MEu"/>
-                    <include reference="8mU-82-Hf6"/>
-                    <include reference="92s-g3-wfK"/>
-                    <include reference="Cuy-cw-jOk"/>
                     <include reference="GAL-ck-d0B"/>
                     <include reference="bRR-fN-fEb"/>
                     <include reference="dbm-T2-OgB"/>
                     <include reference="fPc-8D-E0O"/>
+                    <include reference="7A6-HH-MEu"/>
+                    <include reference="8mU-82-Hf6"/>
+                    <include reference="92s-g3-wfK"/>
+                    <include reference="Cuy-cw-jOk"/>
                     <include reference="89L-rE-rmd"/>
                     <include reference="iar-0y-gBe"/>
                     <include reference="H4a-3r-r5r"/>
