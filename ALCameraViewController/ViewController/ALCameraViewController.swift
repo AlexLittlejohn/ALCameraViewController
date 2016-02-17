@@ -227,6 +227,8 @@ public class ALCameraViewController: UIViewController {
         
         if allowCropping {
             layoutCropView()
+        } else {
+            cameraView.configureFocus()
         }
         
         cameraButton.enabled = true

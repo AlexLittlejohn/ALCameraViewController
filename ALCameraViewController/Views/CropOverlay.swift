@@ -27,6 +27,11 @@ internal class CropOverlay: UIView {
         super.init(frame: CGRectZero)
         createLines()
     }
+    
+    internal override init(frame: CGRect) {
+        super.init(frame: frame)
+        createLines()
+    }
 
     internal required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
