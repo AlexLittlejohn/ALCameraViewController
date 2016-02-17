@@ -1,5 +1,5 @@
 //
-//  ALPermissionsView.swift
+//  PermissionsView.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/24.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class ALPermissionsView: UIView {
+internal class PermissionsView: UIView {
    
     let iconView = UIImageView()
     let titleLabel = UILabel()
@@ -45,7 +45,7 @@ internal class ALPermissionsView: UIView {
         descriptionLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         descriptionLabel.text = LocalizedString("permissions.description")
         
-        let icon = UIImage(named: "permissionsIcon", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil)!
+        let icon = UIImage(named: "permissionsIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)!
         iconView.image = icon
         
         settingsButton.contentEdgeInsets = UIEdgeInsetsMake(6, 12, 6, 12)
@@ -71,32 +71,32 @@ internal class ALPermissionsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let size = frame.size
-        let maxLabelWidth = size.width - horizontalPadding * 2
+        let maxLabelWidth = frame.width - horizontalPadding * 2
         
         let iconSize = iconView.image!.size
-        let titleSize = titleLabel.sizeThatFits(CGSizeMake(maxLabelWidth, CGFloat.max))
-        let descriptionSize = descriptionLabel.sizeThatFits(CGSizeMake(maxLabelWidth, CGFloat.max))
-        let settingsSize = settingsButton.sizeThatFits(CGSizeMake(maxLabelWidth, CGFloat.max))
+        let constrainedTextSize = CGSize(width: maxLabelWidth, height: CGFloat.max)
+        let titleSize = titleLabel.sizeThatFits(constrainedTextSize)
+        let descriptionSize = descriptionLabel.sizeThatFits(constrainedTextSize)
+        let settingsSize = settingsButton.sizeThatFits(constrainedTextSize)
         
-        let iconX = size.width/2 - iconSize.width/2
-        let iconY: CGFloat = size.height/2 - (iconSize.height + verticalSpacing + verticalSpacing + titleSize.height + verticalSpacing + descriptionSize.height)/2;
+        let iconX = frame.width/2 - iconSize.width/2
+        let iconY: CGFloat = frame.height/2 - (iconSize.height + verticalSpacing + verticalSpacing + titleSize.height + verticalSpacing + descriptionSize.height)/2;
         
-        iconView.frame = CGRectMake(iconX, iconY, iconSize.width, iconSize.height)
+        iconView.frame = CGRect(x: iconX, y: iconY, width: iconSize.width, height: iconSize.height)
         
-        let titleX = size.width/2 - titleSize.width/2
+        let titleX = frame.width/2 - titleSize.width/2
         let titleY = iconY + iconSize.height + verticalSpacing + verticalSpacing
         
-        titleLabel.frame = CGRectMake(titleX, titleY, titleSize.width, titleSize.height)
+        titleLabel.frame = CGRect(x: titleX, y: titleY, width: titleSize.width, height: titleSize.height)
         
-        let descriptionX = size.width/2 - descriptionSize.width/2
+        let descriptionX = frame.width/2 - descriptionSize.width/2
         let descriptionY = titleY + titleSize.height + verticalSpacing
         
-        descriptionLabel.frame = CGRectMake(descriptionX, descriptionY, descriptionSize.width, descriptionSize.height)
+        descriptionLabel.frame = CGRect(x: descriptionX, y: descriptionY, width: descriptionSize.width, height: descriptionSize.height)
         
-        let settingsX = size.width/2 - settingsSize.width/2
+        let settingsX = frame.width/2 - settingsSize.width/2
         let settingsY = descriptionY + descriptionSize.height + verticalSpacing
         
-        settingsButton.frame = CGRectMake(settingsX, settingsY, settingsSize.width, settingsSize.height)
+        settingsButton.frame = CGRect(x: settingsX, y: settingsY, width: settingsSize.width, height: settingsSize.height)
     }
 }

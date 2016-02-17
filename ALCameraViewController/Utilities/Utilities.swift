@@ -19,7 +19,7 @@ internal func SpringAnimation(animations: () -> Void) {
 }
 
 internal func LocalizedString(key: String) -> String {
-    return NSLocalizedString(key, tableName: "ALCameraView", bundle: NSBundle(forClass: ALCameraViewController.self), comment: key)
+    return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: CameraGlobals.shared.bundle, comment: key)
 }
 
 internal func currentRotation() -> Double {
@@ -36,3 +36,16 @@ internal func currentRotation() -> Double {
     return rotation
 }
 
+internal func largestPhotoSize() -> CGSize {
+    let scale = UIScreen.mainScreen().scale
+    let screenSize = UIScreen.mainScreen().bounds.size
+    let size = CGSize(width: screenSize.width * scale, height: screenSize.height * scale)
+    return size
+}
+
+internal func errorWithKey(key: String, domain: String) -> NSError {
+    let errorString = LocalizedString(key)
+    let errorInfo = [NSLocalizedDescriptionKey: errorString]
+    let error = NSError(domain: domain, code: 0, userInfo: errorInfo)
+    return error
+}

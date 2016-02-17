@@ -11,7 +11,7 @@ import AVFoundation
 
 public typealias ALCameraShotCompletion = (UIImage) -> Void
 
-internal class ALCameraShot: NSObject {
+internal class CameraShot: NSObject {
     func takePhoto(stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cropSize: CGSize, completion: ALCameraShotCompletion) {
         
         guard let videoConnection: AVCaptureConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) else {

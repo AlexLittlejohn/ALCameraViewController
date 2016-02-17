@@ -13,3 +13,5 @@
 "permissions.library.description" = "Please enable photo library access in your privacy settings";
 
 "permissions.settings" = "Settings";
+
+"error.cant-fetch-photo" = "Unable to fetch image with asset identifier";
