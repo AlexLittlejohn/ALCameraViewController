@@ -213,12 +213,16 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     internal func confirmPhoto() {
         
+        imageView.hidden = true
+        spinner.startAnimating()
+        
         let fetcher = SingleImageFetcher()
             .onSuccess { image in
                 self.onComplete?(image)
-            }
-            .onFailure { error in
-            
+                self.spinner.stopAnimating()
+           }
+            .onFailure { error in            
+                self.spinner.stopAnimating()
             }
             .setAsset(asset)
         
@@ -234,9 +238,9 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             let normalizedWidth = cropRect.width / imageView.frame.width
             let normalizedHeight = cropRect.height / imageView.frame.height
             
-            let normalizedRect = CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
+            let rect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
             
-            fetcher.setCropRect(normalizedRect)
+            fetcher.setCropRect(rect)
         }
         
         fetcher.fetch()

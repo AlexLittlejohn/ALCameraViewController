@@ -49,3 +49,27 @@ internal func errorWithKey(key: String, domain: String) -> NSError {
     let error = NSError(domain: domain, code: 0, userInfo: errorInfo)
     return error
 }
+
+internal func normalizedRect(rect: CGRect, orientation: UIImageOrientation) -> CGRect {
+    let normalizedX = rect.origin.x
+    let normalizedY = rect.origin.y
+    
+    let normalizedWidth = rect.width
+    let normalizedHeight = rect.height
+    
+    var normalizedRect: CGRect
+    
+    switch orientation {
+    case .Up, .UpMirrored:
+        normalizedRect = CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
+    case .Down, .DownMirrored:
+        normalizedRect = CGRect(x: 1-normalizedX-normalizedWidth, y: 1-normalizedY-normalizedHeight, width: normalizedWidth, height: normalizedHeight)
+    case .Left, .LeftMirrored:
+        normalizedRect = CGRect(x: 1-normalizedY-normalizedHeight, y: normalizedX, width: normalizedHeight, height: normalizedWidth)
+    case .Right, .RightMirrored:
+        normalizedRect = CGRect(x: normalizedY, y: 1-normalizedX-normalizedWidth, width: normalizedHeight, height: normalizedWidth)
+    }
+    
+    return normalizedRect
+    
+}
