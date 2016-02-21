@@ -17,6 +17,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var centeringView: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var allowsCropping: Bool = false
     var verticalPadding: CGFloat = 30
@@ -66,14 +67,17 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         
+        spinner.startAnimating()
+        
         SingleImageFetcher()
             .setAsset(asset)
             .setTargetSize(largestPhotoSize())
             .onSuccess { image in
                 self.configureWithImage(image)
+                self.spinner.stopAnimating()
             }
             .onFailure { error in
-                
+                self.spinner.stopAnimating()
             }
             .fetch()
     }
@@ -209,12 +213,16 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     internal func confirmPhoto() {
         
+        imageView.hidden = true
+        spinner.startAnimating()
+        
         let fetcher = SingleImageFetcher()
             .onSuccess { image in
                 self.onComplete?(image)
-            }
-            .onFailure { error in
-            
+                self.spinner.stopAnimating()
+           }
+            .onFailure { error in            
+                self.spinner.stopAnimating()
             }
             .setAsset(asset)
         
@@ -230,9 +238,9 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             let normalizedWidth = cropRect.width / imageView.frame.width
             let normalizedHeight = cropRect.height / imageView.frame.height
             
-            let normalizedRect = CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
+            let rect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
             
-            fetcher.setCropRect(normalizedRect)
+            fetcher.setCropRect(rect)
         }
         
         fetcher.fetch()
