@@ -66,7 +66,7 @@ public class SingleImageFetcher {
             
             let targetWidth = floor(CGFloat(asset.pixelWidth) * cropRect.width)
             let targetHeight = floor(CGFloat(asset.pixelHeight) * cropRect.height)
-            let dimension = min(targetHeight, targetWidth)
+            let dimension = max(min(targetHeight, targetWidth), 1024 * scale)
             
             targetSize = CGSize(width: dimension, height: dimension)
         }
