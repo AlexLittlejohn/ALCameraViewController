@@ -17,6 +17,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var centeringView: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var allowsCropping: Bool = false
     var verticalPadding: CGFloat = 30
@@ -66,14 +67,17 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         
+        spinner.startAnimating()
+        
         SingleImageFetcher()
             .setAsset(asset)
             .setTargetSize(largestPhotoSize())
             .onSuccess { image in
                 self.configureWithImage(image)
+                self.spinner.stopAnimating()
             }
             .onFailure { error in
-                
+                self.spinner.stopAnimating()
             }
             .fetch()
     }

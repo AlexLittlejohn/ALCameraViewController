@@ -57,6 +57,7 @@ public class SingleImageFetcher {
         
         let options = PHImageRequestOptions()
         options.deliveryMode = .HighQualityFormat
+        options.networkAccessAllowed = true
 
         if let cropRect = cropRect {
 
