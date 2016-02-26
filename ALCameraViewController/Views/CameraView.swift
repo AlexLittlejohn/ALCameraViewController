@@ -177,14 +177,7 @@ public class CameraView: UIView {
         dispatch_async(cameraQueue) {
             let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
             CameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
-                
-                var correctedImage = image
-                
-                if self.currentPosition == .Front {
-                    correctedImage = image.fixFrontCameraOrientation()
-                }
-                
-                completion(correctedImage)
+                completion(image)
             }
         }
     }
