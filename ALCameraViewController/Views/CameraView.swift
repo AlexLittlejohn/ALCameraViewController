@@ -80,11 +80,13 @@ public class CameraView: UIView {
             return
         }
         
-        if device.isFocusModeSupported(.Locked) {
+        if device.isFocusModeSupported(.ContinuousAutoFocus) {
             
             let focusPoint = CGPoint(x: point.x / frame.width, y: point.y / frame.height)
             
-            device.focusPointOfInterest = focusPoint
+            device.focusMode = AVCaptureFocusMode.ContinuousAutoFocus
+            device.exposurePointOfInterest = focusPoint
+            device.exposureMode = AVCaptureExposureMode.ContinuousAutoExposure
             device.unlockForConfiguration()
             
             focusView.hidden = false
