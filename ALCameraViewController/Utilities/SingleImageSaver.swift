@@ -20,6 +20,8 @@ public class SingleImageSaver {
     
     private var image: UIImage?
     
+    public init() { }
+    
     public func onSuccess(success: SingleImageSaverSuccess) -> Self {
         self.success = success
         return self

@@ -169,10 +169,10 @@ public class CameraView: UIView {
         return devices.filter { $0.position == position }.first
     }
     
-    public func capturePhoto(completion: ALCameraShotCompletion) {
+    public func capturePhoto(completion: CameraShotCompletion) {
         dispatch_async(cameraQueue) {
             let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
-            CameraShot().takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
+            takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
                 completion(image)
             }
         }

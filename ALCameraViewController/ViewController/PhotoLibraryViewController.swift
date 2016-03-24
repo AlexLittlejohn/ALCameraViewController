@@ -72,8 +72,8 @@ public class PhotoLibraryViewController: UIViewController {
     
     private func onFailure(error: NSError) {
         let permissionsView = PermissionsView(frame: view.bounds)
-        permissionsView.titleLabel.text = LocalizedString("permissions.library.title")
-        permissionsView.descriptionLabel.text = LocalizedString("permissions.library.description")
+        permissionsView.titleLabel.text = localizedString("permissions.library.title")
+        permissionsView.descriptionLabel.text = localizedString("permissions.library.description")
         
         view.addSubview(permissionsView)
     }

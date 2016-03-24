@@ -37,19 +37,19 @@ internal class PermissionsView: UIView {
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = NSTextAlignment.Center
         titleLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 22)
-        titleLabel.text = LocalizedString("permissions.title")
+        titleLabel.text = localizedString("permissions.title")
         
         descriptionLabel.textColor = UIColor.lightGrayColor()
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = NSTextAlignment.Center
         descriptionLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
-        descriptionLabel.text = LocalizedString("permissions.description")
+        descriptionLabel.text = localizedString("permissions.description")
         
         let icon = UIImage(named: "permissionsIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)!
         iconView.image = icon
         
         settingsButton.contentEdgeInsets = UIEdgeInsetsMake(6, 12, 6, 12)
-        settingsButton.setTitle(LocalizedString("permissions.settings"), forState: UIControlState.Normal)
+        settingsButton.setTitle(localizedString("permissions.settings"), forState: UIControlState.Normal)
         settingsButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         settingsButton.layer.cornerRadius = 4
         settingsButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)

@@ -22,6 +22,8 @@ public class SingleImageFetcher {
     private var targetSize = PHImageManagerMaximumSize
     private var cropRect: CGRect?
     
+    public init() { }
+    
     public func onSuccess(success: SingleImageFetcherSuccess) -> Self {
         self.success = success
         return self

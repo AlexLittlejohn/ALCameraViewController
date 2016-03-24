@@ -28,6 +28,8 @@ public class ImageFetcher {
     
     let libraryQueue = dispatch_queue_create("com.zero.ALCameraViewController.LibraryQueue", DISPATCH_QUEUE_SERIAL);
     
+    public init() { }
+    
     public func onSuccess(success: ImageFetcherSuccess) -> Self {
         self.success = success
         return self
