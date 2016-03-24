@@ -58,7 +58,7 @@ public class CameraView: UIView {
             }
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: "focus:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CameraView.focus(_:)))
         addGestureRecognizer(tapGesture)
         userInteractionEnabled = true
         addSubview(focusView)
@@ -163,16 +163,10 @@ public class CameraView: UIView {
     }
     
     private func cameraWithPosition(position: AVCaptureDevicePosition) -> AVCaptureDevice? {
-        let devices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
-        var _device: AVCaptureDevice?
-        for d in devices {
-            if d.position == position {
-                _device = d as? AVCaptureDevice
-                break
-            }
+        guard let devices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as? [AVCaptureDevice] else {
+            return nil
         }
-        
-        return _device
+        return devices.filter { $0.position == position }.first
     }
     
     public func capturePhoto(completion: ALCameraShotCompletion) {
@@ -197,13 +191,11 @@ public class CameraView: UIView {
                 device = cameraWithPosition(currentPosition)
             }
             
-            let error = NSErrorPointer()
-            do {
-                input = try AVCaptureDeviceInput(device: device)
-            } catch let error1 as NSError {
-                error.memory = error1
-                input = nil
+            guard let i = try? AVCaptureDeviceInput(device: device) else {
+                return
             }
+            
+            input = i
             
             session.addInput(input)
             session.commitConfiguration()

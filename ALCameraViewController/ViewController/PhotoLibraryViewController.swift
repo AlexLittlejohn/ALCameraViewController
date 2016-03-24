@@ -15,7 +15,7 @@ internal let defaultItemSpacing: CGFloat = 1
 
 typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
 
-internal class PhotoLibraryViewController: UIViewController {
+public class PhotoLibraryViewController: UIViewController {
     
     internal var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
@@ -32,11 +32,11 @@ internal class PhotoLibraryViewController: UIViewController {
     
     private var assets: PHFetchResult!
     
-    internal override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
     
-    internal override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         setNeedsStatusBarAppearanceUpdate()
@@ -51,17 +51,17 @@ internal class PhotoLibraryViewController: UIViewController {
             .fetch()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.userInteractionEnabled = true
     }
 
-    internal override func viewWillLayoutSubviews() {
+    public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.frame = view.frame
     }
     
-    internal func dismiss() {
+    public func dismiss() {
         onSelectionComplete?(asset: nil)
     }
     
@@ -91,11 +91,11 @@ internal class PhotoLibraryViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource -
 extension PhotoLibraryViewController : UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let model = itemAtIndexPath(indexPath)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath) as! ImageCell
@@ -108,7 +108,7 @@ extension PhotoLibraryViewController : UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate -
 extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let asset = itemAtIndexPath(indexPath)
         onSelectionComplete?(asset: asset)
     }
