@@ -14,4 +14,5 @@
 
 "permissions.settings" = "Settings";
 
-"error.cant-fetch-photo" = "Unable to fetch image with asset identifier";
+"error.cant-fetch-photo" = "Unable to fetch image";
+"error.cant-fetch-photo.description" = "Please check your network settings";

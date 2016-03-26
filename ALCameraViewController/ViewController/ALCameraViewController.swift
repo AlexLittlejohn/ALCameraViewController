@@ -174,24 +174,19 @@ public class ALCameraViewController: UIViewController {
     
     private func showNoPermissionsView(library: Bool = false) {
         let permissionsView = PermissionsView(frame: view.bounds)
-        view.addSubview(permissionsView)
-        view.addSubview(closeButton)
+        
+        let title: String
+        let desc: String
         
         if library {
-            permissionsView.titleLabel.text = localizedString("permissions.library.title")
-            permissionsView.descriptionLabel.text = localizedString("permissions.library.description")
+            title = localizedString("permissions.library.title")
+            desc = localizedString("permissions.library.description")
+        } else {
+            title = localizedString("permissions.title")
+            desc = localizedString("permissions.description")
         }
         
-        closeButton.addTarget(self, action: #selector(close), forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.setImage(UIImage(named: "retakeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
-        closeButton.sizeToFit()
-        
-        let size = view.frame.size
-        let closeSize = closeButton.frame.size
-        let closeX = horizontalPadding
-        let closeY = size.height - (closeSize.height + verticalPadding)
-        
-        closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
+        permissionsView.configureInView(view, title: title, descriptiom: desc, completion: close)
     }
     
     private func startCamera() {

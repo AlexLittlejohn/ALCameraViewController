@@ -16,7 +16,7 @@ internal class PermissionsView: UIView {
     let settingsButton = UIButton()
     
     let horizontalPadding: CGFloat = 50
-    let verticalPadding: CGFloat = 20
+    let verticalPadding: CGFloat = 50
     let verticalSpacing: CGFloat = 10
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,6 +27,27 @@ internal class PermissionsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+    }
+    
+    func configureInView(view: UIView, title: String, descriptiom: String, completion: () -> Void) {
+        let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        
+        view.addSubview(self)
+        addSubview(closeButton)
+        
+        titleLabel.text = title
+        descriptionLabel.text = descriptiom
+        
+        closeButton.action = completion
+        closeButton.setImage(UIImage(named: "retakeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
+        closeButton.sizeToFit()
+        
+        let size = view.frame.size
+        let closeSize = closeButton.frame.size
+        let closeX = horizontalPadding
+        let closeY = size.height - (closeSize.height + verticalPadding)
+        
+        closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
     }
     
     func commonInit() {

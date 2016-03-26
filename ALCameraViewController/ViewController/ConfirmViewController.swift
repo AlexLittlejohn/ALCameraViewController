@@ -17,7 +17,6 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var centeringView: UIView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var allowsCropping: Bool = false
     var verticalPadding: CGFloat = 30
@@ -67,17 +66,20 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         
-        spinner.startAnimating()
+        let spinner = showSpinner()
         
+        disable()
+
         SingleImageFetcher()
             .setAsset(asset)
             .setTargetSize(largestPhotoSize())
             .onSuccess { image in
                 self.configureWithImage(image)
-                self.spinner.stopAnimating()
+                self.hideSpinner(spinner)
+                self.enable()
             }
             .onFailure { error in
-                self.spinner.stopAnimating()
+                self.hideSpinner(spinner)
             }
             .fetch()
     }
@@ -213,16 +215,21 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     internal func confirmPhoto() {
         
-        imageView.hidden = true
-        spinner.startAnimating()
+        disable()
         
+        imageView.hidden = true
+        
+        let spinner = showSpinner()
+
         let fetcher = SingleImageFetcher()
             .onSuccess { image in
                 self.onComplete?(image, self.asset)
-//                self.spinner.stopAnimating()
+                self.hideSpinner(spinner)
+                self.enable()
            }
             .onFailure { error in            
-//                self.spinner.stopAnimating()
+                self.hideSpinner(spinner)
+                self.showNoImageScreen(error)
             }
             .setAsset(asset)
         
@@ -253,4 +260,38 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     internal func scrollViewDidZoom(scrollView: UIScrollView) {
         centerScrollViewContents()
     }
+    
+    func showSpinner() -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView()
+        spinner.activityIndicatorViewStyle = .White
+        spinner.center = view.center
+        spinner.startAnimating()
+        
+        view.addSubview(spinner)
+        view.bringSubviewToFront(spinner)
+        
+        return spinner
+    }
+    
+    func hideSpinner(spinner: UIActivityIndicatorView) {
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
+    }
+    
+    func disable() {
+        confirmButton.enabled = false
+    }
+    
+    func enable() {
+        confirmButton.enabled = true
+    }
+    
+    func showNoImageScreen(error: NSError) {
+        let permissionsView = PermissionsView(frame: view.bounds)
+        
+        let desc = localizedString("error.cant-fetch-photo.description")
+        
+        permissionsView.configureInView(view, title: error.localizedDescription, descriptiom: desc, completion: cancel)
+    }
+    
 }
