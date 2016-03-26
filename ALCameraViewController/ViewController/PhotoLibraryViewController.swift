@@ -13,11 +13,11 @@ internal let ImageCellIdentifier = "ImageCell"
 
 internal let defaultItemSpacing: CGFloat = 1
 
-typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
+public typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
 
 public class PhotoLibraryViewController: UIViewController {
     
-    internal var onSelectionComplete: PhotoLibraryViewSelectionComplete?
+    public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,10 +32,6 @@ public class PhotoLibraryViewController: UIViewController {
     
     private var assets: PHFetchResult!
     
-    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,20 +41,33 @@ public class PhotoLibraryViewController: UIViewController {
 
         collectionView.backgroundColor = UIColor.clearColor()
         
+        let buttonImage = UIImage(named: "libraryCancel", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(dismiss))
+        
         ImageFetcher()
             .onFailure(onFailure)
             .onSuccess(onSuccess)
             .fetch()
     }
     
-    public override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.userInteractionEnabled = true
+    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
-
+    
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.frame = view.frame
+    }
+    
+    public func present(inViewController: UIViewController, animated: Bool) {
+        
+        let navigationController = UINavigationController(rootViewController: self)
+        
+        navigationController.navigationBar.barTintColor = UIColor.blackColor()
+        navigationController.navigationBar.barStyle = UIBarStyle.Black
+        
+        inViewController.presentViewController(navigationController, animated: animated, completion: nil)
     }
     
     public func dismiss() {
@@ -84,7 +93,7 @@ public class PhotoLibraryViewController: UIViewController {
         collectionView.dataSource = self
     }
     
-    func itemAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
+    private func itemAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
         return assets[indexPath.row] as! PHAsset
     }
 }

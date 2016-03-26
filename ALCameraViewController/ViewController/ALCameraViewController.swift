@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import MediaPlayer
 import Photos
 
 public typealias ALCameraViewCompletion = (UIImage?) -> Void
@@ -38,8 +37,6 @@ public extension ALCameraViewController {
             }
         }
         
-        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "libraryCancel", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: imagePicker, action: #selector(PhotoLibraryViewController.dismiss))
-        
         return navigationController
     }
 }
@@ -61,14 +58,8 @@ public class ALCameraViewController: UIViewController {
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
-    lazy var volumeView: MPVolumeView = { [unowned self] in
-        let view = MPVolumeView()
-        view.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-        view.alpha = 0.01
-        return view
-    }()
+    var volumeControl: VolumeControl?
     
-    let volume = AVAudioSession.sharedInstance().outputVolume
     
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: ALCameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
@@ -90,7 +81,6 @@ public class ALCameraViewController: UIViewController {
     }
     
     deinit {
-        try! AVAudioSession.sharedInstance().setActive(false)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -105,17 +95,18 @@ public class ALCameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.blackColor()
-        view.addSubview(volumeView)
-        view.sendSubviewToBack(volumeView)
-        view.addSubview(cameraView)
         
-        try! AVAudioSession.sharedInstance().setActive(true)
+        
+        volumeControl = VolumeControl(view: view) { _ in
+            self.capturePhoto()
+        }
+        
+        view.addSubview(cameraView)
         
         cameraView.frame = view.bounds
         
         rotate()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ALCameraViewController.rotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ALCameraViewController.volumeChanged), name: "AVSystemController_SystemVolumeDidChangeNotification", object: nil)
     }
     
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -145,13 +136,7 @@ public class ALCameraViewController: UIViewController {
             self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
         }
     }
-    
-    func volumeChanged() {
-        guard let slider = volumeView.subviews.filter({ $0 is UISlider }).first as? UISlider else { return }
-        slider.setValue(volume, animated: false)
-        capturePhoto()
-    }
-    
+
     private func commonInit() {
         if UIScreen.mainScreen().bounds.size.width <= 320 {
             verticalPadding = 15
