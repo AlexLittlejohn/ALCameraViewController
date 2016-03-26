@@ -23,7 +23,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
-    var onComplete: ALCameraViewCompletion?
+    var onComplete: CameraViewCompletion?
     
     var asset: PHAsset!
     
@@ -208,7 +208,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     internal func cancel() {
-        onComplete?(nil)
+        onComplete?(nil, nil)
     }
     
     internal func confirmPhoto() {
@@ -218,7 +218,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         let fetcher = SingleImageFetcher()
             .onSuccess { image in
-                self.onComplete?(image)
+                self.onComplete?(image, self.asset)
                 self.spinner.stopAnimating()
            }
             .onFailure { error in            

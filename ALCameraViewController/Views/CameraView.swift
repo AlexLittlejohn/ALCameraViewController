@@ -45,9 +45,7 @@ public class CameraView: UIView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        if let p = preview {
-            p.frame = bounds
-        }
+        preview?.frame = bounds
     }
     
     public func configureFocus() {
@@ -70,51 +68,40 @@ public class CameraView: UIView {
         lines.forEach { line in
             line.alpha = 0
         }
-        
     }
     
     internal func focus(gesture: UITapGestureRecognizer) {
         let point = gesture.locationInView(self)
-        guard let device = device else { return }
-        do { try device.lockForConfiguration() } catch {
+        
+        guard focusCamera(point) else {
             return
         }
         
-        if device.isFocusModeSupported(.ContinuousAutoFocus) {
+        focusView.hidden = false
+        focusView.center = point
+        focusView.alpha = 0
+        focusView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+        
+        bringSubviewToFront(focusView)
+        
+        UIView.animateKeyframesWithDuration(1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
             
-            let focusPoint = CGPoint(x: point.x / frame.width, y: point.y / frame.height)
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.15, animations: { () -> Void in
+                self.focusView.alpha = 1
+                self.focusView.transform = CGAffineTransformIdentity
+            })
             
-            device.focusMode = AVCaptureFocusMode.ContinuousAutoFocus
-            device.exposurePointOfInterest = focusPoint
-            device.exposureMode = AVCaptureExposureMode.ContinuousAutoExposure
-            device.unlockForConfiguration()
+            UIView.addKeyframeWithRelativeStartTime(0.80, relativeDuration: 0.20, animations: { () -> Void in
+                self.focusView.alpha = 0
+                self.focusView.transform = CGAffineTransformMakeScale(0.8, 0.8)
+            })
             
-            focusView.hidden = false
-            focusView.center = point
-            focusView.alpha = 0
-            focusView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-
-            bringSubviewToFront(focusView)
             
-            UIView.animateKeyframesWithDuration(1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
-                
-                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.15, animations: { () -> Void in
-                    self.focusView.alpha = 1
-                    self.focusView.transform = CGAffineTransformIdentity
-                })
-                
-                UIView.addKeyframeWithRelativeStartTime(0.80, relativeDuration: 0.20, animations: { () -> Void in
-                    self.focusView.alpha = 0
-                    self.focusView.transform = CGAffineTransformMakeScale(0.8, 0.8)
-                })
-                
-                
             }, completion: { finished in
                 if finished {
                     self.focusView.hidden = true
                 }
-            })
-        }
+        })
     }
     
     private func createSession() {
@@ -157,7 +144,6 @@ public class CameraView: UIView {
         preview = AVCaptureVideoPreviewLayer(session: session)
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill
         preview.frame = bounds
-        
 
         layer.addSublayer(preview)
     }
@@ -177,28 +163,52 @@ public class CameraView: UIView {
             }
         }
     }
+    
+    public func focusCamera(toPoint: CGPoint) -> Bool {
+        
+        guard let device = device where device.isFocusModeSupported(.ContinuousAutoFocus) else {
+            return false
+        }
+        
+        do { try device.lockForConfiguration() } catch {
+            return false
+        }
+        
+        // focus points are in the range of 0...1, not screen pixels
+        let focusPoint = CGPoint(x: toPoint.x / frame.width, y: toPoint.y / frame.height)
+        
+        device.focusMode = AVCaptureFocusMode.ContinuousAutoFocus
+        device.exposurePointOfInterest = focusPoint
+        device.exposureMode = AVCaptureExposureMode.ContinuousAutoExposure
+        device.unlockForConfiguration()
+        
+        return true
+    }
 
     public func swapCameraInput() {
-        if session != nil && input != nil {
-            session.beginConfiguration()
-            session.removeInput(input)
-            
-            if input.device.position == AVCaptureDevicePosition.Back {
-                currentPosition = AVCaptureDevicePosition.Front
-                device = cameraWithPosition(currentPosition)
-            } else {
-                currentPosition = AVCaptureDevicePosition.Back
-                device = cameraWithPosition(currentPosition)
-            }
-            
-            guard let i = try? AVCaptureDeviceInput(device: device) else {
-                return
-            }
-            
-            input = i
-            
-            session.addInput(input)
-            session.commitConfiguration()
+        
+        guard let session = session, input = input else {
+            return
         }
+        
+        session.beginConfiguration()
+        session.removeInput(input)
+        
+        if input.device.position == AVCaptureDevicePosition.Back {
+            currentPosition = AVCaptureDevicePosition.Front
+            device = cameraWithPosition(currentPosition)
+        } else {
+            currentPosition = AVCaptureDevicePosition.Back
+            device = cameraWithPosition(currentPosition)
+        }
+        
+        guard let i = try? AVCaptureDeviceInput(device: device) else {
+            return
+        }
+        
+        self.input = i
+        
+        session.addInput(i)
+        session.commitConfiguration()
     }
 }
