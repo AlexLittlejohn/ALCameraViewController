@@ -10,10 +10,10 @@ import UIKit
 import AVFoundation
 import Photos
 
-public typealias ALCameraViewCompletion = (UIImage?) -> Void
+public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
 public extension ALCameraViewController {
-    public class func imagePickerViewController(croppingEnabled: Bool, completion: ALCameraViewCompletion) -> UINavigationController {
+    public class func imagePickerViewController(croppingEnabled: Bool, completion: CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
@@ -21,11 +21,11 @@ public extension ALCameraViewController {
         navigationController.navigationBar.barStyle = UIBarStyle.Black
         
         imagePicker.onSelectionComplete = { asset in
-            if asset != nil {
-                let confirmController = ConfirmViewController(asset: asset!, allowsCropping: croppingEnabled)
-                confirmController.onComplete = { image in
-                    if let i = image {
-                        completion(i)
+            if let asset = asset {
+                let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
+                confirmController.onComplete = { image, asset in
+                    if let image = image, asset = asset {
+                        completion(image, asset)
                     } else {
                         imagePicker.dismissViewControllerAnimated(true, completion: nil)
                     }
@@ -33,7 +33,7 @@ public extension ALCameraViewController {
                 confirmController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
                 imagePicker.presentViewController(confirmController, animated: true, completion: nil)
             } else {
-                completion(nil)
+                completion(nil, nil)
             }
         }
         
@@ -52,7 +52,7 @@ public class ALCameraViewController: UIViewController {
     let libraryButton = UIButton()
     let flashButton = UIButton()
     
-    var onCompletion: ALCameraViewCompletion?
+    var onCompletion: CameraViewCompletion?
     var allowCropping = false
     
     var verticalPadding: CGFloat = 30
@@ -61,7 +61,7 @@ public class ALCameraViewController: UIViewController {
     var volumeControl: VolumeControl?
     
     
-    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: ALCameraViewCompletion) {
+    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
@@ -304,17 +304,13 @@ public class ALCameraViewController: UIViewController {
     }
     
     internal func close() {
-        onCompletion?(nil)
+        onCompletion?(nil, nil)
     }
     
     internal func showLibrary() {
-        let imagePicker = ALCameraViewController.imagePickerViewController(allowCropping) { image in
+        let imagePicker = ALCameraViewController.imagePickerViewController(allowCropping) { image, asset in
             self.dismissViewControllerAnimated(true, completion: nil)
-            if image != nil {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.onCompletion?(image!)
-                }
-            }
+            self.onCompletion?(image!, asset)
         }
         
         imagePicker.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
@@ -322,11 +318,6 @@ public class ALCameraViewController: UIViewController {
         presentViewController(imagePicker, animated: true) {
             self.cameraView.stopSession()
         }
-    }
-    
-    internal func onConfirmComplete(image: UIImage?) {
-        dismissViewControllerAnimated(true, completion: nil)
-        onCompletion?(image)
     }
     
     internal func toggleFlash() {
@@ -373,11 +364,11 @@ public class ALCameraViewController: UIViewController {
         
         let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
         
-        confirmViewController.onComplete = { image in
-            if image == nil {
-                self.dismissViewControllerAnimated(true, completion: nil)
+        confirmViewController.onComplete = { image, asset in
+            if let image = image, asset = asset {
+                self.onCompletion?(image, asset)
             } else {
-                self.onCompletion?(image)
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
