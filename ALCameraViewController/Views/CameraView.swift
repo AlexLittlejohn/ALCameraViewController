@@ -122,7 +122,7 @@ public class CameraView: UIView {
             } catch _ {}
         }
         
-        let outputSettings = [AVVideoCodecKey:AVVideoCodecJPEG]
+        let outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
         
         do {
             input = try AVCaptureDeviceInput(device: device)
@@ -159,7 +159,9 @@ public class CameraView: UIView {
         dispatch_async(cameraQueue) {
             let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
             takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
-                completion(image)
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(image)
+                }
             }
         }
     }

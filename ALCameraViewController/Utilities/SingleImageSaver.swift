@@ -40,8 +40,7 @@ public class SingleImageSaver {
     public func save() -> Self {
         
         guard let image = image else {
-            let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-            failure?(error: error)
+            self.invokeFailure()
             return self
         }
         
@@ -52,9 +51,13 @@ public class SingleImageSaver {
                 let request = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
                 assetIdentifier = request.placeholderForCreatedAsset
             }) { finished, error in
-                if let assetIdentifier = assetIdentifier where finished {
-                    self.fetch(assetIdentifier)
+                
+                guard let assetIdentifier = assetIdentifier where finished else {
+                    self.invokeFailure()
+                    return
                 }
+                
+                self.fetch(assetIdentifier)
             }
 
         return self
@@ -64,15 +67,18 @@ public class SingleImageSaver {
         
         let assets = PHAsset.fetchAssetsWithLocalIdentifiers([assetIdentifier.localIdentifier], options: nil)
         
-        guard let asset = assets.firstObject as? PHAsset else {
-            let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.failure?(error: error)
-            }
-            return
-        }
         dispatch_async(dispatch_get_main_queue()) {
+            guard let asset = assets.firstObject as? PHAsset else {
+                self.invokeFailure()
+                return
+            }
+            
             self.success?(asset: asset)
         }
+    }
+    
+    private func invokeFailure() {
+        let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
+        failure?(error: error)
     }
 }

@@ -9,11 +9,12 @@
 import UIKit
 import AVFoundation
 
-public typealias CameraShotCompletion = (UIImage) -> Void
+public typealias CameraShotCompletion = (UIImage?) -> Void
 
 public func takePhoto(stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cropSize: CGSize, completion: CameraShotCompletion) {
     
     guard let videoConnection: AVCaptureConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) else {
+        completion(nil)
         return
     }
     
@@ -21,7 +22,8 @@ public func takePhoto(stillImageOutput: AVCaptureStillImageOutput, videoOrientat
     
     stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: { buffer, error in
         
-        guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer), image = UIImage(data: imageData) else {
+        guard let buffer = buffer, imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer), image = UIImage(data: imageData) else {
+            completion(nil)
             return
         }
         
