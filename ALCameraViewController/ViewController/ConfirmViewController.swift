@@ -11,8 +11,8 @@ import Photos
 
 internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
-    @IBOutlet weak var scrollView: UIScrollView!
     let imageView = UIImageView()
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var cropOverlay: CropOverlay!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
@@ -219,10 +219,10 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         let fetcher = SingleImageFetcher()
             .onSuccess { image in
                 self.onComplete?(image, self.asset)
-                self.spinner.stopAnimating()
+//                self.spinner.stopAnimating()
            }
             .onFailure { error in            
-                self.spinner.stopAnimating()
+//                self.spinner.stopAnimating()
             }
             .setAsset(asset)
         

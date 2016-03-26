@@ -50,11 +50,22 @@ public class SingleImageFetcher {
     }
     
     public func fetch() -> Self {
-        
+        _ = PhotoLibraryAuthorizer { error in
+            if error == nil {
+                self._fetch()
+            } else {
+                self.failure?(error: error!)
+            }
+        }
+        return self
+    }
+    
+    private func _fetch() {
+    
         guard let asset = asset else {
             let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
             failure?(error: error)
-            return self
+            return
         }
         
         let options = PHImageRequestOptions()
@@ -81,7 +92,5 @@ public class SingleImageFetcher {
                 self.failure?(error: error)
             }
         }
-        
-        return self
     }
 }

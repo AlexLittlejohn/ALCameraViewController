@@ -39,9 +39,21 @@ public class SingleImageSaver {
     
     public func save() -> Self {
         
+        _ = PhotoLibraryAuthorizer { error in
+            if error == nil {
+                self._save()
+            } else {
+                self.failure?(error: error!)
+            }
+        }
+
+        return self
+    }
+    
+    private func _save() {
         guard let image = image else {
             self.invokeFailure()
-            return self
+            return
         }
         
         var assetIdentifier: PHObjectPlaceholder?
@@ -58,9 +70,7 @@ public class SingleImageSaver {
                 }
                 
                 self.fetch(assetIdentifier)
-            }
-
-        return self
+        }
     }
     
     private func fetch(assetIdentifier: PHObjectPlaceholder) {

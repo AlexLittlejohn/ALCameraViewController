@@ -172,10 +172,15 @@ public class ALCameraViewController: UIViewController {
         }
     }
     
-    private func showNoPermissionsView() {
+    private func showNoPermissionsView(library: Bool = false) {
         let permissionsView = PermissionsView(frame: view.bounds)
         view.addSubview(permissionsView)
         view.addSubview(closeButton)
+        
+        if library {
+            permissionsView.titleLabel.text = localizedString("permissions.library.title")
+            permissionsView.descriptionLabel.text = localizedString("permissions.library.description")
+        }
         
         closeButton.addTarget(self, action: #selector(close), forControlEvents: UIControlEvents.TouchUpInside)
         closeButton.setImage(UIImage(named: "retakeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
@@ -262,8 +267,6 @@ public class ALCameraViewController: UIViewController {
         let flashY = verticalPadding
         
         flashButton.frame.origin = CGPoint(x: flashX, y: flashY)
-        
-//        cameraReady()
     }
     
     private func layoutCropView() {
@@ -316,10 +319,10 @@ public class ALCameraViewController: UIViewController {
                 self.layoutCameraResult(asset)
             }
             .onFailure { error in
-                print(error)
                 self.cameraButton.enabled = true
                 self.closeButton.enabled = true
                 self.swapButton.enabled = true
+                self.showNoPermissionsView(true)
             }
             .save()
     }
