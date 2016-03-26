@@ -16,7 +16,7 @@ internal class PermissionsView: UIView {
     let settingsButton = UIButton()
     
     let horizontalPadding: CGFloat = 50
-    let verticalPadding: CGFloat = 20
+    let verticalPadding: CGFloat = 50
     let verticalSpacing: CGFloat = 10
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,6 +29,27 @@ internal class PermissionsView: UIView {
         commonInit()
     }
     
+    func configureInView(view: UIView, title: String, descriptiom: String, completion: () -> Void) {
+        let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        
+        view.addSubview(self)
+        addSubview(closeButton)
+        
+        titleLabel.text = title
+        descriptionLabel.text = descriptiom
+        
+        closeButton.action = completion
+        closeButton.setImage(UIImage(named: "retakeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: UIControlState.Normal)
+        closeButton.sizeToFit()
+        
+        let size = view.frame.size
+        let closeSize = closeButton.frame.size
+        let closeX = horizontalPadding
+        let closeY = size.height - (closeSize.height + verticalPadding)
+        
+        closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
+    }
+    
     func commonInit() {
         
         backgroundColor = UIColor(white: 0.2, alpha: 1)
@@ -37,24 +58,24 @@ internal class PermissionsView: UIView {
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = NSTextAlignment.Center
         titleLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 22)
-        titleLabel.text = LocalizedString("permissions.title")
+        titleLabel.text = localizedString("permissions.title")
         
         descriptionLabel.textColor = UIColor.lightGrayColor()
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = NSTextAlignment.Center
         descriptionLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
-        descriptionLabel.text = LocalizedString("permissions.description")
+        descriptionLabel.text = localizedString("permissions.description")
         
         let icon = UIImage(named: "permissionsIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)!
         iconView.image = icon
         
         settingsButton.contentEdgeInsets = UIEdgeInsetsMake(6, 12, 6, 12)
-        settingsButton.setTitle(LocalizedString("permissions.settings"), forState: UIControlState.Normal)
+        settingsButton.setTitle(localizedString("permissions.settings"), forState: UIControlState.Normal)
         settingsButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         settingsButton.layer.cornerRadius = 4
         settingsButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         settingsButton.backgroundColor = UIColor(red: 52.0/255.0, green: 183.0/255.0, blue: 250.0/255.0, alpha: 1)
-        settingsButton.addTarget(self, action: "openSettings", forControlEvents: UIControlEvents.TouchUpInside)
+        settingsButton.addTarget(self, action: #selector(PermissionsView.openSettings), forControlEvents: UIControlEvents.TouchUpInside)
         
         addSubview(iconView)
         addSubview(titleLabel)

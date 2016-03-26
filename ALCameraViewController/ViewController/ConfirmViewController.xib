@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -12,7 +12,6 @@
                 <outlet property="confirmButton" destination="ASf-ZD-cIs" id="mpH-Eg-IbA"/>
                 <outlet property="cropOverlay" destination="lnA-tb-Sap" id="34E-zk-Axd"/>
                 <outlet property="scrollView" destination="oUR-U3-uEM" id="rF0-ZM-RmA"/>
-                <outlet property="spinner" destination="29E-d9-s06" id="w2j-w5-g7P"/>
                 <outlet property="view" destination="iN0-l3-epB" id="FcS-Dy-kqF"/>
             </connections>
         </placeholder>
@@ -57,9 +56,6 @@
                         <constraint firstAttribute="width" secondItem="lnA-tb-Sap" secondAttribute="height" multiplier="1:1" id="lv8-l9-lJq"/>
                     </constraints>
                 </view>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="29E-d9-s06">
-                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -80,7 +76,6 @@
                 <constraint firstItem="lnA-tb-Sap" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="P5N-Xh-C1z"/>
                 <constraint firstItem="ASf-ZD-cIs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="Rwi-4K-QRb"/>
                 <constraint firstItem="ASf-ZD-cIs" firstAttribute="bottom" secondItem="yRi-ES-LfN" secondAttribute="top" constant="-60" id="TLl-L0-yLb"/>
-                <constraint firstItem="29E-d9-s06" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ud5-NU-AyS"/>
                 <constraint firstItem="ASf-ZD-cIs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-54" id="WSF-pa-4wb"/>
                 <constraint firstAttribute="trailing" secondItem="KYd-D9-K5d" secondAttribute="trailing" id="YBv-2a-KdQ"/>
                 <constraint firstItem="KYd-D9-K5d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Yhb-Y3-ngX"/>
@@ -100,7 +95,6 @@
                 <constraint firstAttribute="bottom" secondItem="KYd-D9-K5d" secondAttribute="bottom" id="o6j-Qo-hB5"/>
                 <constraint firstItem="lnA-tb-Sap" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ohf-4f-yKs"/>
                 <constraint firstItem="ASf-ZD-cIs" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-54" id="pNU-uB-Igt"/>
-                <constraint firstItem="29E-d9-s06" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qa3-sK-XYC"/>
                 <constraint firstItem="yRi-ES-LfN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="v0q-tU-ywG"/>
                 <constraint firstItem="KYd-D9-K5d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vnU-ey-3GX"/>
                 <constraint firstAttribute="trailing" secondItem="KYd-D9-K5d" secondAttribute="trailing" id="wTn-DN-uQO"/>
@@ -109,12 +103,7 @@
                 <constraint firstItem="yRi-ES-LfN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="45" id="xFc-F1-V7I"/>
             </constraints>
             <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="29E-d9-s06"/>
-                </mask>
                 <mask key="constraints">
-                    <exclude reference="Ud5-NU-AyS"/>
-                    <exclude reference="qa3-sK-XYC"/>
                     <exclude reference="CcA-mG-BLU"/>
                     <exclude reference="JLk-PT-5kn"/>
                     <exclude reference="YBv-2a-KdQ"/>
@@ -194,12 +183,7 @@
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=regular">
-                <mask key="subviews">
-                    <include reference="29E-d9-s06"/>
-                </mask>
                 <mask key="constraints">
-                    <include reference="Ud5-NU-AyS"/>
-                    <include reference="qa3-sK-XYC"/>
                     <include reference="YBv-2a-KdQ"/>
                     <include reference="hPp-8q-A1p"/>
                     <include reference="vnU-ey-3GX"/>

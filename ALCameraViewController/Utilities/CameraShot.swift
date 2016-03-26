@@ -1,5 +1,5 @@
 //
-//  ALCameraShot.swift
+//  CameraShot.swift
 //  ALCameraViewController
 //
 //  Created by Alex Littlejohn on 2015/06/17.
@@ -9,24 +9,24 @@
 import UIKit
 import AVFoundation
 
-public typealias ALCameraShotCompletion = (UIImage) -> Void
+public typealias CameraShotCompletion = (UIImage?) -> Void
 
-internal class CameraShot: NSObject {
-    func takePhoto(stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cropSize: CGSize, completion: ALCameraShotCompletion) {
+public func takePhoto(stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cropSize: CGSize, completion: CameraShotCompletion) {
+    
+    guard let videoConnection: AVCaptureConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) else {
+        completion(nil)
+        return
+    }
+    
+    videoConnection.videoOrientation = videoOrientation
+    
+    stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: { buffer, error in
         
-        guard let videoConnection: AVCaptureConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) else {
+        guard let buffer = buffer, imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer), image = UIImage(data: imageData) else {
+            completion(nil)
             return
         }
         
-        videoConnection.videoOrientation = videoOrientation
-        
-        stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: { buffer, error in
-            
-            guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer), image = UIImage(data: imageData) else {
-                return
-            }
-            
-            completion(image)
-        })
-    }
+        completion(image)
+    })
 }

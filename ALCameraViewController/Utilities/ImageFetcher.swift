@@ -28,6 +28,8 @@ public class ImageFetcher {
     
     let libraryQueue = dispatch_queue_create("com.zero.ALCameraViewController.LibraryQueue", DISPATCH_QUEUE_SERIAL);
     
+    public init() { }
+    
     public func onSuccess(success: ImageFetcherSuccess) -> Self {
         self.success = success
         return self
@@ -39,7 +41,13 @@ public class ImageFetcher {
     }
     
     public func fetch() -> Self {
-        handleAuthorization(PHPhotoLibrary.authorizationStatus())
+        _ = PhotoLibraryAuthorizer { error in
+            if error == nil {
+                self.onAuthorized()
+            } else {
+                self.failure?(error: error!)
+            }
+        }
         return self
     }
     
@@ -51,32 +59,6 @@ public class ImageFetcher {
             dispatch_async(dispatch_get_main_queue()) {
                 self.success?(assets: assets)
             }
-        }
-    }
-    
-    private func onDeniedOrRestricted() {
-        let error = errorWithKey("error.access-denied", domain: errorDomain)
-        dispatch_async(dispatch_get_main_queue()) {
-            self.failure?(error: error)
-        }
-    }
-    
-    private func handleAuthorization(status: PHAuthorizationStatus) -> Void {
-        switch status {
-        case .NotDetermined:
-            if !authRequested {
-                PHPhotoLibrary.requestAuthorization(handleAuthorization)
-                authRequested = true
-            } else {
-                onDeniedOrRestricted()
-            }
-            break
-        case .Authorized:
-            onAuthorized()
-            break
-        case .Denied, .Restricted:
-            onDeniedOrRestricted()
-            break
         }
     }
 }

@@ -20,6 +20,8 @@ public class SingleImageSaver {
     
     private var image: UIImage?
     
+    public init() { }
+    
     public func onSuccess(success: SingleImageSaverSuccess) -> Self {
         self.success = success
         return self
@@ -37,10 +39,21 @@ public class SingleImageSaver {
     
     public func save() -> Self {
         
+        _ = PhotoLibraryAuthorizer { error in
+            if error == nil {
+                self._save()
+            } else {
+                self.failure?(error: error!)
+            }
+        }
+
+        return self
+    }
+    
+    private func _save() {
         guard let image = image else {
-            let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-            failure?(error: error)
-            return self
+            self.invokeFailure()
+            return
         }
         
         var assetIdentifier: PHObjectPlaceholder?
@@ -50,27 +63,32 @@ public class SingleImageSaver {
                 let request = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
                 assetIdentifier = request.placeholderForCreatedAsset
             }) { finished, error in
-                if let assetIdentifier = assetIdentifier where finished {
-                    self.fetch(assetIdentifier)
+                
+                guard let assetIdentifier = assetIdentifier where finished else {
+                    self.invokeFailure()
+                    return
                 }
-            }
-
-        return self
+                
+                self.fetch(assetIdentifier)
+        }
     }
     
     private func fetch(assetIdentifier: PHObjectPlaceholder) {
         
         let assets = PHAsset.fetchAssetsWithLocalIdentifiers([assetIdentifier.localIdentifier], options: nil)
         
-        guard let asset = assets.firstObject as? PHAsset else {
-            let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.failure?(error: error)
-            }
-            return
-        }
         dispatch_async(dispatch_get_main_queue()) {
+            guard let asset = assets.firstObject as? PHAsset else {
+                self.invokeFailure()
+                return
+            }
+            
             self.success?(asset: asset)
         }
+    }
+    
+    private func invokeFailure() {
+        let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
+        failure?(error: error)
     }
 }
