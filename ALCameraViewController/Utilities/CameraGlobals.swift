@@ -16,7 +16,7 @@ internal let scale = UIScreen.mainScreen().scale
 public class CameraGlobals {
     public static let shared = CameraGlobals()
     
-    var bundle = NSBundle(forClass: ALCameraViewController.self)
+    var bundle = NSBundle(forClass: CameraViewController.self)
     var stringsTable = "CameraView"
     
     var photoLibraryThumbnailSize = CGSizeMake(thumbnailDimension, thumbnailDimension)
