@@ -18,6 +18,5 @@ public class CameraGlobals {
     
     var bundle = NSBundle(forClass: CameraViewController.self)
     var stringsTable = "CameraView"
-    
     var photoLibraryThumbnailSize = CGSizeMake(thumbnailDimension, thumbnailDimension)
 }

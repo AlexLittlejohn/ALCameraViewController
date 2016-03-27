@@ -277,16 +277,13 @@ public class CameraViewController: UIViewController {
             cameraButton.enabled = false
             closeButton.enabled = false
             swapButton.enabled = false
-            
             cameraView.capturePhoto { image in
-                
                 guard let image = image else {
                     self.cameraButton.enabled = true
                     self.closeButton.enabled = true
                     self.swapButton.enabled = true
                     return
                 }
-                
                 self.saveImage(image)
             }
         }
