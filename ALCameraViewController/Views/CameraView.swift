@@ -186,6 +186,24 @@ public class CameraView: UIView {
         
         return true
     }
+    
+    public func cycleFlash() {
+        guard let device = device where device.hasFlash else {
+            return
+        }
+        
+        do {
+            try device.lockForConfiguration()
+            if device.flashMode == .On {
+                device.flashMode = .Off
+            } else if device.flashMode == .Off {
+                device.flashMode = .Auto
+            } else {
+                device.flashMode = .On
+            }
+            device.unlockForConfiguration()
+        } catch _ { }
+    }
 
     public func swapCameraInput() {
         

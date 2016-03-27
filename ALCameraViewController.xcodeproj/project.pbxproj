@@ -10,7 +10,6 @@
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
 		C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
-		C41E42B51BEC6F680028B993 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E42B41BEC6F680028B993 /* ImageExtensions.swift */; };
 		C41E42B71BEC98520028B993 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41E42B61BEC98520028B993 /* ConfirmViewController.xib */; };
 		C44543211CA68DDE00644380 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44543201CA68DDE00644380 /* VolumeControl.swift */; };
 		C4D9BA451CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */; };
@@ -30,7 +29,7 @@
 		FAF058471B31618D008E5592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058461B31618D008E5592 /* ViewController.swift */; };
 		FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584B1B31618D008E5592 /* Images.xcassets */; };
 		FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */; };
-		FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* ALCameraViewController.swift */; };
+		FAF058661B316695008E5592 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* CameraViewController.swift */; };
 		FAF058681B3175C5008E5592 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* CameraView.swift */; };
 		FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058691B317894008E5592 /* CameraShot.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
 		C40665451C73A94100EB9751 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
 		C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
-		C41E42B41BEC6F680028B993 /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		C41E42B61BEC98520028B993 /* ConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
 		C44543201CA68DDE00644380 /* VolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeControl.swift; sourceTree = "<group>"; };
 		C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
@@ -73,7 +71,7 @@
 		FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALCameraViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF058591B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALCameraViewControllerTests.swift; sourceTree = "<group>"; };
-		FAF058651B316695008E5592 /* ALCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraViewController.swift; sourceTree = "<group>"; };
+		FAF058651B316695008E5592 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		FAF058671B3175C5008E5592 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		FAF058691B317894008E5592 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */,
-				FAF058651B316695008E5592 /* ALCameraViewController.swift */,
+				FAF058651B316695008E5592 /* CameraViewController.swift */,
 				FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */,
 				C41E42B61BEC98520028B993 /* ConfirmViewController.xib */,
 			);
@@ -126,7 +124,6 @@
 				C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */,
 				FA8231391B3C296C00A837BE /* Utilities.swift */,
 				FAF058691B317894008E5592 /* CameraShot.swift */,
-				C41E42B41BEC6F680028B993 /* ImageExtensions.swift */,
 				C40665451C73A94100EB9751 /* CameraGlobals.swift */,
 				C44543201CA68DDE00644380 /* VolumeControl.swift */,
 				C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */,
@@ -316,8 +313,7 @@
 				FA82313A1B3C296C00A837BE /* Utilities.swift in Sources */,
 				FAB50C001B413E8C009905B9 /* PhotoLibraryViewController.swift in Sources */,
 				FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */,
-				FAF058661B316695008E5592 /* ALCameraViewController.swift in Sources */,
-				C41E42B51BEC6F680028B993 /* ImageExtensions.swift in Sources */,
+				FAF058661B316695008E5592 /* CameraViewController.swift in Sources */,
 				C4D9BA451CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift in Sources */,
 				FAB50BFB1B413E8C009905B9 /* ImageCell.swift in Sources */,
 				C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */,

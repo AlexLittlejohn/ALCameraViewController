@@ -30,17 +30,10 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         self.allowsCropping = allowsCropping
         self.asset = asset
         super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
-        commonInit()
     }
     
     internal required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    func commonInit() {
-        if UIScreen.mainScreen().bounds.width <= 320 {
-            horizontalPadding = 15
-        }
     }
     
     internal override func prefersStatusBarHidden() -> Bool {
