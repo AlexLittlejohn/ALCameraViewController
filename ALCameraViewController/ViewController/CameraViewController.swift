@@ -154,7 +154,9 @@ public class CameraViewController: UIViewController {
     }
     
     override public func updateViewConstraints() {
+        print("updateViewConstraints")
         if !didUpdateViews {
+            print("updateViewConstraints update")
             configCameraViewConstraints()
             configCameraButtonConstraints()
             configSwapButtonConstraints()
@@ -299,6 +301,7 @@ public class CameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(cameraReady), name: AVCaptureSessionDidStartRunningNotification, object: nil)
 
         cameraButton.enabled = false
@@ -314,8 +317,13 @@ public class CameraViewController: UIViewController {
         flashButton.action = toggleFlash
         
         checkPermissions()
+        rotate()
         
         cameraView.configureFocus()
+    }
+    
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -334,6 +342,18 @@ public class CameraViewController: UIViewController {
         cameraButton.enabled = true
     }
 
+    internal func rotate() {
+        let rotation = currentRotation()
+        let rads = CGFloat(radians(rotation))
+        
+        UIView.animateWithDuration(0.3) {
+            self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
+            self.closeButton.transform = CGAffineTransformMakeRotation(rads)
+            self.swapButton.transform = CGAffineTransformMakeRotation(rads)
+            self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
+        }
+    }
+    
     private func checkPermissions() {
         if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) != .Authorized {
             AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
@@ -460,5 +480,6 @@ public class CameraViewController: UIViewController {
         cameraButton.enabled = true
         closeButton.enabled = true
         swapButton.enabled = true
+        libraryButton.enabled = true
     }
 }
