@@ -49,16 +49,16 @@ public class CameraViewController: UIViewController {
     var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
     
-    let cameraOverlay : CropOverlay = {
-        let cameraOverlay = CropOverlay()
-        cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
-        return cameraOverlay
-    }()
-    
     let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         return cameraView
+    }()
+    
+    let cameraOverlay : CropOverlay = {
+        let cameraOverlay = CropOverlay()
+        cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
+        return cameraOverlay
     }()
     
     let cameraButton : UIButton = {
@@ -119,6 +119,7 @@ public class CameraViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
+        cameraOverlay.hidden = !allowCropping
         libraryButton.enabled = allowsLibraryAccess
         libraryButton.hidden = !allowsLibraryAccess
     }
@@ -298,7 +299,6 @@ public class CameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(cameraReady), name: AVCaptureSessionDidStartRunningNotification, object: nil)
 
         cameraButton.enabled = false
@@ -314,13 +314,8 @@ public class CameraViewController: UIViewController {
         flashButton.action = toggleFlash
         
         checkPermissions()
-        rotate()
         
         cameraView.configureFocus()
-    }
-    
-    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Portrait
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -337,18 +332,6 @@ public class CameraViewController: UIViewController {
     
     internal func cameraReady() {
         cameraButton.enabled = true
-    }
-    
-    internal func rotate() {
-        let rotation = currentRotation()
-        let rads = CGFloat(radians(rotation))
-        
-        UIView.animateWithDuration(0.3) {
-            self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
-            self.closeButton.transform = CGAffineTransformMakeRotation(rads)
-            self.swapButton.transform = CGAffineTransformMakeRotation(rads)
-            self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
-        }
     }
 
     private func checkPermissions() {
@@ -389,11 +372,13 @@ public class CameraViewController: UIViewController {
             cameraButton.enabled = false
             closeButton.enabled = false
             swapButton.enabled = false
+            libraryButton.enabled = false
             cameraView.capturePhoto { image in
                 guard let image = image else {
                     self.cameraButton.enabled = true
                     self.closeButton.enabled = true
                     self.swapButton.enabled = true
+                    self.libraryButton.enabled = true
                     return
                 }
                 self.saveImage(image)
@@ -411,6 +396,7 @@ public class CameraViewController: UIViewController {
                 self.cameraButton.enabled = true
                 self.closeButton.enabled = true
                 self.swapButton.enabled = true
+                self.libraryButton.enabled = true
                 self.showNoPermissionsView(true)
             }
             .save()
