@@ -40,23 +40,21 @@ internal class CropOverlay: UIView {
     
     override func layoutSubviews() {
         
-        let size = bounds.size
-        
         for i in 0..<outerLines.count {
             let line = outerLines[i]
             var lineFrame: CGRect
             switch (i) {
             case 0:
-                lineFrame = CGRect(x: 0, y: 0, width: size.width, height: lineWidth)
+                lineFrame = CGRect(x: 0, y: 0, width: bounds.width, height: lineWidth)
                 break
             case 1:
-                lineFrame = CGRect(x: size.width - lineWidth, y: 0, width: lineWidth, height:  size.height)
+                lineFrame = CGRect(x: bounds.width - lineWidth, y: 0, width: lineWidth, height: bounds.height)
                 break
             case 2:
-                lineFrame = CGRect(x: 0, y: size.height - lineWidth, width: size.width, height:  lineWidth)
+                lineFrame = CGRect(x: 0, y: bounds.height - lineWidth, width: bounds.width, height: lineWidth)
                 break
             case 3:
-                lineFrame = CGRect(x: 0, y: 0, width: lineWidth, height: size.height)
+                lineFrame = CGRect(x: 0, y: 0, width: lineWidth, height: bounds.height)
                 break
             default:
                 lineFrame = CGRect.zero
@@ -78,16 +76,16 @@ internal class CropOverlay: UIView {
                 horizontalFrame = CGRect(x: -cornerDepth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
                 break
             case 1:
-                verticalFrame = CGRect(x: size.width, y:  -cornerDepth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: size.width + cornerDepth - cornerWidth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
+                verticalFrame = CGRect(x: bounds.width, y:  -cornerDepth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: bounds.width + cornerDepth - cornerWidth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
                 break
             case 2:
-                verticalFrame = CGRect(x: -cornerDepth, y:  size.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: -cornerDepth, y:  size.height, width:  cornerWidth, height:  cornerDepth)
+                verticalFrame = CGRect(x: -cornerDepth, y:  bounds.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: -cornerDepth, y:  bounds.height, width:  cornerWidth, height:  cornerDepth)
                 break
             case 3:
-                verticalFrame = CGRect(x: size.width, y:  size.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: size.width + cornerDepth - cornerWidth, y:  size.height, width:  cornerWidth, height:  cornerDepth)
+                verticalFrame = CGRect(x: bounds.width, y:  bounds.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
+                horizontalFrame = CGRect(x: bounds.width + cornerDepth - cornerWidth, y:  bounds.height, width:  cornerWidth, height:  cornerDepth)
                 break
             default:
                 verticalFrame = CGRectZero
@@ -100,7 +98,7 @@ internal class CropOverlay: UIView {
         }
         
         let lineThickness = lineWidth / UIScreen.mainScreen().scale
-        let padding = (size.height - (lineThickness * CGFloat(horizontalLines.count))) / CGFloat(horizontalLines.count + 1)
+        let padding = (bounds.height - (lineThickness * CGFloat(horizontalLines.count))) / CGFloat(horizontalLines.count + 1)
         
         for i in 0..<horizontalLines.count {
             let hLine = horizontalLines[i]
@@ -108,8 +106,8 @@ internal class CropOverlay: UIView {
             
             let spacing = (padding * CGFloat(i + 1)) + (lineThickness * CGFloat(i))
             
-            hLine.frame = CGRect(x: 0, y: spacing, width: size.width, height:  lineThickness)
-            vLine.frame = CGRect(x: spacing, y: 0, width: lineThickness, height: size.height)
+            hLine.frame = CGRect(x: 0, y: spacing, width: bounds.width, height:  lineThickness)
+            vLine.frame = CGRect(x: spacing, y: 0, width: lineThickness, height: bounds.height)
         }
         
     }
