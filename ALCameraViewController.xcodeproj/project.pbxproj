@@ -28,21 +28,10 @@
 		FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058441B31618D008E5592 /* AppDelegate.swift */; };
 		FAF058471B31618D008E5592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058461B31618D008E5592 /* ViewController.swift */; };
 		FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584B1B31618D008E5592 /* Images.xcassets */; };
-		FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */; };
 		FAF058661B316695008E5592 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* CameraViewController.swift */; };
 		FAF058681B3175C5008E5592 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* CameraView.swift */; };
 		FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058691B317894008E5592 /* CameraShot.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		FAF058551B31618D008E5592 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FAF058371B31618D008E5592 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FAF0583E1B31618D008E5592;
-			remoteInfo = ALCameraViewController;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
@@ -68,9 +57,6 @@
 		FAF058441B31618D008E5592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAF058461B31618D008E5592 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FAF0584B1B31618D008E5592 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALCameraViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAF058591B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALCameraViewControllerTests.swift; sourceTree = "<group>"; };
 		FAF058651B316695008E5592 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		FAF058671B3175C5008E5592 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		FAF058691B317894008E5592 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
@@ -78,13 +64,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		FAF0583C1B31618D008E5592 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FAF058511B31618D008E5592 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -137,7 +116,6 @@
 			children = (
 				FAF058641B316628008E5592 /* Example */,
 				FAF058411B31618D008E5592 /* ALCameraViewController */,
-				FAF058571B31618D008E5592 /* ALCameraViewControllerTests */,
 				FAF058401B31618D008E5592 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -146,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				FAF0583F1B31618D008E5592 /* ALCameraViewController.app */,
-				FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,23 +145,6 @@
 			children = (
 				FAF0584B1B31618D008E5592 /* Images.xcassets */,
 				FAF058431B31618D008E5592 /* Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		FAF058571B31618D008E5592 /* ALCameraViewControllerTests */ = {
-			isa = PBXGroup;
-			children = (
-				FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */,
-				FAF058581B31618D008E5592 /* Supporting Files */,
-			);
-			path = ALCameraViewControllerTests;
-			sourceTree = "<group>";
-		};
-		FAF058581B31618D008E5592 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FAF058591B31618D008E5592 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,24 +181,6 @@
 			productReference = FAF0583F1B31618D008E5592 /* ALCameraViewController.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FAF058531B31618D008E5592 /* ALCameraViewControllerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FAF058611B31618D008E5592 /* Build configuration list for PBXNativeTarget "ALCameraViewControllerTests" */;
-			buildPhases = (
-				FAF058501B31618D008E5592 /* Sources */,
-				FAF058511B31618D008E5592 /* Frameworks */,
-				FAF058521B31618D008E5592 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FAF058561B31618D008E5592 /* PBXTargetDependency */,
-			);
-			name = ALCameraViewControllerTests;
-			productName = ALCameraViewControllerTests;
-			productReference = FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,10 +194,6 @@
 				TargetAttributes = {
 					FAF0583E1B31618D008E5592 = {
 						CreatedOnToolsVersion = 6.3.2;
-					};
-					FAF058531B31618D008E5592 = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = FAF0583E1B31618D008E5592;
 					};
 				};
 			};
@@ -273,7 +211,6 @@
 			projectRoot = "";
 			targets = (
 				FAF0583E1B31618D008E5592 /* ALCameraViewController */,
-				FAF058531B31618D008E5592 /* ALCameraViewControllerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -289,13 +226,6 @@
 				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FAF058521B31618D008E5592 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,23 +257,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAF058501B31618D008E5592 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FAF058561B31618D008E5592 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FAF0583E1B31618D008E5592 /* ALCameraViewController */;
-			targetProxy = FAF058551B31618D008E5592 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FAF0585C1B31618D008E5592 /* Debug */ = {
@@ -456,42 +370,6 @@
 			};
 			name = Release;
 		};
-		FAF058621B31618D008E5592 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ALCameraViewControllerTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALCameraViewController.app/ALCameraViewController";
-			};
-			name = Debug;
-		};
-		FAF058631B31618D008E5592 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ALCameraViewControllerTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALCameraViewController.app/ALCameraViewController";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -509,15 +387,6 @@
 			buildConfigurations = (
 				FAF0585F1B31618D008E5592 /* Debug */,
 				FAF058601B31618D008E5592 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FAF058611B31618D008E5592 /* Build configuration list for PBXNativeTarget "ALCameraViewControllerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FAF058621B31618D008E5592 /* Debug */,
-				FAF058631B31618D008E5592 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
