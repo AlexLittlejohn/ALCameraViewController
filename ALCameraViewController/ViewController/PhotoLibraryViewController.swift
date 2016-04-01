@@ -61,12 +61,9 @@ public class PhotoLibraryViewController: UIViewController {
     }
     
     public func present(inViewController: UIViewController, animated: Bool) {
-        
         let navigationController = UINavigationController(rootViewController: self)
-        
         navigationController.navigationBar.barTintColor = UIColor.blackColor()
         navigationController.navigationBar.barStyle = UIBarStyle.Black
-        
         inViewController.presentViewController(navigationController, animated: animated, completion: nil)
     }
     

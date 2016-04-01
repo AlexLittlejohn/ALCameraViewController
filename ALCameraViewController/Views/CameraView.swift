@@ -11,11 +11,6 @@ import AVFoundation
 
 public class CameraView: UIView {
   
-    let errorWarning : UILabel = {
-        let view = UILabel()
-        return view
-    }()
-  
     var session: AVCaptureSession!
     var input: AVCaptureDeviceInput!
     var device: AVCaptureDevice?

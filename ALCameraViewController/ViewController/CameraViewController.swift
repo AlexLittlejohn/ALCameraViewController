@@ -1,3 +1,4 @@
+
 //
 //  ALCameraViewController.swift
 //  ALCameraViewController
@@ -12,14 +13,15 @@ import Photos
 
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
-public extension ALCameraViewController {
+public extension CameraViewController {
     public class func imagePickerViewController(croppingEnabled: Bool, completion: CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
-        
+      
         navigationController.navigationBar.barTintColor = UIColor.blackColor()
         navigationController.navigationBar.barStyle = UIBarStyle.Black
-        
+        navigationController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+      
         imagePicker.onSelectionComplete = { asset in
             if let asset = asset {
                 let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
@@ -41,11 +43,11 @@ public extension ALCameraViewController {
     }
 }
 
-public class ALCameraViewController: UIViewController {
-    
+public class CameraViewController: UIViewController {
+  
     var didUpdateViews = false
-    var onCompletion: CameraViewCompletion?
     var allowCropping = false
+    var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
     
     let cameraOverlay : CropOverlay = {
@@ -144,13 +146,7 @@ public class ALCameraViewController: UIViewController {
     public override func loadView() {
         super.loadView()
         self.view.backgroundColor = UIColor.blackColor()
-        self.view.addSubview(cameraView)
-        self.view.addSubview(cameraOverlay)
-        self.view.addSubview(cameraButton)
-        self.view.addSubview(libraryButton)
-        self.view.addSubview(closeButton)
-        self.view.addSubview(swapButton)
-        self.view.addSubview(flashButton)
+        [cameraView, cameraOverlay, cameraButton, libraryButton, closeButton, swapButton, flashButton].forEach({self.view.addSubview($0)})
         self.view.setNeedsUpdateConstraints()
     }
     
@@ -305,12 +301,20 @@ public class ALCameraViewController: UIViewController {
 
         cameraButton.enabled = false
         
-        volumeControl = VolumeControl(view: view) { _ in
-            self.capturePhoto()
+        volumeControl = VolumeControl(view: view) { [weak self] _ in
+            self?.capturePhoto()
         }
-        
+
+        cameraButton.action = capturePhoto
+        swapButton.action = swapCamera
+        libraryButton.action = showLibrary
+        closeButton.action = close
+        flashButton.action = toggleFlash
+
         checkPermissions()
         rotate()
+        
+        cameraView.configureFocus()
     }
     
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -321,19 +325,14 @@ public class ALCameraViewController: UIViewController {
         super.viewWillAppear(animated)
         cameraView.startSession()
     }
-    
-    public override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        layoutCamera()
-    }
-    
+  
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if cameraView.session?.running == true {
             cameraReady()
         }
     }
-    
+
     internal func cameraReady() {
         cameraButton.enabled = true
     }
@@ -341,6 +340,7 @@ public class ALCameraViewController: UIViewController {
     internal func rotate() {
         let rotation = currentRotation()
         let rads = CGFloat(radians(rotation))
+    
         UIView.animateWithDuration(0.3) {
             self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
             self.closeButton.transform = CGAffineTransformMakeRotation(rads)
@@ -383,7 +383,6 @@ public class ALCameraViewController: UIViewController {
     }
     
     private func startCamera() {
-        
         cameraButton.addTarget(self, action: #selector(ALCameraViewController.capturePhoto), forControlEvents: .TouchUpInside)
         swapButton.addTarget(self, action: #selector(ALCameraViewController.swapCamera), forControlEvents: .TouchUpInside)
         libraryButton.addTarget(self, action: #selector(ALCameraViewController.showLibrary), forControlEvents: .TouchUpInside)
@@ -400,9 +399,8 @@ public class ALCameraViewController: UIViewController {
             cameraView.configureFocus()
         }
     }
-    
+  
     internal func capturePhoto() {
-        
         guard let output = cameraView.imageOutput, connection = output.connectionWithMediaType(AVMediaTypeVideo) else {
             return
         }
@@ -411,23 +409,19 @@ public class ALCameraViewController: UIViewController {
             cameraButton.enabled = false
             closeButton.enabled = false
             swapButton.enabled = false
-            
             cameraView.capturePhoto { image in
-                
                 guard let image = image else {
                     self.cameraButton.enabled = true
                     self.closeButton.enabled = true
                     self.swapButton.enabled = true
                     return
                 }
-                
                 self.saveImage(image)
             }
         }
     }
     
     internal func saveImage(image: UIImage) {
-        
         SingleImageSaver()
             .setImage(image)
             .onSuccess { asset in
@@ -447,7 +441,7 @@ public class ALCameraViewController: UIViewController {
     }
     
     internal func showLibrary() {
-        let imagePicker = ALCameraViewController.imagePickerViewController(allowCropping) { image, asset in
+        let imagePicker = CameraViewController.imagePickerViewController(allowCropping) { image, asset in
             self.dismissViewControllerAnimated(true, completion: nil)
             
             guard let image = image, asset = asset else {
@@ -457,45 +451,23 @@ public class ALCameraViewController: UIViewController {
             self.onCompletion?(image, asset)
         }
         
-        imagePicker.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-
         presentViewController(imagePicker, animated: true) {
             self.cameraView.stopSession()
         }
     }
     
     internal func toggleFlash() {
-        if let device = cameraView.device where device.hasFlash {
-            do {
-                try device.lockForConfiguration()
-                if device.flashMode == .On {
-                    device.flashMode = .Off
-                    toggleFlashButton(.Off)
-                } else if device.flashMode == .Off {
-                    device.flashMode = .Auto
-                    toggleFlashButton(.Auto)
-                } else {
-                    device.flashMode = .On
-                    toggleFlashButton(.On)
-                }
-                device.unlockForConfiguration()
-            } catch _ { }
-        }
-    }
-    
-    internal func toggleFlashButton(mode: AVCaptureFlashMode) {
+        cameraView.cycleFlash()
         
-        let image: String
-        switch mode {
-        case .Auto:
-            image = "flashAutoIcon"
-        case .On:
-            image = "flashOnIcon"
-        case .Off:
-            image = "flashOffIcon"
+        guard let device = cameraView.device else {
+            return
         }
         
-        flashButton.setImage(UIImage(named: image, inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
+        let mode = device.flashMode
+        let imageName = flashImage(mode)
+        let image = UIImage(named: imageName, inBundle: NSBundle(forClass: CameraViewController.self), compatibleWithTraitCollection: nil)
+        
+        flashButton.setImage(image, forState: .Normal)
     }
     
     internal func swapCamera() {

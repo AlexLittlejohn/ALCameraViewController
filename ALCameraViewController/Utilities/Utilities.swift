@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 internal func radians(degrees: Double) -> Double {
     return degrees / 180 * M_PI
@@ -65,5 +66,17 @@ internal func normalizedRect(rect: CGRect, orientation: UIImageOrientation) -> C
     }
     
     return normalizedRect
-    
+}
+
+internal func flashImage(mode: AVCaptureFlashMode) -> String {
+    let image: String
+    switch mode {
+    case .Auto:
+        image = "flashAutoIcon"
+    case .On:
+        image = "flashOnIcon"
+    case .Off:
+        image = "flashOffIcon"
+    }
+    return image
 }

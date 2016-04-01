@@ -20,8 +20,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openCamera(sender: AnyObject) {
-        
-        let cameraViewController = ALCameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled) { image, asset in
+        let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled) { image, asset in
             self.imageView.image = image
             self.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -30,22 +29,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openLibrary(sender: AnyObject) {
-        let libraryViewController = ALCameraViewController.imagePickerViewController(croppingEnabled) { image, asset in
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled) { image, asset in
             self.imageView.image = image
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
         presentViewController(libraryViewController, animated: true, completion: nil)
-    }
-    
-    @IBAction func openCropper(sender: AnyObject) {
-//        let image = UIImage(named: "image.jpg")!
-//        let croppingViewController = ALCameraViewController.croppingViewController(image, croppingEnabled: true) { image in
-//            self.imageView.image = image
-//            self.dismissViewControllerAnimated(true, completion: nil)
-//        }
-//        
-//        presentViewController(croppingViewController, animated: true, completion: nil)
     }
     
     @IBAction func libraryChanged(sender: AnyObject) {
