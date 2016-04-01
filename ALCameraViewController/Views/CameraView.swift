@@ -10,10 +10,15 @@ import UIKit
 import AVFoundation
 
 public class CameraView: UIView {
-    
+  
+    let errorWarning : UILabel = {
+        let view = UILabel()
+        return view
+    }()
+  
     var session: AVCaptureSession!
     var input: AVCaptureDeviceInput!
-    var device: AVCaptureDevice!
+    var device: AVCaptureDevice?
     var imageOutput: AVCaptureStillImageOutput!
     var preview: AVCaptureVideoPreviewLayer!
     
@@ -42,7 +47,7 @@ public class CameraView: UIView {
             self.device = nil
         }
     }
-    
+  
     public override func layoutSubviews() {
         super.layoutSubviews()
         preview?.frame = bounds
@@ -114,11 +119,11 @@ public class CameraView: UIView {
     
     private func createPreview() {
         device = cameraWithPosition(currentPosition)
-        if device.hasFlash {
+        if device != nil && device!.hasFlash {
             do {
-                try device.lockForConfiguration()
-                device.flashMode = .Auto
-                device.unlockForConfiguration()
+                try device!.lockForConfiguration()
+                device!.flashMode = .Auto
+                device!.unlockForConfiguration()
             } catch _ {}
         }
         

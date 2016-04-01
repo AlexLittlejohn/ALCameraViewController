@@ -43,14 +43,55 @@ public extension ALCameraViewController {
 
 public class ALCameraViewController: UIViewController {
     
-    let cameraView = CameraView()
-    let cameraOverlay = CropOverlay()
-    let cameraButton = UIButton()
+    var didUpdateViews = false
     
-    let closeButton = UIButton()
-    let swapButton = UIButton()
-    let libraryButton = UIButton()
-    let flashButton = UIButton()
+    let cameraOverlay : CropOverlay = {
+        let cameraOverlay = CropOverlay()
+        cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
+        return cameraOverlay
+    }()
+    
+    let cameraView : CameraView = {
+        let cameraView = CameraView()
+        cameraView.translatesAutoresizingMaskIntoConstraints = false
+        return cameraView
+    }()
+    
+    let cameraButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "cameraButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        button.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Highlighted)
+        return button
+    }()
+    
+    let closeButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "closeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        return button
+    }()
+    
+    let swapButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "swapButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        return button
+    }()
+    
+    let libraryButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "libraryButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        return button
+    }()
+    
+    let flashButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "flashAutoIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        return button
+    }()
     
     var onCompletion: CameraViewCompletion?
     var allowCropping = false
@@ -91,15 +132,169 @@ public class ALCameraViewController: UIViewController {
     public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
+  
+
+    public override func loadView() {
+        super.loadView()
+        self.view.backgroundColor = UIColor.blackColor()
+        self.view.addSubview(cameraView)
+        self.view.addSubview(cameraOverlay)
+        self.view.addSubview(cameraButton)
+        self.view.addSubview(libraryButton)
+        self.view.addSubview(closeButton)
+        self.view.addSubview(swapButton)
+        self.view.addSubview(flashButton)
+        self.view.setNeedsUpdateConstraints()
+    }
+    
+    override public func updateViewConstraints() {
+        if !didUpdateViews {
+            configCameraViewConstraints()
+            configCameraButtonConstraint()
+            configSwapButtonConstraint()
+            configCloseButtonConstraint()
+            configLibraryButtonConstraint()
+            configFlashButtonConstraint()
+            configCameraOverlayConstraint()
+            didUpdateViews = true
+        }
+        super.updateViewConstraints()
+    }
+    
+    func configCameraViewConstraints() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraView,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraView,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraView,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraView,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0, constant: 0))
+    }
+    
+    func configCameraButtonConstraint() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraButton,
+            attribute: NSLayoutAttribute.CenterX,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.CenterX,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraButton,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0, constant: -8))
+    }
+    
+    func configSwapButtonConstraint() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.swapButton,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.cameraButton,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: 8))
+        self.view.addConstraint(NSLayoutConstraint(item: self.swapButton,
+            attribute: NSLayoutAttribute.CenterY,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.cameraButton,
+            attribute: NSLayoutAttribute.CenterY,
+            multiplier: 1.0, constant: 0))
+    }
+    
+    func configCloseButtonConstraint() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.closeButton,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0, constant: 8))
+        self.view.addConstraint(NSLayoutConstraint(item: self.closeButton,
+            attribute: NSLayoutAttribute.CenterY,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.cameraButton,
+            attribute: NSLayoutAttribute.CenterY,
+            multiplier: 1.0, constant: 0))
+    }
+    
+    func configLibraryButtonConstraint() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.libraryButton,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.swapButton,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: 8))
+        self.view.addConstraint(NSLayoutConstraint(item: self.libraryButton,
+            attribute: NSLayoutAttribute.CenterY,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.cameraButton,
+            attribute: NSLayoutAttribute.CenterY,
+            multiplier: 1.0, constant: 0))
+    }
+    
+    func configFlashButtonConstraint() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.flashButton,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0, constant: 8))
+        self.view.addConstraint(NSLayoutConstraint(item: self.flashButton,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: -8))
+    }
+    
+    func configCameraOverlayConstraint() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraOverlay,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0, constant: 15))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraOverlay,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: -15))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraOverlay,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.cameraOverlay,
+            attribute: NSLayoutAttribute.Width,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.cameraOverlay,
+            attribute: NSLayoutAttribute.CenterY,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.CenterY,
+            multiplier: 1.0, constant: 0))
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(cameraReady), name: AVCaptureSessionDidStartRunningNotification, object: nil)
-        
-        view.backgroundColor = UIColor.blackColor()
-        view.addSubview(cameraView)
 
         cameraButton.enabled = false
         
@@ -122,7 +317,6 @@ public class ALCameraViewController: UIViewController {
     
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        cameraView.frame = view.bounds
         layoutCamera()
     }
     
@@ -140,7 +334,6 @@ public class ALCameraViewController: UIViewController {
     internal func rotate() {
         let rotation = currentRotation()
         let rads = CGFloat(radians(rotation))
-        
         UIView.animateWithDuration(0.3) {
             self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
             self.closeButton.transform = CGAffineTransformMakeRotation(rads)
@@ -190,11 +383,6 @@ public class ALCameraViewController: UIViewController {
     }
     
     private func startCamera() {
-        view.addSubview(cameraButton)
-        view.addSubview(libraryButton)
-        view.addSubview(closeButton)
-        view.addSubview(swapButton)
-        view.addSubview(flashButton)
         
         cameraButton.addTarget(self, action: #selector(ALCameraViewController.capturePhoto), forControlEvents: .TouchUpInside)
         swapButton.addTarget(self, action: #selector(ALCameraViewController.swapCamera), forControlEvents: .TouchUpInside)
@@ -205,80 +393,12 @@ public class ALCameraViewController: UIViewController {
     }
     
     private func layoutCamera() {
-        cameraButton.setImage(UIImage(named: "cameraButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        cameraButton.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Highlighted)
-        closeButton.setImage(UIImage(named: "closeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        swapButton.setImage(UIImage(named: "swapButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        libraryButton.setImage(UIImage(named: "libraryButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        flashButton.setImage(UIImage(named: "flashAutoIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        
-        cameraButton.sizeToFit()
-        closeButton.sizeToFit()
-        swapButton.sizeToFit()
-        libraryButton.sizeToFit()
-        flashButton.sizeToFit()
-        
         if allowCropping {
-            layoutCropView()
+            cameraOverlay.hidden = false
         } else {
+            cameraOverlay.hidden = true
             cameraView.configureFocus()
         }
-        
-        let size = view.frame.size
-        let cameraSize = cameraButton.frame.size
-        let cameraX = size.width/2 - cameraSize.width/2
-        let cameraY = size.height - (cameraSize.height + verticalPadding)
-        
-        cameraButton.frame.origin = CGPoint(x: cameraX, y: cameraY)
-        cameraButton.alpha = 1
-        
-        let closeSize = closeButton.frame.size
-        let closeX = horizontalPadding
-        let closeY = cameraY + (cameraSize.height - closeSize.height)/2
-        
-        closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
-        closeButton.alpha = 1
-        
-        let librarySize = libraryButton.frame.size
-        let libraryX = size.width - (librarySize.width + horizontalPadding)
-        let libraryY = closeY
-        
-        libraryButton.frame.origin = CGPoint(x: libraryX, y: libraryY)
-        libraryButton.alpha = 1
-        
-        let swapSize = swapButton.frame.size
-        let swapSpace = libraryX - (cameraX + cameraSize.width)
-        var swapX = (cameraX + cameraSize.width) + (swapSpace/2 - swapSize.width/2)
-        let swapY = closeY
-        
-        if libraryButton.hidden {
-            swapX = libraryX
-        }
-        
-        swapButton.frame.origin = CGPoint(x: swapX, y: swapY)
-        swapButton.alpha = 1
-        
-        let flashX = libraryX
-        let flashY = verticalPadding
-        
-        flashButton.frame.origin = CGPoint(x: flashX, y: flashY)
-    }
-    
-    private func layoutCropView() {
-        
-        let size = view.frame.size
-        let minDimension = min(size.width, size.height)
-        let maxDimension = max(size.width, size.height)
-        let width = minDimension - horizontalPadding
-        let height = width
-        let x = horizontalPadding/2
-        
-        let cameraButtonY = maxDimension - (verticalPadding + 80)
-        let y = cameraButtonY/2 - height/2
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        view.addSubview(cameraOverlay)
-        cameraOverlay.frame = frame
     }
     
     internal func capturePhoto() {
