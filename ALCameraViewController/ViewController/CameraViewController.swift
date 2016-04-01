@@ -345,12 +345,13 @@ public class CameraViewController: UIViewController {
     internal func rotate() {
         let rotation = currentRotation()
         let rads = CGFloat(radians(rotation))
-        
+        let transform = CGAffineTransformMakeRotation(rads)
         UIView.animateWithDuration(0.3) {
-            self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
-            self.closeButton.transform = CGAffineTransformMakeRotation(rads)
-            self.swapButton.transform = CGAffineTransformMakeRotation(rads)
-            self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
+            self.cameraButton.transform = transform
+            self.closeButton.transform = transform
+            self.swapButton.transform = transform
+            self.libraryButton.transform = transform
+            self.flashButton.transform = transform
         }
     }
     
