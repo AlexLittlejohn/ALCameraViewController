@@ -155,12 +155,12 @@ public class CameraViewController: UIViewController {
     override public func updateViewConstraints() {
         if !didUpdateViews {
             configCameraViewConstraints()
-            configCameraButtonConstraint()
-            configSwapButtonConstraint()
-            configCloseButtonConstraint()
-            configLibraryButtonConstraint()
-            configFlashButtonConstraint()
-            configCameraOverlayConstraint()
+            configCameraButtonConstraints()
+            configSwapButtonConstraints()
+            configCloseButtonConstraints()
+            configLibraryButtonConstraints()
+            configFlashButtonConstraints()
+            configCameraOverlayConstraints()
             didUpdateViews = true
         }
         super.updateViewConstraints()
@@ -193,7 +193,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configCameraButtonConstraint() {
+    func configCameraButtonConstraints() {
         self.view.addConstraint(NSLayoutConstraint(item: self.cameraButton,
             attribute: NSLayoutAttribute.CenterX,
             relatedBy: NSLayoutRelation.Equal,
@@ -208,7 +208,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: -8))
     }
     
-    func configSwapButtonConstraint() {
+    func configSwapButtonConstraints() {
         self.view.addConstraint(NSLayoutConstraint(item: self.swapButton,
             attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
@@ -223,7 +223,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configCloseButtonConstraint() {
+    func configCloseButtonConstraints() {
         self.view.addConstraint(NSLayoutConstraint(item: self.closeButton,
             attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
@@ -238,7 +238,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configLibraryButtonConstraint() {
+    func configLibraryButtonConstraints() {
         self.view.addConstraint(NSLayoutConstraint(item: self.libraryButton,
             attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
@@ -253,7 +253,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configFlashButtonConstraint() {
+    func configFlashButtonConstraints() {
         self.view.addConstraint(NSLayoutConstraint(item: self.flashButton,
             attribute: NSLayoutAttribute.Top,
             relatedBy: NSLayoutRelation.Equal,
@@ -268,7 +268,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: -8))
     }
     
-    func configCameraOverlayConstraint() {
+    func configCameraOverlayConstraints() {
         self.view.addConstraint(NSLayoutConstraint(item: self.cameraOverlay,
             attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
