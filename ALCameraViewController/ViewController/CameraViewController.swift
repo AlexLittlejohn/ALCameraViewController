@@ -100,8 +100,8 @@ public class CameraViewController: UIViewController {
 
         cameraButton.enabled = false
         
-        volumeControl = VolumeControl(view: view) { _ in
-            self.capturePhoto()
+        volumeControl = VolumeControl(view: view) { [weak self] _ in
+            self?.capturePhoto()
         }
         
         view.addSubview(cameraButton)
