@@ -56,7 +56,7 @@ public class CameraView: UIView {
             }
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CameraView.focus(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(focus(_:)))
         addGestureRecognizer(tapGesture)
         userInteractionEnabled = true
         addSubview(focusView)
@@ -106,7 +106,7 @@ public class CameraView: UIView {
     
     private func createSession() {
         session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSessionPresetHigh
+        session.sessionPreset = AVCaptureSessionPresetPhoto
         dispatch_async(dispatch_get_main_queue()) {
             self.createPreview()
         }
@@ -156,10 +156,21 @@ public class CameraView: UIView {
     }
     
     public func capturePhoto(completion: CameraShotCompletion) {
+        userInteractionEnabled = false
         dispatch_async(cameraQueue) {
+            
+            var i = 0
+            
+            if let device = self.device {
+                while device.adjustingWhiteBalance || device.adjustingExposure || device.adjustingFocus {
+                    i += 1 // this is strange but we have to do something while we wait
+                }
+            }
+            
             let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
             takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.userInteractionEnabled = true
                     completion(image)
                 }
             }
