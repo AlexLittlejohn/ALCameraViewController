@@ -44,6 +44,9 @@ public extension ALCameraViewController {
 public class ALCameraViewController: UIViewController {
     
     var didUpdateViews = false
+    var onCompletion: CameraViewCompletion?
+    var allowCropping = false
+    var volumeControl: VolumeControl?
     
     let cameraOverlay : CropOverlay = {
         let cameraOverlay = CropOverlay()
@@ -60,65 +63,69 @@ public class ALCameraViewController: UIViewController {
     let cameraButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "cameraButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
-        button.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Highlighted)
+        button.setImage(UIImage(named: "cameraButton",
+            inBundle: CameraGlobals.shared.bundle,
+            compatibleWithTraitCollection: nil),
+                        forState: .Normal)
+        button.setImage(UIImage(named: "cameraButtonHighlighted",
+            inBundle: CameraGlobals.shared.bundle,
+            compatibleWithTraitCollection: nil),
+                        forState: .Highlighted)
         return button
     }()
     
     let closeButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "closeButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        button.setImage(UIImage(named: "closeButton",
+            inBundle: CameraGlobals.shared.bundle,
+            compatibleWithTraitCollection: nil),
+                        forState: .Normal)
         return button
     }()
     
     let swapButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "swapButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        button.setImage(UIImage(named: "swapButton",
+            inBundle: CameraGlobals.shared.bundle,
+            compatibleWithTraitCollection: nil),
+                        forState: .Normal)
         return button
     }()
     
     let libraryButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "libraryButton", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        button.setImage(UIImage(named: "libraryButton",
+            inBundle: CameraGlobals.shared.bundle,
+            compatibleWithTraitCollection: nil),
+                        forState: .Normal)
         return button
     }()
     
     let flashButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "flashAutoIcon", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil), forState: .Normal)
+        button.setImage(UIImage(named: "flashAutoIcon",
+            inBundle: CameraGlobals.shared.bundle,
+            compatibleWithTraitCollection: nil),
+                        forState: .Normal)
         return button
     }()
     
-    var onCompletion: CameraViewCompletion?
-    var allowCropping = false
-    
-    var verticalPadding: CGFloat = 30
-    var horizontalPadding: CGFloat = 30
-    
-    var volumeControl: VolumeControl?
-    
-    
-    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: CameraViewCompletion) {
+    public init(croppingEnabled: Bool,
+                allowsLibraryAccess: Bool = true,
+                completion: CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
         libraryButton.enabled = allowsLibraryAccess
         libraryButton.hidden = !allowsLibraryAccess
-        commonInit()
     }
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        commonInit()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {
@@ -339,13 +346,6 @@ public class ALCameraViewController: UIViewController {
             self.closeButton.transform = CGAffineTransformMakeRotation(rads)
             self.swapButton.transform = CGAffineTransformMakeRotation(rads)
             self.libraryButton.transform = CGAffineTransformMakeRotation(rads)
-        }
-    }
-
-    private func commonInit() {
-        if UIScreen.mainScreen().bounds.size.width <= 320 {
-            verticalPadding = 15
-            horizontalPadding = 15
         }
     }
 
