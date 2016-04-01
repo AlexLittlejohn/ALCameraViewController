@@ -17,6 +17,9 @@ public typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
 
 public class PhotoLibraryViewController: UIViewController {
     
+    private var didUpdateViews = false
+    private var assets: PHFetchResult? = nil
+    
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
     private lazy var collectionView: UICollectionView = {
@@ -26,20 +29,59 @@ public class PhotoLibraryViewController: UIViewController {
         layout.minimumInteritemSpacing = defaultItemSpacing
         layout.minimumLineSpacing = defaultItemSpacing
         layout.sectionInset = UIEdgeInsetsZero
-        
-        return UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+      
+        let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = UIColor.clearColor()
+        return collectionView
     }()
+
+    public override func loadView() {
+        super.loadView()
+        self.view.backgroundColor = UIColor(white: 0.2, alpha: 1)
+        [collectionView].forEach({ self.view.addSubview($0) })
+        self.view.setNeedsUpdateConstraints()
+    }
     
-    private var assets: PHFetchResult!
+    override public func updateViewConstraints() {
+        if !didUpdateViews {
+            configCollectionViewConstraints()
+            didUpdateViews = true
+        }
+        super.updateViewConstraints()
+    }
+    
+    func configCollectionViewConstraints() {
+        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.view,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0, constant: 0))
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         setNeedsStatusBarAppearanceUpdate()
-        view.backgroundColor = UIColor(white: 0.2, alpha: 1)
-        view.addSubview(collectionView)
-
-        collectionView.backgroundColor = UIColor.clearColor()
         
         let buttonImage = UIImage(named: "libraryCancel", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
@@ -53,11 +95,6 @@ public class PhotoLibraryViewController: UIViewController {
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
-    }
-    
-    public override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView.frame = view.frame
     }
     
     public func present(inViewController: UIViewController, animated: Bool) {
@@ -90,32 +127,33 @@ public class PhotoLibraryViewController: UIViewController {
         collectionView.dataSource = self
     }
     
-    private func itemAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
-        return assets[indexPath.row] as! PHAsset
+    private func itemAtIndexPath(indexPath: NSIndexPath) -> PHAsset? {
+        return assets?[indexPath.row] as? PHAsset
     }
 }
 
 // MARK: - UICollectionViewDataSource -
 extension PhotoLibraryViewController : UICollectionViewDataSource {
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return assets.count
+        return assets?.count ?? 0
+    }
+    
+    public func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if cell is ImageCell {
+            if let model = itemAtIndexPath(indexPath) {
+                (cell as! ImageCell).configureWithModel(model)
+            }
+        }
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let model = itemAtIndexPath(indexPath)
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath) as! ImageCell
-        
-        cell.configureWithModel(model)
-        
-        return cell
+        return collectionView.dequeueReusableCellWithReuseIdentifier(ImageCellIdentifier, forIndexPath: indexPath)
     }
 }
 
 // MARK: - UICollectionViewDelegate -
 extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let asset = itemAtIndexPath(indexPath)
-        onSelectionComplete?(asset: asset)
+        onSelectionComplete?(asset: itemAtIndexPath(indexPath))
     }
 }

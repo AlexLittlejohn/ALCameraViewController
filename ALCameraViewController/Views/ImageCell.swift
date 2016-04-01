@@ -11,48 +11,72 @@ import Photos
 
 class ImageCell: UICollectionViewCell {
     
-    let imageView = UIImageView()
+    var didUpdateConstraints = false
+    
+    let imageView : UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .ScaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.image = UIImage(named: "ALPlaceholder",
+                                  inBundle: CameraGlobals.shared.bundle,
+                                  compatibleWithTraitCollection: nil)
+        return imageView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
+        self.contentView.addSubview(imageView)
+        self.contentView.setNeedsUpdateConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        commonInit()
     }
     
-    func commonInit() {
-        contentView.addSubview(imageView)
-        
-        imageView.contentMode = .ScaleAspectFill
-        imageView.layer.masksToBounds = true
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        imageView.frame = bounds
+    override func updateConstraints() {
+        if !didUpdateConstraints {
+            didUpdateConstraints = true
+            configCameraViewConstraints()
+        }
+        super.updateConstraints()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = UIImage(named: "ALPlaceholder", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)
+    func configCameraViewConstraints() {
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.contentView,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0, constant: 0))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.contentView,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0, constant: 0))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.contentView,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0, constant: 0))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.contentView,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0, constant: 0))
     }
     
     func configureWithModel(model: PHAsset) {
-        
-        imageView.image = UIImage(named: "ALPlaceholder", inBundle: CameraGlobals.shared.bundle, compatibleWithTraitCollection: nil)
         
         if tag != 0 {
             PHImageManager.defaultManager().cancelImageRequest(PHImageRequestID(tag))
         }
         
-        var thumbnailSize = CameraGlobals.shared.photoLibraryThumbnailSize
-        thumbnailSize.width *= scale
-        thumbnailSize.height *= scale
-        
-        tag = Int(PHImageManager.defaultManager().requestImageForAsset(model, targetSize: thumbnailSize, contentMode: .AspectFill, options: nil) { image, info in
+        tag = Int(PHImageManager.defaultManager().requestImageForAsset(model, targetSize:
+        self.contentView.bounds.size, contentMode: .AspectFill, options: nil) { image, info in
             self.imageView.image = image
         })
     }
