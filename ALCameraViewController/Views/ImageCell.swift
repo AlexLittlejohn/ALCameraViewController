@@ -11,14 +11,11 @@ import Photos
 
 class ImageCell: UICollectionViewCell {
     
-    var didUpdateConstraints = false
-    
     let imageView : UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "ALPlaceholder",
+        imageView.image = UIImage(named: "placeholder",
                                   inBundle: CameraGlobals.shared.bundle,
                                   compatibleWithTraitCollection: nil)
         return imageView
@@ -26,47 +23,23 @@ class ImageCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.addSubview(imageView)
-        self.contentView.setNeedsUpdateConstraints()
+        contentView.addSubview(imageView)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func updateConstraints() {
-        if !didUpdateConstraints {
-            didUpdateConstraints = true
-            configCameraViewConstraints()
-        }
-        super.updateConstraints()
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.frame = bounds
     }
     
-    func configCameraViewConstraints() {
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
-            attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.contentView,
-            attribute: NSLayoutAttribute.Left,
-            multiplier: 1.0, constant: 0))
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
-            attribute: NSLayoutAttribute.Right,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.contentView,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0, constant: 0))
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.contentView,
-            attribute: NSLayoutAttribute.Top,
-            multiplier: 1.0, constant: 0))
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.imageView,
-            attribute: NSLayoutAttribute.Bottom,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.contentView,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0, constant: 0))
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = UIImage(named: "placeholder",
+                                  inBundle: CameraGlobals.shared.bundle,
+                                  compatibleWithTraitCollection: nil)
     }
     
     func configureWithModel(model: PHAsset) {
@@ -75,8 +48,7 @@ class ImageCell: UICollectionViewCell {
             PHImageManager.defaultManager().cancelImageRequest(PHImageRequestID(tag))
         }
         
-        tag = Int(PHImageManager.defaultManager().requestImageForAsset(model, targetSize:
-        self.contentView.bounds.size, contentMode: .AspectFill, options: nil) { image, info in
+        tag = Int(PHImageManager.defaultManager().requestImageForAsset(model, targetSize: contentView.bounds.size, contentMode: .AspectFill, options: nil) { image, info in
             self.imageView.image = image
         })
     }
