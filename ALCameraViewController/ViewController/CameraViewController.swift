@@ -49,6 +49,11 @@ public class CameraViewController: UIViewController {
     var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
     
+    var cameraButtonEdgeConstraint : NSLayoutConstraint?
+    var cameraButtonGravityConstraint : NSLayoutConstraint?
+    
+    var closeButton
+    
     let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
@@ -156,14 +161,17 @@ public class CameraViewController: UIViewController {
     override public func updateViewConstraints() {
         if !didUpdateViews {
             configCameraViewConstraints()
-            configCameraButtonConstraints()
+            
             configSwapButtonConstraints()
-            configCloseButtonConstraints()
+            
             configLibraryButtonConstraints()
             configFlashButtonConstraints()
             configCameraOverlayConstraints()
             didUpdateViews = true
         }
+        let portrait = UIDevice.currentDevice().orientation.isPortrait
+        configCameraButtonConstraints(portrait)
+        configCloseButtonConstraints(portrait)
         super.updateViewConstraints()
     }
     
@@ -194,19 +202,52 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configCameraButtonConstraints() {
-        view.addConstraint(NSLayoutConstraint(item: cameraButton,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.CenterX,
-            multiplier: 1.0, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: cameraButton,
-            attribute: NSLayoutAttribute.Bottom,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0, constant: -8))
+    func configCameraButtonConstraints(portrait: Bool) {
+        
+        view.autoRemoveConstraint(cameraButtonEdgeConstraint)
+        cameraButtonEdgeConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: cameraButton,
+                attribute: NSLayoutAttribute.Bottom,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.Bottom,
+                multiplier: 1.0,
+                constant:-8) :
+            
+            NSLayoutConstraint(
+                item: cameraButton,
+                attribute: NSLayoutAttribute.Right,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.Right,
+                multiplier: 1.0,
+                constant:-8)
+            
+        view.addConstraint(cameraButtonEdgeConstraint!)
+        
+        view.autoRemoveConstraint(cameraButtonGravityConstraint)
+        cameraButtonGravityConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: cameraButton,
+                attribute: NSLayoutAttribute.CenterX,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.CenterX,
+                multiplier: 1.0, constant: 0) :
+            
+            NSLayoutConstraint(
+                item: cameraButton,
+                attribute: NSLayoutAttribute.CenterY,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.CenterY,
+                multiplier: 1.0, constant: 0)
+            
+        view.addConstraint(cameraButtonGravityConstraint!)
+
     }
     
     func configSwapButtonConstraints() {
@@ -224,7 +265,7 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configCloseButtonConstraints() {
+    func configCloseButtonConstraints(portrait: Bool) {
         view.addConstraint(NSLayoutConstraint(item: closeButton,
             attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
@@ -299,7 +340,6 @@ public class CameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(cameraReady), name: AVCaptureSessionDidStartRunningNotification, object: nil)
 
         cameraButton.enabled = false
@@ -315,15 +355,10 @@ public class CameraViewController: UIViewController {
         flashButton.action = toggleFlash
         
         checkPermissions()
-        rotate()
         
         cameraView.configureFocus()
     }
-    
-    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Portrait
-    }
-    
+
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         cameraView.startSession()
@@ -338,19 +373,6 @@ public class CameraViewController: UIViewController {
     
     internal func cameraReady() {
         cameraButton.enabled = true
-    }
-
-    internal func rotate() {
-        let rotation = currentRotation()
-        let rads = CGFloat(radians(rotation))
-        let transform = CGAffineTransformMakeRotation(rads)
-        UIView.animateWithDuration(0.3) {
-            self.cameraButton.transform = transform
-            self.closeButton.transform = transform
-            self.swapButton.transform = transform
-            self.libraryButton.transform = transform
-            self.flashButton.transform = transform
-        }
     }
     
     private func checkPermissions() {
