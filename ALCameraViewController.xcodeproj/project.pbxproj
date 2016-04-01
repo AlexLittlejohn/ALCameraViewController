@@ -12,11 +12,31 @@
 		C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
 		C41E42B71BEC98520028B993 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41E42B61BEC98520028B993 /* ConfirmViewController.xib */; };
 		C44543211CA68DDE00644380 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44543201CA68DDE00644380 /* VolumeControl.swift */; };
+		C4829FFE1CAEB16C00541D08 /* CameraViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C4829FFD1CAEB16C00541D08 /* CameraViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C482A0031CAEB18D00541D08 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF01B413E8C009905B9 /* ImageFetcher.swift */; };
+		C482A0041CAEB18D00541D08 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
+		C482A0051CAEB18D00541D08 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
+		C482A0061CAEB18D00541D08 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8231391B3C296C00A837BE /* Utilities.swift */; };
+		C482A0071CAEB18D00541D08 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058691B317894008E5592 /* CameraShot.swift */; };
+		C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
+		C482A0091CAEB18D00541D08 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44543201CA68DDE00644380 /* VolumeControl.swift */; };
+		C482A00A1CAEB18D00541D08 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */; };
+		C482A00B1CAEB18D00541D08 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */; };
+		C482A00C1CAEB18D00541D08 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */; };
+		C482A00D1CAEB18D00541D08 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* CameraViewController.swift */; };
+		C482A00E1CAEB18D00541D08 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */; };
+		C482A00F1CAEB18D00541D08 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BEE1B413E8C009905B9 /* ImageCell.swift */; };
+		C482A0101CAEB18D00541D08 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
+		C482A0111CAEB18D00541D08 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* CameraView.swift */; };
+		C482A0121CAEB18D00541D08 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* CropOverlay.swift */; };
+		C482A0131CAEB1B100541D08 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41E42B61BEC98520028B993 /* ConfirmViewController.xib */; };
+		C482A0141CAEB1B100541D08 /* CameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8231371B3BF8F700A837BE /* CameraView.strings */; };
+		C482A0151CAEB1B100541D08 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */; };
 		C4D9BA451CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */; };
 		C4D9BA471CA73163004F70F7 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */; };
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
 		FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
-		FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */; };
+		FA5FA3451B3AFEB300497C62 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */; };
 		FA778A411B8319D8005807E7 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA778A401B8319D8005807E7 /* image.jpg */; };
 		FA787F1C1B4326F100B6B86E /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* CropOverlay.swift */; };
 		FA7E6B9B1B429012000E1B14 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */; };
@@ -28,21 +48,10 @@
 		FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058441B31618D008E5592 /* AppDelegate.swift */; };
 		FAF058471B31618D008E5592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058461B31618D008E5592 /* ViewController.swift */; };
 		FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF0584B1B31618D008E5592 /* Images.xcassets */; };
-		FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */; };
 		FAF058661B316695008E5592 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058651B316695008E5592 /* CameraViewController.swift */; };
 		FAF058681B3175C5008E5592 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* CameraView.swift */; };
 		FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058691B317894008E5592 /* CameraShot.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		FAF058551B31618D008E5592 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FAF058371B31618D008E5592 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FAF0583E1B31618D008E5592;
-			remoteInfo = ALCameraViewController;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
@@ -50,19 +59,22 @@
 		C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
 		C41E42B61BEC98520028B993 /* ConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
 		C44543201CA68DDE00644380 /* VolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeControl.swift; sourceTree = "<group>"; };
+		C4829FFB1CAEB16C00541D08 /* CameraViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CameraViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4829FFD1CAEB16C00541D08 /* CameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		C4829FFF1CAEB16C00541D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
 		C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
-		FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
+		FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CameraViewAssets.xcassets; sourceTree = "<group>"; };
 		FA778A401B8319D8005807E7 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 		FA787F1B1B4326F100B6B86E /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
 		FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		FA8231371B3BF8F700A837BE /* CameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = CameraView.strings; sourceTree = "<group>"; };
 		FA8231391B3C296C00A837BE /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		FAB50BEE1B413E8C009905B9 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		FAB50BEE1B413E8C009905B9 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; tabWidth = 4; };
 		FAB50BF01B413E8C009905B9 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
-		FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		FAB50BF91B413E8C009905B9 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		FAF0583F1B31618D008E5592 /* ALCameraViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALCameraViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF058431B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF058441B31618D008E5592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,20 +83,20 @@
 		FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALCameraViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF058591B31618D008E5592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALCameraViewControllerTests.swift; sourceTree = "<group>"; };
-		FAF058651B316695008E5592 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		FAF058651B316695008E5592 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		FAF058671B3175C5008E5592 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		FAF058691B317894008E5592 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FAF0583C1B31618D008E5592 /* Frameworks */ = {
+		C4829FF71CAEB16C00541D08 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAF058511B31618D008E5592 /* Frameworks */ = {
+		FAF0583C1B31618D008E5592 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -94,6 +106,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4829FFC1CAEB16C00541D08 /* CameraViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C4829FFD1CAEB16C00541D08 /* CameraViewController.h */,
+				C4829FFF1CAEB16C00541D08 /* Info.plist */,
+			);
+			path = CameraViewController;
+			sourceTree = "<group>";
+		};
 		FAB50BEA1B413E41009905B9 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,7 +158,7 @@
 			children = (
 				FAF058641B316628008E5592 /* Example */,
 				FAF058411B31618D008E5592 /* ALCameraViewController */,
-				FAF058571B31618D008E5592 /* ALCameraViewControllerTests */,
+				C4829FFC1CAEB16C00541D08 /* CameraViewController */,
 				FAF058401B31618D008E5592 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -146,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				FAF0583F1B31618D008E5592 /* ALCameraViewController.app */,
-				FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */,
+				C4829FFB1CAEB16C00541D08 /* CameraViewController.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,7 +179,7 @@
 				FAB50BEA1B413E41009905B9 /* ViewController */,
 				FAB50BEB1B413E4E009905B9 /* Views */,
 				FA8231371B3BF8F700A837BE /* CameraView.strings */,
-				FA5FA3441B3AFEB300497C62 /* ALCameraViewAssets.xcassets */,
+				FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */,
 			);
 			path = ALCameraViewController;
 			sourceTree = "<group>";
@@ -168,23 +189,6 @@
 			children = (
 				FAF0584B1B31618D008E5592 /* Images.xcassets */,
 				FAF058431B31618D008E5592 /* Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		FAF058571B31618D008E5592 /* ALCameraViewControllerTests */ = {
-			isa = PBXGroup;
-			children = (
-				FAF0585A1B31618D008E5592 /* ALCameraViewControllerTests.swift */,
-				FAF058581B31618D008E5592 /* Supporting Files */,
-			);
-			path = ALCameraViewControllerTests;
-			sourceTree = "<group>";
-		};
-		FAF058581B31618D008E5592 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FAF058591B31618D008E5592 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -203,7 +207,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		C4829FF81CAEB16C00541D08 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4829FFE1CAEB16C00541D08 /* CameraViewController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		C4829FFA1CAEB16C00541D08 /* CameraViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C482A0001CAEB16C00541D08 /* Build configuration list for PBXNativeTarget "CameraViewController" */;
+			buildPhases = (
+				C4829FF61CAEB16C00541D08 /* Sources */,
+				C4829FF71CAEB16C00541D08 /* Frameworks */,
+				C4829FF81CAEB16C00541D08 /* Headers */,
+				C4829FF91CAEB16C00541D08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CameraViewController;
+			productName = CameraViewController;
+			productReference = C4829FFB1CAEB16C00541D08 /* CameraViewController.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		FAF0583E1B31618D008E5592 /* ALCameraViewController */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAF0585E1B31618D008E5592 /* Build configuration list for PBXNativeTarget "ALCameraViewController" */;
@@ -221,24 +254,6 @@
 			productReference = FAF0583F1B31618D008E5592 /* ALCameraViewController.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FAF058531B31618D008E5592 /* ALCameraViewControllerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FAF058611B31618D008E5592 /* Build configuration list for PBXNativeTarget "ALCameraViewControllerTests" */;
-			buildPhases = (
-				FAF058501B31618D008E5592 /* Sources */,
-				FAF058511B31618D008E5592 /* Frameworks */,
-				FAF058521B31618D008E5592 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FAF058561B31618D008E5592 /* PBXTargetDependency */,
-			);
-			name = ALCameraViewControllerTests;
-			productName = ALCameraViewControllerTests;
-			productReference = FAF058541B31618D008E5592 /* ALCameraViewControllerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -250,12 +265,11 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = zero;
 				TargetAttributes = {
+					C4829FFA1CAEB16C00541D08 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					FAF0583E1B31618D008E5592 = {
 						CreatedOnToolsVersion = 6.3.2;
-					};
-					FAF058531B31618D008E5592 = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = FAF0583E1B31618D008E5592;
 					};
 				};
 			};
@@ -273,12 +287,22 @@
 			projectRoot = "";
 			targets = (
 				FAF0583E1B31618D008E5592 /* ALCameraViewController */,
-				FAF058531B31618D008E5592 /* ALCameraViewControllerTests */,
+				C4829FFA1CAEB16C00541D08 /* CameraViewController */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C4829FF91CAEB16C00541D08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C482A0131CAEB1B100541D08 /* ConfirmViewController.xib in Resources */,
+				C482A0141CAEB1B100541D08 /* CameraView.strings in Resources */,
+				C482A0151CAEB1B100541D08 /* CameraViewAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAF0583D1B31618D008E5592 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,22 +310,38 @@
 				FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */,
 				FA8231381B3BF8F700A837BE /* CameraView.strings in Resources */,
 				C41E42B71BEC98520028B993 /* ConfirmViewController.xib in Resources */,
-				FA5FA3451B3AFEB300497C62 /* ALCameraViewAssets.xcassets in Resources */,
+				FA5FA3451B3AFEB300497C62 /* CameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FAF058521B31618D008E5592 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C4829FF61CAEB16C00541D08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C482A0031CAEB18D00541D08 /* ImageFetcher.swift in Sources */,
+				C482A0041CAEB18D00541D08 /* SingleImageSaver.swift in Sources */,
+				C482A0051CAEB18D00541D08 /* SingleImageFetcher.swift in Sources */,
+				C482A0061CAEB18D00541D08 /* Utilities.swift in Sources */,
+				C482A0071CAEB18D00541D08 /* CameraShot.swift in Sources */,
+				C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */,
+				C482A0091CAEB18D00541D08 /* VolumeControl.swift in Sources */,
+				C482A00A1CAEB18D00541D08 /* PhotoLibraryAuthorizer.swift in Sources */,
+				C482A00B1CAEB18D00541D08 /* UIButtonExtensions.swift in Sources */,
+				C482A00C1CAEB18D00541D08 /* PhotoLibraryViewController.swift in Sources */,
+				C482A00D1CAEB18D00541D08 /* CameraViewController.swift in Sources */,
+				C482A00E1CAEB18D00541D08 /* ConfirmViewController.swift in Sources */,
+				C482A00F1CAEB18D00541D08 /* ImageCell.swift in Sources */,
+				C482A0101CAEB18D00541D08 /* PermissionsView.swift in Sources */,
+				C482A0111CAEB18D00541D08 /* CameraView.swift in Sources */,
+				C482A0121CAEB18D00541D08 /* CropOverlay.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAF0583B1B31618D008E5592 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,25 +367,52 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAF058501B31618D008E5592 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FAF0585B1B31618D008E5592 /* ALCameraViewControllerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		FAF058561B31618D008E5592 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FAF0583E1B31618D008E5592 /* ALCameraViewController */;
-			targetProxy = FAF058551B31618D008E5592 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
+		C482A0011CAEB16C00541D08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CameraViewController/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zero.CameraViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C482A0021CAEB16C00541D08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CameraViewController/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zero.CameraViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		FAF0585C1B31618D008E5592 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -456,45 +523,17 @@
 			};
 			name = Release;
 		};
-		FAF058621B31618D008E5592 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ALCameraViewControllerTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALCameraViewController.app/ALCameraViewController";
-			};
-			name = Debug;
-		};
-		FAF058631B31618D008E5592 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ALCameraViewControllerTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALCameraViewController.app/ALCameraViewController";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C482A0001CAEB16C00541D08 /* Build configuration list for PBXNativeTarget "CameraViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C482A0011CAEB16C00541D08 /* Debug */,
+				C482A0021CAEB16C00541D08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FAF0583A1B31618D008E5592 /* Build configuration list for PBXProject "ALCameraViewController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -509,15 +548,6 @@
 			buildConfigurations = (
 				FAF0585F1B31618D008E5592 /* Debug */,
 				FAF058601B31618D008E5592 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FAF058611B31618D008E5592 /* Build configuration list for PBXNativeTarget "ALCameraViewControllerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FAF058621B31618D008E5592 /* Debug */,
-				FAF058631B31618D008E5592 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

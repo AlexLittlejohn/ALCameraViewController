@@ -114,7 +114,7 @@ public class CameraView: UIView {
     
     private func createPreview() {
         device = cameraWithPosition(currentPosition)
-        if device.hasFlash {
+        if let device = device where device.hasFlash {
             do {
                 try device.lockForConfiguration()
                 device.flashMode = .Auto
