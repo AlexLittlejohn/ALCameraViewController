@@ -17,7 +17,6 @@ public typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
 
 public class PhotoLibraryViewController: UIViewController {
     
-    private var didUpdateViews = false
     private var assets: PHFetchResult? = nil
     
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
@@ -35,48 +34,6 @@ public class PhotoLibraryViewController: UIViewController {
         collectionView.backgroundColor = UIColor.clearColor()
         return collectionView
     }()
-
-    public override func loadView() {
-        super.loadView()
-        self.view.backgroundColor = UIColor(white: 0.2, alpha: 1)
-        [collectionView].forEach({ self.view.addSubview($0) })
-        self.view.setNeedsUpdateConstraints()
-    }
-    
-    override public func updateViewConstraints() {
-        if !didUpdateViews {
-            configCollectionViewConstraints()
-            didUpdateViews = true
-        }
-        super.updateViewConstraints()
-    }
-    
-    func configCollectionViewConstraints() {
-        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
-            attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.view,
-            attribute: NSLayoutAttribute.Left,
-            multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
-            attribute: NSLayoutAttribute.Right,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.view,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.view,
-            attribute: NSLayoutAttribute.Top,
-            multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.collectionView,
-            attribute: NSLayoutAttribute.Bottom,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: self.view,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0, constant: 0))
-    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,10 +44,18 @@ public class PhotoLibraryViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(dismiss))
         
+        view.backgroundColor = UIColor(white: 0.2, alpha: 1)
+        view.addSubview(collectionView)
+        
         ImageFetcher()
             .onFailure(onFailure)
             .onSuccess(onSuccess)
             .fetch()
+    }
+    
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.frame = view.bounds
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
