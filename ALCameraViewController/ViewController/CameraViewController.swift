@@ -1,4 +1,3 @@
-
 //
 //  ALCameraViewController.swift
 //  ALCameraViewController
@@ -17,11 +16,11 @@ public extension CameraViewController {
     public class func imagePickerViewController(croppingEnabled: Bool, completion: CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
-      
+        
         navigationController.navigationBar.barTintColor = UIColor.blackColor()
         navigationController.navigationBar.barStyle = UIBarStyle.Black
         navigationController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-      
+        
         imagePicker.onSelectionComplete = { asset in
             if let asset = asset {
                 let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
@@ -44,7 +43,7 @@ public extension CameraViewController {
 }
 
 public class CameraViewController: UIViewController {
-  
+    
     var didUpdateViews = false
     var allowCropping = false
     var onCompletion: CameraViewCompletion?
@@ -115,17 +114,15 @@ public class CameraViewController: UIViewController {
                         forState: .Normal)
         return button
     }()
-    
-    public init(croppingEnabled: Bool,
-                allowsLibraryAccess: Bool = true,
-                completion: CameraViewCompletion) {
+  
+    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
         libraryButton.enabled = allowsLibraryAccess
         libraryButton.hidden = !allowsLibraryAccess
     }
-    
+  
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -141,12 +138,17 @@ public class CameraViewController: UIViewController {
     public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
-  
-
+    
     public override func loadView() {
         super.loadView()
         self.view.backgroundColor = UIColor.blackColor()
-        [cameraView, cameraOverlay, cameraButton, libraryButton, closeButton, swapButton, flashButton].forEach({self.view.addSubview($0)})
+        [cameraView,
+            cameraOverlay,
+            cameraButton,
+            libraryButton,
+            closeButton,
+            swapButton,
+            flashButton].forEach({ self.view.addSubview($0) })
         self.view.setNeedsUpdateConstraints()
     }
     
@@ -227,7 +229,7 @@ public class CameraViewController: UIViewController {
             relatedBy: NSLayoutRelation.Equal,
             toItem: self.view,
             attribute: NSLayoutAttribute.Left,
-            multiplier: 1.0, constant: 8))
+            multiplier: 1.0, constant: 16))
         self.view.addConstraint(NSLayoutConstraint(item: self.closeButton,
             attribute: NSLayoutAttribute.CenterY,
             relatedBy: NSLayoutRelation.Equal,
@@ -301,16 +303,16 @@ public class CameraViewController: UIViewController {
 
         cameraButton.enabled = false
         
-        volumeControl = VolumeControl(view: view) { [weak self] _ in
-            self?.capturePhoto()
+        volumeControl = VolumeControl(view: view) { _ in
+            self.capturePhoto()
         }
-
+        
         cameraButton.action = capturePhoto
         swapButton.action = swapCamera
         libraryButton.action = showLibrary
         closeButton.action = close
         flashButton.action = toggleFlash
-
+        
         checkPermissions()
         rotate()
         
@@ -325,14 +327,14 @@ public class CameraViewController: UIViewController {
         super.viewWillAppear(animated)
         cameraView.startSession()
     }
-  
+    
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if cameraView.session?.running == true {
             cameraReady()
         }
     }
-
+    
     internal func cameraReady() {
         cameraButton.enabled = true
     }
@@ -340,7 +342,7 @@ public class CameraViewController: UIViewController {
     internal func rotate() {
         let rotation = currentRotation()
         let rads = CGFloat(radians(rotation))
-    
+        
         UIView.animateWithDuration(0.3) {
             self.cameraButton.transform = CGAffineTransformMakeRotation(rads)
             self.closeButton.transform = CGAffineTransformMakeRotation(rads)
@@ -350,14 +352,10 @@ public class CameraViewController: UIViewController {
     }
 
     private func checkPermissions() {
-        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
-            startCamera()
-        } else {
+        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) != .Authorized {
             AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
                 dispatch_async(dispatch_get_main_queue()) {
-                    if granted == true {
-                        self.startCamera()
-                    } else {
+                    if !granted {
                         self.showNoPermissionsView()
                     }
                 }
@@ -367,7 +365,6 @@ public class CameraViewController: UIViewController {
     
     private func showNoPermissionsView(library: Bool = false) {
         let permissionsView = PermissionsView(frame: view.bounds)
-        
         let title: String
         let desc: String
         
@@ -382,24 +379,7 @@ public class CameraViewController: UIViewController {
         permissionsView.configureInView(view, title: title, descriptiom: desc, completion: close)
     }
     
-    private func startCamera() {
-        cameraButton.addTarget(self, action: #selector(ALCameraViewController.capturePhoto), forControlEvents: .TouchUpInside)
-        swapButton.addTarget(self, action: #selector(ALCameraViewController.swapCamera), forControlEvents: .TouchUpInside)
-        libraryButton.addTarget(self, action: #selector(ALCameraViewController.showLibrary), forControlEvents: .TouchUpInside)
-        closeButton.addTarget(self, action: #selector(ALCameraViewController.close), forControlEvents: .TouchUpInside)
-        flashButton.addTarget(self, action: #selector(ALCameraViewController.toggleFlash), forControlEvents: .TouchUpInside)
-        layoutCamera()
-    }
     
-    private func layoutCamera() {
-        if allowCropping {
-            cameraOverlay.hidden = false
-        } else {
-            cameraOverlay.hidden = true
-            cameraView.configureFocus()
-        }
-    }
-  
     internal func capturePhoto() {
         guard let output = cameraView.imageOutput, connection = output.connectionWithMediaType(AVMediaTypeVideo) else {
             return
