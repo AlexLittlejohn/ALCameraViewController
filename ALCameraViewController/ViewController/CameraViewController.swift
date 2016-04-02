@@ -173,25 +173,25 @@ public class CameraViewController: UIViewController {
     func configCameraViewConstraints() {
         view.addConstraint(NSLayoutConstraint(item: cameraView,
             attribute: .Left,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .Left,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: cameraView,
             attribute: .Right,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .Right,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: cameraView,
             attribute: .Top,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .Top,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: cameraView,
             attribute: .Bottom,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .Bottom,
             multiplier: 1.0, constant: 0))
@@ -200,13 +200,13 @@ public class CameraViewController: UIViewController {
     func configCameraButtonConstraints() {
         view.addConstraint(NSLayoutConstraint(item: cameraButton,
             attribute: .CenterX,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .CenterX,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: cameraButton,
             attribute: .Bottom,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .BottomMargin,
             multiplier: 1.0, constant: -view.layoutMargins.bottom))
@@ -215,7 +215,7 @@ public class CameraViewController: UIViewController {
     func configSwapButtonConstraints() {
         view.addConstraint(NSLayoutConstraint(item: swapButton,
             attribute: .CenterY,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: cameraButton,
             attribute: .CenterY,
             multiplier: 1.0, constant: 0))
@@ -224,13 +224,13 @@ public class CameraViewController: UIViewController {
     func configCloseButtonConstraints() {
         view.addConstraint(NSLayoutConstraint(item: closeButton,
             attribute: .Left,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .LeftMargin,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: closeButton,
             attribute: .CenterY,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: cameraButton,
             attribute: .CenterY,
             multiplier: 1.0, constant: 0))
@@ -239,19 +239,19 @@ public class CameraViewController: UIViewController {
     func configLibraryButtonConstraints() {
         view.addConstraint(NSLayoutConstraint(item: libraryButton,
             attribute: .Right,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .RightMargin,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: libraryButton,
             attribute: .CenterY,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: cameraButton,
             attribute: .CenterY,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: libraryButton,
             attribute: .Left,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: swapButton,
             attribute: .Right,
             multiplier: 1.0, constant: view.layoutMargins.right))
@@ -260,13 +260,13 @@ public class CameraViewController: UIViewController {
     func configFlashButtonConstraints() {
         view.addConstraint(NSLayoutConstraint(item: flashButton,
             attribute: .Top,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .TopMargin,
             multiplier: 1.0, constant: view.layoutMargins.top))
         view.addConstraint(NSLayoutConstraint(item: flashButton,
             attribute: .Right,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .RightMargin,
             multiplier: 1.0, constant: 0))
@@ -275,34 +275,28 @@ public class CameraViewController: UIViewController {
     func configCameraOverlayConstraints() {
         view.addConstraint(NSLayoutConstraint(item: cameraOverlay,
             attribute: .Left,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .LeftMargin,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: cameraOverlay,
             attribute: .Right,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .RightMargin,
             multiplier: 1.0, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: cameraOverlay,
             attribute: .Width,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: cameraOverlay,
             attribute: .Height,
-            multiplier: 1.0, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: cameraOverlay,
-            attribute: .CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: .CenterX,
             multiplier: 1.0, constant: 0))
         
         let centerYOffset = abs((flashButton.frame.height + view.layoutMargins.top) - (cameraButton.frame.height + view.layoutMargins.bottom))
         
         view.addConstraint(NSLayoutConstraint(item: cameraOverlay,
             attribute: .CenterY,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: .Equal,
             toItem: view,
             attribute: .CenterY,
             multiplier: 1.0, constant: -centerYOffset))
