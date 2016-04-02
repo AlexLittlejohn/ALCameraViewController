@@ -49,10 +49,19 @@ public class CameraViewController: UIViewController {
     var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
     
-    var cameraButtonEdgeConstraint : NSLayoutConstraint?
-    var cameraButtonGravityConstraint : NSLayoutConstraint?
+    var cameraButtonEdgeConstraint: NSLayoutConstraint?
+    var cameraButtonGravityConstraint: NSLayoutConstraint?
     
-    var closeButton
+    var closeButtonGravityConstraint: NSLayoutConstraint?
+    
+    var swapButtonEdgeConstraint: NSLayoutConstraint?
+    var swapButtonGravityConstraint: NSLayoutConstraint?
+    
+    var libraryButtonEdgeConstraint: NSLayoutConstraint?
+    var libraryButtonGravityConstraint: NSLayoutConstraint?
+    
+    var flashButtonEdgeConstraint: NSLayoutConstraint?
+    var flashButtonGravityConstraint: NSLayoutConstraint?
     
     let cameraView : CameraView = {
         let cameraView = CameraView()
@@ -161,20 +170,35 @@ public class CameraViewController: UIViewController {
     override public func updateViewConstraints() {
         if !didUpdateViews {
             configCameraViewConstraints()
-            
-            configSwapButtonConstraints()
-            
-            configLibraryButtonConstraints()
-            configFlashButtonConstraints()
+            configCloseButtonConstraint()
             configCameraOverlayConstraints()
             didUpdateViews = true
         }
         let portrait = UIDevice.currentDevice().orientation.isPortrait
-        configCameraButtonConstraints(portrait)
-        configCloseButtonConstraints(portrait)
+        configCameraButtonEdgeConstraint(portrait)
+        configCameraButtonGravityConstraint(portrait)
+        configCloseButtonGravityConstraint(portrait)
+        
+        removeSwapButtonConstraints()
+        configSwapButtonEdgeConstraint(portrait)
+        configSwapButtonGravityConstraint(portrait)
+        
+        removeLibraryButtonConstraints()
+        configLibraryEdgeButtonConstraint(portrait)
+        configLibraryGravityButtonConstraint(portrait)
+        
+        configFlashEdgeButtonConstraint(portrait)
+        configFlashGravityButtonConstraint(portrait)
         super.updateViewConstraints()
     }
     
+    /**
+     * To attach the view to the edges of the view, it needs to be
+     * pinned on the sides of the self.view, based on the edges of
+     * this view.
+     * This configure the cameraView to show, in real time, the
+     * camera.
+     */
     func configCameraViewConstraints() {
         view.addConstraint(NSLayoutConstraint(item: cameraView,
             attribute: NSLayoutAttribute.Left,
@@ -202,8 +226,13 @@ public class CameraViewController: UIViewController {
             multiplier: 1.0, constant: 0))
     }
     
-    func configCameraButtonConstraints(portrait: Bool) {
-        
+    /**
+     * Add the constraints based on the device orientation,
+     * this pin the button on the bottom part of the screen 
+     * when the device is portrait, when landscape, pin
+     * the button on the right part of the screen.
+     */
+    func configCameraButtonEdgeConstraint(portrait: Bool) {
         view.autoRemoveConstraint(cameraButtonEdgeConstraint)
         cameraButtonEdgeConstraint = portrait ?
             
@@ -226,7 +255,14 @@ public class CameraViewController: UIViewController {
                 constant:-8)
             
         view.addConstraint(cameraButtonEdgeConstraint!)
-        
+    }
+    
+    /**
+     * Add the constraints based on the device orientation, 
+     * centerX the button based on the width of screen.
+     * When the device is landscape orientation
+     */
+    func configCameraButtonGravityConstraint(portrait: Bool) {
         view.autoRemoveConstraint(cameraButtonGravityConstraint)
         cameraButtonGravityConstraint = portrait ?
             
@@ -245,69 +281,193 @@ public class CameraViewController: UIViewController {
                 toItem: view,
                 attribute: NSLayoutAttribute.CenterY,
                 multiplier: 1.0, constant: 0)
-            
+        
         view.addConstraint(cameraButtonGravityConstraint!)
-
     }
     
-    func configSwapButtonConstraints() {
-        view.addConstraint(NSLayoutConstraint(item: swapButton,
-            attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: cameraButton,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0, constant: 8))
-        view.addConstraint(NSLayoutConstraint(item: swapButton,
-            attribute: NSLayoutAttribute.CenterY,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: cameraButton,
-            attribute: NSLayoutAttribute.CenterY,
-            multiplier: 1.0, constant: 0))
+    /**
+     * Remove the SwapButton constraints to be updated when 
+     * the device was rotated.
+     */
+    func removeSwapButtonConstraints() {
+        view.autoRemoveConstraint(swapButtonEdgeConstraint)
+        view.autoRemoveConstraint(swapButtonGravityConstraint)
     }
     
-    func configCloseButtonConstraints(portrait: Bool) {
-        view.addConstraint(NSLayoutConstraint(item: closeButton,
+    /**
+     * If the device is portrait, pin the SwapButton on the
+     * right side of the CameraButton.
+     * If landscape, pin the SwapButton on the top of the
+     * CameraButton.
+     */
+    func configSwapButtonEdgeConstraint(portrait: Bool) {
+        swapButtonEdgeConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: swapButton,
+                attribute: .Left,
+                relatedBy: .Equal,
+                toItem: cameraButton,
+                attribute: .Right,
+                multiplier: 1.0, constant: 8) :
+            
+            NSLayoutConstraint(
+                item: swapButton,
+                attribute: .Bottom,
+                relatedBy: .Equal,
+                toItem: cameraButton,
+                attribute: .Top,
+                multiplier: 1.0, constant: -8)
+        
+        view.addConstraint(swapButtonEdgeConstraint!)
+    }
+    
+    /**
+     * Configure the center of SwapButton, based on the
+     * axis center of CameraButton.
+     */
+    func configSwapButtonGravityConstraint(portrait: Bool) {
+        let attribute : NSLayoutAttribute = portrait ? .CenterY : .CenterX
+        swapButtonGravityConstraint = NSLayoutConstraint(
+            item: swapButton,
+            attribute: attribute,
+            relatedBy: .Equal,
+            toItem: cameraButton,
+            attribute: attribute,
+            multiplier: 1.0, constant: 0)
+        view.addConstraint(swapButtonGravityConstraint!)
+    }
+    
+    func configCloseButtonConstraint() {
+        view.addConstraint(NSLayoutConstraint(
+            item: closeButton,
             attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
             attribute: NSLayoutAttribute.Left,
             multiplier: 1.0, constant: 16))
-        view.addConstraint(NSLayoutConstraint(item: closeButton,
-            attribute: NSLayoutAttribute.CenterY,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: cameraButton,
-            attribute: NSLayoutAttribute.CenterY,
-            multiplier: 1.0, constant: 0))
     }
     
-    func configLibraryButtonConstraints() {
-        view.addConstraint(NSLayoutConstraint(item: libraryButton,
-            attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: swapButton,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0, constant: 8))
-        view.addConstraint(NSLayoutConstraint(item: libraryButton,
-            attribute: NSLayoutAttribute.CenterY,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: cameraButton,
-            attribute: NSLayoutAttribute.CenterY,
-            multiplier: 1.0, constant: 0))
+    func configCloseButtonGravityConstraint(portrait: Bool) {
+        view.autoRemoveConstraint(closeButtonGravityConstraint)
+        closeButtonGravityConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: closeButton,
+                attribute: NSLayoutAttribute.CenterY,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cameraButton,
+                attribute: NSLayoutAttribute.CenterY,
+                multiplier: 1.0, constant: 0) :
+            
+            NSLayoutConstraint(
+                item: closeButton,
+                attribute: NSLayoutAttribute.Bottom,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.Bottom,
+                multiplier: 1.0, constant: -16)
+            
+        view.addConstraint(closeButtonGravityConstraint!)
     }
     
-    func configFlashButtonConstraints() {
-        view.addConstraint(NSLayoutConstraint(item: flashButton,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Top,
-            multiplier: 1.0, constant: 8))
-        view.addConstraint(NSLayoutConstraint(item: flashButton,
-            attribute: NSLayoutAttribute.Right,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0, constant: -8))
+    /**
+     * Remove the LibraryButton constraints to be updated when
+     * the device was rotated.
+     */
+    func removeLibraryButtonConstraints() {
+        view.autoRemoveConstraint(libraryButtonEdgeConstraint)
+        view.autoRemoveConstraint(libraryButtonGravityConstraint)
+    }
+    
+    func configLibraryEdgeButtonConstraint(portrait: Bool) {
+        libraryButtonEdgeConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: libraryButton,
+                attribute: NSLayoutAttribute.Left,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: swapButton,
+                attribute: NSLayoutAttribute.Right,
+                multiplier: 1.0, constant: 8) :
+            
+            NSLayoutConstraint(
+                item: libraryButton,
+                attribute: NSLayoutAttribute.Top,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cameraButton,
+                attribute: NSLayoutAttribute.Bottom,
+                multiplier: 1.0, constant: 8)
+        
+        view.addConstraint(libraryButtonEdgeConstraint!)
+    }
+    
+    func configLibraryGravityButtonConstraint(portrait: Bool) {
+        libraryButtonGravityConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: libraryButton,
+                attribute: NSLayoutAttribute.CenterY,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cameraButton,
+                attribute: NSLayoutAttribute.CenterY,
+                multiplier: 1.0, constant: 0) :
+            
+            NSLayoutConstraint(
+                item: libraryButton,
+                attribute: NSLayoutAttribute.CenterX,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cameraButton,
+                attribute: NSLayoutAttribute.CenterX,
+                multiplier: 1.0, constant: 0)
+        
+        view.addConstraint(libraryButtonGravityConstraint!)
+    }
+    
+    func configFlashEdgeButtonConstraint(portrait: Bool) {
+        view.autoRemoveConstraint(flashButtonEdgeConstraint)
+        flashButtonEdgeConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: flashButton,
+                attribute: NSLayoutAttribute.Top,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.Top,
+                multiplier: 1.0, constant: 8) :
+            
+            NSLayoutConstraint(
+                item: flashButton,
+                attribute: NSLayoutAttribute.Bottom,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: swapButton,
+                attribute: NSLayoutAttribute.Top,
+                multiplier: 1.0, constant: -8)
+        
+        view.addConstraint(flashButtonEdgeConstraint!)
+    }
+    
+    func configFlashGravityButtonConstraint(portrait: Bool) {
+        view.autoRemoveConstraint(flashButtonGravityConstraint)
+        flashButtonGravityConstraint = portrait ?
+            
+            NSLayoutConstraint(
+                item: flashButton,
+                attribute: NSLayoutAttribute.Right,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view,
+                attribute: NSLayoutAttribute.Right,
+                multiplier: 1.0, constant: -8) :
+            
+            NSLayoutConstraint(
+                item: flashButton,
+                attribute: NSLayoutAttribute.CenterX,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cameraButton,
+                attribute: NSLayoutAttribute.CenterX,
+                multiplier: 1.0, constant: 0)
+        
+        view.addConstraint(flashButtonGravityConstraint!)
     }
     
     func configCameraOverlayConstraints() {
