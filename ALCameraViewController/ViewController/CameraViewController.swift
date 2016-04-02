@@ -187,9 +187,7 @@ public class CameraViewController: UIViewController {
      * device is rotating, based on the device orientation.
      */
     override public func updateViewConstraints() {
-        
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        
+
         if !didUpdateViews {
             configCameraViewConstraints()
             configCloseButtonConstraint()
@@ -212,7 +210,7 @@ public class CameraViewController: UIViewController {
         configFlashEdgeButtonConstraint(portrait)
         configFlashGravityButtonConstraint(portrait)
         
-        let padding : CGFloat = portrait ? 15.0 : -15.0
+        let padding : CGFloat = portrait ? 16.0 : -16.0
         removeCameraOverlayEdgesConstraints()
         configCameraOverlayEdgeOneContraint(portrait, padding: padding)
         configCameraOverlayEdgeTwoConstraint(portrait, padding: padding)
@@ -237,7 +235,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: view,
                 attribute: $0,
-                multiplier: 1.0, constant: 0))
+                multiplier: 1.0,
+                constant: 0))
         })
     }
     
@@ -276,7 +275,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: view,
             attribute: attribute,
-            multiplier: 1.0, constant: 0)
+            multiplier: 1.0,
+            constant: 0)
         view.addConstraint(cameraButtonGravityConstraint!)
     }
     
@@ -304,7 +304,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: cameraButton,
                 attribute: .Right,
-                multiplier: 1.0, constant: 8) :
+                multiplier: 1.0,
+                constant: 8) :
             
             NSLayoutConstraint(
                 item: swapButton,
@@ -312,7 +313,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: cameraButton,
                 attribute: .Top,
-                multiplier: 1.0, constant: -8)
+                multiplier: 1.0,
+                constant: -8)
         
         view.addConstraint(swapButtonEdgeConstraint!)
     }
@@ -329,7 +331,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: cameraButton,
             attribute: attribute,
-            multiplier: 1.0, constant: 0)
+            multiplier: 1.0,
+            constant: 0)
         view.addConstraint(swapButtonGravityConstraint!)
     }
     
@@ -364,7 +367,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: cameraButton,
                 attribute: .CenterY,
-                multiplier: 1.0, constant: 0) :
+                multiplier: 1.0,
+                constant: 0) :
             
             NSLayoutConstraint(
                 item: closeButton,
@@ -372,7 +376,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: view,
                 attribute: .Bottom,
-                multiplier: 1.0, constant: -16)
+                multiplier: 1.0,
+                constant: -16)
             
         view.addConstraint(closeButtonGravityConstraint!)
     }
@@ -402,7 +407,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: swapButton,
                 attribute: .Right,
-                multiplier: 1.0, constant: 8) :
+                multiplier: 1.0,
+                constant: 8) :
             
             NSLayoutConstraint(
                 item: libraryButton,
@@ -410,7 +416,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: cameraButton,
                 attribute: .Bottom,
-                multiplier: 1.0, constant: 8)
+                multiplier: 1.0,
+                constant: 8)
         
         view.addConstraint(libraryButtonEdgeConstraint!)
     }
@@ -427,7 +434,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: cameraButton,
             attribute: attribute,
-            multiplier: 1.0, constant: 0)
+            multiplier: 1.0,
+            constant: 0)
         view.addConstraint(libraryButtonGravityConstraint!)
     }
     
@@ -447,7 +455,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: view,
                 attribute: .Top,
-                multiplier: 1.0, constant: 8) :
+                multiplier: 1.0,
+                constant: 8) :
             
             NSLayoutConstraint(
                 item: flashButton,
@@ -455,7 +464,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: swapButton,
                 attribute: .Top,
-                multiplier: 1.0, constant: -8)
+                multiplier: 1.0,
+                constant: -8)
         
         view.addConstraint(flashButtonEdgeConstraint!)
     }
@@ -477,7 +487,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: view,
                 attribute: .Right,
-                multiplier: 1.0, constant: -8) :
+                multiplier: 1.0,
+                constant: -8) :
             
             NSLayoutConstraint(
                 item: flashButton,
@@ -485,7 +496,8 @@ public class CameraViewController: UIViewController {
                 relatedBy: .Equal,
                 toItem: cameraButton,
                 attribute: .CenterX,
-                multiplier: 1.0, constant: 0)
+                multiplier: 1.0,
+                constant: 0)
         
         view.addConstraint(flashButtonGravityConstraint!)
     }
@@ -506,7 +518,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: cameraOverlay,
             attribute: portrait ? .Width : .Height,
-            multiplier: 1.0, constant: 0)
+            multiplier: 1.0,
+            constant: 0)
         view.addConstraint(cameraOverlayWidthConstraint!)
     }
     
@@ -524,7 +537,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: view,
             attribute: attribute,
-            multiplier: 1.0, constant: 0)
+            multiplier: 1.0,
+            constant: 0)
         view.addConstraint(cameraOverlayCenterConstraint!)
     }
     
@@ -551,7 +565,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: view,
             attribute: attribute,
-            multiplier: 1.0, constant: padding)
+            multiplier: 1.0,
+            constant: padding)
         view.addConstraint(cameraOverlayEdgeOneConstraint!)
     }
     
@@ -569,7 +584,8 @@ public class CameraViewController: UIViewController {
             relatedBy: .Equal,
             toItem: view,
             attribute: attributeTwo,
-            multiplier: 1.0, constant: -padding)
+            multiplier: 1.0,
+            constant: -padding)
         view.addConstraint(cameraOverlayEdgeTwoConstraint!)
     }
     
