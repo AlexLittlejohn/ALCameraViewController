@@ -63,6 +63,11 @@ public class CameraViewController: UIViewController {
     var flashButtonEdgeConstraint: NSLayoutConstraint?
     var flashButtonGravityConstraint: NSLayoutConstraint?
     
+    var cameraOverlayEdgeOneConstraint: NSLayoutConstraint?
+    var cameraOverlayEdgeTwoConstraint: NSLayoutConstraint?
+    var cameraOverlayWidthConstraint: NSLayoutConstraint?
+    var cameraOverlayCenterConstraint: NSLayoutConstraint?
+    
     let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
@@ -185,7 +190,6 @@ public class CameraViewController: UIViewController {
         if !didUpdateViews {
             configCameraViewConstraints()
             configCloseButtonConstraint()
-            configCameraOverlayConstraints()
             didUpdateViews = true
         }
         let portrait = UIDevice.currentDevice().orientation.isPortrait
@@ -203,6 +207,14 @@ public class CameraViewController: UIViewController {
         
         configFlashEdgeButtonConstraint(portrait)
         configFlashGravityButtonConstraint(portrait)
+        
+        let padding : CGFloat = portrait ? 15.0 : -15.0
+        removeCameraOverlayEdgesConstraints()
+        configCameraOverlayEdgeOneContraint(portrait, padding: padding)
+        configCameraOverlayEdgeTwoConstraint(portrait, padding: padding)
+        configCameraOverlayWidthConstraint(portrait)
+        configCameraOverlayCenterConstraint(portrait)
+        
         super.updateViewConstraints()
     }
     
@@ -475,42 +487,86 @@ public class CameraViewController: UIViewController {
     }
     
     /**
-     * This method will pin the CameraOverlay on the both
-     * horizontal sides of the superview.
-     * Then, generate the height of this view based on the
-     * width, to generate a square.
-     * Finally, center the CameraOverlay on the center of
-     * superview.
+     * Used to create a perfect square for CameraOverlay.
+     * This method will determinate the size of CameraOverlay,
+     * if portrait, it will use the width of superview to
+     * determinate the height of the view. Else if landscape,
+     * it uses the height of the superview to create the width
+     * of the CameraOverlay.
      */
-    func configCameraOverlayConstraints() {
-        view.addConstraint(NSLayoutConstraint(
+    func configCameraOverlayWidthConstraint(portrait: Bool) {
+        view.autoRemoveConstraint(cameraOverlayWidthConstraint)
+        cameraOverlayWidthConstraint = NSLayoutConstraint(
             item: cameraOverlay,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0, constant: 15))
-        view.addConstraint(NSLayoutConstraint(
-            item: cameraOverlay,
-            attribute: .Right,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Right,
-            multiplier: 1.0, constant: -15))
-        view.addConstraint(NSLayoutConstraint(
-            item: cameraOverlay,
-            attribute: .Height,
+            attribute: portrait ? .Height : .Width,
             relatedBy: .Equal,
             toItem: cameraOverlay,
-            attribute: .Width,
-            multiplier: 1.0, constant: 0))
-        view.addConstraint(NSLayoutConstraint(
+            attribute: portrait ? .Width : .Height,
+            multiplier: 1.0, constant: 0)
+        view.addConstraint(cameraOverlayWidthConstraint!)
+    }
+    
+    /**
+     * This method will center the relative position of
+     * CameraOverlay, based on the biggest size of the
+     * superview.
+     */
+    func configCameraOverlayCenterConstraint(portrait: Bool) {
+        view.autoRemoveConstraint(cameraOverlayCenterConstraint)
+        let attribute : NSLayoutAttribute = portrait ? .CenterY : .CenterX
+        cameraOverlayCenterConstraint = NSLayoutConstraint(
             item: cameraOverlay,
-            attribute: .CenterY,
+            attribute: attribute,
             relatedBy: .Equal,
             toItem: view,
-            attribute: .CenterY,
-            multiplier: 1.0, constant: 0))
+            attribute: attribute,
+            multiplier: 1.0, constant: 0)
+        view.addConstraint(cameraOverlayCenterConstraint!)
+    }
+    
+    /**
+     * Remove the CameraOverlay constraints to be updated when
+     * the device was rotated.
+     */
+    func removeCameraOverlayEdgesConstraints() {
+        view.autoRemoveConstraint(cameraOverlayEdgeOneConstraint)
+        view.autoRemoveConstraint(cameraOverlayEdgeTwoConstraint)
+    }
+    
+    /**
+     * It needs to get a determined smallest size of the screen
+     to create the smallest size to be used on CameraOverlay.
+     It uses the orientation of the screen to determinate where
+     the view will be pinned.
+     */
+    func configCameraOverlayEdgeOneContraint(portrait: Bool, padding: CGFloat) {
+        let attribute : NSLayoutAttribute = portrait ? .Left : .Bottom
+        cameraOverlayEdgeOneConstraint = NSLayoutConstraint(
+            item: cameraOverlay,
+            attribute: attribute,
+            relatedBy: .Equal,
+            toItem: view,
+            attribute: attribute,
+            multiplier: 1.0, constant: padding)
+        view.addConstraint(cameraOverlayEdgeOneConstraint!)
+    }
+    
+    /**
+     * It needs to get a determined smallest size of the screen
+     to create the smallest size to be used on CameraOverlay.
+     It uses the orientation of the screen to determinate where
+     the view will be pinned.
+     */
+    func configCameraOverlayEdgeTwoConstraint(portrait: Bool, padding: CGFloat) {
+        let attributeTwo : NSLayoutAttribute = portrait ? .Right : .Top
+        cameraOverlayEdgeTwoConstraint = NSLayoutConstraint(
+            item: cameraOverlay,
+            attribute: attributeTwo,
+            relatedBy: .Equal,
+            toItem: view,
+            attribute: attributeTwo,
+            multiplier: 1.0, constant: -padding)
+        view.addConstraint(cameraOverlayEdgeTwoConstraint!)
     }
     
     /**
