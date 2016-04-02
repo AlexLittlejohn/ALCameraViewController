@@ -81,7 +81,7 @@ public class CameraViewController: UIViewController {
     }()
     
     let cameraButton : UIButton = {
-        let button = UIButton()
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.enabled = false
         button.setImage(UIImage(named: "cameraButton",
@@ -126,7 +126,7 @@ public class CameraViewController: UIViewController {
     }()
     
     let flashButton : UIButton = {
-        let button = UIButton()
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "flashAutoIcon",
             inBundle: CameraGlobals.shared.bundle,
@@ -187,6 +187,9 @@ public class CameraViewController: UIViewController {
      * device is rotating, based on the device orientation.
      */
     override public func updateViewConstraints() {
+        
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        
         if !didUpdateViews {
             configCameraViewConstraints()
             configCloseButtonConstraint()
