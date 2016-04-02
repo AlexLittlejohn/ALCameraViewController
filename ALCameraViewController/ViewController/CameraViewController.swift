@@ -195,7 +195,8 @@ public class CameraViewController: UIViewController {
             configCloseButtonConstraint()
             didUpdateViews = true
         }
-        let portrait = UIDevice.currentDevice().orientation.isPortrait
+        
+        let portrait = UIApplication.sharedApplication().statusBarOrientation.isPortrait
         configCameraButtonEdgeConstraint(portrait)
         configCameraButtonGravityConstraint(portrait)
         configCloseButtonGravityConstraint(portrait)
