@@ -31,7 +31,7 @@ In your viewController
 ```swift
 
 let croppingEnabled = true
-let cameraViewController = ALCameraViewController(croppingEnabled: croppingEnabled) { image in
+let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { image in
 	// Do something with your image here. 
 	// If cropping is enabled this image will be the cropped version
 }
