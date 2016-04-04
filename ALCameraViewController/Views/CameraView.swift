@@ -46,7 +46,6 @@ public class CameraView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         preview?.frame = bounds
-      rotatePreview()
     }
     
     public func configureFocus() {
@@ -243,9 +242,7 @@ public class CameraView: UIView {
     }
   
     public func rotatePreview() {
-        
-        print("rotatePreview")
-        
+      
         guard preview != nil else {
             return
         }

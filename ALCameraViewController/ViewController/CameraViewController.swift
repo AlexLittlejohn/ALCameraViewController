@@ -246,6 +246,7 @@ public class CameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         addCameraObserver()
+        addRotateObserver()
         setupVolumeControl()
         setupActions()
         checkPermissions()
@@ -302,6 +303,18 @@ public class CameraViewController: UIViewController {
             object: nil)
     }
     
+    /**
+     * Observer the device orientation to update the
+     * orientation of CameraView.
+     */
+    private func addRotateObserver() {
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: #selector(rotateCameraView),
+            name: UIDeviceOrientationDidChangeNotification,
+            object: nil)
+    }
+    
     internal func notifyCameraReady() {
         cameraButton.enabled = true
     }
@@ -338,6 +351,10 @@ public class CameraViewController: UIViewController {
             closeButton,
             swapButton,
             libraryButton].forEach({ $0.enabled = enabled })
+    }
+    
+    func rotateCameraView() {
+        cameraView.rotatePreview()
     }
     
     /**
