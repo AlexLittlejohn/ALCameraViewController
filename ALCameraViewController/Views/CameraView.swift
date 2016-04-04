@@ -243,10 +243,13 @@ public class CameraView: UIView {
     }
   
     public func rotatePreview() {
+        
+        print("rotatePreview")
+        
         guard preview != nil else {
             return
         }
-        switch UIDevice.currentDevice().orientation {
+        switch UIApplication.sharedApplication().statusBarOrientation {
             case .Portrait:
               preview?.connection.videoOrientation = AVCaptureVideoOrientation.Portrait
               break
@@ -254,10 +257,10 @@ public class CameraView: UIView {
               preview?.connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
               break
             case .LandscapeRight:
-              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeRight
               break
             case .LandscapeLeft:
-              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeRight
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
               break
             default: break
         }

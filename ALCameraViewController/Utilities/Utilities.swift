@@ -17,11 +17,32 @@ internal func localizedString(key: String) -> String {
     return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: CameraGlobals.shared.bundle, comment: key)
 }
 
-internal func currentRotation(statusBarOrientation: UIInterfaceOrientation) -> Double {
-    switch statusBarOrientation {
-        case .LandscapeLeft: return 90
-        case .LandscapeRight: return 270
-        case .PortraitUpsideDown: return 180
+internal func currentRotation(oldOrientation: UIInterfaceOrientation, newOrientation: UIInterfaceOrientation) -> Double {
+    switch oldOrientation {
+        case .Portrait:
+            switch newOrientation {
+                case .LandscapeLeft: return 90
+                case .LandscapeRight: return -90
+                case .PortraitUpsideDown: return 180
+                default: return 0
+            }
+            
+        case .LandscapeLeft:
+            switch newOrientation {
+                case .Portrait: return -90
+                case .LandscapeRight: return 180
+                case .PortraitUpsideDown: return 90
+                default: return 0
+            }
+            
+        case .LandscapeRight:
+            switch newOrientation {
+                case .Portrait: return 90
+                case .LandscapeLeft: return 180
+                case .PortraitUpsideDown: return -90
+                default: return 0
+            }
+            
         default: return 0
     }
 }
