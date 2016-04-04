@@ -47,8 +47,14 @@ public class CameraViewController: UIViewController {
     var didUpdateViews = false
     var allowCropping = false
     var animationRunning = false
+    
+    var lastInterfaceOrientation : UIInterfaceOrientation?
     var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
+    
+    var animationDuration: NSTimeInterval = 0.5
+    var animationSpring: CGFloat = 0.5
+    var rotateAnimation: UIViewAnimationOptions = .CurveLinear
     
     var cameraButtonEdgeConstraint: NSLayoutConstraint?
     var cameraButtonGravityConstraint: NSLayoutConstraint?
@@ -258,6 +264,7 @@ public class CameraViewController: UIViewController {
         view.autoRemoveConstraint(cameraButtonEdgeConstraint)
         
         let attribute : NSLayoutAttribute
+        
         switch statusBarOrientation {
             case .Portrait:
                 attribute = .Bottom
@@ -677,7 +684,6 @@ public class CameraViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         addCameraObserver()
-        addRotateObserver()
         setupVolumeControl()
         setupActions()
         checkPermissions()
@@ -708,6 +714,7 @@ public class CameraViewController: UIViewController {
      */
     override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+         lastInterfaceOrientation = UIApplication.sharedApplication().statusBarOrientation
         if animationRunning {
             return
         }
@@ -730,14 +737,6 @@ public class CameraViewController: UIViewController {
             self,
             selector: #selector(notifyCameraReady),
             name: AVCaptureSessionDidStartRunningNotification,
-            object: nil)
-    }
-    
-    private func addRotateObserver() {
-        NSNotificationCenter.defaultCenter().addObserver(
-            self,
-            selector: #selector(rotate),
-            name: UIDeviceOrientationDidChangeNotification,
             object: nil)
     }
     
@@ -781,26 +780,100 @@ public class CameraViewController: UIViewController {
     
     internal func rotate(statusBarOrientation: UIInterfaceOrientation) {
         
-        let rotation = currentRotation(statusBarOrientation)
-        let rads = CGFloat(radians(rotation))
+        if lastInterfaceOrientation != nil {
+            
+            let lastRotation : Double?
+            
+            switch lastInterfaceOrientation! {
+            case .Portrait:
+                
+                switch statusBarOrientation {
+                case .LandscapeLeft:
+                    lastRotation = 90
+                    break
+                case .LandscapeRight:
+                    lastRotation = -90
+                    break
+                case .PortraitUpsideDown:
+                    lastRotation = 180
+                    break
+                default:
+                    lastRotation = 0
+                    break
+                }
+                break
+                
+            case .LandscapeLeft:
+                switch statusBarOrientation {
+                case .Portrait:
+                    lastRotation = -90
+                    break
+                case .LandscapeRight:
+                    lastRotation = 180
+                    break
+                case .PortraitUpsideDown:
+                    lastRotation = 90
+                    break
+                default:
+                    lastRotation = 0
+                    break
+                }
+                break
+                
+            case .LandscapeRight:
+                switch statusBarOrientation {
+                case .Portrait:
+                    lastRotation = 90
+                    break
+                case .LandscapeLeft:
+                    lastRotation = 180
+                    break
+                case .PortraitUpsideDown:
+                    lastRotation = -90
+                    break
+                default:
+                    lastRotation = 0
+                    break
+                }
+                break
+                
+            default:
+                lastRotation = 0
+                break
+            }
+            
+            let lastTransform = CGAffineTransformMakeRotation(CGFloat(radians(lastRotation!)))
+            self.setTransform(lastTransform)
+            
+        }
+
+        let rads = CGFloat(radians(0))
         let transform = CGAffineTransformMakeRotation(rads)
         animationRunning = true
         
         let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC)/10)
         dispatch_after(time, dispatch_get_main_queue()) {
+            
             CATransaction.begin()
             CATransaction.setDisableActions(false)
             CATransaction.commit()
-            UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveLinear, animations: {
-//                self.setTransform(transform)
+            
+            UIView.animateWithDuration(
+                self.animationDuration,
+                delay: 0.1,
+                usingSpringWithDamping: self.animationSpring,
+                initialSpringVelocity: 0,
+                options: self.rotateAnimation,
+                animations: {
+                self.setTransform(transform)
                 }, completion: { _ in
                     self.animationRunning = false
             })
+            
         }
     }
     
     func setTransform(transform: CGAffineTransform) {
-        self.cameraButton.transform = transform
         self.closeButton.transform = transform
         self.swapButton.transform = transform
         self.libraryButton.transform = transform
