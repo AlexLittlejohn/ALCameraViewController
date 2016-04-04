@@ -13,36 +13,50 @@ import Photos
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
 public extension CameraViewController {
-    public class func imagePickerViewController(croppingEnabled: Bool, completion: CameraViewCompletion) -> UINavigationController {
-        let imagePicker = PhotoLibraryViewController()
-        let navigationController = UINavigationController(rootViewController: imagePicker)
+    public class func imagePickerViewController(croppingEnabled: Bool, imagePickerDelegate: protocol<UIImagePickerControllerDelegate, UINavigationControllerDelegate>?, completion: CameraViewCompletion) -> UINavigationController {
         
-        navigationController.navigationBar.barTintColor = UIColor.blackColor()
-        navigationController.navigationBar.barStyle = UIBarStyle.Black
-        navigationController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .PhotoLibrary
+        //        picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = imagePickerDelegate
         
-        imagePicker.onSelectionComplete = { asset in
-            if let asset = asset {
-                let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
-                confirmController.onComplete = { image, asset in
-                    if let image = image, asset = asset {
-                        completion(image, asset)
-                    } else {
-                        imagePicker.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                }
-                confirmController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-                imagePicker.presentViewController(confirmController, animated: true, completion: nil)
-            } else {
-                completion(nil, nil)
-            }
-        }
+        imagePicker.navigationBar.barTintColor = UIColor(red: 0/255, green: 42/255, blue: 79/255, alpha: 1.0)
+        imagePicker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(), NSFontAttributeName : UIFont(name: "Avenir", size: 18.0)!]
+        imagePicker.navigationBar.tintColor = UIColor.whiteColor()
+        imagePicker.navigationBar.barStyle = UIBarStyle.Default
         
-        return navigationController
+        return imagePicker
+        
+//        let imagePicker = PhotoLibraryViewController()
+//        let navigationController = UINavigationController(rootViewController: imagePicker)
+//        
+//        navigationController.navigationBar.barTintColor = UIColor.blackColor()
+//        navigationController.navigationBar.barStyle = UIBarStyle.Black
+//        navigationController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+//        
+//        imagePicker.onSelectionComplete = { asset in
+//            if let asset = asset {
+//                let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
+//                confirmController.onComplete = { image, asset in
+//                    if let image = image, asset = asset {
+//                        completion(image, asset)
+//                    } else {
+//                        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+//                    }
+//                }
+//                confirmController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+//                imagePicker.presentViewController(confirmController, animated: true, completion: nil)
+//            } else {
+//                completion(nil, nil)
+//            }
+//        }
+//        
+//        return navigationController
     }
 }
 
-public class CameraViewController: UIViewController {
+public class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var didUpdateViews = false
     var allowCropping = false
@@ -431,8 +445,34 @@ public class CameraViewController: UIViewController {
         onCompletion?(nil, nil)
     }
     
+    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        var asset: PHAsset
+        if (info["UIImagePickerControllerMediaType"] as? String == "public.movie") {
+            // Video
+            //            asset = PHAsset.fetchAssetsWithALAssetURLs([info["UIImagePickerControllerReferenceURL"]], options: nil).lastObject()
+        }
+        else if (info["UIImagePickerControllerMediaType"] as? String == "public.image") {
+            // Photo
+            let url = info[UIImagePickerControllerReferenceURL] as! NSURL
+            var result: PHFetchResult = PHAsset.fetchAssetsWithALAssetURLs([url], options: nil)
+            asset = PHAsset.fetchAssetsWithALAssetURLs([url], options: nil).lastObject as! PHAsset
+            
+            let confirmController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
+            confirmController.onComplete = { image, creationDate in
+                if let i = image {
+                    self.onCompletion!(i, creationDate)
+                } else {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
+            confirmController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+            picker.presentViewController(confirmController, animated: true, completion: nil)
+        }
+    }
+    
     internal func showLibrary() {
-        let imagePicker = CameraViewController.imagePickerViewController(allowCropping) { image, asset in
+        let imagePicker = CameraViewController.imagePickerViewController(allowCropping, imagePickerDelegate: self) { image, asset in
             self.dismissViewControllerAnimated(true, completion: nil)
             
             guard let image = image, asset = asset else {
