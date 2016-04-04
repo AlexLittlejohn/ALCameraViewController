@@ -518,7 +518,7 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
-        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         
         presentViewController(confirmViewController, animated: true, completion: nil)
 
