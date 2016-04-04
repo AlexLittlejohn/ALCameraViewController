@@ -17,18 +17,13 @@ internal func localizedString(key: String) -> String {
     return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: CameraGlobals.shared.bundle, comment: key)
 }
 
-internal func currentRotation() -> Double {
-    var rotation: Double = 0
-    
-    if UIDevice.currentDevice().orientation == .LandscapeLeft {
-        rotation = 90
-    } else if UIDevice.currentDevice().orientation == .LandscapeRight {
-        rotation = 270
-    } else if UIDevice.currentDevice().orientation == .PortraitUpsideDown {
-        rotation = 180
+internal func currentRotation(statusBarOrientation: UIInterfaceOrientation) -> Double {
+    switch statusBarOrientation {
+        case .LandscapeLeft: return 90
+        case .LandscapeRight: return 270
+        case .PortraitUpsideDown: return 180
+        default: return 0
     }
-    
-    return rotation
 }
 
 internal func largestPhotoSize() -> CGSize {
