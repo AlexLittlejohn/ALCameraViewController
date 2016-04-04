@@ -75,7 +75,7 @@ internal class PermissionsView: UIView {
         settingsButton.layer.cornerRadius = 4
         settingsButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         settingsButton.backgroundColor = UIColor(red: 52.0/255.0, green: 183.0/255.0, blue: 250.0/255.0, alpha: 1)
-        settingsButton.addTarget(self, action: #selector(PermissionsView.openSettings), forControlEvents: UIControlEvents.TouchUpInside)
+        settingsButton.addTarget(PermissionsView.self, action: "openSettings", forControlEvents: UIControlEvents.TouchUpInside)
         
         addSubview(iconView)
         addSubview(titleLabel)
