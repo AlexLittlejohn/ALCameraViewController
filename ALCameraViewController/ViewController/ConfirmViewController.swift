@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
+public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     let imageView = UIImageView()
     @IBOutlet weak var scrollView: UIScrollView!
@@ -22,29 +22,29 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
-    var onComplete: CameraViewCompletion?
+    public var onComplete: CameraViewCompletion?
     
     var asset: PHAsset!
     
-    internal init(asset: PHAsset, allowsCropping: Bool) {
+    public init(asset: PHAsset, allowsCropping: Bool) {
         self.allowsCropping = allowsCropping
         self.asset = asset
         super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
     }
     
-    internal required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    internal override func prefersStatusBarHidden() -> Bool {
+    public override func prefersStatusBarHidden() -> Bool {
         return true
     }
     
-    internal override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
     
-    internal override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.blackColor()
@@ -77,7 +77,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             .fetch()
     }
     
-    override func viewWillLayoutSubviews() {
+    public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let scale = calculateMinimumScale(view.frame.size)
         let frame = allowsCropping ? cropOverlay.frame : view.bounds
@@ -89,7 +89,7 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         centerImageViewOnRotate()
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         let scale = calculateMinimumScale(size)
@@ -198,8 +198,8 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func buttonActions() {
-        confirmButton.addTarget(self, action: #selector(ConfirmViewController.confirmPhoto), forControlEvents: UIControlEvents.TouchUpInside)
-        cancelButton.addTarget(self, action: #selector(ConfirmViewController.cancel), forControlEvents: UIControlEvents.TouchUpInside)
+        confirmButton.action = { [weak self] in self?.confirmPhoto() }
+        cancelButton.action = { [weak self] in self?.cancel() }
     }
     
     internal func cancel() {
@@ -246,11 +246,11 @@ internal class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         fetcher.fetch()
     }
     
-    internal func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    internal func scrollViewDidZoom(scrollView: UIScrollView) {
+    public func scrollViewDidZoom(scrollView: UIScrollView) {
         centerScrollViewContents()
     }
     
