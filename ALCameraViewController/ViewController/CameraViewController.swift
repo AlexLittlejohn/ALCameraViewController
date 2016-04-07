@@ -62,7 +62,12 @@ public class CameraViewController: UIViewController {
     var closeButtonEdgeConstraint: NSLayoutConstraint?
     var closeButtonGravityConstraint: NSLayoutConstraint?
     
-    var swapButtonEdgeConstraint: NSLayoutConstraint?
+    var containerButtonsEdgeOneConstraint: NSLayoutConstraint?
+    var containerButtonsEdgeTwoConstraint: NSLayoutConstraint?
+    var containerButtonsGravityConstraint: NSLayoutConstraint?
+    
+    var swapButtonEdgeOneConstraint: NSLayoutConstraint?
+    var swapButtonEdgeTwoConstraint: NSLayoutConstraint?
     var swapButtonGravityConstraint: NSLayoutConstraint?
     
     var libraryButtonEdgeConstraint: NSLayoutConstraint?
@@ -142,6 +147,13 @@ public class CameraViewController: UIViewController {
                         forState: .Normal)
         return button
     }()
+    
+    let containerSwapLibraryButton : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.redColor()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
   
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
@@ -179,10 +191,10 @@ public class CameraViewController: UIViewController {
         [cameraView,
             cameraOverlay,
             cameraButton,
-            libraryButton,
             closeButton,
-            swapButton,
-            flashButton].forEach({ self.view.addSubview($0) })
+            flashButton,
+            containerSwapLibraryButton].forEach({ self.view.addSubview($0) })
+        [swapButton, libraryButton].forEach({ containerSwapLibraryButton.addSubview($0) })
         view.setNeedsUpdateConstraints()
     }
     
@@ -211,12 +223,16 @@ public class CameraViewController: UIViewController {
         configCloseButtonEdgeConstraint(statusBarOrientation)
         configCloseButtonGravityConstraint(statusBarOrientation)
         
-        removeSwapButtonConstraints()
-        configSwapButtonEdgeConstraint(statusBarOrientation)
-        configSwapButtonGravityConstraint(portrait)
+        removeContainerButtonsConstraints()
+        configContainerSwapLibraryButtonEdgeConstraint(statusBarOrientation)
+        configContainerGravityConstraint(statusBarOrientation)
         
+        removeSwapButtonConstraints()
+//        configSwapButtonEdgeConstraint(statusBarOrientation)
+        configSwapButtonGravityConstraint(portrait)
+
         removeLibraryButtonConstraints()
-        configLibraryEdgeButtonConstraint(statusBarOrientation)
+//        configLibraryEdgeButtonConstraint(statusBarOrientation)
         configLibraryGravityButtonConstraint(portrait)
         
         configFlashEdgeButtonConstraint(statusBarOrientation)
