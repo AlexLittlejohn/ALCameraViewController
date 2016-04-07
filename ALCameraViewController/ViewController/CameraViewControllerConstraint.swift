@@ -80,13 +80,13 @@ extension CameraViewController {
         view.addConstraint(cameraButtonGravityConstraint!)
     }
     
-    func removeContainerButtonsConstraints() {
+    func removeContainerConstraints() {
         view.autoRemoveConstraint(containerButtonsEdgeOneConstraint)
         view.autoRemoveConstraint(containerButtonsEdgeTwoConstraint)
         view.autoRemoveConstraint(containerButtonsGravityConstraint)
     }
     
-    func configContainerSwapLibraryButtonEdgeConstraint(statusBarOrientation : UIInterfaceOrientation) {
+    func configContainerEdgeConstraint(statusBarOrientation : UIInterfaceOrientation) {
         
         let attributeOne : NSLayoutAttribute
         let attributeTwo : NSLayoutAttribute
@@ -334,7 +334,8 @@ extension CameraViewController {
      * the device was rotated.
      */
     func removeLibraryButtonConstraints() {
-        view.autoRemoveConstraint(libraryButtonEdgeConstraint)
+        view.autoRemoveConstraint(libraryButtonEdgeOneConstraint)
+        view.autoRemoveConstraint(libraryButtonEdgeTwoConstraint)
         view.autoRemoveConstraint(libraryButtonGravityConstraint)
     }
     
@@ -346,44 +347,54 @@ extension CameraViewController {
      * top side of LibraryButton.
      */
     func configLibraryEdgeButtonConstraint(statusBarOrientation : UIInterfaceOrientation) {
-        
-        let biggerIphone6 = DeviceType.IS_IPHONE_6
+
         let attributeOne : NSLayoutAttribute
         let attributeTwo : NSLayoutAttribute
         let constant : CGFloat
         
         switch statusBarOrientation {
         case .Portrait:
-            attributeOne = biggerIphone6 ? .Right : .Left
-            attributeTwo = .Right
-            constant = biggerIphone6 ? -8 : 8
-            break
-        case .LandscapeRight:
-            attributeOne = biggerIphone6 ? .Top : .Bottom
-            attributeTwo = .Top
-            constant = -8
-            break
-        case .LandscapeLeft:
-            attributeOne = biggerIphone6 ? .Bottom : .Top
+            attributeOne = .Top
             attributeTwo = .Bottom
             constant = 8
             break
-        default:
-            attributeOne = biggerIphone6 ? .Right : .Right
+        case .LandscapeRight:
+            attributeOne = .Left
+            attributeTwo = .Right
+            constant = -8
+            break
+        case .LandscapeLeft:
+            attributeOne = .Right
             attributeTwo = .Left
+            constant = 8
+            break
+        default:
+            attributeOne = .Bottom
+            attributeTwo = .Top
             constant = -8
             break
         }
         
-        libraryButtonEdgeConstraint = NSLayoutConstraint(
+        libraryButtonEdgeTwoConstraint = NSLayoutConstraint(
             item: libraryButton,
             attribute: attributeOne,
             relatedBy: .Equal,
-            toItem: biggerIphone6 ? view : swapButton,
+            toItem: containerSwapLibraryButton,
+            attribute: attributeOne,
+            multiplier: 1.0,
+            constant: constant)
+        view.addConstraint(libraryButtonEdgeTwoConstraint!)
+        
+        libraryButtonEdgeOneConstraint = NSLayoutConstraint(
+            item: libraryButton,
+            attribute: attributeTwo,
+            relatedBy: .Equal,
+            toItem: containerSwapLibraryButton,
             attribute: attributeTwo,
             multiplier: 1.0,
             constant: constant)
-        view.addConstraint(libraryButtonEdgeConstraint!)
+        view.addConstraint(libraryButtonEdgeOneConstraint!)
+        
     }
     
     /**

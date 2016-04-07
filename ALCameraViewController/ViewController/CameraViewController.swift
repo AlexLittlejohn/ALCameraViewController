@@ -70,7 +70,8 @@ public class CameraViewController: UIViewController {
     var swapButtonEdgeTwoConstraint: NSLayoutConstraint?
     var swapButtonGravityConstraint: NSLayoutConstraint?
     
-    var libraryButtonEdgeConstraint: NSLayoutConstraint?
+    var libraryButtonEdgeOneConstraint: NSLayoutConstraint?
+    var libraryButtonEdgeTwoConstraint: NSLayoutConstraint?
     var libraryButtonGravityConstraint: NSLayoutConstraint?
     
     var flashButtonEdgeConstraint: NSLayoutConstraint?
@@ -223,16 +224,16 @@ public class CameraViewController: UIViewController {
         configCloseButtonEdgeConstraint(statusBarOrientation)
         configCloseButtonGravityConstraint(statusBarOrientation)
         
-        removeContainerButtonsConstraints()
-        configContainerSwapLibraryButtonEdgeConstraint(statusBarOrientation)
+        removeContainerConstraints()
+        configContainerEdgeConstraint(statusBarOrientation)
         configContainerGravityConstraint(statusBarOrientation)
         
         removeSwapButtonConstraints()
-//        configSwapButtonEdgeConstraint(statusBarOrientation)
+        configSwapButtonEdgeConstraint(statusBarOrientation)
         configSwapButtonGravityConstraint(portrait)
 
         removeLibraryButtonConstraints()
-//        configLibraryEdgeButtonConstraint(statusBarOrientation)
+        configLibraryEdgeButtonConstraint(statusBarOrientation)
         configLibraryGravityButtonConstraint(portrait)
         
         configFlashEdgeButtonConstraint(statusBarOrientation)
