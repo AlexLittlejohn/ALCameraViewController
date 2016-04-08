@@ -151,7 +151,6 @@ public class CameraViewController: UIViewController {
     
     let containerSwapLibraryButton : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.redColor()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

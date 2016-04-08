@@ -175,38 +175,23 @@ extension CameraViewController {
         
         let attributeOne : NSLayoutAttribute
         let attributeTwo : NSLayoutAttribute
-        let attributeThree : NSLayoutAttribute
-        let attributeFour : NSLayoutAttribute
-        let constant : CGFloat
-        
+
         switch statusBarOrientation {
         case .Portrait:
             attributeOne = .Top
-            attributeTwo = .Top
-            attributeThree = .Bottom
-            attributeFour = .Bottom
-            constant = 8
+            attributeTwo = .Bottom
             break
         case .LandscapeRight:
-            attributeOne = .Bottom
-            attributeTwo = .Top
-            attributeThree = .Bottom
-            attributeFour = .Bottom
-            constant = -8
+            attributeOne = .Left
+            attributeTwo = .Right
             break
         case .LandscapeLeft:
-            attributeOne = .Top
-            attributeTwo = .Bottom
-            attributeThree = .Bottom
-            attributeFour = .Bottom
-            constant = 8
-            break
-        default:
             attributeOne = .Right
             attributeTwo = .Left
-            attributeThree = .Bottom
-            attributeFour = .Bottom
-            constant = -8
+            break
+        default:
+            attributeOne = .Bottom
+            attributeTwo = .Top
             break
         }
         
@@ -215,19 +200,19 @@ extension CameraViewController {
             attribute: attributeOne,
             relatedBy: .Equal,
             toItem: containerSwapLibraryButton,
-            attribute: attributeTwo,
+            attribute: attributeOne,
             multiplier: 1.0,
-            constant: constant)
+            constant: 0)
         view.addConstraint(swapButtonEdgeOneConstraint!)
         
         swapButtonEdgeTwoConstraint = NSLayoutConstraint(
             item: swapButton,
-            attribute: attributeThree,
+            attribute: attributeTwo,
             relatedBy: .Equal,
             toItem: containerSwapLibraryButton,
-            attribute: attributeFour,
+            attribute: attributeTwo,
             multiplier: 1.0,
-            constant: constant)
+            constant: 0)
         view.addConstraint(swapButtonEdgeTwoConstraint!)
         
     }
@@ -239,12 +224,12 @@ extension CameraViewController {
     func configSwapButtonGravityConstraint(portrait: Bool) {
         swapButtonGravityConstraint = NSLayoutConstraint(
             item: swapButton,
-            attribute: portrait ? .Left : .Bottom,
+            attribute: portrait ? .Right : .Bottom,
             relatedBy: .LessThanOrEqual,
             toItem: containerSwapLibraryButton,
             attribute: portrait ? .CenterX : .CenterY,
             multiplier: 1.0,
-            constant: 0)
+            constant: -4)
         view.addConstraint(swapButtonGravityConstraint!)
     }
     
@@ -350,50 +335,45 @@ extension CameraViewController {
 
         let attributeOne : NSLayoutAttribute
         let attributeTwo : NSLayoutAttribute
-        let constant : CGFloat
         
         switch statusBarOrientation {
         case .Portrait:
             attributeOne = .Top
             attributeTwo = .Bottom
-            constant = 8
             break
         case .LandscapeRight:
             attributeOne = .Left
             attributeTwo = .Right
-            constant = -8
             break
         case .LandscapeLeft:
             attributeOne = .Right
             attributeTwo = .Left
-            constant = 8
             break
         default:
             attributeOne = .Bottom
             attributeTwo = .Top
-            constant = -8
             break
         }
         
-        libraryButtonEdgeTwoConstraint = NSLayoutConstraint(
-            item: libraryButton,
-            attribute: attributeOne,
-            relatedBy: .Equal,
-            toItem: containerSwapLibraryButton,
-            attribute: attributeOne,
-            multiplier: 1.0,
-            constant: constant)
-        view.addConstraint(libraryButtonEdgeTwoConstraint!)
-        
         libraryButtonEdgeOneConstraint = NSLayoutConstraint(
             item: libraryButton,
+            attribute: attributeOne,
+            relatedBy: .Equal,
+            toItem: containerSwapLibraryButton,
+            attribute: attributeOne,
+            multiplier: 1.0,
+            constant: 0)
+        view.addConstraint(libraryButtonEdgeOneConstraint!)
+        
+        libraryButtonEdgeTwoConstraint = NSLayoutConstraint(
+            item: libraryButton,
             attribute: attributeTwo,
             relatedBy: .Equal,
             toItem: containerSwapLibraryButton,
             attribute: attributeTwo,
             multiplier: 1.0,
-            constant: constant)
-        view.addConstraint(libraryButtonEdgeOneConstraint!)
+            constant: 0)
+        view.addConstraint(libraryButtonEdgeTwoConstraint!)
         
     }
     
@@ -404,12 +384,12 @@ extension CameraViewController {
     func configLibraryGravityButtonConstraint(portrait: Bool) {
         libraryButtonGravityConstraint = NSLayoutConstraint(
             item: libraryButton,
-            attribute: portrait ? .Right : .Top,
+            attribute: portrait ? .Left : .Top,
             relatedBy: .LessThanOrEqual,
             toItem: containerSwapLibraryButton,
             attribute: portrait ? .CenterX : .CenterY,
             multiplier: 1.0,
-            constant: 0)
+            constant: 4)
         view.addConstraint(libraryButtonGravityConstraint!)
     }
     
