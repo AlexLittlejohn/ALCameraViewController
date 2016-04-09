@@ -328,11 +328,11 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
             self?.capturePhoto()
         }
         
-        cameraButton.action = capturePhoto
-        swapButton.action = swapCamera
-        libraryButton.action = showLibrary
-        closeButton.action = close
-        flashButton.action = toggleFlash
+        cameraButton.action = { [weak self] in self?.capturePhoto() }
+        swapButton.action = { [weak self] in self?.swapCamera() }
+        libraryButton.action = { [weak self] in self?.showLibrary() }
+        closeButton.action = { [weak self] in self?.close() }
+        flashButton.action = { [weak self] in self?.toggleFlash() }
         
         checkPermissions()
         rotate()
