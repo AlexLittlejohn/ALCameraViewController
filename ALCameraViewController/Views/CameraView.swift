@@ -56,7 +56,7 @@ public class CameraView: UIView {
             }
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: "focus:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(focus(_:)))
         addGestureRecognizer(tapGesture)
         userInteractionEnabled = true
         addSubview(focusView)

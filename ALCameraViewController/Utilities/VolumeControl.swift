@@ -31,7 +31,7 @@ public class VolumeControl {
         
         try! AVAudioSession.sharedInstance().setActive(true)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "volumeChanged", name: changeKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(volumeChanged), name: changeKey, object: nil)
     }
     
     deinit {

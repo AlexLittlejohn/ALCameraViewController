@@ -25,11 +25,11 @@ extension UIButton {
     
     var action: ButtonAction? {
         set(newValue) {
-            removeTarget(UIButton.self, action: "performAction", forControlEvents: UIControlEvents.TouchUpInside)
+            removeTarget(self, action: #selector(UIButton.performAction), forControlEvents: UIControlEvents.TouchUpInside)
             var wrapper: ActionWrapper?
             if let newValue = newValue {
                 wrapper = ActionWrapper(action: newValue)
-                addTarget(UIButton.self, action: "performAction", forControlEvents: UIControlEvents.TouchUpInside)
+                addTarget(self, action: #selector(UIButton.performAction), forControlEvents: UIControlEvents.TouchUpInside)
             }
             
             objc_setAssociatedObject(self, &AssociatedKeys.ActionKey, wrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
