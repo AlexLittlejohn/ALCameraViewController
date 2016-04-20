@@ -21,18 +21,18 @@ public extension CameraViewController {
         navigationController.navigationBar.barStyle = UIBarStyle.Black
         navigationController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         
-        imagePicker.onSelectionComplete = { asset in
+        imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
                 let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
-                confirmController.onComplete = { image, asset in
+                confirmController.onComplete = { [weak imagePicker] image, asset in
                     if let image = image, asset = asset {
                         completion(image, asset)
                     } else {
-                        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+                        imagePicker?.dismissViewControllerAnimated(true, completion: nil)
                     }
                 }
                 confirmController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-                imagePicker.presentViewController(confirmController, animated: true, completion: nil)
+                imagePicker?.presentViewController(confirmController, animated: true, completion: nil)
             } else {
                 completion(nil, nil)
             }
