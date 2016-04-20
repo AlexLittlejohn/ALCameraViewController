@@ -51,9 +51,7 @@ public class CameraView: UIView {
     public func configureFocus() {
         
         if let gestureRecognizers = gestureRecognizers {
-            for gesture in gestureRecognizers {
-                removeGestureRecognizer(gesture)
-            }
+            gestureRecognizers.forEach({ removeGestureRecognizer($0) })
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(focus(_:)))
@@ -242,4 +240,27 @@ public class CameraView: UIView {
         session.addInput(i)
         session.commitConfiguration()
     }
+  
+    public func rotatePreview() {
+      
+        guard preview != nil else {
+            return
+        }
+        switch UIApplication.sharedApplication().statusBarOrientation {
+            case .Portrait:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.Portrait
+              break
+            case .PortraitUpsideDown:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+              break
+            case .LandscapeRight:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeRight
+              break
+            case .LandscapeLeft:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
+              break
+            default: break
+        }
+    }
+    
 }
