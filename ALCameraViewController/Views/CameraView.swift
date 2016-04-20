@@ -17,7 +17,7 @@ public class CameraView: UIView {
     var imageOutput: AVCaptureStillImageOutput!
     var preview: AVCaptureVideoPreviewLayer!
     
-    let cameraQueue = dispatch_queue_create("com.zero.ALCameraViewController.Queue", DISPATCH_QUEUE_SERIAL);
+    let cameraQueue = dispatch_queue_create("com.zero.ALCameraViewController.Queue", DISPATCH_QUEUE_SERIAL)
     
     let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
@@ -51,9 +51,7 @@ public class CameraView: UIView {
     public func configureFocus() {
         
         if let gestureRecognizers = gestureRecognizers {
-            for gesture in gestureRecognizers {
-                removeGestureRecognizer(gesture)
-            }
+            gestureRecognizers.forEach({ removeGestureRecognizer($0) })
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(focus(_:)))
@@ -242,4 +240,27 @@ public class CameraView: UIView {
         session.addInput(i)
         session.commitConfiguration()
     }
+  
+    public func rotatePreview() {
+      
+        guard preview != nil else {
+            return
+        }
+        switch UIApplication.sharedApplication().statusBarOrientation {
+            case .Portrait:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.Portrait
+              break
+            case .PortraitUpsideDown:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+              break
+            case .LandscapeRight:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeRight
+              break
+            case .LandscapeLeft:
+              preview?.connection.videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
+              break
+            default: break
+        }
+    }
+    
 }

@@ -17,18 +17,34 @@ internal func localizedString(key: String) -> String {
     return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: CameraGlobals.shared.bundle, comment: key)
 }
 
-internal func currentRotation() -> Double {
-    var rotation: Double = 0
-    
-    if UIDevice.currentDevice().orientation == .LandscapeLeft {
-        rotation = 90
-    } else if UIDevice.currentDevice().orientation == .LandscapeRight {
-        rotation = 270
-    } else if UIDevice.currentDevice().orientation == .PortraitUpsideDown {
-        rotation = 180
+internal func currentRotation(oldOrientation: UIInterfaceOrientation, newOrientation: UIInterfaceOrientation) -> Double {
+    switch oldOrientation {
+        case .Portrait:
+            switch newOrientation {
+                case .LandscapeLeft: return 90
+                case .LandscapeRight: return -90
+                case .PortraitUpsideDown: return 180
+                default: return 0
+            }
+            
+        case .LandscapeLeft:
+            switch newOrientation {
+                case .Portrait: return -90
+                case .LandscapeRight: return 180
+                case .PortraitUpsideDown: return 90
+                default: return 0
+            }
+            
+        case .LandscapeRight:
+            switch newOrientation {
+                case .Portrait: return 90
+                case .LandscapeLeft: return 180
+                case .PortraitUpsideDown: return -90
+                default: return 0
+            }
+            
+        default: return 0
     }
-    
-    return rotation
 }
 
 internal func largestPhotoSize() -> CGSize {
@@ -79,4 +95,25 @@ internal func flashImage(mode: AVCaptureFlashMode) -> String {
         image = "flashOffIcon"
     }
     return image
+}
+
+struct ScreenSize {
+    static let SCREEN_WIDTH         = UIScreen.mainScreen().bounds.size.width
+    static let SCREEN_HEIGHT        = UIScreen.mainScreen().bounds.size.height
+    static let SCREEN_MAX_LENGTH    = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+}
+
+struct DeviceConfig {
+    static let SCREEN_MULTIPLIER : CGFloat = {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            switch ScreenSize.SCREEN_MAX_LENGTH {
+                case 568.0: return 1.5
+                case 667.0: return 2.0
+                case 736.0: return 4.0
+                default: return 1.0
+            }
+        } else {
+            return 1.0
+        }
+    }()
 }
