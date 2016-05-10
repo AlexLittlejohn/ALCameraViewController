@@ -497,6 +497,7 @@ public class CameraViewController: UIViewController {
     }
     
     internal func close() {
+        self.dismissViewControllerAnimated(true, completion: nil)
         onCompletion?(nil, nil)
     }
     
