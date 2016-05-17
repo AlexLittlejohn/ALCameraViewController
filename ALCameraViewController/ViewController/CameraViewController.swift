@@ -62,6 +62,7 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
     var allowCropping = false
     var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
+    var activityIndicatorView: UIActivityIndicatorView?
     
     let cameraView : CameraView = {
         let cameraView = CameraView()
@@ -338,6 +339,16 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
         rotate()
         
         cameraView.configureFocus()
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        activityIndicatorView!.frame = CGRectMake(0, 0, 50, 50)
+        activityIndicatorView!.layer.cornerRadius = activityIndicatorView!.frame.size.width/2
+        activityIndicatorView!.layer.masksToBounds = true
+        activityIndicatorView!.backgroundColor = UIColor.init(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.5);
+        cameraButton.addSubview(activityIndicatorView!)
+        activityIndicatorView!.startAnimating()
+        activityIndicatorView!.center = CGPointMake(40, 40)
+        activityIndicatorView!.hidden = true
     }
     
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -412,6 +423,8 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
             closeButton.enabled = false
             swapButton.enabled = false
             libraryButton.enabled = false
+            activityIndicatorView?.hidden = false
+            activityIndicatorView?.startAnimating()
             cameraView.capturePhoto { image in
                 guard let image = image else {
                     self.cameraButton.enabled = true
@@ -430,6 +443,8 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
             .setImage(image)
             .onSuccess { asset in
                 self.layoutCameraResult(asset)
+                self.activityIndicatorView?.hidden = true
+                self.activityIndicatorView?.stopAnimating()
             }
             .onFailure { error in
                 self.cameraButton.enabled = true
@@ -437,6 +452,8 @@ public class CameraViewController: UIViewController, UIImagePickerControllerDele
                 self.swapButton.enabled = true
                 self.libraryButton.enabled = true
                 self.showNoPermissionsView(true)
+                self.activityIndicatorView?.hidden = true
+                self.activityIndicatorView?.stopAnimating()
             }
             .save()
     }
