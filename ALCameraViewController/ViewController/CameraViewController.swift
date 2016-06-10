@@ -81,9 +81,7 @@ public class CameraViewController: UIViewController {
     var cameraOverlayEdgeTwoConstraint: NSLayoutConstraint?
     var cameraOverlayWidthConstraint: NSLayoutConstraint?
     var cameraOverlayCenterConstraint: NSLayoutConstraint?
-
-    var sessionPreset : String =  AVCaptureSessionPresetPhoto
-
+    
     let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
@@ -157,14 +155,13 @@ public class CameraViewController: UIViewController {
         return view
     }()
   
-    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, sessionPreset preset: String = AVCaptureSessionPresetPhoto, completion: CameraViewCompletion) {
+    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
         cameraOverlay.hidden = !allowCropping
         libraryButton.enabled = allowsLibraryAccess
         libraryButton.hidden = !allowsLibraryAccess
-        sessionPreset = preset
     }
   
     required public init?(coder aDecoder: NSCoder) {
@@ -277,7 +274,7 @@ public class CameraViewController: UIViewController {
      */
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        cameraView.startSession(sessionPreset)
+        cameraView.startSession()
     }
     
     /**
