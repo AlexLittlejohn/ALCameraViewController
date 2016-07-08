@@ -472,7 +472,7 @@ public class CameraViewController: UIViewController {
         }
         
         if connection.enabled {
-            toggleButtons(true)
+            toggleButtons(false)
             cameraView.capturePhoto { image in
                 guard let image = image else {
                     self.toggleButtons(true)
