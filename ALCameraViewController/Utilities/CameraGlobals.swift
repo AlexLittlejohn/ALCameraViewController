@@ -10,13 +10,13 @@ import UIKit
 
 internal let itemSpacing: CGFloat = 1
 internal let columns: CGFloat = 4
-internal let thumbnailDimension = (UIScreen.mainScreen().bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
-internal let scale = UIScreen.mainScreen().scale
+internal let thumbnailDimension = (UIScreen.main().bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
+internal let scale = UIScreen.main().scale
 
 public class CameraGlobals {
     public static let shared = CameraGlobals()
     
-    var bundle = NSBundle(forClass: CameraViewController.self)
+    var bundle = Bundle(for: CameraViewController.self)
     var stringsTable = "CameraView"
-    var photoLibraryThumbnailSize = CGSizeMake(thumbnailDimension, thumbnailDimension)
+    var photoLibraryThumbnailSize = CGSize(width: thumbnailDimension, height: thumbnailDimension)
 }

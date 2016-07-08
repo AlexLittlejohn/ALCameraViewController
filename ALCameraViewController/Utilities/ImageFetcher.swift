@@ -9,12 +9,12 @@
 import UIKit
 import Photos
 
-public typealias ImageFetcherSuccess = (assets: PHFetchResult) -> ()
+public typealias ImageFetcherSuccess = (assets: PHFetchResult<AnyObject>) -> ()
 public typealias ImageFetcherFailure = (error: NSError) -> ()
 
-extension PHFetchResult: SequenceType {
-    public func generate() -> NSFastGenerator {
-        return NSFastGenerator(self)
+extension PHFetchResult: Sequence {
+    public func makeIterator() -> NSFastEnumerationIterator {
+        return NSFastEnumerationIterator(self)
     }
 }
 
@@ -26,16 +26,16 @@ public class ImageFetcher {
     private var authRequested = false
     private let errorDomain = "com.zero.imageFetcher"
     
-    let libraryQueue = dispatch_queue_create("com.zero.ALCameraViewController.LibraryQueue", DISPATCH_QUEUE_SERIAL);
+    let libraryQueue = DispatchQueue(label: "com.zero.ALCameraViewController.LibraryQueue", attributes: DispatchQueueAttributes.serial);
     
     public init() { }
     
-    public func onSuccess(success: ImageFetcherSuccess) -> Self {
+    public func onSuccess(_ success: ImageFetcherSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(failure: ImageFetcherFailure) -> Self {
+    public func onFailure(_ failure: ImageFetcherFailure) -> Self {
         self.failure = failure
         return self
     }
@@ -53,10 +53,10 @@ public class ImageFetcher {
     
     private func onAuthorized() {
         let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        dispatch_async(libraryQueue) {
-            let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
-            dispatch_async(dispatch_get_main_queue()) {
+        options.sortDescriptors = [SortDescriptor(key: "creationDate", ascending: false)]
+        libraryQueue.async {
+            let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: options)
+            DispatchQueue.main.async {
                 self.success?(assets: assets)
             }
         }
