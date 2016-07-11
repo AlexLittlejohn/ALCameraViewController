@@ -35,7 +35,7 @@ let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled
 	// Do something with your image here.
 	// If cropping is enabled this image will be the cropped version
 
-	self?.dismissViewController(animated: true, completion: nil)
+	self?.dismissViewControllerAnimated(true, completion: nil)
 }
 
 presentViewController(cameraViewController, animated: true, completion: nil)
