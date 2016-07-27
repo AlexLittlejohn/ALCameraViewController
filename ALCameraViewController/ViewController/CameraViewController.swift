@@ -49,8 +49,8 @@ public class CameraViewController: UIViewController {
     var animationRunning = false
     
     var lastInterfaceOrientation : UIInterfaceOrientation?
-    var onCompletion: CameraViewCompletion?
-    var volumeControl: VolumeControl?
+    public var onCompletion: CameraViewCompletion?
+    public var volumeControl: VolumeControl?
     
     var animationDuration: NSTimeInterval = 0.5
     var animationSpring: CGFloat = 0.5
