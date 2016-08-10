@@ -24,7 +24,7 @@ internal class CropOverlay: UIView {
     let lineWidth: CGFloat = 1
     
     internal init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         createLines()
     }
     
@@ -88,8 +88,8 @@ internal class CropOverlay: UIView {
                 horizontalFrame = CGRect(x: bounds.width + cornerDepth - cornerWidth, y:  bounds.height, width:  cornerWidth, height:  cornerDepth)
                 break
             default:
-                verticalFrame = CGRectZero
-                horizontalFrame = CGRectZero
+                verticalFrame = CGRect.zero
+                horizontalFrame = CGRect.zero
                 break
             }
             
@@ -97,7 +97,7 @@ internal class CropOverlay: UIView {
             corner[1].frame = horizontalFrame
         }
         
-        let lineThickness = lineWidth / UIScreen.mainScreen().scale
+        let lineThickness = lineWidth / UIScreen.main.scale
         let padding = (bounds.height - (lineThickness * CGFloat(horizontalLines.count))) / CGFloat(horizontalLines.count + 1)
         
         for i in 0..<horizontalLines.count {
@@ -123,12 +123,12 @@ internal class CropOverlay: UIView {
         bottomLeftCornerLines = [createLine(), createLine()]
         bottomRightCornerLines = [createLine(), createLine()]
         
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
     }
     
     func createLine() -> UIView {
         let line = UIView()
-        line.backgroundColor = UIColor.whiteColor()
+        line.backgroundColor = UIColor.white
         addSubview(line)
         return line
     }

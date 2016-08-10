@@ -31,19 +31,19 @@ public class VolumeControl {
         
         try! AVAudioSession.sharedInstance().setActive(true)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(volumeChanged), name: changeKey, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: NSNotification.Name(rawValue: changeKey), object: nil)
     }
     
     deinit {
         try! AVAudioSession.sharedInstance().setActive(false)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         onVolumeChange = nil
         volumeView.removeFromSuperview()
     }
     
-    func configureInView(view: UIView) {
+    func configureInView(_ view: UIView) {
         view.addSubview(volumeView)
-        view.sendSubviewToBack(volumeView)
+        view.sendSubview(toBack: volumeView)
     }
     
     @objc func volumeChanged() {

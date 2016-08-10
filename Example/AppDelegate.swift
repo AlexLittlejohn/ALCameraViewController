@@ -13,11 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let viewController = ViewController(nibName: "ViewController", bundle: NSBundle.mainBundle())
+        let viewController = ViewController(nibName: "ViewController", bundle: Bundle.main)
         
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = viewController
         window!.makeKeyAndVisible()
         return true

@@ -22,17 +22,17 @@ public class SingleImageSaver {
     
     public init() { }
     
-    public func onSuccess(success: SingleImageSaverSuccess) -> Self {
+    public func onSuccess(_ success: SingleImageSaverSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(failure: SingleImageSaverFailure) -> Self {
+    public func onFailure(_ failure: SingleImageSaverFailure) -> Self {
         self.failure = failure
         return self
     }
     
-    public func setImage(image: UIImage) -> Self {
+    public func setImage(_ image: UIImage) -> Self {
         self.image = image
         return self
     }
@@ -58,13 +58,13 @@ public class SingleImageSaver {
         
         var assetIdentifier: PHObjectPlaceholder?
         
-        PHPhotoLibrary.sharedPhotoLibrary()
+        PHPhotoLibrary.shared()
             .performChanges({
-                let request = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+                let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
                 assetIdentifier = request.placeholderForCreatedAsset
             }) { finished, error in
                 
-                guard let assetIdentifier = assetIdentifier where finished else {
+                guard let assetIdentifier = assetIdentifier, finished else {
                     self.invokeFailure()
                     return
                 }
@@ -73,12 +73,12 @@ public class SingleImageSaver {
         }
     }
     
-    private func fetch(assetIdentifier: PHObjectPlaceholder) {
+    private func fetch(_ assetIdentifier: PHObjectPlaceholder) {
         
-        let assets = PHAsset.fetchAssetsWithLocalIdentifiers([assetIdentifier.localIdentifier], options: nil)
+        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier.localIdentifier], options: nil)
         
-        dispatch_async(dispatch_get_main_queue()) {
-            guard let asset = assets.firstObject as? PHAsset else {
+        DispatchQueue.main.async {
+            guard let asset = assets.firstObject else {
                 self.invokeFailure()
                 return
             }
