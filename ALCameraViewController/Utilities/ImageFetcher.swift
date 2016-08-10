@@ -12,11 +12,11 @@ import Photos
 public typealias ImageFetcherSuccess = (assets: PHFetchResult<PHAsset>) -> ()
 public typealias ImageFetcherFailure = (error: NSError) -> ()
 
-extension PHFetchResult: Sequence {
-    public func makeIterator() -> NSFastEnumerationIterator {
-        return NSFastEnumerationIterator(self)
-    }
-}
+//extension PHFetchResult: Sequence {
+//    public func makeIterator() -> NSFastEnumerationIterator {
+//        return NSFastEnumerationIterator(self)
+//    }
+//}
 
 public class ImageFetcher {
 
