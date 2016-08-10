@@ -103,14 +103,6 @@ extension PhotoLibraryViewController : UICollectionViewDataSource {
         return assets?.count ?? 0
     }
     
-    public func collectionView(_ collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if cell is ImageCell {
-            if let model = itemAtIndexPath(indexPath) {
-                (cell as! ImageCell).configureWithModel(model)
-            }
-        }
-    }
-    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: ImageCellIdentifier, for: indexPath)
     }
@@ -121,4 +113,12 @@ extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         onSelectionComplete?(asset: itemAtIndexPath(indexPath))
     }
+	
+	public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		if cell is ImageCell {
+			if let model = itemAtIndexPath(indexPath) {
+				(cell as! ImageCell).configureWithModel(model)
+			}
+		}
+	}
 }
