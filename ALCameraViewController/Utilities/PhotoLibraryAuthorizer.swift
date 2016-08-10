@@ -26,18 +26,18 @@ class PhotoLibraryAuthorizer {
         completion(error: error)
     }
     
-    func handleAuthorization(status: PHAuthorizationStatus) {
+    func handleAuthorization(_ status: PHAuthorizationStatus) {
         switch status {
-        case .NotDetermined:
+        case .notDetermined:
             PHPhotoLibrary.requestAuthorization(handleAuthorization)
             break
-        case .Authorized:
-            dispatch_async(dispatch_get_main_queue()) {
+        case .authorized:
+            DispatchQueue.main.async {
                 self.completion(error: nil)
             }
             break
-        case .Denied, .Restricted:
-            dispatch_async(dispatch_get_main_queue()) {
+        case .denied, .restricted:
+            DispatchQueue.main.async {
                 self.onDeniedOrRestricted()
             }
             break
