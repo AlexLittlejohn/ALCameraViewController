@@ -78,7 +78,7 @@ public class SingleImageSaver {
         let assets = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier.localIdentifier], options: nil)
         
         DispatchQueue.main.async {
-			guard let asset = assets.firstObject as? PHAsset else {
+            guard let asset = assets.firstObject else {
                 self.invokeFailure()
                 return
             }
