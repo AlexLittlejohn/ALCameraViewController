@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.imageView.contentMode = .scaleAspectFit
     }
     
     @IBAction func openCamera(sender: AnyObject) {
