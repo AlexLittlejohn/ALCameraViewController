@@ -23,7 +23,7 @@ internal class CropOverlay: UIView {
 	
     let cornerLineDepth: CGFloat = 3
     let cornerLineWidth: CGFloat = 20
-	let cornerButtonWidth: CGFloat = 20
+	let cornerButtonWidth: CGFloat = 50
     let lineWidth: CGFloat = 1
     
     internal init() {

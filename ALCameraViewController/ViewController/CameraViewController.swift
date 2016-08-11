@@ -159,7 +159,7 @@ public class CameraViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
-        cameraOverlay.isHidden = !allowCropping
+        cameraOverlay.isHidden = true
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
     }
