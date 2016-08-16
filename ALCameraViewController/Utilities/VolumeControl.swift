@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-typealias VolumeChangeAction = (volume: Float) -> Void
+typealias VolumeChangeAction = (_ volume: Float) -> Void
 
 public class VolumeControl {
     
@@ -50,6 +50,6 @@ public class VolumeControl {
         guard let slider = volumeView.subviews.filter({ $0 is UISlider }).first as? UISlider else { return }
         let volume = AVAudioSession.sharedInstance().outputVolume
         slider.setValue(volume, animated: false)
-        onVolumeChange?(volume: volume)
+        onVolumeChange?(volume)
     }
 }

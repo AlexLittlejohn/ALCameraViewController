@@ -9,8 +9,8 @@
 import UIKit
 import Photos
 
-public typealias ImageFetcherSuccess = (assets: PHFetchResult<PHAsset>) -> ()
-public typealias ImageFetcherFailure = (error: NSError) -> ()
+public typealias ImageFetcherSuccess = (_ assets: PHFetchResult<PHAsset>) -> ()
+public typealias ImageFetcherFailure = (_ error: NSError) -> ()
 
 //extension PHFetchResult: Sequence {
 //    public func makeIterator() -> NSFastEnumerationIterator {
@@ -45,7 +45,7 @@ public class ImageFetcher {
             if error == nil {
                 self.onAuthorized()
             } else {
-                self.failure?(error: error!)
+                self.failure?(error!)
             }
         }
         return self
@@ -57,7 +57,7 @@ public class ImageFetcher {
         libraryQueue.async {
             let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: options)
             DispatchQueue.main.async {
-                self.success?(assets: assets)
+                self.success?(assets)
             }
         }
     }

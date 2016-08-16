@@ -13,7 +13,7 @@ internal let ImageCellIdentifier = "ImageCell"
 
 internal let defaultItemSpacing: CGFloat = 1
 
-public typealias PhotoLibraryViewSelectionComplete = (asset: PHAsset?) -> Void
+public typealias PhotoLibraryViewSelectionComplete = (_ asset: PHAsset?) -> Void
 
 public class PhotoLibraryViewController: UIViewController {
 	
@@ -70,7 +70,7 @@ public class PhotoLibraryViewController: UIViewController {
     }
     
     public func dismissView() {
-        onSelectionComplete?(asset: nil)
+        onSelectionComplete?(nil)
     }
     
     private func onSuccess(_ photos: PHFetchResult<PHAsset>) {
@@ -111,7 +111,7 @@ extension PhotoLibraryViewController : UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate -
 extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        onSelectionComplete?(asset: itemAtIndexPath(indexPath))
+        onSelectionComplete?(itemAtIndexPath(indexPath))
     }
 	
 	public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
