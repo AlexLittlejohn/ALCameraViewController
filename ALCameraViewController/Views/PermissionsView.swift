@@ -29,7 +29,7 @@ internal class PermissionsView: UIView {
         commonInit()
     }
     
-    func configureInView(_ view: UIView, title: String, descriptiom: String, completion: () -> Void) {
+    func configureInView(_ view: UIView, title: String, descriptiom: String, completion: ButtonAction?) {
         let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         
         view.addSubview(self)

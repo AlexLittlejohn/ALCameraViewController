@@ -15,7 +15,7 @@ internal let defaultItemSpacing: CGFloat = 1
 
 public typealias PhotoLibraryViewSelectionComplete = (_ asset: PHAsset?) -> Void
 
-public class PhotoLibraryViewController: UIViewController {
+public class PhotoLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	
     private var assets: PHFetchResult<PHAsset>? = nil
     
@@ -95,10 +95,8 @@ public class PhotoLibraryViewController: UIViewController {
     private func itemAtIndexPath(_ indexPath: IndexPath) -> PHAsset? {
         return assets?[(indexPath as NSIndexPath).row]
     }
-}
 
 // MARK: - UICollectionViewDataSource -
-extension PhotoLibraryViewController : UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets?.count ?? 0
     }
@@ -106,10 +104,8 @@ extension PhotoLibraryViewController : UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: ImageCellIdentifier, for: indexPath)
     }
-}
 
 // MARK: - UICollectionViewDelegate -
-extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         onSelectionComplete?(itemAtIndexPath(indexPath))
     }
