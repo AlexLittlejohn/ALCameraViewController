@@ -17,7 +17,7 @@ public extension CameraViewController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
-        navigationController.navigationBar.barTintColor = UIColor.black()
+        navigationController.navigationBar.barTintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
         navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         
@@ -25,7 +25,7 @@ public extension CameraViewController {
             if let asset = asset {
                 let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
                 confirmController.onComplete = { [weak imagePicker] image, asset in
-                    if let image = image, asset = asset {
+                    if let image = image, let asset = asset {
                         completion(image, asset)
                     } else {
                         imagePicker?.dismiss(animated: true, completion: nil)
@@ -155,6 +155,14 @@ public class CameraViewController: UIViewController {
         return view
     }()
   
+    public override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
+    }
+
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
@@ -172,14 +180,6 @@ public class CameraViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    public override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
-    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return UIStatusBarAnimation.slide
-    }
-    
     /**
      * Configure the background of the superview to black
      * and add the views on this superview. Then, request
@@ -187,7 +187,7 @@ public class CameraViewController: UIViewController {
      */
     public override func loadView() {
         super.loadView()
-        view.backgroundColor = UIColor.black()
+        view.backgroundColor = UIColor.black
         [cameraView,
             cameraOverlay,
             cameraButton,
@@ -213,7 +213,7 @@ public class CameraViewController: UIViewController {
             didUpdateViews = true
         }
         
-        let statusBarOrientation = UIApplication.shared().statusBarOrientation
+        let statusBarOrientation = UIApplication.shared.statusBarOrientation
         let portrait = statusBarOrientation.isPortrait
         
         configCameraButtonEdgeConstraint(statusBarOrientation)
@@ -293,7 +293,7 @@ public class CameraViewController: UIViewController {
      */
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-         lastInterfaceOrientation = UIApplication.shared().statusBarOrientation
+         lastInterfaceOrientation = UIApplication.shared.statusBarOrientation
         if animationRunning {
             return
         }
@@ -392,9 +392,8 @@ public class CameraViewController: UIViewController {
          * Dispach delay to avoid any conflict between the CATransaction of rotation of the screen
          * and CATransaction of animation of buttons.
          */
-        let time = DispatchTime(DispatchTime.now()) + Double(1 * Int64(NSEC_PER_SEC)/10) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: time) {
-            
+        let time = DispatchTime.now() + Double(1 * Int64(NSEC_PER_SEC)/10) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: time) {
             CATransaction.begin()
             CATransaction.setDisableActions(false)
             CATransaction.commit()
@@ -410,7 +409,6 @@ public class CameraViewController: UIViewController {
                 }, completion: { _ in
                     self.animationRunning = false
             })
-            
         }
     }
     
@@ -467,7 +465,7 @@ public class CameraViewController: UIViewController {
      */
     internal func capturePhoto() {
         guard let output = cameraView.imageOutput,
-            connection = output.connection(withMediaType: AVMediaTypeVideo) else {
+            let connection = output.connection(withMediaType: AVMediaTypeVideo) else {
             return
         }
         
@@ -484,7 +482,7 @@ public class CameraViewController: UIViewController {
     }
     
     internal func saveImage(_ image: UIImage) {
-        SingleImageSaver()
+        _ = SingleImageSaver()
             .setImage(image)
             .onSuccess { asset in
                 self.layoutCameraResult(asset)
@@ -504,7 +502,7 @@ public class CameraViewController: UIViewController {
         let imagePicker = CameraViewController.imagePickerViewController(allowCropping) { image, asset in
             self.dismiss(animated: true, completion: nil)
             
-            guard let image = image, asset = asset else {
+            guard let image = image, let asset = asset else {
                 return
             }
             
@@ -544,7 +542,7 @@ public class CameraViewController: UIViewController {
     private func startConfirmController(_ asset: PHAsset) {
         let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
         confirmViewController.onComplete = { image, asset in
-            if let image = image, asset = asset {
+            if let image = image, let asset = asset {
                 self.onCompletion?(image, asset)
             } else {
                 self.dismiss(animated: true, completion: nil)

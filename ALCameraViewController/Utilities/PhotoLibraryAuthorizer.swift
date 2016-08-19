@@ -9,34 +9,37 @@
 import UIKit
 import Photos
 
-public typealias PhotoLibraryAuthorizerCompletion = (error: NSError?) -> Void
+public typealias PhotoLibraryAuthorizerCompletion = (NSError?) -> Void
 
 class PhotoLibraryAuthorizer {
 
     private let errorDomain = "com.zero.imageFetcher"
 
+    private let completion: PhotoLibraryAuthorizerCompletion
+
     init(completion: PhotoLibraryAuthorizerCompletion) {
-        handleAuthorization(status: PHPhotoLibrary.authorizationStatus(), completion: completion)
+        self.completion = completion
+        handleAuthorization(status: PHPhotoLibrary.authorizationStatus())
     }
     
     func onDeniedOrRestricted(completion: PhotoLibraryAuthorizerCompletion) {
         let error = errorWithKey("error.access-denied", domain: errorDomain)
-        completion(error: error)
+        completion(error)
     }
     
-    func handleAuthorization(status: PHAuthorizationStatus, completion: PhotoLibraryAuthorizerCompletion) {
+    func handleAuthorization(status: PHAuthorizationStatus) {
         switch status {
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization(handleAuthorization)
             break
         case .authorized:
             DispatchQueue.main.async {
-                completion(error: nil)
+                self.completion(nil)
             }
             break
         case .denied, .restricted:
             DispatchQueue.main.async {
-                self.onDeniedOrRestricted(completion: completion)
+                self.onDeniedOrRestricted(completion: self.completion)
             }
             break
         }

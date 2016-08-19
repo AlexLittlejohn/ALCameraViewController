@@ -36,18 +36,18 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    public override func prefersStatusBarHidden() -> Bool {
+    public override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+    public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return UIStatusBarAnimation.slide
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.black()
+        view.backgroundColor = UIColor.black
         
         scrollView.addSubview(imageView)
         scrollView.delegate = self
@@ -63,7 +63,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         disable()
 
-        SingleImageFetcher()
+        _ = SingleImageFetcher()
             .setAsset(asset)
             .setTargetSize(largestPhotoSize())
             .onSuccess { image in
@@ -214,7 +214,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         let spinner = showSpinner()
 
-        let fetcher = SingleImageFetcher()
+        var fetcher = SingleImageFetcher()
             .onSuccess { image in
                 self.onComplete?(image, self.asset)
                 self.hideSpinner(spinner)
@@ -240,10 +240,10 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             
             let rect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
             
-            fetcher.setCropRect(rect)
+            fetcher = fetcher.setCropRect(rect)
         }
         
-        fetcher.fetch()
+        fetcher = fetcher.fetch()
     }
     
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {

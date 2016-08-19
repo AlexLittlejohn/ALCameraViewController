@@ -10,8 +10,8 @@ import UIKit
 
 internal let itemSpacing: CGFloat = 1
 internal let columns: CGFloat = 4
-internal let thumbnailDimension = (UIScreen.main().bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
-internal let scale = UIScreen.main().scale
+internal let thumbnailDimension = (UIScreen.main.bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
+internal let scale = UIScreen.main.scale
 
 public class CameraGlobals {
     public static let shared = CameraGlobals()

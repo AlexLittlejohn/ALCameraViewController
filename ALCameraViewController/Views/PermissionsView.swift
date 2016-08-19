@@ -29,7 +29,7 @@ internal class PermissionsView: UIView {
         commonInit()
     }
     
-    func configureInView(_ view: UIView, title: String, descriptiom: String, completion: () -> Void) {
+    func configureInView(_ view: UIView, title: String, descriptiom: String, completion: ButtonAction) {
         let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         
         view.addSubview(self)
@@ -54,13 +54,13 @@ internal class PermissionsView: UIView {
         
         backgroundColor = UIColor(white: 0.2, alpha: 1)
         
-        titleLabel.textColor = UIColor.white()
+        titleLabel.textColor = UIColor.white
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = NSTextAlignment.center
         titleLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 22)
         titleLabel.text = localizedString("permissions.title")
         
-        descriptionLabel.textColor = UIColor.lightGray()
+        descriptionLabel.textColor = UIColor.lightGray
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = NSTextAlignment.center
         descriptionLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
@@ -71,7 +71,7 @@ internal class PermissionsView: UIView {
         
         settingsButton.contentEdgeInsets = UIEdgeInsetsMake(6, 12, 6, 12)
         settingsButton.setTitle(localizedString("permissions.settings"), for: UIControlState())
-        settingsButton.setTitleColor(UIColor.white(), for: UIControlState())
+        settingsButton.setTitleColor(UIColor.white, for: UIControlState())
         settingsButton.layer.cornerRadius = 4
         settingsButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         settingsButton.backgroundColor = UIColor(red: 52.0/255.0, green: 183.0/255.0, blue: 250.0/255.0, alpha: 1)
@@ -85,7 +85,7 @@ internal class PermissionsView: UIView {
     
     func openSettings() {
         if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
-            UIApplication.shared().openURL(appSettings)
+            UIApplication.shared.openURL(appSettings)
         }
     }
     

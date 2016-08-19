@@ -9,8 +9,8 @@
 import UIKit
 import Photos
 
-public typealias SingleImageFetcherSuccess = (image: UIImage) -> Void
-public typealias SingleImageFetcherFailure = (error: NSError) -> Void
+public typealias SingleImageFetcherSuccess = (UIImage) -> Void
+public typealias SingleImageFetcherFailure = (NSError) -> Void
 
 public class SingleImageFetcher {
     private let errorDomain = "com.zero.singleImageSaver"
@@ -54,7 +54,7 @@ public class SingleImageFetcher {
             if error == nil {
                 self._fetch()
             } else {
-                self.failure?(error: error!)
+                self.failure?(error!)
             }
         }
         return self
@@ -64,7 +64,7 @@ public class SingleImageFetcher {
     
         guard let asset = asset else {
             let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-            failure?(error: error)
+            failure?(error)
             return
         }
         
@@ -86,10 +86,10 @@ public class SingleImageFetcher {
         
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
             if let image = image {
-                self.success?(image: image)
+                self.success?(image)
             } else {
                 let error = errorWithKey("error.cant-fetch-photo", domain: self.errorDomain)
-                self.failure?(error: error)
+                self.failure?(error)
             }
         }
     }

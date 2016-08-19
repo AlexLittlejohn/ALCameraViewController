@@ -17,7 +17,7 @@ public class CameraView: UIView {
     var imageOutput: AVCaptureStillImageOutput!
     var preview: AVCaptureVideoPreviewLayer!
     
-    let cameraQueue = DispatchQueue(label: "com.zero.ALCameraViewController.Queue", attributes: DispatchQueueAttributes.serial)
+    let cameraQueue = DispatchQueue(label: "com.zero.ALCameraViewController.Queue")
     
     let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
@@ -112,7 +112,7 @@ public class CameraView: UIView {
     
     private func createPreview() {
         device = cameraWithPosition(currentPosition)
-        if let device = device where device.hasFlash {
+        if let device = device, device.hasFlash {
             do {
                 try device.lockForConfiguration()
                 device.flashMode = .auto
@@ -165,7 +165,7 @@ public class CameraView: UIView {
                 }
             }
             
-            let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.current().orientation.rawValue)!
+            let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue)!
             takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
                 DispatchQueue.main.async {
                     self.isUserInteractionEnabled = true
@@ -177,7 +177,7 @@ public class CameraView: UIView {
     
     public func focusCamera(_ toPoint: CGPoint) -> Bool {
         
-        guard let device = device where device.isFocusModeSupported(.continuousAutoFocus) else {
+        guard let device = device, device.isFocusModeSupported(.continuousAutoFocus) else {
             return false
         }
         
@@ -197,7 +197,7 @@ public class CameraView: UIView {
     }
     
     public func cycleFlash() {
-        guard let device = device where device.hasFlash else {
+        guard let device = device, device.hasFlash else {
             return
         }
         
@@ -216,7 +216,7 @@ public class CameraView: UIView {
 
     public func swapCameraInput() {
         
-        guard let session = session, input = input else {
+        guard let session = session, let input = input else {
             return
         }
         
@@ -246,7 +246,7 @@ public class CameraView: UIView {
         guard preview != nil else {
             return
         }
-        switch UIApplication.shared().statusBarOrientation {
+        switch UIApplication.shared.statusBarOrientation {
             case .portrait:
               preview?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
               break

@@ -48,8 +48,8 @@ internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrien
 }
 
 internal func largestPhotoSize() -> CGSize {
-    let scale = UIScreen.main().scale
-    let screenSize = UIScreen.main().bounds.size
+    let scale = UIScreen.main.scale
+    let screenSize = UIScreen.main.bounds.size
     let size = CGSize(width: screenSize.width * scale, height: screenSize.height * scale)
     return size
 }
@@ -98,14 +98,14 @@ internal func flashImage(_ mode: AVCaptureFlashMode) -> String {
 }
 
 struct ScreenSize {
-    static let SCREEN_WIDTH         = UIScreen.main().bounds.size.width
-    static let SCREEN_HEIGHT        = UIScreen.main().bounds.size.height
+    static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width
+    static let SCREEN_HEIGHT        = UIScreen.main.bounds.size.height
     static let SCREEN_MAX_LENGTH    = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
 }
 
 struct DeviceConfig {
     static let SCREEN_MULTIPLIER : CGFloat = {
-        if UIDevice.current().userInterfaceIdiom == .phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             switch ScreenSize.SCREEN_MAX_LENGTH {
                 case 568.0: return 1.5
                 case 667.0: return 2.0

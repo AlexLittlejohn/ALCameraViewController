@@ -9,8 +9,8 @@
 import UIKit
 import Photos
 
-public typealias SingleImageSaverSuccess = (asset: PHAsset) -> Void
-public typealias SingleImageSaverFailure = (error: NSError) -> Void
+public typealias SingleImageSaverSuccess = (PHAsset) -> Void
+public typealias SingleImageSaverFailure = (NSError) -> Void
 
 public class SingleImageSaver {
     private let errorDomain = "com.zero.singleImageSaver"
@@ -43,7 +43,7 @@ public class SingleImageSaver {
             if error == nil {
                 self._save()
             } else {
-                self.failure?(error: error!)
+                self.failure?(error!)
             }
         }
 
@@ -64,7 +64,7 @@ public class SingleImageSaver {
                 assetIdentifier = request.placeholderForCreatedAsset
             }) { finished, error in
                 
-                guard let assetIdentifier = assetIdentifier where finished else {
+                guard let assetIdentifier = assetIdentifier, finished else {
                     self.invokeFailure()
                     return
                 }
@@ -78,17 +78,17 @@ public class SingleImageSaver {
         let assets = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier.localIdentifier], options: nil)
         
         DispatchQueue.main.async {
-            guard let asset = assets.firstObject as? PHAsset else {
+            guard let asset = assets.firstObject else {
                 self.invokeFailure()
                 return
             }
             
-            self.success?(asset: asset)
+            self.success?(asset)
         }
     }
     
     private func invokeFailure() {
         let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-        failure?(error: error)
+        failure?(error)
     }
 }

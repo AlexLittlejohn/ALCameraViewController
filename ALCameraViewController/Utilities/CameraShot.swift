@@ -22,7 +22,9 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
     
     stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, error in
         
-        guard let buffer = buffer, imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer), image = UIImage(data: imageData) else {
+        guard let buffer = buffer,
+            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer),
+            let image = UIImage(data: imageData) else {
             completion(nil)
             return
         }
