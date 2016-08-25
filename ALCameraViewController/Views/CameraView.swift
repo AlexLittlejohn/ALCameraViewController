@@ -21,7 +21,7 @@ public class CameraView: UIView {
     
     let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
-    public var currentPosition = AVCaptureDevicePosition.Back
+    public var currentPosition = CameraGlobals.shared.defaultCameraPosition
     
     public func startSession() {
         dispatch_async(cameraQueue) {
