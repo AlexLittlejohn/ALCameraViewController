@@ -18,9 +18,12 @@ internal class CropOverlay: UIView {
     var topRightCornerLines = [UIView]()
     var bottomLeftCornerLines = [UIView]()
     var bottomRightCornerLines = [UIView]()
-    
-    let cornerDepth: CGFloat = 3
-    let cornerWidth: CGFloat = 20
+	
+	var cornerButtons = [UIButton]()
+	
+    let cornerLineDepth: CGFloat = 3
+    let cornerLineWidth: CGFloat = 20
+	let cornerButtonWidth: CGFloat = 50
     let lineWidth: CGFloat = 1
     
     internal init() {
@@ -67,51 +70,65 @@ internal class CropOverlay: UIView {
         let corners = [topLeftCornerLines, topRightCornerLines, bottomLeftCornerLines, bottomRightCornerLines]
         for i in 0..<corners.count {
             let corner = corners[i]
-            var horizontalFrame: CGRect
-            var verticalFrame: CGRect
-            
-            switch (i) {
-            case 0:
-                verticalFrame = CGRect(x: -cornerDepth, y:  -cornerDepth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: -cornerDepth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
-                break
-            case 1:
-                verticalFrame = CGRect(x: bounds.width, y:  -cornerDepth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: bounds.width + cornerDepth - cornerWidth, y:  -cornerDepth, width:  cornerWidth, height:  cornerDepth)
-                break
-            case 2:
-                verticalFrame = CGRect(x: -cornerDepth, y:  bounds.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: -cornerDepth, y:  bounds.height, width:  cornerWidth, height:  cornerDepth)
-                break
-            case 3:
-                verticalFrame = CGRect(x: bounds.width, y:  bounds.height + cornerDepth - cornerWidth, width:  cornerDepth, height:  cornerWidth)
-                horizontalFrame = CGRect(x: bounds.width + cornerDepth - cornerWidth, y:  bounds.height, width:  cornerWidth, height:  cornerDepth)
-                break
+			var horizontalFrame: CGRect
+			var verticalFrame: CGRect
+			var buttonFrame: CGRect
+			let buttonSize = CGSize(width: cornerButtonWidth, height: cornerButtonWidth)
+			
+			switch (i) {
+			case 0:	// Top Left
+				verticalFrame = CGRect(x: 0, y: 0, width: cornerLineDepth, height: cornerLineWidth)
+				horizontalFrame = CGRect(x: 0, y: 0, width: cornerLineWidth, height: cornerLineDepth)
+				buttonFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: buttonSize)
+				break
+				
+			case 1:	// Top Right
+				verticalFrame = CGRect(x: bounds.width - cornerLineDepth, y: 0, width: cornerLineDepth, height: cornerLineWidth)
+				horizontalFrame = CGRect(x: bounds.width - cornerLineWidth, y: 0, width: cornerLineWidth, height: cornerLineDepth)
+				buttonFrame = CGRect(origin: CGPoint(x: bounds.width - cornerButtonWidth, y: 0), size: buttonSize)
+				break
+				
+			case 2:	// Bottom Left
+				verticalFrame = CGRect(x: 0, y:  bounds.height - cornerLineWidth, width: cornerLineDepth, height: cornerLineWidth)
+				horizontalFrame = CGRect(x: 0, y:  bounds.height - cornerLineDepth, width: cornerLineWidth, height: cornerLineDepth)
+				buttonFrame = CGRect(origin: CGPoint(x: 0, y: bounds.height - cornerButtonWidth), size: buttonSize)
+				break
+				
+			case 3:	// Bottom Right
+				verticalFrame = CGRect(x: bounds.width - cornerLineDepth, y: bounds.height - cornerLineWidth, width: cornerLineDepth, height: cornerLineWidth)
+				horizontalFrame = CGRect(x: bounds.width - cornerLineWidth, y: bounds.height - cornerLineDepth, width: cornerLineWidth, height: cornerLineDepth)
+				buttonFrame = CGRect(origin: CGPoint(x: bounds.width - cornerButtonWidth, y: bounds.height - cornerButtonWidth), size: buttonSize)
+				break
+
             default:
                 verticalFrame = CGRectZero
                 horizontalFrame = CGRectZero
+				buttonFrame = CGRectZero
                 break
             }
             
             corner[0].frame = verticalFrame
             corner[1].frame = horizontalFrame
+			cornerButtons[i].frame = buttonFrame
         }
-        
-        let lineThickness = lineWidth / UIScreen.mainScreen().scale
-        let padding = (bounds.height - (lineThickness * CGFloat(horizontalLines.count))) / CGFloat(horizontalLines.count + 1)
-        
+
+		let lineThickness = lineWidth / UIScreen.mainScreen().scale
+		let vPadding = (bounds.height - (lineThickness * CGFloat(horizontalLines.count))) / CGFloat(horizontalLines.count + 1)
+		let hPadding = (bounds.width - (lineThickness * CGFloat(verticalLines.count))) / CGFloat(verticalLines.count + 1)
+		
         for i in 0..<horizontalLines.count {
             let hLine = horizontalLines[i]
             let vLine = verticalLines[i]
-            
-            let spacing = (padding * CGFloat(i + 1)) + (lineThickness * CGFloat(i))
-            
-            hLine.frame = CGRect(x: 0, y: spacing, width: bounds.width, height:  lineThickness)
-            vLine.frame = CGRect(x: spacing, y: 0, width: lineThickness, height: bounds.height)
+			
+			let vSpacing = (vPadding * CGFloat(i + 1)) + (lineThickness * CGFloat(i))
+			let hSpacing = (hPadding * CGFloat(i + 1)) + (lineThickness * CGFloat(i))
+			
+			hLine.frame = CGRect(x: 0, y: vSpacing, width: bounds.width, height:  lineThickness)
+			vLine.frame = CGRect(x: hSpacing, y: 0, width: lineThickness, height: bounds.height)
         }
-        
+		
     }
-    
+	
     func createLines() {
         
         outerLines = [createLine(), createLine(), createLine(), createLine()]
@@ -122,14 +139,63 @@ internal class CropOverlay: UIView {
         topRightCornerLines = [createLine(), createLine()]
         bottomLeftCornerLines = [createLine(), createLine()]
         bottomRightCornerLines = [createLine(), createLine()]
-        
-        userInteractionEnabled = false
+		
+		cornerButtons = [createButton(), createButton(), createButton(), createButton()]
+		
+		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
+		addGestureRecognizer(dragGestureRecognizer)
     }
-    
+	
     func createLine() -> UIView {
         let line = UIView()
         line.backgroundColor = UIColor.whiteColor()
         addSubview(line)
         return line
     }
+	
+	func createButton() -> UIButton {
+		let button = UIButton()
+		button.backgroundColor = UIColor.clearColor()
+		
+		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
+		button.addGestureRecognizer(dragGestureRecognizer)
+		
+		addSubview(button)
+		return button
+	}
+	
+	func moveCropOverlay(gestureRecognizer: UIPanGestureRecognizer) {
+		if let button = gestureRecognizer.view as? UIButton {
+			if gestureRecognizer.state == .Began || gestureRecognizer.state == .Changed {
+				let translation = gestureRecognizer.translationInView(self)
+				
+				var newFrame: CGRect
+				
+				switch button {
+				case cornerButtons[0]:	// Top Left
+					newFrame = CGRect(x: frame.origin.x + translation.x, y: frame.origin.y + translation.y, width: frame.size.width - translation.x, height: frame.size.height - translation.y)
+				case cornerButtons[1]:	// Top Right
+					newFrame = CGRect(x: frame.origin.x, y: frame.origin.y + translation.y, width: frame.size.width + translation.x, height: frame.size.height - translation.y)
+				case cornerButtons[2]:	// Bottom Left
+					newFrame = CGRect(x: frame.origin.x + translation.x, y: frame.origin.y, width: frame.size.width - translation.x, height: frame.size.height + translation.y)
+				case cornerButtons[3]:	// Bottom Right
+					newFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width + translation.x, height: frame.size.height + translation.y)
+				default:
+					newFrame = CGRect.zero
+				}
+				
+				frame = newFrame
+				layoutSubviews()
+				
+				gestureRecognizer.setTranslation(CGPointZero, inView: self)
+			}
+		} else {
+			if gestureRecognizer.state == .Began || gestureRecognizer.state == .Changed {
+				let translation = gestureRecognizer.translationInView(self)
+				
+				gestureRecognizer.view!.center = CGPointMake(gestureRecognizer.view!.center.x + translation.x, gestureRecognizer.view!.center.y + translation.y)
+				gestureRecognizer.setTranslation(CGPointZero, inView: self)
+			}
+		}
+	}
 }
