@@ -24,12 +24,12 @@ public class SingleImageFetcher {
     
     public init() { }
     
-    public func onSuccess(_ success: SingleImageFetcherSuccess) -> Self {
+    public func onSuccess(_ success: @escaping SingleImageFetcherSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(_ failure: SingleImageFetcherFailure) -> Self {
+    public func onFailure(_ failure: @escaping SingleImageFetcherFailure) -> Self {
         self.failure = failure
         return self
     }

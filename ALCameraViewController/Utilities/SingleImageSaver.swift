@@ -22,12 +22,12 @@ public class SingleImageSaver {
     
     public init() { }
     
-    public func onSuccess(_ success: SingleImageSaverSuccess) -> Self {
+    public func onSuccess(_ success: @escaping SingleImageSaverSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(_ failure: SingleImageSaverFailure) -> Self {
+    public func onFailure(_ failure: @escaping SingleImageSaverFailure) -> Self {
         self.failure = failure
         return self
     }

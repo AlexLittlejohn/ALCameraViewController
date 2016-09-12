@@ -153,7 +153,7 @@ public class CameraView: UIView {
         return devices.filter { $0.position == position }.first
     }
     
-    public func capturePhoto(_ completion: CameraShotCompletion) {
+    public func capturePhoto(_ completion: @escaping CameraShotCompletion) {
         isUserInteractionEnabled = false
         cameraQueue.async {
             

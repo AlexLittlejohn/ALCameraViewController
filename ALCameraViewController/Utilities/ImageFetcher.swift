@@ -25,17 +25,17 @@ public class ImageFetcher {
     
     private var authRequested = false
     private let errorDomain = "com.zero.imageFetcher"
-    
+	
 	let libraryQueue = DispatchQueue(label: "com.zero.ALCameraViewController.LibraryQueue")
 	
     public init() { }
     
-    public func onSuccess(_ success: ImageFetcherSuccess) -> Self {
+    public func onSuccess(_ success: @escaping ImageFetcherSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(_ failure: ImageFetcherFailure) -> Self {
+    public func onFailure(_ failure: @escaping ImageFetcherFailure) -> Self {
         self.failure = failure
         return self
     }

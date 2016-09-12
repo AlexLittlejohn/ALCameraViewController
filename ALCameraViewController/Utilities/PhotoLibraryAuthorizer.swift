@@ -16,7 +16,7 @@ class PhotoLibraryAuthorizer {
     private let errorDomain = "com.zero.imageFetcher"
     private let completion: PhotoLibraryAuthorizerCompletion
 
-    init(completion: PhotoLibraryAuthorizerCompletion) {
+    init(completion: @escaping PhotoLibraryAuthorizerCompletion) {
         self.completion = completion
         handleAuthorization(PHPhotoLibrary.authorizationStatus())
     }
