@@ -19,22 +19,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    @IBAction func openCamera(sender: AnyObject) {
+    @IBAction func openCamera(_ sender: AnyObject) {
         let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled) { [weak self] image, asset in
             self?.imageView.image = image
-            self?.dismissViewControllerAnimated(true, completion: nil)
+            self?.dismiss(animated: true, completion: nil)
         }
         
-        presentViewController(cameraViewController, animated: true, completion: nil)
+        present(cameraViewController, animated: true, completion: nil)
     }
     
-    @IBAction func openLibrary(sender: AnyObject) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled) { image, asset in
+    @IBAction func openLibrary(_ sender: AnyObject) {
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { image, asset in
             self.imageView.image = image
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         
-        presentViewController(libraryViewController, animated: true, completion: nil)
+        present(libraryViewController, animated: true, completion: nil)
     }
     
     @IBAction func libraryChanged(sender: AnyObject) {
