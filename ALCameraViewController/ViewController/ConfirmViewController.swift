@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
+open class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     let imageView = UIImageView()
     @IBOutlet weak var scrollView: UIScrollView!
@@ -22,7 +22,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     var verticalPadding: CGFloat = 30
     var horizontalPadding: CGFloat = 30
     
-    public var onComplete: CameraViewCompletion?
+    open var onComplete: CameraViewCompletion?
     
     var asset: PHAsset!
     
@@ -36,24 +36,24 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    public override func prefersStatusBarHidden() -> Bool {
+    open override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return UIStatusBarAnimation.Slide
+    open override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
     }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.black
         
         scrollView.addSubview(imageView)
         scrollView.delegate = self
         scrollView.maximumZoomScale = 1
         
-        cropOverlay.hidden = true
+        cropOverlay.isHidden = true
         
         guard let asset = asset else {
             return
@@ -77,7 +77,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             .fetch()
     }
     
-    public override func viewWillLayoutSubviews() {
+    open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let scale = calculateMinimumScale(view.frame.size)
         let frame = allowsCropping ? cropOverlay.frame : view.bounds
@@ -89,8 +89,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         centerImageViewOnRotate()
     }
     
-    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
         let scale = calculateMinimumScale(size)
         var frame = view.bounds
@@ -114,7 +114,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             frame.size = size
         }
         
-        coordinator.animateAlongsideTransition({ context in
+        coordinator.animate(alongsideTransition: { context in
             self.scrollView.contentInset = self.calculateScrollViewInsets(frame)
             self.scrollView.minimumZoomScale = scale
             self.scrollView.zoomScale = scale
@@ -123,11 +123,11 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             }, completion: nil)
     }
     
-    private func configureWithImage(image: UIImage) {
+    fileprivate func configureWithImage(_ image: UIImage) {
         if allowsCropping {
-            cropOverlay.hidden = false
+            cropOverlay.isHidden = false
         } else {
-            cropOverlay.hidden = true
+            cropOverlay.isHidden = true
         }
         
         buttonActions()
@@ -137,7 +137,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         view.setNeedsLayout()
     }
     
-    private func calculateMinimumScale(size: CGSize) -> CGFloat {
+    fileprivate func calculateMinimumScale(_ size: CGSize) -> CGFloat {
         var _size = size
         
         if allowsCropping {
@@ -162,14 +162,14 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         return scale
     }
     
-    private func calculateScrollViewInsets(frame: CGRect) -> UIEdgeInsets {
+    fileprivate func calculateScrollViewInsets(_ frame: CGRect) -> UIEdgeInsets {
         let bottom = view.frame.height - (frame.origin.y + frame.height)
         let right = view.frame.width - (frame.origin.x + frame.width)
         let insets = UIEdgeInsets(top: frame.origin.y, left: frame.origin.x, bottom: bottom, right: right)
         return insets
     }
     
-    private func centerImageViewOnRotate() {
+    fileprivate func centerImageViewOnRotate() {
         if allowsCropping {
             let size = allowsCropping ? cropOverlay.frame.size : scrollView.frame.size
             let scrollInsets = scrollView.contentInset
@@ -181,7 +181,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    private func centerScrollViewContents() {
+    fileprivate func centerScrollViewContents() {
         let size = allowsCropping ? cropOverlay.frame.size : scrollView.frame.size
         let imageSize = imageView.frame.size
         var imageOrigin = CGPoint.zero
@@ -197,7 +197,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         imageView.frame.origin = imageOrigin
     }
     
-    private func buttonActions() {
+    fileprivate func buttonActions() {
         confirmButton.action = { [weak self] in self?.confirmPhoto() }
         cancelButton.action = { [weak self] in self?.cancel() }
     }
@@ -210,7 +210,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         disable()
         
-        imageView.hidden = true
+        imageView.isHidden = true
         
         let spinner = showSpinner()
 
@@ -246,40 +246,40 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         fetcher.fetch()
     }
     
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    public func scrollViewDidZoom(scrollView: UIScrollView) {
+    open func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerScrollViewContents()
     }
     
     func showSpinner() -> UIActivityIndicatorView {
         let spinner = UIActivityIndicatorView()
-        spinner.activityIndicatorViewStyle = .White
+        spinner.activityIndicatorViewStyle = .white
         spinner.center = view.center
         spinner.startAnimating()
         
         view.addSubview(spinner)
-        view.bringSubviewToFront(spinner)
+        view.bringSubview(toFront: spinner)
         
         return spinner
     }
     
-    func hideSpinner(spinner: UIActivityIndicatorView) {
+    func hideSpinner(_ spinner: UIActivityIndicatorView) {
         spinner.stopAnimating()
         spinner.removeFromSuperview()
     }
     
     func disable() {
-        confirmButton.enabled = false
+        confirmButton.isEnabled = false
     }
     
     func enable() {
-        confirmButton.enabled = true
+        confirmButton.isEnabled = true
     }
     
-    func showNoImageScreen(error: NSError) {
+    func showNoImageScreen(_ error: NSError) {
         let permissionsView = PermissionsView(frame: view.bounds)
         
         let desc = localizedString("error.cant-fetch-photo.description")

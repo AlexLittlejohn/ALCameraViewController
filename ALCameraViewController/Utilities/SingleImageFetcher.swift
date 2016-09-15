@@ -9,73 +9,73 @@
 import UIKit
 import Photos
 
-public typealias SingleImageFetcherSuccess = (image: UIImage) -> Void
-public typealias SingleImageFetcherFailure = (error: NSError) -> Void
+public typealias SingleImageFetcherSuccess = (_ image: UIImage) -> Void
+public typealias SingleImageFetcherFailure = (_ error: NSError) -> Void
 
-public class SingleImageFetcher {
-    private let errorDomain = "com.zero.singleImageSaver"
+open class SingleImageFetcher {
+    fileprivate let errorDomain = "com.zero.singleImageSaver"
     
-    private var success: SingleImageFetcherSuccess?
-    private var failure: SingleImageFetcherFailure?
+    fileprivate var success: SingleImageFetcherSuccess?
+    fileprivate var failure: SingleImageFetcherFailure?
     
-    private var asset: PHAsset?
-    private var targetSize = PHImageManagerMaximumSize
-    private var cropRect: CGRect?
+    fileprivate var asset: PHAsset?
+    fileprivate var targetSize = PHImageManagerMaximumSize
+    fileprivate var cropRect: CGRect?
     
     public init() { }
     
-    public func onSuccess(success: SingleImageFetcherSuccess) -> Self {
+    open func onSuccess(_ success: @escaping SingleImageFetcherSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(failure: SingleImageFetcherFailure) -> Self {
+    open func onFailure(_ failure: @escaping SingleImageFetcherFailure) -> Self {
         self.failure = failure
         return self
     }
     
-    public func setAsset(asset: PHAsset) -> Self {
+    open func setAsset(_ asset: PHAsset) -> Self {
         self.asset = asset
         return self
     }
     
-    public func setTargetSize(targetSize: CGSize) -> Self {
+    open func setTargetSize(_ targetSize: CGSize) -> Self {
         self.targetSize = targetSize
         return self
     }
     
-    public func setCropRect(cropRect: CGRect) -> Self {
+    open func setCropRect(_ cropRect: CGRect) -> Self {
         self.cropRect = cropRect
         return self
     }
     
-    public func fetch() -> Self {
+    open func fetch() -> Self {
         _ = PhotoLibraryAuthorizer { error in
             if error == nil {
                 self._fetch()
             } else {
-                self.failure?(error: error!)
+                self.failure?(error!)
             }
         }
         return self
     }
     
-    private func _fetch() {
+    fileprivate func _fetch() {
     
         guard let asset = asset else {
             let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-            failure?(error: error)
+            failure?(error)
             return
         }
         
         let options = PHImageRequestOptions()
-        options.deliveryMode = .HighQualityFormat
-        options.networkAccessAllowed = true
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
 
         if let cropRect = cropRect {
 
             options.normalizedCropRect = cropRect
-            options.resizeMode = .Exact
+            options.resizeMode = .exact
             
             let targetWidth = floor(CGFloat(asset.pixelWidth) * cropRect.width)
             let targetHeight = floor(CGFloat(asset.pixelHeight) * cropRect.height)
@@ -84,12 +84,12 @@ public class SingleImageFetcher {
             targetSize = CGSize(width: dimension, height: dimension)
         }
         
-        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFill, options: options) { image, _ in
+        PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
             if let image = image {
-                self.success?(image: image)
+                self.success?(image)
             } else {
                 let error = errorWithKey("error.cant-fetch-photo", domain: self.errorDomain)
-                self.failure?(error: error)
+                self.failure?(error)
             }
         }
     }

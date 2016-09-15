@@ -9,48 +9,48 @@
 import UIKit
 import Photos
 
-public typealias SingleImageSaverSuccess = (asset: PHAsset) -> Void
-public typealias SingleImageSaverFailure = (error: NSError) -> Void
+public typealias SingleImageSaverSuccess = (_ asset: PHAsset) -> Void
+public typealias SingleImageSaverFailure = (_ error: NSError) -> Void
 
-public class SingleImageSaver {
-    private let errorDomain = "com.zero.singleImageSaver"
+open class SingleImageSaver {
+    fileprivate let errorDomain = "com.zero.singleImageSaver"
     
-    private var success: SingleImageSaverSuccess?
-    private var failure: SingleImageSaverFailure?
+    fileprivate var success: SingleImageSaverSuccess?
+    fileprivate var failure: SingleImageSaverFailure?
     
-    private var image: UIImage?
+    fileprivate var image: UIImage?
     
     public init() { }
     
-    public func onSuccess(success: SingleImageSaverSuccess) -> Self {
+    open func onSuccess(_ success: @escaping SingleImageSaverSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(failure: SingleImageSaverFailure) -> Self {
+    open func onFailure(_ failure: @escaping SingleImageSaverFailure) -> Self {
         self.failure = failure
         return self
     }
     
-    public func setImage(image: UIImage) -> Self {
+    open func setImage(_ image: UIImage) -> Self {
         self.image = image
         return self
     }
     
-    public func save() -> Self {
+    open func save() -> Self {
         
         _ = PhotoLibraryAuthorizer { error in
             if error == nil {
                 self._save()
             } else {
-                self.failure?(error: error!)
+                self.failure?(error!)
             }
         }
 
         return self
     }
     
-    private func _save() {
+    fileprivate func _save() {
         guard let image = image else {
             self.invokeFailure()
             return
@@ -58,13 +58,13 @@ public class SingleImageSaver {
         
         var assetIdentifier: PHObjectPlaceholder?
         
-        PHPhotoLibrary.sharedPhotoLibrary()
+        PHPhotoLibrary.shared()
             .performChanges({
-                let request = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+                let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
                 assetIdentifier = request.placeholderForCreatedAsset
             }) { finished, error in
                 
-                guard let assetIdentifier = assetIdentifier where finished else {
+                guard let assetIdentifier = assetIdentifier , finished else {
                     self.invokeFailure()
                     return
                 }
@@ -73,22 +73,22 @@ public class SingleImageSaver {
         }
     }
     
-    private func fetch(assetIdentifier: PHObjectPlaceholder) {
+    fileprivate func fetch(_ assetIdentifier: PHObjectPlaceholder) {
         
-        let assets = PHAsset.fetchAssetsWithLocalIdentifiers([assetIdentifier.localIdentifier], options: nil)
+        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier.localIdentifier], options: nil)
         
-        dispatch_async(dispatch_get_main_queue()) {
-            guard let asset = assets.firstObject as? PHAsset else {
+        DispatchQueue.main.async {
+            guard let asset = assets.firstObject else {
                 self.invokeFailure()
                 return
             }
             
-            self.success?(asset: asset)
+            self.success?(asset)
         }
     }
     
-    private func invokeFailure() {
+    fileprivate func invokeFailure() {
         let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
-        failure?(error: error)
+        failure?(error)
     }
 }
