@@ -18,7 +18,7 @@ extension UIButton {
     
     private class ActionWrapper {
         let action: ButtonAction
-        init(action: ButtonAction) {
+        init(action: @escaping ButtonAction) {
             self.action = action
         }
     }

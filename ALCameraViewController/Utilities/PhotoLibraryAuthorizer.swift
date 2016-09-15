@@ -17,7 +17,7 @@ class PhotoLibraryAuthorizer {
 
     private let completion: PhotoLibraryAuthorizerCompletion
 
-    init(completion: PhotoLibraryAuthorizerCompletion) {
+    init(completion: @escaping PhotoLibraryAuthorizerCompletion) {
         self.completion = completion
         handleAuthorization(status: PHPhotoLibrary.authorizationStatus())
     }
