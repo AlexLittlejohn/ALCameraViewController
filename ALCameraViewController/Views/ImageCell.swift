@@ -13,11 +13,11 @@ class ImageCell: UICollectionViewCell {
     
     let imageView : UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.image = UIImage(named: "placeholder",
-                                  inBundle: CameraGlobals.shared.bundle,
-                                  compatibleWithTraitCollection: nil)
+                                  in: CameraGlobals.shared.bundle,
+                                  compatibleWith: nil)
         return imageView
     }()
 
@@ -38,17 +38,17 @@ class ImageCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = UIImage(named: "placeholder",
-                                  inBundle: CameraGlobals.shared.bundle,
-                                  compatibleWithTraitCollection: nil)
+                                  in: CameraGlobals.shared.bundle,
+                                  compatibleWith: nil)
     }
     
-    func configureWithModel(model: PHAsset) {
+    func configureWithModel(_ model: PHAsset) {
         
         if tag != 0 {
-            PHImageManager.defaultManager().cancelImageRequest(PHImageRequestID(tag))
+            PHImageManager.default().cancelImageRequest(PHImageRequestID(tag))
         }
         
-        tag = Int(PHImageManager.defaultManager().requestImageForAsset(model, targetSize: contentView.bounds.size, contentMode: .AspectFill, options: nil) { image, info in
+        tag = Int(PHImageManager.default().requestImage(for: model, targetSize: contentView.bounds.size, contentMode: .aspectFill, options: nil) { image, info in
             self.imageView.image = image
         })
     }

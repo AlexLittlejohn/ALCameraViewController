@@ -9,55 +9,50 @@
 import UIKit
 import Photos
 
-public typealias ImageFetcherSuccess = (assets: PHFetchResult) -> ()
-public typealias ImageFetcherFailure = (error: NSError) -> ()
+public typealias ImageFetcherSuccess = (_ assets: PHFetchResult<AnyObject>) -> ()
+public typealias ImageFetcherFailure = (_ error: NSError) -> ()
 
-extension PHFetchResult: SequenceType {
-    public func generate() -> NSFastGenerator {
-        return NSFastGenerator(self)
-    }
-}
 
-public class ImageFetcher {
+open class ImageFetcher {
 
-    private var success: ImageFetcherSuccess?
-    private var failure: ImageFetcherFailure?
+    fileprivate var success: ImageFetcherSuccess?
+    fileprivate var failure: ImageFetcherFailure?
     
-    private var authRequested = false
-    private let errorDomain = "com.zero.imageFetcher"
+    fileprivate var authRequested = false
+    fileprivate let errorDomain = "com.zero.imageFetcher"
     
-    let libraryQueue = dispatch_queue_create("com.zero.ALCameraViewController.LibraryQueue", DISPATCH_QUEUE_SERIAL);
+    let libraryQueue = DispatchQueue(label: "com.zero.ALCameraViewController.LibraryQueue", attributes: []);
     
     public init() { }
     
-    public func onSuccess(success: ImageFetcherSuccess) -> Self {
+    open func onSuccess(_ success: @escaping ImageFetcherSuccess) -> Self {
         self.success = success
         return self
     }
     
-    public func onFailure(failure: ImageFetcherFailure) -> Self {
+    open func onFailure(_ failure: @escaping ImageFetcherFailure) -> Self {
         self.failure = failure
         return self
     }
     
-    public func fetch() -> Self {
+    open func fetch() -> Self {
         _ = PhotoLibraryAuthorizer { error in
             if error == nil {
                 self.onAuthorized()
             } else {
-                self.failure?(error: error!)
+                self.failure?(error!)
             }
         }
         return self
     }
     
-    private func onAuthorized() {
+    fileprivate func onAuthorized() {
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        dispatch_async(libraryQueue) {
-            let assets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: options)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.success?(assets: assets)
+        libraryQueue.async {
+            let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: options)
+            DispatchQueue.main.async {
+                self.success?(assets as! PHFetchResult<AnyObject>)
             }
         }
     }

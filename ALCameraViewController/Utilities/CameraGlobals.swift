@@ -11,14 +11,14 @@ import AVFoundation
 
 internal let itemSpacing: CGFloat = 1
 internal let columns: CGFloat = 4
-internal let thumbnailDimension = (UIScreen.mainScreen().bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
-internal let scale = UIScreen.mainScreen().scale
+internal let thumbnailDimension = (UIScreen.main.bounds.width - ((columns * itemSpacing) - itemSpacing))/columns
+internal let scale = UIScreen.main.scale
 
-public class CameraGlobals {
-    public static let shared = CameraGlobals()
+open class CameraGlobals {
+    open static let shared = CameraGlobals()
     
-    public var bundle = NSBundle(forClass: CameraViewController.self)
-    public var stringsTable = "CameraView"
-    public var photoLibraryThumbnailSize = CGSizeMake(thumbnailDimension, thumbnailDimension)
-    public var defaultCameraPosition = AVCaptureDevicePosition.Back
+    open var bundle = Bundle(for: CameraViewController.self)
+    open var stringsTable = "CameraView"
+    open var photoLibraryThumbnailSize = CGSize(width: thumbnailDimension, height: thumbnailDimension)
+    open var defaultCameraPosition = AVCaptureDevicePosition.back
 }
