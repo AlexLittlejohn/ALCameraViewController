@@ -502,7 +502,10 @@ public class CameraViewController: UIViewController {
     
     internal func showLibrary() {
         let imagePicker = CameraViewController.imagePickerViewController(allowCropping) { image, asset in
-            self.dismissViewControllerAnimated(true, completion: nil)
+
+            defer {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
             
             guard let image = image, asset = asset else {
                 return
