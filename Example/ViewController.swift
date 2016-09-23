@@ -37,11 +37,11 @@ class ViewController: UIViewController {
         present(libraryViewController, animated: true, completion: nil)
     }
     
-    @IBAction func libraryChanged(sender: AnyObject) {
+    @IBAction func libraryChanged(_ sender: AnyObject) {
         libraryEnabled = !libraryEnabled
     }
     
-    @IBAction func croppingChanged(sender: AnyObject) {
+    @IBAction func croppingChanged(_ sender: AnyObject) {
         croppingEnabled = !croppingEnabled
     }
 }
