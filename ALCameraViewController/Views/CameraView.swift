@@ -17,7 +17,7 @@ public class CameraView: UIView {
     var imageOutput: AVCaptureStillImageOutput!
     var preview: AVCaptureVideoPreviewLayer!
     
-    let cameraQueue = DispatchQueue(label: "com.zero.ALCameraViewController.Queue", attributes: .concurrent)
+    let cameraQueue = DispatchQueue(label: "com.zero.ALCameraViewController.Queue")
     
     let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
