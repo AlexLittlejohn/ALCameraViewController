@@ -25,8 +25,12 @@ public class CameraView: UIView {
     
     public func startSession() {
         cameraQueue.sync {
-            self.createSession()
-            self.session?.startRunning()
+            self.session = AVCaptureSession()
+            self.session.sessionPreset = AVCaptureSessionPresetPhoto
+            self.session.startRunning()
+            DispatchQueue.main.async() {
+                self.createPreview()
+            }
         }
     }
     
@@ -100,14 +104,6 @@ public class CameraView: UIView {
                     self.focusView.isHidden = true
                 }
         })
-    }
-    
-    private func createSession() {
-        session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSessionPresetPhoto
-        DispatchQueue.main.async() {
-            self.createPreview()
-        }
     }
     
     private func createPreview() {
