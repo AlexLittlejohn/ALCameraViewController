@@ -24,10 +24,41 @@ public class CameraView: UIView {
     public var currentPosition = CameraGlobals.shared.defaultCameraPosition
     
     public func startSession() {
+        session = AVCaptureSession()
+        session.sessionPreset = AVCaptureSessionPresetPhoto
+
+        device = cameraWithPosition(position: currentPosition)
+        if let device = device , device.hasFlash {
+            do {
+                try device.lockForConfiguration()
+                device.flashMode = .auto
+                device.unlockForConfiguration()
+            } catch _ {}
+        }
+
+        let outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+
+        do {
+            input = try AVCaptureDeviceInput(device: device)
+        } catch let error as NSError {
+            input = nil
+            print("Error: \(error.localizedDescription)")
+            return
+        }
+
+        if session.canAddInput(input) {
+            session.addInput(input)
+        }
+
+        imageOutput = AVCaptureStillImageOutput()
+        imageOutput.outputSettings = outputSettings
+
+        session.addOutput(imageOutput)
+
         cameraQueue.sync {
-            self.session = AVCaptureSession()
-            self.session.sessionPreset = AVCaptureSessionPresetPhoto
+
             self.session.startRunning()
+
             DispatchQueue.main.async() {
                 self.createPreview()
             }
@@ -107,33 +138,6 @@ public class CameraView: UIView {
     }
     
     private func createPreview() {
-        device = cameraWithPosition(position: currentPosition)
-        if let device = device , device.hasFlash {
-            do {
-                try device.lockForConfiguration()
-                device.flashMode = .auto
-                device.unlockForConfiguration()
-            } catch _ {}
-        }
-        
-        let outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
-        
-        do {
-            input = try AVCaptureDeviceInput(device: device)
-        } catch let error as NSError {
-            input = nil
-            print("Error: \(error.localizedDescription)")
-            return
-        }
-        
-        if session.canAddInput(input) {
-            session.addInput(input)
-        }
-        
-        imageOutput = AVCaptureStillImageOutput()
-        imageOutput.outputSettings = outputSettings
-        
-        session.addOutput(imageOutput)
         
         preview = AVCaptureVideoPreviewLayer(session: session)
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill
