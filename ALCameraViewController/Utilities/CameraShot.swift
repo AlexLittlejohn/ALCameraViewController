@@ -29,7 +29,7 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
             return
         }
 
-        completion(cropTo16x9(image))
+        completion(cropTo16x9(image: image))
     })
 }
 
@@ -37,14 +37,15 @@ func cropTo16x9(image: UIImage) -> UIImage? {
 
     let contextSize: CGSize = image.size
 
-    var cgwidth: CGFloat = contextSize.width
-    var cgheight: CGFloat = cgwidth * (9/16)
+    let cgwidth: CGFloat = contextSize.width
+    let cgheight: CGFloat = cgwidth * (9/16)
 
-    let rect: CGRect = CGRectMake(0, (contextSize.height - cgheight) / 2, cgwidth, cgheight)
+    let rect = CGRect(x: 0, y: (contextSize.height - cgheight) / 2, width: cgwidth, height: cgheight)
 
-    guard let cgImage = image.CGImage, imageRef = CGImageCreateWithImageInRect(cgImage, rect) else {
+
+    guard let cgImage = image.cgImage, let imageRef = cgImage.cropping(to: rect) else {
         return nil
     }
 
-    return UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+    return UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
 }
