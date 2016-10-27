@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-typealias VolumeChangeAction = (volume: Float) -> Void
+typealias VolumeChangeAction = (Float) -> Void
 
 public class VolumeControl {
     
@@ -29,27 +29,31 @@ public class VolumeControl {
         self.onVolumeChange = onVolumeChange
         configureInView(view)
         
-        try! AVAudioSession.sharedInstance().setActive(true)
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+            NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: NSNotification.Name(rawValue: changeKey), object: nil)
+        } catch {
+        }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(volumeChanged), name: changeKey, object: nil)
+
     }
     
     deinit {
         try! AVAudioSession.sharedInstance().setActive(false)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         onVolumeChange = nil
         volumeView.removeFromSuperview()
     }
     
-    func configureInView(view: UIView) {
+    func configureInView(_ view: UIView) {
         view.addSubview(volumeView)
-        view.sendSubviewToBack(volumeView)
+        view.sendSubview(toBack: volumeView)
     }
     
     @objc func volumeChanged() {
         guard let slider = volumeView.subviews.filter({ $0 is UISlider }).first as? UISlider else { return }
         let volume = AVAudioSession.sharedInstance().outputVolume
         slider.setValue(volume, animated: false)
-        onVolumeChange?(volume: volume)
+        onVolumeChange?(volume)
     }
 }
