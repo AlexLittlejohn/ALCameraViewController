@@ -274,7 +274,11 @@ public class CameraViewController: UIViewController {
      */
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        cameraView.startSession()
+        #if arch(i386) || arch(x86_64)
+            //To avoid crash while testing on simultor 
+        #else
+            cameraView.startSession()
+        #endif
     }
     
     /**
