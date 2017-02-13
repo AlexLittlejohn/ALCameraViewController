@@ -169,7 +169,6 @@ public class CameraViewController: UIViewController {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     public override var prefersStatusBarHidden: Bool {
@@ -261,9 +260,6 @@ public class CameraViewController: UIViewController {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
-        addCameraObserver()
-        addRotateObserver()
-        setupVolumeControl()
         setupActions()
         checkPermissions()
         cameraView.configureFocus()
@@ -275,6 +271,9 @@ public class CameraViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraView.startSession()
+        addCameraObserver()
+        addRotateObserver()
+        setupVolumeControl()
     }
     
     /**
@@ -287,7 +286,13 @@ public class CameraViewController: UIViewController {
             notifyCameraReady()
         }
     }
-    
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+        volumeControl = nil
+    }
+
     /**
      * This method will disable the rotation of the
      */

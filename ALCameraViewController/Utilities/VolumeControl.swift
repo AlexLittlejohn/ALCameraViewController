@@ -39,7 +39,12 @@ public class VolumeControl {
     }
     
     deinit {
-        try! AVAudioSession.sharedInstance().setActive(false)
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+        } catch {
+
+        }
+
         NotificationCenter.default.removeObserver(self)
         onVolumeChange = nil
         volumeView.removeFromSuperview()
