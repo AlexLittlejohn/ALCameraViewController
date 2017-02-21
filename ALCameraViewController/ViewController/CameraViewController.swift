@@ -497,7 +497,7 @@ open class CameraViewController: UIViewController {
             .save()
     }
     
-    internal func close() {
+    open func close() {
         onCompletion?(nil, nil)
     }
     
