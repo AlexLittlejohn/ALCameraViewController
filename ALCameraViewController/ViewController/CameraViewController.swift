@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-open typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
+public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
 public extension CameraViewController {
     public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> UINavigationController {
