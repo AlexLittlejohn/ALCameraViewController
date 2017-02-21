@@ -49,7 +49,7 @@ open class CameraViewController: UIViewController {
     var animationRunning = false
     
     var lastInterfaceOrientation : UIInterfaceOrientation?
-    var onCompletion: CameraViewCompletion?
+    open var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
     
     var animationDuration: TimeInterval = 0.5
