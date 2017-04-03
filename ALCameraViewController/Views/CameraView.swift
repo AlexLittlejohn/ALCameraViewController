@@ -142,6 +142,7 @@ public class CameraView: UIView {
         preview = AVCaptureVideoPreviewLayer(session: session)
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill
         preview.frame = bounds
+		rotatePreview()
 
         layer.addSublayer(preview)
     }
