@@ -3,6 +3,7 @@
 //  CameraViewController
 //
 //  Created by Alex Littlejohn.
+//  Changed by Greg
 //  Copyright (c) 2016 zero. All rights reserved.
 //
 
@@ -42,15 +43,15 @@ public extension CameraViewController {
     }
 }
 
-public class CameraViewController: UIViewController {
+open class CameraViewController: UIViewController {
     
     var didUpdateViews = false
     var allowCropping = false
     var animationRunning = false
     
     var lastInterfaceOrientation : UIInterfaceOrientation?
-    var onCompletion: CameraViewCompletion?
-    var volumeControl: VolumeControl?
+    public var onCompletion: CameraViewCompletion?
+    public var volumeControl: VolumeControl?
     
     var animationDuration: TimeInterval = 0.5
     var animationSpring: CGFloat = 0.5
@@ -172,11 +173,11 @@ public class CameraViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    public override var prefersStatusBarHidden: Bool {
+    open override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+    open override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return UIStatusBarAnimation.slide
     }
     
@@ -185,7 +186,7 @@ public class CameraViewController: UIViewController {
      * and add the views on this superview. Then, request
      * the update of constraints for this superview.
      */
-    public override func loadView() {
+    open override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor.black
         [cameraView,
@@ -206,7 +207,7 @@ public class CameraViewController: UIViewController {
      * Any other dynamic constraint are configurable when the
      * device is rotating, based on the device orientation.
      */
-    override public func updateViewConstraints() {
+    override open func updateViewConstraints() {
 
         if !didUpdateViews {
             configCameraViewConstraints()
@@ -259,7 +260,7 @@ public class CameraViewController: UIViewController {
      * Configure the camera focus when the application
      * start, to avoid any bluried image.
      */
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         addCameraObserver()
         addRotateObserver()
@@ -272,7 +273,7 @@ public class CameraViewController: UIViewController {
     /**
      * Start the session of the camera.
      */
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraView.startSession()
     }
@@ -281,7 +282,7 @@ public class CameraViewController: UIViewController {
      * Enable the button to take the picture when the
      * camera is ready.
      */
-    public override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if cameraView.session?.isRunning == true {
             notifyCameraReady()
@@ -291,7 +292,7 @@ public class CameraViewController: UIViewController {
     /**
      * This method will disable the rotation of the
      */
-    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
          lastInterfaceOrientation = UIApplication.shared.statusBarOrientation
         if animationRunning {

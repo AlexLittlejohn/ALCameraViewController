@@ -17,7 +17,7 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
         completion(nil)
         return
     }
-    
+
     videoConnection.videoOrientation = videoOrientation
     
     stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, error in
@@ -28,7 +28,24 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
             completion(nil)
             return
         }
-        
-        completion(image)
+
+        completion(cropTo16x9(image: image))
     })
+}
+
+func cropTo16x9(image: UIImage) -> UIImage? {
+
+    let contextSize: CGSize = image.size
+
+    let cgwidth: CGFloat = contextSize.width
+    let cgheight: CGFloat = cgwidth * (9/16)
+
+    let rect = CGRect(x: 0, y: (contextSize.height - cgheight) / 2, width: cgwidth, height: cgheight)
+
+
+    guard let cgImage = image.cgImage, let imageRef = cgImage.cropping(to: rect) else {
+        return nil
+    }
+
+    return UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
 }
