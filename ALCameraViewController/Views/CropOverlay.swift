@@ -23,11 +23,6 @@ internal class CropOverlay: UIView {
     let cornerWidth: CGFloat = 20
     let lineWidth: CGFloat = 1
     
-    internal init() {
-        super.init(frame: CGRect.zero)
-        createLines()
-    }
-    
     internal override init(frame: CGRect) {
         super.init(frame: frame)
         createLines()

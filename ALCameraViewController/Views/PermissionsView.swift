@@ -29,14 +29,14 @@ internal class PermissionsView: UIView {
         commonInit()
     }
     
-    func configureInView(_ view: UIView, title: String, descriptiom: String, completion: @escaping ButtonAction) {
+    func configureInView(_ view: UIView, title: String, description: String, completion: @escaping ButtonAction) {
         let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         
         view.addSubview(self)
         addSubview(closeButton)
         
         titleLabel.text = title
-        descriptionLabel.text = descriptiom
+        descriptionLabel.text = description
         
         closeButton.action = completion
         closeButton.setImage(UIImage(named: "retakeButton", in: CameraGlobals.shared.bundle, compatibleWith: nil), for: UIControlState())
