@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 internal func radians(_ degrees: Double) -> Double {
-    return degrees / 180 * M_PI
+    return degrees / 180 * Double.pi
 }
 
 internal func localizedString(_ key: String) -> String {
