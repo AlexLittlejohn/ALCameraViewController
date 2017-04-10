@@ -189,7 +189,7 @@ open class CameraViewController: UIViewController {
             cameraButton,
             closeButton,
             flashButton,
-            containerSwapLibraryButton].forEach({ self.view.addSubview($0) })
+            containerSwapLibraryButton].forEach({ view.addSubview($0) })
         [swapButton, libraryButton].forEach({ containerSwapLibraryButton.addSubview($0) })
         view.setNeedsUpdateConstraints()
     }
@@ -301,8 +301,8 @@ open class CameraViewController: UIViewController {
         }
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        coordinator.animate(alongsideTransition: { animation in
-            self.view.setNeedsUpdateConstraints()
+        coordinator.animate(alongsideTransition: { [weak self] animation in
+            self?.view.setNeedsUpdateConstraints()
             }, completion: { _ in
                 CATransaction.commit()
         })
@@ -385,7 +385,7 @@ open class CameraViewController: UIViewController {
         if lastInterfaceOrientation != nil {
             let lastTransform = CGAffineTransform(rotationAngle: CGFloat(radians(currentRotation(
                 lastInterfaceOrientation!, newOrientation: actualInterfaceOrientation))))
-            self.setTransform(transform: lastTransform)
+            setTransform(transform: lastTransform)
         }
 
         let transform = CGAffineTransform(rotationAngle: 0)
@@ -396,33 +396,37 @@ open class CameraViewController: UIViewController {
          * and CATransaction of animation of buttons.
          */
 
+        let duration = animationDuration
+        let spring = animationSpring
+        let options = rotateAnimation
+
         let time: DispatchTime = DispatchTime.now() + Double(1 * UInt64(NSEC_PER_SEC)/10)
-        DispatchQueue.main.asyncAfter(deadline: time) {
+        DispatchQueue.main.asyncAfter(deadline: time) { 
             
             CATransaction.begin()
             CATransaction.setDisableActions(false)
             CATransaction.commit()
             
             UIView.animate(
-                withDuration: self.animationDuration,
+                withDuration: duration,
                 delay: 0.1,
-                usingSpringWithDamping: self.animationSpring,
+                usingSpringWithDamping: spring,
                 initialSpringVelocity: 0,
-                options: self.rotateAnimation,
-                animations: {
-                self.setTransform(transform: transform)
-                }, completion: { _ in
-                    self.animationRunning = false
+                options: options,
+                animations: { [weak self] in
+                self?.setTransform(transform: transform)
+                }, completion: { [weak self] _ in
+                    self?.animationRunning = false
             })
             
         }
     }
     
     func setTransform(transform: CGAffineTransform) {
-        self.closeButton.transform = transform
-        self.swapButton.transform = transform
-        self.libraryButton.transform = transform
-        self.flashButton.transform = transform
+        closeButton.transform = transform
+        swapButton.transform = transform
+        libraryButton.transform = transform
+        flashButton.transform = transform
     }
     
     /**
@@ -434,9 +438,9 @@ open class CameraViewController: UIViewController {
     private func checkPermissions() {
         if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) != .authorized {
             AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async() { [weak self] in
                     if !granted {
-                        self.showNoPermissionsView()
+                        self?.showNoPermissionsView()
                     }
                 }
             }
@@ -477,12 +481,12 @@ open class CameraViewController: UIViewController {
         
         if connection.isEnabled {
             toggleButtons(enabled: false)
-            cameraView.capturePhoto { image in
+            cameraView.capturePhoto { [weak self] image in
                 guard let image = image else {
-                    self.toggleButtons(enabled: true)
+                    self?.toggleButtons(enabled: true)
                     return
                 }
-                self.saveImage(image: image)
+                self?.saveImage(image: image)
             }
         }
     }
@@ -490,12 +494,12 @@ open class CameraViewController: UIViewController {
     internal func saveImage(image: UIImage) {
         _ = SingleImageSaver()
             .setImage(image)
-            .onSuccess { asset in
-                self.layoutCameraResult(asset: asset)
+            .onSuccess { [weak self] asset in
+                self?.layoutCameraResult(asset: asset)
             }
-            .onFailure { error in
-                self.toggleButtons(enabled: true)
-                self.showNoPermissionsView(library: true)
+            .onFailure { [weak self] error in
+                self?.toggleButtons(enabled: true)
+                self?.showNoPermissionsView(library: true)
             }
             .save()
     }
@@ -505,21 +509,20 @@ open class CameraViewController: UIViewController {
     }
     
     internal func showLibrary() {
-        let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { image, asset in
-
+        let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] image, asset in
             defer {
-                self.dismiss(animated: true, completion: nil)
+                self?.dismiss(animated: true, completion: nil)
             }
 
             guard let image = image, let asset = asset else {
                 return
             }
-            
-            self.onCompletion?(image, asset)
+
+            self?.onCompletion?(image, asset)
         }
         
-        present(imagePicker, animated: true) {
-            self.cameraView.stopSession()
+        present(imagePicker, animated: true) { [weak self] in
+            self?.cameraView.stopSession()
         }
     }
     
@@ -550,12 +553,16 @@ open class CameraViewController: UIViewController {
     
     private func startConfirmController(asset: PHAsset) {
         let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
-        confirmViewController.onComplete = { image, asset in
-            if let image = image, let asset = asset {
-                self.onCompletion?(image, asset)
-            } else {
-                self.dismiss(animated: true, completion: nil)
+        confirmViewController.onComplete = { [weak self] image, asset in
+            defer {
+                self?.dismiss(animated: true, completion: nil)
             }
+
+            guard let image = image, let asset = asset else {
+                return
+            }
+
+            self?.onCompletion?(image, asset)
         }
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(confirmViewController, animated: true, completion: nil)

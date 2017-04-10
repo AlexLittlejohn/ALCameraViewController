@@ -56,25 +56,23 @@ public class CameraView: UIView {
         session.addOutput(imageOutput)
 
         cameraQueue.sync {
-
-            self.session.startRunning()
-
-            DispatchQueue.main.async() {
-                self.createPreview()
+            session.startRunning()
+            DispatchQueue.main.async() { [weak self] in
+                self?.createPreview()
             }
         }
     }
     
     public func stopSession() {
         cameraQueue.sync {
-            self.session?.stopRunning()
-            self.preview?.removeFromSuperlayer()
+            session?.stopRunning()
+            preview?.removeFromSuperlayer()
             
-            self.session = nil
-            self.input = nil
-            self.imageOutput = nil
-            self.preview = nil
-            self.device = nil
+            session = nil
+            input = nil
+            imageOutput = nil
+            preview = nil
+            device = nil
         }
     }
     
@@ -119,20 +117,20 @@ public class CameraView: UIView {
         
         UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.15, animations: { () -> Void in
-                self.focusView.alpha = 1
-                self.focusView.transform = CGAffineTransform.identity
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.15, animations: { [weak self] in
+                self?.focusView.alpha = 1
+                self?.focusView.transform = CGAffineTransform.identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: 0.80, relativeDuration: 0.20, animations: { () -> Void in
-                self.focusView.alpha = 0
-                self.focusView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            UIView.addKeyframe(withRelativeStartTime: 0.80, relativeDuration: 0.20, animations: { [weak self] in
+                self?.focusView.alpha = 0
+                self?.focusView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             })
             
             
-            }, completion: { finished in
+            }, completion: { [weak self] finished in
                 if finished {
-                    self.focusView.isHidden = true
+                    self?.focusView.isHidden = true
                 }
         })
     }
@@ -155,11 +153,18 @@ public class CameraView: UIView {
     
     public func capturePhoto(completion: @escaping CameraShotCompletion) {
         isUserInteractionEnabled = false
+
+        guard let output = imageOutput, let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) else {
+            completion(nil)
+            return
+        }
+
+        let size = frame.size
+
         cameraQueue.sync {
-            let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue)!
-            takePhoto(self.imageOutput, videoOrientation: orientation, cropSize: self.frame.size) { image in
-                DispatchQueue.main.async() {
-                    self.isUserInteractionEnabled = true
+            takePhoto(output, videoOrientation: orientation, cropSize: size) { image in
+                DispatchQueue.main.async() { [weak self] in
+                    self?.isUserInteractionEnabled = true
                     completion(image)
                 }
             }
@@ -209,14 +214,14 @@ public class CameraView: UIView {
 
     public func swapCameraInput() {
         
-        guard let session = session, let input = input else {
+        guard let session = session, let currentInput = input else {
             return
         }
         
         session.beginConfiguration()
-        session.removeInput(input)
+        session.removeInput(currentInput)
         
-        if input.device.position == AVCaptureDevicePosition.back {
+        if currentInput.device.position == AVCaptureDevicePosition.back {
             currentPosition = AVCaptureDevicePosition.front
             device = cameraWithPosition(position: currentPosition)
         } else {
@@ -224,13 +229,13 @@ public class CameraView: UIView {
             device = cameraWithPosition(position: currentPosition)
         }
         
-        guard let i = try? AVCaptureDeviceInput(device: device) else {
+        guard let newInput = try? AVCaptureDeviceInput(device: device) else {
             return
         }
         
-        self.input = i
+        input = newInput
         
-        session.addInput(i)
+        session.addInput(newInput)
         session.commitConfiguration()
     }
   

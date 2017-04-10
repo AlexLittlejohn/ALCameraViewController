@@ -39,11 +39,11 @@ public class SingleImageSaver {
     
     public func save() -> Self {
         
-        _ = PhotoLibraryAuthorizer { error in
+        _ = PhotoLibraryAuthorizer { [weak self] error in
             if error == nil {
-                self._save()
+                self?._save()
             } else {
-                self.failure?(error!)
+                self?.failure?(error!)
             }
         }
 
@@ -52,7 +52,7 @@ public class SingleImageSaver {
     
     private func _save() {
         guard let image = image else {
-            self.invokeFailure()
+            invokeFailure()
             return
         }
         
@@ -62,14 +62,14 @@ public class SingleImageSaver {
             .performChanges({
                 let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
                 assetIdentifier = request.placeholderForCreatedAsset
-            }) { finished, error in
+            }) { [weak self] finished, error in
                 
                 guard let assetIdentifier = assetIdentifier, finished else {
-                    self.invokeFailure()
+                    self?.invokeFailure()
                     return
                 }
                 
-                self.fetch(assetIdentifier)
+                self?.fetch(assetIdentifier)
         }
     }
     
@@ -77,13 +77,13 @@ public class SingleImageSaver {
         
         let assets = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier.localIdentifier], options: nil)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             guard let asset = assets.firstObject else {
-                self.invokeFailure()
+                self?.invokeFailure()
                 return
             }
             
-            self.success?(asset)
+            self?.success?(asset)
         }
     }
     

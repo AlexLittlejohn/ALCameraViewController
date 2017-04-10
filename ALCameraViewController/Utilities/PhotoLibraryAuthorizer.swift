@@ -33,13 +33,18 @@ class PhotoLibraryAuthorizer {
             PHPhotoLibrary.requestAuthorization(handleAuthorization)
             break
         case .authorized:
-            DispatchQueue.main.async {
-                self.completion(nil)
+            DispatchQueue.main.async { [weak self] in
+                self?.completion(nil)
             }
             break
         case .denied, .restricted:
-            DispatchQueue.main.async {
-                self.onDeniedOrRestricted(completion: self.completion)
+            DispatchQueue.main.async { [weak self] in
+
+                guard let completion = self?.completion else {
+                    return
+                }
+
+                self?.onDeniedOrRestricted(completion: completion)
             }
             break
         }
