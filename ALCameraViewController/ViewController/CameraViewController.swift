@@ -498,7 +498,6 @@ open class CameraViewController: UIViewController {
     }
     
     internal func saveImage(image: UIImage) {
-
         let spinner = showSpinner()
         cameraView.preview.isHidden = true
 
@@ -595,6 +594,23 @@ open class CameraViewController: UIViewController {
         return spinner
     }
 
+    private func hideSpinner(_ spinner: UIActivityIndicatorView) {
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
+    }
+    
+    private func showSpinner() -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView()
+        spinner.activityIndicatorViewStyle = .white
+        spinner.center = view.center
+        spinner.startAnimating()
+        
+        view.addSubview(spinner)
+        view.bringSubview(toFront: spinner)
+        
+        return spinner
+    }
+    
     private func hideSpinner(_ spinner: UIActivityIndicatorView) {
         spinner.stopAnimating()
         spinner.removeFromSuperview()
