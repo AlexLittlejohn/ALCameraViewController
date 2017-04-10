@@ -498,20 +498,28 @@ open class CameraViewController: UIViewController {
     }
     
     internal func saveImage(image: UIImage) {
+
+        let spinner = showSpinner()
+        cameraView.preview.isHidden = true
+
         _ = SingleImageSaver()
             .setImage(image)
             .onSuccess { [weak self] asset in
                 self?.layoutCameraResult(asset: asset)
+                self?.hideSpinner(spinner)
             }
             .onFailure { [weak self] error in
                 self?.toggleButtons(enabled: true)
                 self?.showNoPermissionsView(library: true)
+                self?.cameraView.preview.isHidden = false
+                self?.hideSpinner(spinner)
             }
             .save()
     }
     
     internal func close() {
         onCompletion?(nil, nil)
+        onCompletion = nil
     }
     
     internal func showLibrary() {
@@ -569,9 +577,27 @@ open class CameraViewController: UIViewController {
             }
 
             self?.onCompletion?(image, asset)
+            self?.onCompletion = nil
         }
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(confirmViewController, animated: true, completion: nil)
+    }
+
+    private func showSpinner() -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView()
+        spinner.activityIndicatorViewStyle = .white
+        spinner.center = view.center
+        spinner.startAnimating()
+
+        view.addSubview(spinner)
+        view.bringSubview(toFront: spinner)
+
+        return spinner
+    }
+
+    private func hideSpinner(_ spinner: UIActivityIndicatorView) {
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
     }
     
 }
