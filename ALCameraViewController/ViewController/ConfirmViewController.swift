@@ -88,7 +88,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         centerScrollViewContents()
         centerImageViewOnRotate()
     }
-    
+	
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -209,29 +209,29 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     internal func confirmPhoto() {
         
         disable()
-        
-        imageView.isHidden = true
-        
-        let spinner = showSpinner()
-
-        var fetcher = SingleImageFetcher()
-            .onSuccess { image in
-                self.onComplete?(image, self.asset)
-                self.hideSpinner(spinner)
-                self.enable()
-           }
-            .onFailure { error in            
-                self.hideSpinner(spinner)
-                self.showNoImageScreen(error)
-            }
-            .setAsset(asset)
-        
-        if allowsCropping {
-            
-            var cropRect = cropOverlay.frame
-            cropRect.origin.x += scrollView.contentOffset.x
+		
+		imageView.isHidden = true
+		
+		let spinner = showSpinner()
+		
+		var fetcher = SingleImageFetcher()
+			.onSuccess { image in
+				self.onComplete?(image, self.asset)
+				self.hideSpinner(spinner)
+				self.enable()
+			}
+			.onFailure { error in
+				self.hideSpinner(spinner)
+				self.showNoImageScreen(error)
+			}
+			.setAsset(asset)
+		
+		if allowsCropping {
+			
+			var cropRect = CGRect(x: cropOverlay.frame.origin.x + cropOverlay.outterGap, y: cropOverlay.frame.origin.y + cropOverlay.outterGap, width: cropOverlay.frame.size.width - cropOverlay.outterGap * 2, height: cropOverlay.frame.size.height - cropOverlay.outterGap * 2)
+			cropRect.origin.x += scrollView.contentOffset.x
             cropRect.origin.y += scrollView.contentOffset.y
-            
+			
             let normalizedX = cropRect.origin.x / imageView.frame.width
             let normalizedY = cropRect.origin.y / imageView.frame.height
             
