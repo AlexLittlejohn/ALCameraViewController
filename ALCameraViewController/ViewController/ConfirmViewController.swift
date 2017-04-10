@@ -286,7 +286,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         let desc = localizedString("error.cant-fetch-photo.description")
         
-        permissionsView.configureInView(view, title: error.localizedDescription, descriptiom: desc, completion: cancel)
+        permissionsView.configureInView(view, title: error.localizedDescription, description: desc, completion: { [weak self] in self?.cancel() })
     }
     
 }

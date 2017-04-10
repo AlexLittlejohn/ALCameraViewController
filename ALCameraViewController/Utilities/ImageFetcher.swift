@@ -12,6 +12,12 @@ import Photos
 public typealias ImageFetcherSuccess = (PHFetchResult<PHAsset>) -> ()
 public typealias ImageFetcherFailure = (NSError) -> ()
 
+//extension PHFetchResult: Sequence {
+//    public func makeIterator() -> NSFastEnumerationIterator {
+//        return NSFastEnumerationIterator(self)
+//    }
+//}
+
 public class ImageFetcher {
 
     private var success: ImageFetcherSuccess?
@@ -35,11 +41,11 @@ public class ImageFetcher {
     }
     
     public func fetch() -> Self {
-        _ = PhotoLibraryAuthorizer { [weak self] error in
+        _ = PhotoLibraryAuthorizer { error in
             if error == nil {
-                self?.onAuthorized()
+                self.onAuthorized()
             } else {
-                self?.failure?(error!)
+                self.failure?(error!)
             }
         }
         return self
@@ -50,8 +56,8 @@ public class ImageFetcher {
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         libraryQueue.async {
             let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: options)
-            DispatchQueue.main.async { [weak self] in
-                self?.success?(assets)
+            DispatchQueue.main.async {
+                self.success?(assets)
             }
         }
     }

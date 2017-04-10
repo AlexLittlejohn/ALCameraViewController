@@ -50,11 +50,11 @@ public class SingleImageFetcher {
     }
     
     public func fetch() -> Self {
-        _ = PhotoLibraryAuthorizer { [weak self] error in
+        _ = PhotoLibraryAuthorizer { error in
             if error == nil {
-                self?._fetch()
+                self._fetch()
             } else {
-                self?.failure?(error!)
+                self.failure?(error!)
             }
         }
         return self
@@ -83,15 +83,13 @@ public class SingleImageFetcher {
             
             targetSize = CGSize(width: dimension, height: dimension)
         }
-
-        let domain = errorDomain
-
-        PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { [weak self] image, _ in
+        
+        PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
             if let image = image {
-                self?.success?(image)
+                self.success?(image)
             } else {
-                let error = errorWithKey("error.cant-fetch-photo", domain: domain)
-                self?.failure?(error)
+                let error = errorWithKey("error.cant-fetch-photo", domain: self.errorDomain)
+                self.failure?(error)
             }
         }
     }

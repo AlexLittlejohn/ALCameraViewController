@@ -12,7 +12,7 @@ import Photos
 
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
-open extension CameraViewController {
+public extension CameraViewController {
     public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
@@ -295,10 +295,12 @@ open class CameraViewController: UIViewController {
      */
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-         lastInterfaceOrientation = UIApplication.shared.statusBarOrientation
+
+        lastInterfaceOrientation = UIApplication.shared.statusBarOrientation
         if animationRunning {
             return
         }
+
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         coordinator.animate(alongsideTransition: { [weak self] animation in
@@ -392,7 +394,7 @@ open class CameraViewController: UIViewController {
         animationRunning = true
         
         /**
-         * Dispach delay to avoid any conflict between the CATransaction of rotation of the screen
+         * Dispatch delay to avoid any conflict between the CATransaction of rotation of the screen
          * and CATransaction of animation of buttons.
          */
 
@@ -401,7 +403,11 @@ open class CameraViewController: UIViewController {
         let options = rotateAnimation
 
         let time: DispatchTime = DispatchTime.now() + Double(1 * UInt64(NSEC_PER_SEC)/10)
-        DispatchQueue.main.asyncAfter(deadline: time) { 
+        DispatchQueue.main.asyncAfter(deadline: time) { [weak self] in
+
+            guard let _ = self else {
+                return
+            }
             
             CATransaction.begin()
             CATransaction.setDisableActions(false)
@@ -463,7 +469,7 @@ open class CameraViewController: UIViewController {
             desc = localizedString("permissions.description")
         }
         
-        permissionsView.configureInView(view, title: title, descriptiom: desc, completion: close)
+        permissionsView.configureInView(view, title: title, description: desc, completion: { [weak self] in self?.close() })
     }
     
     /**
@@ -534,7 +540,7 @@ open class CameraViewController: UIViewController {
         }
   
         let image = UIImage(named: flashImage(device.flashMode),
-                            in: Bundle(for: CameraViewController.self),
+                            in: CameraGlobals.shared.bundle,
                             compatibleWith: nil)
         
         flashButton.setImage(image, for: .normal)
