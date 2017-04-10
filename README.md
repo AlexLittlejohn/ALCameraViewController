@@ -27,8 +27,9 @@ pod 'ALCameraViewController'
 ### Usage
 
 To use this component couldn't be simpler.
+Add `import ALCameraViewController` to the top of you controller file.
 
-In your viewController
+In the viewController
 ```swift
 
 let croppingEnabled = true
@@ -36,10 +37,10 @@ let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled
 	// Do something with your image here.
 	// If cropping is enabled this image will be the cropped version
 
-	self?.dismissViewControllerAnimated(true, completion: nil)
+	self?.dismiss(animated: true, completion: nil)
 }
 
-presentViewController(cameraViewController, animated: true, completion: nil)
+present(cameraViewController, animated: true, completion: nil)
 ```
 
 ## License
