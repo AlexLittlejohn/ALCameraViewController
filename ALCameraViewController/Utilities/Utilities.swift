@@ -10,11 +10,18 @@ import UIKit
 import AVFoundation
 
 internal func radians(_ degrees: Double) -> Double {
-    return degrees / 180 * M_PI
+    return degrees / 180 * Double.pi
 }
 
 internal func localizedString(_ key: String) -> String {
-    return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: CameraGlobals.shared.bundle, comment: key)
+    var bundle: Bundle {
+        if Bundle.main.path(forResource: CameraGlobals.shared.stringsTable, ofType: "strings") != nil {
+            return Bundle.main
+        }
+        return CameraGlobals.shared.bundle
+    }
+
+    return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: bundle, comment: key)
 }
 
 internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrientation: UIInterfaceOrientation) -> Double {

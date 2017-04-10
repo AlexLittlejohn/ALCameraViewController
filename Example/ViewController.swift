@@ -29,9 +29,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openLibrary(_ sender: AnyObject) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { image, asset in
-            self.imageView.image = image
-            self.dismiss(animated: true, completion: nil)
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            self?.imageView.image = image
+            self?.dismiss(animated: true, completion: nil)
         }
         
         present(libraryViewController, animated: true, completion: nil)

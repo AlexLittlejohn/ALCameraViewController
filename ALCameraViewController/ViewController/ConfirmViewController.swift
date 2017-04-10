@@ -66,13 +66,13 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         _ = SingleImageFetcher()
             .setAsset(asset)
             .setTargetSize(largestPhotoSize())
-            .onSuccess { image in
-                self.configureWithImage(image)
-                self.hideSpinner(spinner)
-                self.enable()
+            .onSuccess { [weak self] image in
+                self?.configureWithImage(image)
+                self?.hideSpinner(spinner)
+                self?.enable()
             }
-            .onFailure { error in
-                self.hideSpinner(spinner)
+            .onFailure { [weak self] error in
+                self?.hideSpinner(spinner)
             }
             .fetch()
     }
@@ -113,13 +113,15 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         } else {
             frame.size = size
         }
-        
-        coordinator.animate(alongsideTransition: { context in
-            self.scrollView.contentInset = self.calculateScrollViewInsets(frame)
-            self.scrollView.minimumZoomScale = scale
-            self.scrollView.zoomScale = scale
-            self.centerScrollViewContents()
-            self.centerImageViewOnRotate()
+
+        let insets = calculateScrollViewInsets(frame)
+
+        coordinator.animate(alongsideTransition: { [weak self] context in
+            self?.scrollView.contentInset = insets
+            self?.scrollView.minimumZoomScale = scale
+            self?.scrollView.zoomScale = scale
+            self?.centerScrollViewContents()
+            self?.centerImageViewOnRotate()
             }, completion: nil)
     }
     
@@ -215,14 +217,14 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         let spinner = showSpinner()
 
         var fetcher = SingleImageFetcher()
-            .onSuccess { image in
-                self.onComplete?(image, self.asset)
-                self.hideSpinner(spinner)
-                self.enable()
+            .onSuccess { [weak self] image in
+                self?.onComplete?(image, self?.asset)
+                self?.hideSpinner(spinner)
+                self?.enable()
            }
-            .onFailure { error in            
-                self.hideSpinner(spinner)
-                self.showNoImageScreen(error)
+            .onFailure { [weak self] error in
+                self?.hideSpinner(spinner)
+                self?.showNoImageScreen(error)
             }
             .setAsset(asset)
         
@@ -284,7 +286,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
         let desc = localizedString("error.cant-fetch-photo.description")
         
-        permissionsView.configureInView(view, title: error.localizedDescription, descriptiom: desc, completion: cancel)
+        permissionsView.configureInView(view, title: error.localizedDescription, description: desc, completion: { [weak self] in self?.cancel() })
     }
     
 }

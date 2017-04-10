@@ -15,7 +15,8 @@ A camera view controller with custom image picker and image cropping. Written in
 - Flash light support
 
 ### Installation & Requirements
-This project requires Xcode 8 to run and compiles with swift 3.0
+This project requires Xcode 8.3 to run and compiles with swift 3.1
+> Please note: This library makes use of the AVFoundation camera API's which are unavailable on the iOS simulator. You'll need a real device to run it.
 
 ALCameraViewController is available on CocoaPods. Add the following to your Podfile:
 
@@ -26,8 +27,9 @@ pod 'ALCameraViewController'
 ### Usage
 
 To use this component couldn't be simpler.
+Add `import ALCameraViewController` to the top of you controller file.
 
-In your viewController
+In the viewController
 ```swift
 
 let croppingEnabled = true
@@ -35,10 +37,10 @@ let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled
 	// Do something with your image here.
 	// If cropping is enabled this image will be the cropped version
 
-	self?.dismissViewControllerAnimated(true, completion: nil)
+	self?.dismiss(animated: true, completion: nil)
 }
 
-presentViewController(cameraViewController, animated: true, completion: nil)
+present(cameraViewController, animated: true, completion: nil)
 ```
 
 ## License
