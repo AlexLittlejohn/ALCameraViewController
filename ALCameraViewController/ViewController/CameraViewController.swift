@@ -167,11 +167,7 @@ public class CameraViewController: UIViewController {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
+
     public override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -261,9 +257,6 @@ public class CameraViewController: UIViewController {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
-        addCameraObserver()
-        addRotateObserver()
-        setupVolumeControl()
         setupActions()
         checkPermissions()
         cameraView.configureFocus()
@@ -275,6 +268,9 @@ public class CameraViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraView.startSession()
+        addCameraObserver()
+        addRotateObserver()
+        setupVolumeControl()
     }
     
     /**
@@ -287,7 +283,13 @@ public class CameraViewController: UIViewController {
             notifyCameraReady()
         }
     }
-    
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+        volumeControl = nil
+    }
+
     /**
      * This method will disable the rotation of the
      */
@@ -340,9 +342,10 @@ public class CameraViewController: UIViewController {
      */
     private func setupVolumeControl() {
         volumeControl = VolumeControl(view: view) { [weak self] _ in
-            if self?.cameraButton.isEnabled == true {
-              self?.capturePhoto()
+            guard let enabled = self?.cameraButton.isEnabled, enabled else {
+                return
             }
+            self?.capturePhoto()
         }
     }
     

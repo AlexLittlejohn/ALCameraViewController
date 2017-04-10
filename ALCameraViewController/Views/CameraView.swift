@@ -168,7 +168,7 @@ public class CameraView: UIView {
     
     public func focusCamera(toPoint: CGPoint) -> Bool {
         
-        guard let device = device, device.isFocusModeSupported(.continuousAutoFocus) else {
+        guard let device = device, let preview = preview, device.isFocusModeSupported(.continuousAutoFocus) else {
             return false
         }
         
@@ -176,12 +176,14 @@ public class CameraView: UIView {
             return false
         }
         
-        // focus points are in the range of 0...1, not screen pixels
-        let focusPoint = CGPoint(x: toPoint.x / frame.width, y: toPoint.y / frame.height)
-        
-        device.focusMode = AVCaptureFocusMode.continuousAutoFocus
+        let focusPoint = preview.captureDevicePointOfInterest(for: toPoint)
+
+        device.focusPointOfInterest = focusPoint
+        device.focusMode = .continuousAutoFocus
+
         device.exposurePointOfInterest = focusPoint
-        device.exposureMode = AVCaptureExposureMode.continuousAutoExposure
+        device.exposureMode = .continuousAutoExposure
+
         device.unlockForConfiguration()
         
         return true
