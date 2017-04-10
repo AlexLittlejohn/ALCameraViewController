@@ -167,10 +167,7 @@ public class CameraViewController: UIViewController {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {
-    }
-    
+
     public override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -345,9 +342,10 @@ public class CameraViewController: UIViewController {
      */
     private func setupVolumeControl() {
         volumeControl = VolumeControl(view: view) { [weak self] _ in
-            if self?.cameraButton.isEnabled == true {
-              self?.capturePhoto()
+            guard let enabled = self?.cameraButton.isEnabled, enabled else {
+                return
             }
+            self?.capturePhoto()
         }
     }
     
