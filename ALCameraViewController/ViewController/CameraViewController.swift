@@ -588,23 +588,6 @@ open class CameraViewController: UIViewController {
         spinner.activityIndicatorViewStyle = .white
         spinner.center = view.center
         spinner.startAnimating()
-
-        view.addSubview(spinner)
-        view.bringSubview(toFront: spinner)
-
-        return spinner
-    }
-
-    private func hideSpinner(_ spinner: UIActivityIndicatorView) {
-        spinner.stopAnimating()
-        spinner.removeFromSuperview()
-    }
-    
-    private func showSpinner() -> UIActivityIndicatorView {
-        let spinner = UIActivityIndicatorView()
-        spinner.activityIndicatorViewStyle = .white
-        spinner.center = view.center
-        spinner.startAnimating()
         
         view.addSubview(spinner)
         view.bringSubview(toFront: spinner)
