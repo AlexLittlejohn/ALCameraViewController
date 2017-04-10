@@ -15,7 +15,8 @@ A camera view controller with custom image picker and image cropping. Written in
 - Flash light support
 
 ### Installation & Requirements
-This project requires Xcode 8 to run and compiles with swift 3.0
+This project requires Xcode 8.3 to run and compiles with swift 3.1
+> Please note: This library makes use of the AVFoundation camera API's which are unavailable on the iOS simulator. You'll need a real device to run it.
 
 ALCameraViewController is available on CocoaPods. Add the following to your Podfile:
 
