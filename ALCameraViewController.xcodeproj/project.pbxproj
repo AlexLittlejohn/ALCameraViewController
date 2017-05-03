@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6439F5F91D0A9BAD0079C4C3 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */; };
+		6439F5FA1D0A9BB40079C4C3 /* CameraViewControllerConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF7829B1CB2C04300DE3E63 /* CameraViewControllerConstraint.swift */; };
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
 		C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
@@ -342,12 +344,14 @@
 				C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */,
 				C482A0091CAEB18D00541D08 /* VolumeControl.swift in Sources */,
 				C482A00A1CAEB18D00541D08 /* PhotoLibraryAuthorizer.swift in Sources */,
+				6439F5FA1D0A9BB40079C4C3 /* CameraViewControllerConstraint.swift in Sources */,
 				C482A00B1CAEB18D00541D08 /* UIButtonExtensions.swift in Sources */,
 				C482A00C1CAEB18D00541D08 /* PhotoLibraryViewController.swift in Sources */,
 				C482A00D1CAEB18D00541D08 /* CameraViewController.swift in Sources */,
 				C482A00E1CAEB18D00541D08 /* ConfirmViewController.swift in Sources */,
 				C482A00F1CAEB18D00541D08 /* ImageCell.swift in Sources */,
 				C482A0101CAEB18D00541D08 /* PermissionsView.swift in Sources */,
+				6439F5F91D0A9BAD0079C4C3 /* UIViewExtensions.swift in Sources */,
 				C482A0111CAEB18D00541D08 /* CameraView.swift in Sources */,
 				C482A0121CAEB18D00541D08 /* CropOverlay.swift in Sources */,
 			);
