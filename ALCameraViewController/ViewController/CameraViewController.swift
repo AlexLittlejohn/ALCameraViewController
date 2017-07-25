@@ -155,8 +155,11 @@ open class CameraViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+	
+	private let allowsLibraryAccess: Bool
   
 	public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, completion: @escaping CameraViewCompletion) {
+		self.allowsLibraryAccess = allowsLibraryAccess
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
@@ -504,6 +507,7 @@ open class CameraViewController: UIViewController {
         let spinner = showSpinner()
         cameraView.preview.isHidden = true
 
+		if allowsLibraryAccess {
         _ = SingleImageSaver()
             .setImage(image)
             .onSuccess { [weak self] asset in
@@ -517,8 +521,12 @@ open class CameraViewController: UIViewController {
                 self?.hideSpinner(spinner)
             }
             .save()
+		} else {
+			self.layoutCameraResult(uiImage: image)
+			self.hideSpinner(spinner)
+		}
     }
-    
+	
     internal func close() {
         onCompletion?(nil, nil)
         onCompletion = nil
@@ -560,13 +568,37 @@ open class CameraViewController: UIViewController {
         cameraView.swapCameraInput()
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
     }
-    
+	
+	internal func layoutCameraResult(uiImage: UIImage) {
+		cameraView.stopSession()
+		startConfirmController(uiImage: uiImage)
+		toggleButtons(enabled: true)
+	}
+	
     internal func layoutCameraResult(asset: PHAsset) {
         cameraView.stopSession()
         startConfirmController(asset: asset)
         toggleButtons(enabled: true)
     }
-    
+	
+	private func startConfirmController(uiImage: UIImage) {
+		let confirmViewController = ConfirmViewController(image: uiImage, allowsCropping: allowCropping)
+		confirmViewController.onComplete = { [weak self] image, asset in
+			defer {
+				self?.dismiss(animated: true, completion: nil)
+			}
+			
+			guard let image = image else {
+				return
+			}
+			
+			self?.onCompletion?(image, asset)
+			self?.onCompletion = nil
+		}
+		confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+		present(confirmViewController, animated: true, completion: nil)
+	}
+	
     private func startConfirmController(asset: PHAsset) {
         let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
         confirmViewController.onComplete = { [weak self] image, asset in
