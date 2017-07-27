@@ -258,14 +258,27 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 				let normalizedHeight = cropRect.height / imageView.frame.height
 				
 				
-				let normRect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
+				var normRect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
 				print("NormRect: \(normRect)")
 				
-				let newRect = CGRect(x: (imageView.image!.size.width) * (1 - (normRect.origin.y + normRect.height)),
-				                     y: (imageView.image!.size.height) * normRect.origin.x,
-				                     width: (imageView.image!.size.width * normRect.height),
-				                     height: (imageView.image!.size.height * normRect.width))
-				// Note: Mixing x with height and y with width and flipping y because our image orientation is off by 90 degrees because the iPad's in portrait. In landscape, this fails miserably.
+				switch imageView.image!.imageOrientation {
+				case .left:
+					normRect = CGRect(x: normRect.origin.y, y: 1 - (normRect.origin.x + normRect.width), width: normRect.height, height: normRect.width)
+				case .right:
+					normRect = CGRect(x: 1 - (normRect.origin.y + normRect.height), y: normRect.origin.x, width: normRect.height, height: normRect.width)
+				case .up:
+					normRect = CGRect(x: normRect.origin.x, y: normRect.origin.y, width: normRect.width, height: normRect.height)
+				case .down:
+					normRect = CGRect(x: 1 - (normRect.origin.x + normRect.width), y: 1 - (normRect.origin.y + normRect.height), width: normRect.width, height: normRect.height)
+				default:
+					normRect = CGRect(x: 1 - (normRect.origin.x + normRect.width), y: normRect.origin.y, width: normRect.width, height: normRect.height)
+				}
+				
+				let newRect = CGRect(x: (imageView.image!.size.width) * normRect.origin.x,
+				                     y: (imageView.image!.size.height) * normRect.origin.y,
+				                     width: (imageView.image!.size.width * normRect.width),
+				                     height: (imageView.image!.size.height * normRect.height))
+				
 				print("NewRect: \(newRect)")
 				newImage = imageView.image?.crop(rect: newRect)
 			}
