@@ -244,7 +244,33 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 				}
 				.setAsset(asset)
 		} else {
-			self.onComplete?(image, nil)
+			var newImage = image
+			
+			if allowsCropping {
+				var cropRect = cropOverlay.frame
+				cropRect.origin.x += scrollView.contentOffset.x
+				cropRect.origin.y += scrollView.contentOffset.y
+				
+				let normalizedX = cropRect.origin.x / imageView.frame.width
+				let normalizedY = cropRect.origin.y / imageView.frame.height
+				
+				let normalizedWidth = cropRect.width / imageView.frame.width
+				let normalizedHeight = cropRect.height / imageView.frame.height
+				
+				
+				let normRect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
+				print("NormRect: \(normRect)")
+				
+				let newRect = CGRect(x: (imageView.image!.size.width) * (1 - (normRect.origin.y + normRect.height)),
+				                     y: (imageView.image!.size.height) * normRect.origin.x,
+				                     width: (imageView.image!.size.width * normRect.height),
+				                     height: (imageView.image!.size.height * normRect.width))
+				// Note: Mixing x with height and y with width and flipping y because our image orientation is off by 90 degrees because the iPad's in portrait. In landscape, this fails miserably.
+				print("NewRect: \(newRect)")
+				newImage = imageView.image?.crop(rect: newRect)
+			}
+			
+			self.onComplete?(newImage, nil)
 			self.hideSpinner(spinner)
 			self.enable()
 		}
@@ -310,4 +336,31 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         permissionsView.configureInView(view, title: error.localizedDescription, description: desc, completion: { [weak self] in self?.cancel() })
     }
     
+}
+
+extension UIImage {
+	func crop(rect: CGRect) -> UIImage {
+		let rad = {(_ deg: CGFloat) -> CGFloat in
+			return deg / 180.0 * .pi
+		}
+		var rectTransform: CGAffineTransform
+		switch imageOrientation {
+		case .left:
+			rectTransform = CGAffineTransform(rotationAngle: rad(90)).translatedBy(x: 0, y: -size.height)
+		case .right:
+			rectTransform = CGAffineTransform(rotationAngle: rad(-90)).translatedBy(x: -size.width, y: 0)
+		case .down:
+			rectTransform = CGAffineTransform(rotationAngle: rad(-180)).translatedBy(x: -size.width, y: -size.height)
+		default:
+			rectTransform = CGAffineTransform.identity
+		}
+		
+		rectTransform = rectTransform.scaledBy(x: scale, y: scale)
+		
+		if let cropped = cgImage?.cropping(to: rect.applying(rectTransform)) {
+			return UIImage(cgImage: cropped, scale: scale, orientation: imageOrientation)
+		}
+		
+		return self
+	}
 }
