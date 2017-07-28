@@ -346,9 +346,22 @@ extension UIImage {
 		rectTransform = rectTransform.scaledBy(x: scale, y: scale)
 		
 		if let cropped = cgImage?.cropping(to: rect.applying(rectTransform)) {
-			return UIImage(cgImage: cropped)
+			return UIImage(cgImage: cropped, scale: scale, orientation: imageOrientation).fixOrientation()
 		}
 		
 		return self
+	}
+	
+	func fixOrientation() -> UIImage {
+		if self.imageOrientation == UIImageOrientation.up {
+			return self
+		}
+		
+		UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+		self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+		let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
+		UIGraphicsEndImageContext()
+		
+		return normalizedImage
 	}
 }
