@@ -328,17 +328,15 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 
 extension UIImage {
 	func crop(rect: CGRect) -> UIImage {
-		let rad = {(_ deg: CGFloat) -> CGFloat in
-			return deg / 180.0 * .pi
-		}
+
 		var rectTransform: CGAffineTransform
 		switch imageOrientation {
 		case .left:
-			rectTransform = CGAffineTransform(rotationAngle: rad(90)).translatedBy(x: 0, y: -size.height)
+			rectTransform = CGAffineTransform(rotationAngle: radians(90)).translatedBy(x: 0, y: -size.height)
 		case .right:
-			rectTransform = CGAffineTransform(rotationAngle: rad(-90)).translatedBy(x: -size.width, y: 0)
+			rectTransform = CGAffineTransform(rotationAngle: radians(-90)).translatedBy(x: -size.width, y: 0)
 		case .down:
-			rectTransform = CGAffineTransform(rotationAngle: rad(-180)).translatedBy(x: -size.width, y: -size.height)
+			rectTransform = CGAffineTransform(rotationAngle: radians(-180)).translatedBy(x: -size.width, y: -size.height)
 		default:
 			rectTransform = CGAffineTransform.identity
 		}

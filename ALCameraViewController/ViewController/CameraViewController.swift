@@ -391,8 +391,8 @@ open class CameraViewController: UIViewController {
     internal func rotate(actualInterfaceOrientation: UIInterfaceOrientation) {
         
         if lastInterfaceOrientation != nil {
-            let lastTransform = CGAffineTransform(rotationAngle: CGFloat(radians(currentRotation(
-                lastInterfaceOrientation!, newOrientation: actualInterfaceOrientation))))
+            let lastTransform = CGAffineTransform(rotationAngle: radians(currentRotation(
+                lastInterfaceOrientation!, newOrientation: actualInterfaceOrientation)))
             setTransform(transform: lastTransform)
         }
 
