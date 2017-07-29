@@ -522,8 +522,8 @@ open class CameraViewController: UIViewController {
             }
             .save()
 		} else {
-			self.layoutCameraResult(uiImage: image)
-			self.hideSpinner(spinner)
+			layoutCameraResult(uiImage: image)
+			hideSpinner(spinner)
 		}
     }
 	
