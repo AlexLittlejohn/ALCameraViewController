@@ -9,8 +9,8 @@
 import UIKit
 import AVFoundation
 
-internal func radians(_ degrees: Double) -> Double {
-    return degrees / 180 * Double.pi
+internal func radians(_ degrees: CGFloat) -> CGFloat {
+    return degrees / 180 * .pi
 }
 
 internal func localizedString(_ key: String) -> String {
@@ -24,7 +24,7 @@ internal func localizedString(_ key: String) -> String {
     return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: bundle, comment: key)
 }
 
-internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrientation: UIInterfaceOrientation) -> Double {
+internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrientation: UIInterfaceOrientation) -> CGFloat {
     switch oldOrientation {
         case .portrait:
             switch newOrientation {

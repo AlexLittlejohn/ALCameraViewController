@@ -162,7 +162,7 @@ public class CameraView: UIView {
         let size = frame.size
 
         cameraQueue.sync {
-            takePhoto(output, videoOrientation: orientation, cropSize: size) { image in
+            takePhoto(output, videoOrientation: orientation, cameraPosition: device.position, cropSize: size) { image in
                 DispatchQueue.main.async() { [weak self] in
                     self?.isUserInteractionEnabled = true
                     completion(image)
