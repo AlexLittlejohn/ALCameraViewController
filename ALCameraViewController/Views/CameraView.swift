@@ -21,6 +21,10 @@ public class CameraView: UIView {
     
     let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
+    let minimumZoom: CGFloat = 1.0
+    let maximumZoom: CGFloat = 3.0
+    var lastZoomFactor: CGFloat = 1.0
+    
     public var currentPosition = CameraGlobals.shared.defaultCameraPosition
     
     public func startSession() {
@@ -99,6 +103,9 @@ public class CameraView: UIView {
         lines.forEach { line in
             line.alpha = 0
         }
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinch(gesture:)))
+        addGestureRecognizer(pinchGesture)
     }
     
     internal func focus(gesture: UITapGestureRecognizer) {
@@ -133,6 +140,36 @@ public class CameraView: UIView {
                     self?.focusView.isHidden = true
                 }
         })
+    }
+    
+    internal func pinch(gesture: UIPinchGestureRecognizer) {
+        guard let device = device else { return }
+        
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
+        
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+        
+        let newScaleFactor = minMaxZoom(gesture.scale * lastZoomFactor)
+        
+        switch gesture.state {
+        case .began: fallthrough
+        case .changed: update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(newScaleFactor)
+            update(scale: lastZoomFactor)
+        default: break
+        }
     }
     
     private func createPreview() {
