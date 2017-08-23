@@ -16,7 +16,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="ALCameraViewController" customModuleProvider="target">
             <connections>
-                <outlet property="cameraButton" destination="YHP-W6-S2W" id="xwI-Qc-0CT"/>
                 <outlet property="imageView" destination="I4G-in-XtY" id="U1I-c7-fHk"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NQI-AD-Uhb"/>
             </connections>
