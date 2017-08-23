@@ -47,6 +47,7 @@ open class CameraViewController: UIViewController {
     
     var didUpdateViews = false
     var allowCropping = false
+    var allowAudio = false
     var animationRunning = false
     
     var lastInterfaceOrientation : UIInterfaceOrientation?
@@ -158,11 +159,12 @@ open class CameraViewController: UIViewController {
 	
 	private let allowsLibraryAccess: Bool
   
-	public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, completion: @escaping CameraViewCompletion) {
+    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, allowsAudio: Bool = true, completion: @escaping CameraViewCompletion) {
 		self.allowsLibraryAccess = allowsLibraryAccess
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
+        allowAudio = allowsAudio
         cameraOverlay.isHidden = !allowCropping
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
@@ -276,7 +278,9 @@ open class CameraViewController: UIViewController {
         cameraView.startSession()
         addCameraObserver()
         addRotateObserver()
-        setupVolumeControl()
+        if(allowAudio) {
+            setupVolumeControl()
+        }
     }
     
     /**
@@ -349,7 +353,7 @@ open class CameraViewController: UIViewController {
      * Attach the take of picture for any volume button.
      */
     private func setupVolumeControl() {
-        volumeControl = VolumeControl(view: view) { [weak self] _ in
+        volumeControl = VolumeControl(view: view, enableAudio: allowAudio) { [weak self] _ in
             guard let enabled = self?.cameraButton.isEnabled, enabled else {
                 return
             }
