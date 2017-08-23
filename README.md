@@ -27,7 +27,7 @@ pod 'ALCameraViewController'
 ### Privacy (iOS 10) ###
 If you are building your app with iOS 10 or newer, you need to add two privacy keys to your app to allow the usage of the camera and photo library, or your app will crash.
 
-Add the keys below to your `Info.plist` and adding strings with the description you want to provide when prompting the user:
+Add the keys below to your `Info.plist`, adding strings with the description you want to provide when prompting the user.
 
 ```
     NSPhotoLibraryUsageDescription
