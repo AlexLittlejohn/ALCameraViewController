@@ -451,8 +451,6 @@ open class CameraViewController: UIViewController {
             .portrait, newOrientation: actualInterfaceOrientation)))
         animationRunning = true
         
-        print(affineTransformDescription(transform))
-        
         /**
          * Dispatch delay to avoid any conflict between the CATransaction of rotation of the screen
          * and CATransaction of animation of buttons.
