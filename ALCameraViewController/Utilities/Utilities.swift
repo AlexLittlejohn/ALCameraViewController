@@ -28,8 +28,8 @@ internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrien
     switch oldOrientation {
         case .portrait:
             switch newOrientation {
-                case .landscapeLeft: return 90
-                case .landscapeRight: return -90
+                case .landscapeLeft: return -90
+                case .landscapeRight: return 90
                 case .portraitUpsideDown: return 180
                 default: return 0
             }
@@ -53,6 +53,7 @@ internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrien
         default: return 0
     }
 }
+
 
 internal func largestPhotoSize() -> CGSize {
     let scale = UIScreen.main.scale

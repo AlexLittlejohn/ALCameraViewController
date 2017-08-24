@@ -151,10 +151,10 @@ public class CameraView: UIView {
         return devices.filter { $0.position == position }.first
     }
     
-    public func capturePhoto(completion: @escaping CameraShotCompletion) {
+    public func capturePhoto(_ orientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation, _ completion: @escaping CameraShotCompletion) {
         isUserInteractionEnabled = false
 
-        guard let output = imageOutput, let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) else {
+        guard let output = imageOutput, let orientation = AVCaptureVideoOrientation(rawValue: orientation.rawValue) else {
             completion(nil)
             return
         }
@@ -239,12 +239,12 @@ public class CameraView: UIView {
         session.commitConfiguration()
     }
   
-    public func rotatePreview() {
+    public func rotatePreview(_ orientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation) {
       
         guard preview != nil else {
             return
         }
-        switch UIApplication.shared.statusBarOrientation {
+        switch orientation {
             case .portrait:
               preview?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
               break

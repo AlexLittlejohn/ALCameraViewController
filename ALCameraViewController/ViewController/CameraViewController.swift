@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import CoreMotion
 
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
@@ -82,6 +83,12 @@ open class CameraViewController: UIViewController {
     var cameraOverlayEdgeTwoConstraint: NSLayoutConstraint?
     var cameraOverlayWidthConstraint: NSLayoutConstraint?
     var cameraOverlayCenterConstraint: NSLayoutConstraint?
+    
+    let motionManager : CMMotionManager = {
+        let motionManager = CMMotionManager()
+        motionManager.deviceMotionUpdateInterval = 0.2
+        return motionManager
+    }()
     
     let cameraView : CameraView = {
         let cameraView = CameraView()
@@ -182,6 +189,10 @@ open class CameraViewController: UIViewController {
         return UIStatusBarAnimation.slide
     }
     
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     /**
      * Configure the background of the superview to black
      * and add the views on this superview. Then, request
@@ -247,7 +258,7 @@ open class CameraViewController: UIViewController {
         configCameraOverlayWidthConstraint(portrait)
         configCameraOverlayCenterConstraint(portrait)
         
-        rotate(actualInterfaceOrientation: statusBarOrientation)
+//        rotate(actualInterfaceOrientation: statusBarOrientation)
         
         super.updateViewConstraints()
     }
@@ -334,11 +345,50 @@ open class CameraViewController: UIViewController {
      * orientation of CameraView.
      */
     private func addRotateObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(rotateCameraView),
-            name: NSNotification.Name.UIDeviceOrientationDidChange,
-            object: nil)
+        if motionManager.isDeviceMotionAvailable {
+            let queue = OperationQueue()
+            motionManager.startDeviceMotionUpdates(to: queue) {
+                [weak self] (data: CMDeviceMotion?, error: Error?) in
+                if let gravity = data?.gravity {
+                    if let orientation = self?.calcOrientation(gravity) {
+                        OperationQueue.main.addOperation {
+                            // update UI here
+//                            self?.rotateCameraView(orientation)
+                            self?.rotate(actualInterfaceOrientation: orientation)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    
+    func calcOrientation(_ acceleration: CMAcceleration) -> UIInterfaceOrientation? {
+        var orientationNew:UIInterfaceOrientation?;
+        
+        if (acceleration.x >= 0.75) {
+            orientationNew = .landscapeLeft
+        }
+        else if (acceleration.x <= -0.75) {
+            orientationNew = .landscapeRight
+        }
+        else if (acceleration.y <= -0.75) {
+            orientationNew = .portrait;
+        }
+        else if (acceleration.y >= 0.75) {
+            orientationNew = .portraitUpsideDown;
+        }
+        
+        guard let _ = orientationNew else {
+            return nil
+        }
+        
+        if (orientationNew == lastInterfaceOrientation) {
+            return nil
+        }
+        
+        lastInterfaceOrientation = orientationNew
+        return orientationNew
     }
     
     internal func notifyCameraReady() {
@@ -380,8 +430,8 @@ open class CameraViewController: UIViewController {
             libraryButton].forEach({ $0.isEnabled = enabled })
     }
     
-    func rotateCameraView() {
-        cameraView.rotatePreview()
+    func rotateCameraView(_ orientation:UIInterfaceOrientation) {
+        cameraView.rotatePreview(orientation)
     }
     
     /**
@@ -389,15 +439,19 @@ open class CameraViewController: UIViewController {
      * the last and actual orientation of the device.
      */
     internal func rotate(actualInterfaceOrientation: UIInterfaceOrientation) {
-        
-        if lastInterfaceOrientation != nil {
-            let lastTransform = CGAffineTransform(rotationAngle: radians(currentRotation(
-                lastInterfaceOrientation!, newOrientation: actualInterfaceOrientation)))
-            setTransform(transform: lastTransform)
-        }
+//        
+//        if lastInterfaceOrientation != nil {
+//            let lastTransform = CGAffineTransform(rotationAngle: radians(currentRotation(
+//                lastInterfaceOrientation!, newOrientation: actualInterfaceOrientation)))
+//            setTransform(transform: lastTransform)
+//        }
 
-        let transform = CGAffineTransform(rotationAngle: 0)
+//        let transform = CGAffineTransform(rotationAngle: 0)
+        let transform = CGAffineTransform(rotationAngle: radians(currentRotation(
+            .portrait, newOrientation: actualInterfaceOrientation)))
         animationRunning = true
+        
+        print(affineTransformDescription(transform))
         
         /**
          * Dispatch delay to avoid any conflict between the CATransaction of rotation of the screen
@@ -408,30 +462,31 @@ open class CameraViewController: UIViewController {
         let spring = animationSpring
         let options = rotateAnimation
 
-        let time: DispatchTime = DispatchTime.now() + Double(1 * UInt64(NSEC_PER_SEC)/10)
-        DispatchQueue.main.asyncAfter(deadline: time) { [weak self] in
-
-            guard let _ = self else {
-                return
-            }
-            
-            CATransaction.begin()
-            CATransaction.setDisableActions(false)
-            CATransaction.commit()
-            
-            UIView.animate(
-                withDuration: duration,
-                delay: 0.1,
-                usingSpringWithDamping: spring,
-                initialSpringVelocity: 0,
-                options: options,
-                animations: { [weak self] in
+        CATransaction.begin()
+        CATransaction.setDisableActions(false)
+        CATransaction.commit()
+        
+        UIView.animate(
+            withDuration: duration,
+            delay: 0.1,
+            usingSpringWithDamping: spring,
+            initialSpringVelocity: 0,
+            options: options,
+            animations: { [weak self] in
                 self?.setTransform(transform: transform)
-                }, completion: { [weak self] _ in
-                    self?.animationRunning = false
-            })
-            
-        }
+            }, completion: { [weak self] _ in
+                self?.animationRunning = false
+        })
+//
+//        let time: DispatchTime = DispatchTime.now() + Double(1 * UInt64(NSEC_PER_SEC)/10)
+//        DispatchQueue.main.asyncAfter(deadline: time) { [weak self] in
+//
+//            guard let _ = self else {
+//                return
+//            }
+//            
+//            
+//        }
     }
     
     func setTransform(transform: CGAffineTransform) {
@@ -493,13 +548,13 @@ open class CameraViewController: UIViewController {
         
         if connection.isEnabled {
             toggleButtons(enabled: false)
-            cameraView.capturePhoto { [weak self] image in
+            cameraView.capturePhoto(lastInterfaceOrientation!, { [weak self] (image) in
                 guard let image = image else {
                     self?.toggleButtons(enabled: true)
                     return
                 }
                 self?.saveImage(image: image)
-            }
+            })
         }
     }
     
