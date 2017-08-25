@@ -90,95 +90,102 @@ open class CameraViewController: UIViewController {
         return motionManager
     }()
     
-    let cameraView : CameraView = {
-        let cameraView = CameraView()
-        cameraView.translatesAutoresizingMaskIntoConstraints = false
-        return cameraView
-    }()
-    
+  @IBOutlet weak var cameraView: CameraView!
+  
+//    let cameraView : CameraView = {
+//        let cameraView = CameraView()
+//        cameraView.translatesAutoresizingMaskIntoConstraints = false
+//        return cameraView
+//    }()
+  
     let cameraOverlay : CropOverlay = {
         let cameraOverlay = CropOverlay()
         cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
         return cameraOverlay
     }()
+  
+  @IBOutlet weak var cameraButton: UIButton!
+  
     
-    let cameraButton : UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.isEnabled = false
-        button.setImage(UIImage(named: "cameraButton",
-                                in: CameraGlobals.shared.bundle,
-                                compatibleWith: nil),
-                        for: .normal)
-        button.setImage(UIImage(named: "cameraButtonHighlighted",
-                                in: CameraGlobals.shared.bundle,
-                                compatibleWith: nil),
-                        for: .highlighted)
-        return button
-    }()
-    
-    let closeButton : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "closeButton",
-                                in: CameraGlobals.shared.bundle,
-                                compatibleWith: nil),
-                        for: .normal)
-        return button
-    }()
-    
-    let swapButton : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "swapButton",
-                                in: CameraGlobals.shared.bundle,
-                                compatibleWith: nil),
-                        for: .normal)
-        return button
-    }()
-    
-    let libraryButton : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "libraryButton",
-                                in: CameraGlobals.shared.bundle,
-                                compatibleWith: nil),
-                        for: .normal)
-        return button
-    }()
-    
-    let flashButton : UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "flashAutoIcon",
-                                in: CameraGlobals.shared.bundle,
-                                compatibleWith: nil),
-                        for: .normal)
-        return button
-    }()
-    
-    let containerSwapLibraryButton : UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    let cameraButton : UIButton = {
+//        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.isEnabled = false
+//        button.setImage(UIImage(named: "cameraButton",
+//                                in: CameraGlobals.shared.bundle,
+//                                compatibleWith: nil),
+//                        for: .normal)
+//        button.setImage(UIImage(named: "cameraButtonHighlighted",
+//                                in: CameraGlobals.shared.bundle,
+//                                compatibleWith: nil),
+//                        for: .highlighted)
+//        return button
+//    }()
+  
+  @IBOutlet weak var closeButton: UIButton!
+//    let closeButton : UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setImage(UIImage(named: "closeButton",
+//                                in: CameraGlobals.shared.bundle,
+//                                compatibleWith: nil),
+//                        for: .normal)
+//        return button
+//    }()
+  
+  @IBOutlet weak var swapButton: UIButton!
+//    let swapButton : UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setImage(UIImage(named: "swapButton",
+//                                in: CameraGlobals.shared.bundle,
+//                                compatibleWith: nil),
+//                        for: .normal)
+//        return button
+//    }()
+  
+  @IBOutlet weak var libraryButton: UIButton!
+//    let libraryButton : UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setImage(UIImage(named: "libraryButton",
+//                                in: CameraGlobals.shared.bundle,
+//                                compatibleWith: nil),
+//                        for: .normal)
+//        return button
+//    }()
+  
+  @IBOutlet weak var flashButton: UIButton!
+//    let flashButton : UIButton = {
+//        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setImage(UIImage(named: "flashAutoIcon",
+//                                in: CameraGlobals.shared.bundle,
+//                                compatibleWith: nil),
+//                        for: .normal)
+//        return button
+//    }()
+//    
+//    let containerSwapLibraryButton : UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
 	
 	private let allowsLibraryAccess: Bool
+    private var allowsSwapCamera: Bool = true
   
 	public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, completion: @escaping CameraViewCompletion) {
 		self.allowsLibraryAccess = allowsLibraryAccess
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "CameraViewController", bundle: CameraGlobals.shared.bundle)
         onCompletion = completion
         allowCropping = croppingEnabled
-        cameraOverlay.isHidden = !allowCropping
-        libraryButton.isEnabled = allowsLibraryAccess
-        libraryButton.isHidden = !allowsLibraryAccess
-		swapButton.isEnabled = allowsSwapCameraOrientation
-		swapButton.isHidden = !allowsSwapCameraOrientation
+        allowsSwapCamera = allowsSwapCameraOrientation
     }
 	
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        allowsLibraryAccess = true
+        super.init(coder: aDecoder)
     }
 
     open override var prefersStatusBarHidden: Bool {
@@ -194,76 +201,6 @@ open class CameraViewController: UIViewController {
     }
     
     /**
-     * Configure the background of the superview to black
-     * and add the views on this superview. Then, request
-     * the update of constraints for this superview.
-     */
-    open override func loadView() {
-        super.loadView()
-        view.backgroundColor = UIColor.black
-        [cameraView,
-            cameraOverlay,
-            cameraButton,
-            closeButton,
-            flashButton,
-            containerSwapLibraryButton].forEach({ view.addSubview($0) })
-        [swapButton, libraryButton].forEach({ containerSwapLibraryButton.addSubview($0) })
-        view.setNeedsUpdateConstraints()
-    }
-    
-    /**
-     * Setup the constraints when the app is starting or rotating
-     * the screen.
-     * To avoid the override/conflict of stable constraint, these
-     * stable constraint are one time configurable.
-     * Any other dynamic constraint are configurable when the
-     * device is rotating, based on the device orientation.
-     */
-    override open func updateViewConstraints() {
-
-        if !didUpdateViews {
-            configCameraViewConstraints()
-            didUpdateViews = true
-        }
-        
-        let statusBarOrientation = UIApplication.shared.statusBarOrientation
-        let portrait = statusBarOrientation.isPortrait
-        
-        configCameraButtonEdgeConstraint(statusBarOrientation)
-        configCameraButtonGravityConstraint(portrait)
-        
-        removeCloseButtonConstraints()
-        configCloseButtonEdgeConstraint(statusBarOrientation)
-        configCloseButtonGravityConstraint(statusBarOrientation)
-        
-        removeContainerConstraints()
-        configContainerEdgeConstraint(statusBarOrientation)
-        configContainerGravityConstraint(statusBarOrientation)
-        
-        removeSwapButtonConstraints()
-        configSwapButtonEdgeConstraint(statusBarOrientation)
-        configSwapButtonGravityConstraint(portrait)
-
-        removeLibraryButtonConstraints()
-        configLibraryEdgeButtonConstraint(statusBarOrientation)
-        configLibraryGravityButtonConstraint(portrait)
-        
-        configFlashEdgeButtonConstraint(statusBarOrientation)
-        configFlashGravityButtonConstraint(statusBarOrientation)
-        
-        let padding : CGFloat = portrait ? 16.0 : -16.0
-        removeCameraOverlayEdgesConstraints()
-        configCameraOverlayEdgeOneContraint(portrait, padding: padding)
-        configCameraOverlayEdgeTwoConstraint(portrait, padding: padding)
-        configCameraOverlayWidthConstraint(portrait)
-        configCameraOverlayCenterConstraint(portrait)
-        
-//        rotate(actualInterfaceOrientation: statusBarOrientation)
-        
-        super.updateViewConstraints()
-    }
-    
-    /**
      * Add observer to check when the camera has started,
      * enable the volume buttons to take the picture,
      * configure the actions of the buttons on the screen,
@@ -274,6 +211,13 @@ open class CameraViewController: UIViewController {
      */
     open override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cameraOverlay.isHidden = !allowCropping
+        libraryButton.isEnabled = allowsLibraryAccess
+        libraryButton.isHidden = !allowsLibraryAccess
+        swapButton.isEnabled = allowsSwapCamera
+        swapButton.isHidden = !allowsSwapCamera
+        
         setupActions()
         checkPermissions()
         cameraView.configureFocus()
@@ -353,7 +297,6 @@ open class CameraViewController: UIViewController {
                     if let orientation = self?.calcOrientation(gravity) {
                         OperationQueue.main.addOperation {
                             // update UI here
-//                            self?.rotateCameraView(orientation)
                             self?.rotate(actualInterfaceOrientation: orientation)
                         }
                     }
@@ -439,14 +382,6 @@ open class CameraViewController: UIViewController {
      * the last and actual orientation of the device.
      */
     internal func rotate(actualInterfaceOrientation: UIInterfaceOrientation) {
-//        
-//        if lastInterfaceOrientation != nil {
-//            let lastTransform = CGAffineTransform(rotationAngle: radians(currentRotation(
-//                lastInterfaceOrientation!, newOrientation: actualInterfaceOrientation)))
-//            setTransform(transform: lastTransform)
-//        }
-
-//        let transform = CGAffineTransform(rotationAngle: 0)
         let transform = CGAffineTransform(rotationAngle: radians(currentRotation(
             .portrait, newOrientation: actualInterfaceOrientation)))
         animationRunning = true
@@ -475,16 +410,6 @@ open class CameraViewController: UIViewController {
             }, completion: { [weak self] _ in
                 self?.animationRunning = false
         })
-//
-//        let time: DispatchTime = DispatchTime.now() + Double(1 * UInt64(NSEC_PER_SEC)/10)
-//        DispatchQueue.main.asyncAfter(deadline: time) { [weak self] in
-//
-//            guard let _ = self else {
-//                return
-//            }
-//            
-//            
-//        }
     }
     
     func setTransform(transform: CGAffineTransform) {

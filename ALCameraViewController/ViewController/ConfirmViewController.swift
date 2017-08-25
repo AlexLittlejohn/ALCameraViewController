@@ -54,6 +54,10 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 	public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
 		return UIStatusBarAnimation.slide
 	}
+  
+  open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
+  }
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
