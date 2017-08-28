@@ -36,9 +36,9 @@
 		C4D9BA471CA73163004F70F7 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */; };
 		E33BE71D1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71E1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
-		E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */; };
+		E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E33BE7211F5460AB005842DC /* CGAffineTransformHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E35A23FA1F4F5329001047FD /* CGAffineTransformHelper.m */; };
-		E33BE7221F5460AD005842DC /* CGAffineTransformHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E35A23F91F4F5329001047FD /* CGAffineTransformHelper.h */; };
+		E33BE7221F5460AD005842DC /* CGAffineTransformHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E35A23F91F4F5329001047FD /* CGAffineTransformHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E35A23FB1F4F5329001047FD /* CGAffineTransformHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E35A23FA1F4F5329001047FD /* CGAffineTransformHelper.m */; };
 		E35A24031F4FE3AD001047FD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24011F4FE3A8001047FD /* CameraViewController.xib */; };
 		E35A24041F4FEB0B001047FD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24011F4FE3A8001047FD /* CameraViewController.xib */; };
