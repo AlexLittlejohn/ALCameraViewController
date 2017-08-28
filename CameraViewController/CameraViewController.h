@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CGAffineTransformHelper.h>
 #import <CIImage+Utilities.h>
 #import <IRLRectangleFeatureExtensions.h>
 
