@@ -37,9 +37,10 @@
 		E33BE71D1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71E1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E33BE7211F5460AB005842DC /* CGAffineTransformHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E35A23FA1F4F5329001047FD /* CGAffineTransformHelper.m */; };
-		E33BE7221F5460AD005842DC /* CGAffineTransformHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E35A23F91F4F5329001047FD /* CGAffineTransformHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E35A23FB1F4F5329001047FD /* CGAffineTransformHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E35A23FA1F4F5329001047FD /* CGAffineTransformHelper.m */; };
+		E33BE7271F546920005842DC /* IRLRectangleFeatureExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE7251F546920005842DC /* IRLRectangleFeatureExtensions.h */; };
+		E33BE7281F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */; };
+		E33BE7291F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */; };
+		E33BE72A1F546C0B005842DC /* CameraViewController-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE7231F54626D005842DC /* CameraViewController-Bridging-Header.h */; };
 		E35A24031F4FE3AD001047FD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24011F4FE3A8001047FD /* CameraViewController.xib */; };
 		E35A24041F4FEB0B001047FD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24011F4FE3A8001047FD /* CameraViewController.xib */; };
 		E35A24061F509CDC001047FD /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35A24051F509CDC001047FD /* OverlayView.swift */; };
@@ -86,8 +87,8 @@
 		E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIImage+Utilities.m"; sourceTree = "<group>"; };
 		E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIImage+Utilities.h"; sourceTree = "<group>"; };
 		E33BE7231F54626D005842DC /* CameraViewController-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CameraViewController-Bridging-Header.h"; sourceTree = "<group>"; };
-		E35A23F91F4F5329001047FD /* CGAffineTransformHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGAffineTransformHelper.h; sourceTree = "<group>"; };
-		E35A23FA1F4F5329001047FD /* CGAffineTransformHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGAffineTransformHelper.m; sourceTree = "<group>"; };
+		E33BE7251F546920005842DC /* IRLRectangleFeatureExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRLRectangleFeatureExtensions.h; sourceTree = "<group>"; };
+		E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRLRectangleFeatureExtensions.m; sourceTree = "<group>"; };
 		E35A24011F4FE3A8001047FD /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		E35A24051F509CDC001047FD /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		E35A24081F509FBD001047FD /* CGRectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtensions.swift; sourceTree = "<group>"; };
@@ -186,9 +187,9 @@
 				C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */,
 				EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */,
 				E35A24081F509FBD001047FD /* CGRectExtensions.swift */,
-				E35A23F91F4F5329001047FD /* CGAffineTransformHelper.h */,
-				E35A23FA1F4F5329001047FD /* CGAffineTransformHelper.m */,
 				E35A240B1F509FFC001047FD /* CGPointExtensions.swift */,
+				E33BE7251F546920005842DC /* IRLRectangleFeatureExtensions.h */,
+				E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -252,7 +253,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E33BE7221F5460AD005842DC /* CGAffineTransformHelper.h in Headers */,
+				E33BE72A1F546C0B005842DC /* CameraViewController-Bridging-Header.h in Headers */,
+				E33BE7271F546920005842DC /* IRLRectangleFeatureExtensions.h in Headers */,
 				E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +383,7 @@
 				E33BE71E1F5134C1005842DC /* CIImage+Utilities.m in Sources */,
 				C482A0071CAEB18D00541D08 /* CameraShot.swift in Sources */,
 				E35A240A1F509FBD001047FD /* CGRectExtensions.swift in Sources */,
+				E33BE7291F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */,
 				C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */,
 				C482A0091CAEB18D00541D08 /* VolumeControl.swift in Sources */,
 				C482A00A1CAEB18D00541D08 /* PhotoLibraryAuthorizer.swift in Sources */,
@@ -390,7 +393,6 @@
 				C482A00C1CAEB18D00541D08 /* PhotoLibraryViewController.swift in Sources */,
 				C482A00D1CAEB18D00541D08 /* CameraViewController.swift in Sources */,
 				C482A00E1CAEB18D00541D08 /* CropViewController.swift in Sources */,
-				E33BE7211F5460AB005842DC /* CGAffineTransformHelper.m in Sources */,
 				C482A00F1CAEB18D00541D08 /* ImageCell.swift in Sources */,
 				C482A0101CAEB18D00541D08 /* PermissionsView.swift in Sources */,
 				C482A0111CAEB18D00541D08 /* CameraView.swift in Sources */,
@@ -403,7 +405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C44543211CA68DDE00644380 /* VolumeControl.swift in Sources */,
-				E35A23FB1F4F5329001047FD /* CGAffineTransformHelper.m in Sources */,
 				FA7E6B9B1B429012000E1B14 /* CropViewController.swift in Sources */,
 				E35A240F1F50B49A001047FD /* ConfirmViewController.swift in Sources */,
 				FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */,
@@ -411,6 +412,7 @@
 				E35A24091F509FBD001047FD /* CGRectExtensions.swift in Sources */,
 				FA82313A1B3C296C00A837BE /* Utilities.swift in Sources */,
 				FAB50C001B413E8C009905B9 /* PhotoLibraryViewController.swift in Sources */,
+				E33BE7281F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */,
 				FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */,
 				E35A240C1F509FFC001047FD /* CGPointExtensions.swift in Sources */,
 				FAF058661B316695008E5592 /* CameraViewController.swift in Sources */,

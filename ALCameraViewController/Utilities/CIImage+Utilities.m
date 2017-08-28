@@ -8,6 +8,7 @@
 //
 
 #import "CIImage+Utilities.h"
+#import "IRLRectangleFeatureExtensions.h"
 
 @implementation CIImage (Utilities)
 
@@ -266,6 +267,3 @@
 
 @end
 
-@implementation IRLRectangleFeature
-
-@end

@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CGAffineTransformHelper.h"
-#import "CIImage+Utilities.h"
+#import <CGAffineTransformHelper.h>
+#import <CIImage+Utilities.h>
+#import <IRLRectangleFeatureExtensions.h>
+
 
 //! Project version number for CameraViewController.
 FOUNDATION_EXPORT double CameraViewControllerVersionNumber;

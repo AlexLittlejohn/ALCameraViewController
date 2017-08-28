@@ -11,16 +11,7 @@
 @import CoreImage;
 
 @class IRLRectangleFeature;
-
-@protocol IRLRectangleFeatureProtocol <NSObject>
-@property (readonly) CGPoint topLeft;
-@property (readonly) CGPoint topRight;
-@property (readonly) CGPoint bottomLeft;
-@property (readonly) CGPoint bottomRight;
-@end
-
-@interface CIRectangleFeature()<IRLRectangleFeatureProtocol>
-@end
+@protocol IRLRectangleFeatureProtocol;
 
 @interface CIImage (Utilities)
 
@@ -42,9 +33,3 @@
 
 @end
 
-@interface IRLRectangleFeature : CIFeature <IRLRectangleFeatureProtocol>
-@property (readwrite) CGPoint topLeft;
-@property (readwrite) CGPoint topRight;
-@property (readwrite) CGPoint bottomLeft;
-@property (readwrite) CGPoint bottomRight;
-@end
