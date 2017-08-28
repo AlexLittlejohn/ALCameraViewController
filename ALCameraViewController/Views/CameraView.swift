@@ -200,6 +200,7 @@ public class CameraView: UIView {
         }
         
         do {
+            // TODO: Change this to torch mode
             try device.lockForConfiguration()
             if device.flashMode == .on {
                 device.flashMode = .off

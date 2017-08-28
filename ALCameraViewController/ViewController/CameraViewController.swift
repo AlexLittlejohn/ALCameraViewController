@@ -19,22 +19,23 @@ public extension CameraViewController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
+        navigationController.isNavigationBarHidden = true
         navigationController.navigationBar.barTintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
         navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
 
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
-                let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
-                confirmController.onComplete = { [weak imagePicker] image, asset in
+                let cropViewController = CropViewController(asset: asset, allowsCropping: croppingEnabled)
+                cropViewController.onComplete = { [weak imagePicker] image, asset in
                     if let image = image, let asset = asset {
                         completion(image, asset)
                     } else {
                         imagePicker?.dismiss(animated: true, completion: nil)
                     }
                 }
-                confirmController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-                imagePicker?.present(confirmController, animated: true, completion: nil)
+                
+                imagePicker?.navigationController?.pushViewController(cropViewController, animated: true)
             } else {
                 completion(nil, nil)
             }
@@ -50,7 +51,7 @@ open class CameraViewController: UIViewController {
     var allowCropping = false
     var animationRunning = false
     
-    var lastInterfaceOrientation : UIInterfaceOrientation?
+    var lastInterfaceOrientation : UIInterfaceOrientation? = UIApplication.shared.statusBarOrientation
     open var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
     
@@ -549,19 +550,20 @@ open class CameraViewController: UIViewController {
 	
 	internal func layoutCameraResult(uiImage: UIImage) {
 		cameraView.stopSession()
-		startConfirmController(uiImage: uiImage)
+		startCropController(uiImage: uiImage)
 		toggleButtons(enabled: true)
 	}
 	
     internal func layoutCameraResult(asset: PHAsset) {
         cameraView.stopSession()
-        startConfirmController(asset: asset)
+        startCropController(asset: asset)
         toggleButtons(enabled: true)
     }
 	
-	private func startConfirmController(uiImage: UIImage) {
-		let confirmViewController = ConfirmViewController(image: uiImage, allowsCropping: allowCropping)
-		confirmViewController.onComplete = { [weak self] image, asset in
+	private func startCropController(uiImage: UIImage) {
+        
+		let cropViewController = CropViewController(image: uiImage, allowsCropping: allowCropping)
+		cropViewController.onComplete = { [weak self] image, asset in
 			defer {
 				self?.dismiss(animated: true, completion: nil)
 			}
@@ -573,13 +575,19 @@ open class CameraViewController: UIViewController {
 			self?.onCompletion?(image, asset)
 			self?.onCompletion = nil
 		}
-		confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-		present(confirmViewController, animated: true, completion: nil)
+        
+        let navigationController = UINavigationController(rootViewController: cropViewController)
+        
+        navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        
+		present(navigationController, animated: true, completion: nil)
 	}
 	
-    private func startConfirmController(asset: PHAsset) {
-        let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
-        confirmViewController.onComplete = { [weak self] image, asset in
+    private func startCropController(asset: PHAsset) {
+        let cropViewController = CropViewController(asset: asset, allowsCropping: allowCropping)
+        cropViewController.onComplete = { [weak self] image, asset in
             defer {
                 self?.dismiss(animated: true, completion: nil)
             }
@@ -591,8 +599,14 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(image, asset)
             self?.onCompletion = nil
         }
-        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        present(confirmViewController, animated: true, completion: nil)
+        
+        let navigationController = UINavigationController(rootViewController: cropViewController)
+        
+        navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+
+        present(navigationController, animated: true, completion: nil)
     }
 
     private func showSpinner() -> UIActivityIndicatorView {

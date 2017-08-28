@@ -32,7 +32,7 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T05-DW-nx9">
                             <rect key="frame" x="323" y="0.0" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="flashAutoIcon"/>
+                            <state key="normal" image="flashAutoIcon"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -42,7 +42,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-V8-aOM" customClass="CameraView" customModule="ALCameraViewController" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="44" width="375" height="500"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="qpY-V8-aOM" secondAttribute="height" multiplier="3:4" id="tKI-DK-48f"/>
                     </constraints>
@@ -51,25 +51,25 @@
                     <rect key="frame" x="0.0" y="544" width="375" height="123"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31q-oP-VTF">
-                            <rect key="frame" x="155" y="29" width="64" height="64"/>
+                            <rect key="frame" x="156" y="30" width="64" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="cameraButton"/>
+                            <state key="normal" image="cameraButton"/>
                             <state key="highlighted" image="cameraButtonHighlighted"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIC-aq-pXR">
-                            <rect key="frame" x="242" y="39" width="44" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="swapButton"/>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERQ-At-bZe">
-                            <rect key="frame" x="302" y="38" width="44" height="44"/>
+                            <rect key="frame" x="318" y="45" width="33" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="libraryButton"/>
+                            <state key="normal" image="libraryButton"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0T3-fj-1PF">
-                            <rect key="frame" x="26" y="38" width="44" height="44"/>
+                            <rect key="frame" x="24" y="45" width="33" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="closeButton"/>
+                            <state key="normal" image="closeButton"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIC-aq-pXR">
+                            <rect key="frame" x="266" y="39" width="44" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button" image="swapButton"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -93,11 +93,11 @@
         </view>
     </objects>
     <resources>
-        <image name="cameraButton" width="80" height="80"/>
+        <image name="cameraButton" width="66" height="66"/>
         <image name="cameraButtonHighlighted" width="80" height="80"/>
-        <image name="closeButton" width="44" height="44"/>
+        <image name="closeButton" width="20" height="20"/>
         <image name="flashAutoIcon" width="44" height="44"/>
-        <image name="libraryButton" width="44" height="44"/>
+        <image name="libraryButton" width="27" height="21"/>
         <image name="swapButton" width="44" height="44"/>
     </resources>
 </document>
