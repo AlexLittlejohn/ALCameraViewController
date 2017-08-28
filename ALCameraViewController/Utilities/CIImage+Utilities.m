@@ -8,7 +8,7 @@
 //
 
 #import "CIImage+Utilities.h"
-#import "IRLRectangleFeatureExtensions.h"
+#import "IRLRectangleFeature+Extensions.h"
 
 @implementation CIImage (Utilities)
 

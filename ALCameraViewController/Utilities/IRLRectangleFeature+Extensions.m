@@ -6,7 +6,7 @@
 //  Copyright © 2017 zero. All rights reserved.
 //
 
-#import "IRLRectangleFeatureExtensions.h"
+#import "IRLRectangleFeature+Extensions.h"
 
 @implementation IRLRectangleFeature
 

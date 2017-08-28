@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CIImage+Utilities.h>
-#import <IRLRectangleFeatureExtensions.h>
+#import "CIImage+Utilities.h"
+#import "IRLRectangleFeature+Extensions.h"
 
 
 //! Project version number for CameraViewController.

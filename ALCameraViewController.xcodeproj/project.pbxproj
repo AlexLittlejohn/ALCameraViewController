@@ -37,10 +37,10 @@
 		E33BE71D1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71E1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E33BE7271F546920005842DC /* IRLRectangleFeatureExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE7251F546920005842DC /* IRLRectangleFeatureExtensions.h */; };
-		E33BE7281F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */; };
-		E33BE7291F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */; };
-		E33BE72A1F546C0B005842DC /* CameraViewController-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE7231F54626D005842DC /* CameraViewController-Bridging-Header.h */; };
+		E33BE7271F546920005842DC /* IRLRectangleFeature+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE7251F546920005842DC /* IRLRectangleFeature+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E33BE7281F546920005842DC /* IRLRectangleFeature+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE7261F546920005842DC /* IRLRectangleFeature+Extensions.m */; };
+		E33BE7291F546920005842DC /* IRLRectangleFeature+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE7261F546920005842DC /* IRLRectangleFeature+Extensions.m */; };
+		E33BE72E1F5494EC005842DC /* CameraViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C4829FFD1CAEB16C00541D08 /* CameraViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E35A24031F4FE3AD001047FD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24011F4FE3A8001047FD /* CameraViewController.xib */; };
 		E35A24041F4FEB0B001047FD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24011F4FE3A8001047FD /* CameraViewController.xib */; };
 		E35A24061F509CDC001047FD /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35A24051F509CDC001047FD /* OverlayView.swift */; };
@@ -86,9 +86,9 @@
 		C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIImage+Utilities.m"; sourceTree = "<group>"; };
 		E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIImage+Utilities.h"; sourceTree = "<group>"; };
-		E33BE7231F54626D005842DC /* CameraViewController-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CameraViewController-Bridging-Header.h"; sourceTree = "<group>"; };
-		E33BE7251F546920005842DC /* IRLRectangleFeatureExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRLRectangleFeatureExtensions.h; sourceTree = "<group>"; };
-		E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRLRectangleFeatureExtensions.m; sourceTree = "<group>"; };
+		E33BE7251F546920005842DC /* IRLRectangleFeature+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IRLRectangleFeature+Extensions.h"; sourceTree = "<group>"; };
+		E33BE7261F546920005842DC /* IRLRectangleFeature+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IRLRectangleFeature+Extensions.m"; sourceTree = "<group>"; };
+		E33BE72F1F54955E005842DC /* CameraViewController-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CameraViewController-Bridging-Header.h"; sourceTree = "<group>"; };
 		E35A24011F4FE3A8001047FD /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		E35A24051F509CDC001047FD /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		E35A24081F509FBD001047FD /* CGRectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtensions.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 		C4829FFC1CAEB16C00541D08 /* CameraViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E33BE7231F54626D005842DC /* CameraViewController-Bridging-Header.h */,
+				E33BE72F1F54955E005842DC /* CameraViewController-Bridging-Header.h */,
 				C4829FFD1CAEB16C00541D08 /* CameraViewController.h */,
 				C4829FFF1CAEB16C00541D08 /* Info.plist */,
 			);
@@ -188,8 +188,8 @@
 				EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */,
 				E35A24081F509FBD001047FD /* CGRectExtensions.swift */,
 				E35A240B1F509FFC001047FD /* CGPointExtensions.swift */,
-				E33BE7251F546920005842DC /* IRLRectangleFeatureExtensions.h */,
-				E33BE7261F546920005842DC /* IRLRectangleFeatureExtensions.m */,
+				E33BE7251F546920005842DC /* IRLRectangleFeature+Extensions.h */,
+				E33BE7261F546920005842DC /* IRLRectangleFeature+Extensions.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -253,9 +253,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E33BE72A1F546C0B005842DC /* CameraViewController-Bridging-Header.h in Headers */,
-				E33BE7271F546920005842DC /* IRLRectangleFeatureExtensions.h in Headers */,
+				E33BE7271F546920005842DC /* IRLRectangleFeature+Extensions.h in Headers */,
 				E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */,
+				E33BE72E1F5494EC005842DC /* CameraViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +383,7 @@
 				E33BE71E1F5134C1005842DC /* CIImage+Utilities.m in Sources */,
 				C482A0071CAEB18D00541D08 /* CameraShot.swift in Sources */,
 				E35A240A1F509FBD001047FD /* CGRectExtensions.swift in Sources */,
-				E33BE7291F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */,
+				E33BE7291F546920005842DC /* IRLRectangleFeature+Extensions.m in Sources */,
 				C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */,
 				C482A0091CAEB18D00541D08 /* VolumeControl.swift in Sources */,
 				C482A00A1CAEB18D00541D08 /* PhotoLibraryAuthorizer.swift in Sources */,
@@ -412,7 +412,7 @@
 				E35A24091F509FBD001047FD /* CGRectExtensions.swift in Sources */,
 				FA82313A1B3C296C00A837BE /* Utilities.swift in Sources */,
 				FAB50C001B413E8C009905B9 /* PhotoLibraryViewController.swift in Sources */,
-				E33BE7281F546920005842DC /* IRLRectangleFeatureExtensions.m in Sources */,
+				E33BE7281F546920005842DC /* IRLRectangleFeature+Extensions.m in Sources */,
 				FAF0586A1B317894008E5592 /* CameraShot.swift in Sources */,
 				E35A240C1F509FFC001047FD /* CGPointExtensions.swift in Sources */,
 				FAF058661B316695008E5592 /* CameraViewController.swift in Sources */,
@@ -528,7 +528,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "CameraViewController/CameraViewController-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -569,7 +568,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "CameraViewController/CameraViewController-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -589,6 +587,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zero.CameraViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CameraViewController/CameraViewController-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -607,6 +606,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zero.CameraViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CameraViewController/CameraViewController-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
