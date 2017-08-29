@@ -12,32 +12,27 @@ import UIKit.UIGestureRecognizerSubclass
 
 class OverlayView: UIView {
   lazy var topLeftButton: UIView = {
-    let btn = UIView()
-    btn.backgroundColor = UIColor.blue
-    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 10, height: 10))
+    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
   
   lazy var topRightButton: UIView = {
-    let btn = UIView()
-    btn.backgroundColor = UIColor.blue
-    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 10, height: 10))
+    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
   lazy var bottomLeftButton: UIView = {
-    let btn = UIView()
-    btn.backgroundColor = UIColor.blue
-    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 10, height: 10))
+    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
   lazy var bottomRightButton: UIView = {
-    let btn = UIView()
-    btn.backgroundColor = UIColor.blue
-    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 10, height: 10))
-    btn.isUserInteractionEnabled = true
+    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
@@ -45,11 +40,15 @@ class OverlayView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupButtons()
+    
+    self.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2039215686, blue: 0.2392156863, alpha: 0.5)
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setupButtons()
+    
+    self.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2039215686, blue: 0.2392156863, alpha: 0.5)
   }
   
   override func layoutSubviews() {
@@ -131,26 +130,34 @@ class OverlayView: UIView {
   }
   
   override func draw(_ rect: CGRect) {
-    super.draw(rect)
+    self.backgroundColor?.setFill()
+    UIRectFillUsingBlendMode(rect, .hardLight)
     
     // connect buttons via straight lines
-    
-    let lineWidth:CGFloat = 3.0
-    
     let path = UIBezierPath()
-    path.lineWidth = lineWidth
-    
     path.move(to: topLeftButton.center)
     path.addLine(to: topRightButton.center)
     path.addLine(to: bottomRightButton.center)
     path.addLine(to: bottomLeftButton.center)
+    path.close()
     
     
-    //set the stroke color
-    #colorLiteral(red: 0, green: 0.9810667634, blue: 0.5736914277, alpha: 0.3).setFill()
+    let context = UIGraphicsGetCurrentContext()!
     
-    //draw the stroke
+    context.saveGState()
+    context.setBlendMode(.destinationOut)
+    
+    //set fill color
+    UIColor.white.setFill()
+    //draw the fill and stroke
     path.fill()
+    
+    context.restoreGState()
+    
+    let lineWidth:CGFloat = 1.5
+    path.lineWidth = lineWidth
+    UIColor.white.setStroke()
+    path.stroke()
     
   }
   
