@@ -60,7 +60,7 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		view.backgroundColor = UIColor.black
+    self.navigationController?.isNavigationBarHidden = true
 		
 		scrollView.addSubview(imageView)
 		scrollView.delegate = self

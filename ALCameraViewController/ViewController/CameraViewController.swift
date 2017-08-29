@@ -19,7 +19,6 @@ public extension CameraViewController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
-        navigationController.isNavigationBarHidden = true
         navigationController.navigationBar.barTintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
         navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
