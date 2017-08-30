@@ -13,6 +13,8 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	
 	let imageView = UIImageView()
 	@IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var cropOverlayHeight: NSLayoutConstraint!
+  @IBOutlet weak var cropOverlayWidth: NSLayoutConstraint!
 	@IBOutlet weak var cropOverlay: OverlayView!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
@@ -224,7 +226,8 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
   
   func centerOverlayView() {
     let frame = scrollView.convert(imageView.frame, to: self.view)
-    cropOverlay.frame = frame
+    cropOverlayWidth.constant = frame.size.width
+    cropOverlayHeight.constant = frame.size.height
     cropOverlay.setNeedsDisplay()
   }
 	
