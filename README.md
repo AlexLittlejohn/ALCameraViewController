@@ -1,5 +1,5 @@
 # ALCameraViewController
-A camera view controller with custom image picker and image cropping. Written in Swift.
+A camera view controller with custom image picker and image cropping.
 
 ![camera](https://cloud.githubusercontent.com/assets/932822/8455694/c61de812-2006-11e5-85c0-a57e3d980561.jpg)
 ![cropper](https://cloud.githubusercontent.com/assets/932822/8455697/c627ac44-2006-11e5-82be-7f96e73d9b1f.jpg)
