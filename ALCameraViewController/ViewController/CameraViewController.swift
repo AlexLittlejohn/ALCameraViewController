@@ -48,6 +48,7 @@ open class CameraViewController: UIViewController {
     var didUpdateViews = false
     var allowCropping = false
     var animationRunning = false
+    let allowVolumeButtonCapture: Bool
     
     var lastInterfaceOrientation : UIInterfaceOrientation?
     open var onCompletion: CameraViewCompletion?
@@ -158,8 +159,9 @@ open class CameraViewController: UIViewController {
 	
 	private let allowsLibraryAccess: Bool
   
-	public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, completion: @escaping CameraViewCompletion) {
+    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, allowVolumeButtonCapture: Bool = true, completion: @escaping CameraViewCompletion) {
 		self.allowsLibraryAccess = allowsLibraryAccess
+        self.allowVolumeButtonCapture = allowVolumeButtonCapture
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
@@ -266,6 +268,7 @@ open class CameraViewController: UIViewController {
         setupActions()
         checkPermissions()
         cameraView.configureFocus()
+        cameraView.configureZoom()
     }
 
     /**
@@ -276,7 +279,10 @@ open class CameraViewController: UIViewController {
         cameraView.startSession()
         addCameraObserver()
         addRotateObserver()
-        setupVolumeControl()
+
+        if allowVolumeButtonCapture {
+            setupVolumeControl()
+        }
     }
     
     /**
