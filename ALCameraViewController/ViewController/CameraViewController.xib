@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait">
+    <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -22,14 +22,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeG-7E-YhE" userLabel="TopBar">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T05-DW-nx9">
-                            <rect key="frame" x="268" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="972" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="9kD-ej-J3I"/>
                                 <constraint firstAttribute="height" constant="44" id="FUu-CZ-h2j"/>
@@ -45,7 +45,7 @@
                             <state key="normal" image="swapButton"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="T05-DW-nx9" secondAttribute="bottom" id="1m5-Fn-HaE"/>
                         <constraint firstAttribute="trailing" secondItem="T05-DW-nx9" secondAttribute="trailing" constant="8" id="70I-pN-QZM"/>
@@ -57,17 +57,17 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-V8-aOM" customClass="CameraView" customModule="ALCameraViewController" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="320" height="313"/>
+                    <rect key="frame" x="0.0" y="-597" width="1024" height="1365"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="qpY-V8-aOM" secondAttribute="height" multiplier="3:4" priority="750" id="tKI-DK-48f"/>
+                        <constraint firstAttribute="width" secondItem="qpY-V8-aOM" secondAttribute="height" multiplier="3:4" id="tKI-DK-48f"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYY-32-acK" userLabel="Bottom">
-                    <rect key="frame" x="0.0" y="357" width="320" height="123"/>
+                    <rect key="frame" x="0.0" y="645" width="1024" height="123"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31q-oP-VTF">
-                            <rect key="frame" x="128.5" y="30" width="64" height="64"/>
+                            <rect key="frame" x="480.5" y="30" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="64" id="Lsl-BL-is6"/>
                                 <constraint firstAttribute="width" constant="64" id="kEL-vh-npa"/>
@@ -76,7 +76,7 @@
                             <state key="highlighted" image="cameraButtonHighlighted"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERQ-At-bZe">
-                            <rect key="frame" x="263" y="45" width="33" height="33"/>
+                            <rect key="frame" x="967" y="45" width="33" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="YXI-KU-dBr"/>
                                 <constraint firstAttribute="width" constant="33" id="amV-zt-4xc"/>
@@ -92,7 +92,7 @@
                             <state key="normal" image="closeButton"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="0T3-fj-1PF" firstAttribute="centerY" secondItem="SYY-32-acK" secondAttribute="centerY" id="0cD-AJ-jbT"/>
                         <constraint firstAttribute="trailing" secondItem="ERQ-At-bZe" secondAttribute="trailing" constant="24" id="5mk-CL-OZF"/>
@@ -109,16 +109,17 @@
                 <constraint firstItem="GeG-7E-YhE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7oe-7W-1fo"/>
                 <constraint firstItem="GeG-7E-YhE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9YH-Wu-tN8"/>
                 <constraint firstAttribute="bottom" secondItem="SYY-32-acK" secondAttribute="bottom" id="D8B-M3-Gu8"/>
-                <constraint firstItem="qpY-V8-aOM" firstAttribute="top" secondItem="GeG-7E-YhE" secondAttribute="bottom" id="G3f-oY-Jwd"/>
+                <constraint firstItem="qpY-V8-aOM" firstAttribute="top" relation="lessThanOrEqual" secondItem="GeG-7E-YhE" secondAttribute="bottom" id="G3f-oY-Jwd"/>
                 <constraint firstItem="SYY-32-acK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Oh7-Wz-jxt"/>
                 <constraint firstAttribute="trailing" secondItem="SYY-32-acK" secondAttribute="trailing" id="Q0T-Ji-Qbz"/>
                 <constraint firstAttribute="trailing" secondItem="qpY-V8-aOM" secondAttribute="trailing" id="Rvo-jw-fVq"/>
                 <constraint firstAttribute="trailing" secondItem="GeG-7E-YhE" secondAttribute="trailing" id="Zcs-Ab-QzI"/>
                 <constraint firstItem="GeG-7E-YhE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cJf-HG-RlX"/>
                 <constraint firstItem="GeG-7E-YhE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="e9d-Sb-qpt"/>
-                <constraint firstItem="SYY-32-acK" firstAttribute="top" secondItem="qpY-V8-aOM" secondAttribute="bottom" id="k9X-U9-XJr"/>
+                <constraint firstItem="SYY-32-acK" firstAttribute="top" relation="lessThanOrEqual" secondItem="qpY-V8-aOM" secondAttribute="bottom" priority="750" id="k9X-U9-XJr"/>
                 <constraint firstItem="qpY-V8-aOM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tgg-Zd-Ran"/>
                 <constraint firstAttribute="trailing" secondItem="GeG-7E-YhE" secondAttribute="trailing" id="uy9-jd-9Aw"/>
+                <constraint firstAttribute="bottom" secondItem="qpY-V8-aOM" secondAttribute="bottom" priority="751" id="wZs-v8-8OP"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>
