@@ -12,26 +12,34 @@ import UIKit.UIGestureRecognizerSubclass
 
 class OverlayView: UIView {
   lazy var topLeftButton: UIView = {
-    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    let btn = UIImageView(image: UIImage(named: "anchorButton",
+                                         in: CameraGlobals.shared.bundle,
+                                         compatibleWith: nil))
     btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
   
   lazy var topRightButton: UIView = {
-    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    let btn = UIImageView(image: UIImage(named: "anchorButton",
+                                         in: CameraGlobals.shared.bundle,
+                                         compatibleWith: nil))
     btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
   lazy var bottomLeftButton: UIView = {
-    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    let btn = UIImageView(image: UIImage(named: "anchorButton",
+                                         in: CameraGlobals.shared.bundle,
+                                         compatibleWith: nil))
     btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
   
   lazy var bottomRightButton: UIView = {
-    let btn = UIImageView(image: #imageLiteral(resourceName: "anchorButton"))
+    let btn = UIImageView(image: UIImage(named: "anchorButton",
+                                         in: CameraGlobals.shared.bundle,
+                                         compatibleWith: nil))
     btn.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 28, height: 28))
     return btn
   }()
