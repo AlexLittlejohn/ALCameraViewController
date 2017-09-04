@@ -42,16 +42,44 @@ Add `import ALCameraViewController` to the top of you controller file.
 In the viewController
 ```swift
 
-let croppingEnabled = true
-let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+let cameraViewController = CameraViewController { [weak self] image, asset in
 	// Do something with your image here.
-	// If cropping is enabled this image will be the cropped version
-
 	self?.dismiss(animated: true, completion: nil)
 }
 
 present(cameraViewController, animated: true, completion: nil)
 ```
+
+### Parameters
+
+There are a number of configurable options available for `CameraViewController`
+
+```swift
+init(croppingParameters: CroppingParameters = CroppingParameters(),
+     allowsLibraryAccess: Bool = true,
+     allowsSwapCameraOrientation: Bool = true,
+     allowVolumeButtonCapture: Bool = true,
+     completion: @escaping CameraViewCompletion)
+```
+
+The Cropping Parameters struct accepts the following parameters
+
+```swift
+init(isEnabled: Bool = false,
+     allowResizing: Bool = true,
+     allowMoving: Bool = true,
+     minimumSize: CGSize = CGSize(width: 60, height: 60))
+```
+
+The success parameter returns a `UIImage?` and a `PHAsset?` for more advanced use cases.
+If the user canceled photo capture ten both of these options will be `nil`
+
+```swift
+typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
+```
+> Note: To prevent retain cycles, it is best to use a `[weak self]` reference within the success parameter
+
+### Other usage options
 
 You can also instantiate the image picker component by itself as well.
 ```swift
