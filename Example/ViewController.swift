@@ -13,10 +13,11 @@ class ViewController: UIViewController {
     var libraryEnabled: Bool = true
     var croppingEnabled: Bool = false
     var allowResizing: Bool = true
+    var allowMoving: Bool = false
     var minimumSize: CGSize = CGSize(width: 60, height: 60)
 
     var croppingParameters: CroppingParameters {
-        return CroppingParameters(isEnabled: croppingEnabled, allowResizing: allowResizing, minimumSize: minimumSize)
+        return CroppingParameters(isEnabled: croppingEnabled, allowResizing: allowResizing, allowMoving: allowMoving, minimumSize: minimumSize)
     }
     
     @IBOutlet weak var imageView: UIImageView!
@@ -51,32 +52,23 @@ class ViewController: UIViewController {
         libraryEnabled = !libraryEnabled
     }
     
-    @IBAction func croppingChanged(_ sender: Any) {
-        guard let switchButton = sender as? UISwitch else {
-            return
-        }
-
-        croppingEnabled = switchButton.isOn
-        croppingParametersView.isHidden = !switchButton.isOn
+    @IBAction func croppingChanged(_ sender: UISwitch) {
+        croppingEnabled = sender.isOn
+        croppingParametersView.isHidden = !sender.isOn
     }
 
-    @IBAction func resizingChanged(_ sender: Any) {
-        guard let switchButton = sender as? UISwitch else {
-            return
-        }
-
-        allowResizing = switchButton.isOn
+    @IBAction func resizingChanged(_ sender: UISwitch) {
+        allowResizing = sender.isOn
     }
 
-    @IBAction func minimumSizeChanged(_ sender: Any) {
-        guard let sliderButton = sender as? UISlider else {
-            return
-        }
+    @IBAction func movingChanged(_ sender: UISwitch) {
+        allowMoving = sender.isOn
+    }
 
-        let newValue = sliderButton.value
+    @IBAction func minimumSizeChanged(_ sender: UISlider) {
+        let newValue = sender.value
         minimumSize = CGSize(width: CGFloat(newValue), height: CGFloat(newValue))
         minimumSizeLabel.text = "Minimum size: \(newValue.rounded())"
     }
-
 }
 

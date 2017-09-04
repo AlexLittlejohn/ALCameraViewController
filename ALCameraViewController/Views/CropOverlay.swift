@@ -35,6 +35,7 @@ internal class CropOverlay: UIView {
     }
 
     var isResizable: Bool = false
+    var isMovable: Bool = false
     var minimumSize: CGSize = CGSize.zero
 
     internal override init(frame: CGRect) {
@@ -158,21 +159,13 @@ internal class CropOverlay: UIView {
 		
 		let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveCropOverlay))
 		button.addGestureRecognizer(dragGestureRecognizer)
-		
-//		// DEBUG
-//		button.backgroundColor = .yellow
-//		button.alpha = 0.2
 
 		addSubview(button)
 		return button
 	}
 	
 	func moveCropOverlay(gestureRecognizer: UIPanGestureRecognizer) {
-		if let button = gestureRecognizer.view as? UIButton {
-            guard isResizable else {
-                return
-            }
-
+		if isResizable, let button = gestureRecognizer.view as? UIButton {
 			if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
 				let translation = gestureRecognizer.translation(in: self)
 				
@@ -197,7 +190,7 @@ internal class CropOverlay: UIView {
 
 				gestureRecognizer.setTranslation(CGPoint.zero, in: self)
 			}
-		} else {
+		} else if isMovable {
 			if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
 				let translation = gestureRecognizer.translation(in: self)
 				
