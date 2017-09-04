@@ -78,12 +78,11 @@ public class SingleImageFetcher {
             options.resizeMode = .exact
             
             let targetWidth = floor(CGFloat(asset.pixelWidth) * cropRect.width)
-            let targetHeight = floor(CGFloat(asset.pixelHeight) * cropRect.height)
-            let dimension = max(min(targetHeight, targetWidth), 1024 * scale)
-            
-            targetSize = CGSize(width: dimension, height: dimension)
+			let targetHeight = floor(CGFloat(asset.pixelHeight) * cropRect.height)
+			
+			targetSize = CGSize(width: targetWidth, height: targetHeight)
         }
-        
+		
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
             if let image = image {
                 self.success?(image)
