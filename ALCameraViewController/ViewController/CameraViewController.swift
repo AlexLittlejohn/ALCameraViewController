@@ -284,6 +284,7 @@ open class CameraViewController: UIViewController {
         cameraView.startSession()
         addCameraObserver()
         addRotateObserver()
+        rotateCameraView()
 
         if allowVolumeButtonCapture {
             setupVolumeControl()
