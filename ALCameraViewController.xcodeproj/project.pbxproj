@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF5861F31F613FB800B406F6 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5861F61F613FB800B406F6 /* CropViewController.xib */; };
+		BF5861F41F613FB800B406F6 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5861F61F613FB800B406F6 /* CropViewController.xib */; };
+		BF5861F81F61404C00B406F6 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5861FB1F61404C00B406F6 /* ConfirmViewController.xib */; };
+		BF5861F91F61404C00B406F6 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5861FB1F61404C00B406F6 /* ConfirmViewController.xib */; };
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
 		C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
 		C44543211CA68DDE00644380 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44543201CA68DDE00644380 /* VolumeControl.swift */; };
-		C4768C001CAF2EA100A084F8 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4768BFF1CAF2EA100A084F8 /* CropViewController.xib */; };
-		C4768C011CAF2EAA00A084F8 /* CropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4768BFF1CAF2EA100A084F8 /* CropViewController.xib */; };
 		C482A0031CAEB18D00541D08 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BF01B413E8C009905B9 /* ImageFetcher.swift */; };
 		C482A0041CAEB18D00541D08 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C482A0051CAEB18D00541D08 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
@@ -51,8 +53,6 @@
 		E35A240D1F509FFC001047FD /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35A240B1F509FFC001047FD /* CGPointExtensions.swift */; };
 		E35A240F1F50B49A001047FD /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35A240E1F50B49A001047FD /* ConfirmViewController.swift */; };
 		E35A24101F50B49A001047FD /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35A240E1F50B49A001047FD /* ConfirmViewController.swift */; };
-		E35A24121F50B4A7001047FD /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24111F50B4A7001047FD /* ConfirmViewController.xib */; };
-		E35A24131F50B4A7001047FD /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E35A24111F50B4A7001047FD /* ConfirmViewController.xib */; };
 		EBFE097D1CAF1D1A00A8C637 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */; };
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
 		FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
@@ -74,11 +74,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF5861F51F613FB800B406F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CropViewController.xib; sourceTree = "<group>"; };
+		BF5861F71F613FC500B406F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/CropViewController.xib"; sourceTree = "<group>"; };
+		BF5861FA1F61404C00B406F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ConfirmViewController.xib; sourceTree = "<group>"; };
+		BF5861FD1F61405000B406F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ConfirmViewController.strings"; sourceTree = "<group>"; };
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
 		C40665451C73A94100EB9751 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
 		C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
 		C44543201CA68DDE00644380 /* VolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeControl.swift; sourceTree = "<group>"; };
-		C4768BFF1CAF2EA100A084F8 /* CropViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropViewController.xib; sourceTree = "<group>"; };
 		C4829FFB1CAEB16C00541D08 /* CameraViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CameraViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4829FFD1CAEB16C00541D08 /* CameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		C4829FFF1CAEB16C00541D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,7 +97,6 @@
 		E35A24081F509FBD001047FD /* CGRectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtensions.swift; sourceTree = "<group>"; };
 		E35A240B1F509FFC001047FD /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtensions.swift; sourceTree = "<group>"; };
 		E35A240E1F50B49A001047FD /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
-		E35A24111F50B4A7001047FD /* ConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
 		EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
@@ -152,9 +154,9 @@
 				FAF058651B316695008E5592 /* CameraViewController.swift */,
 				E35A24011F4FE3A8001047FD /* CameraViewController.xib */,
 				FA7E6B9A1B429012000E1B14 /* CropViewController.swift */,
-				C4768BFF1CAF2EA100A084F8 /* CropViewController.xib */,
+				BF5861F61F613FB800B406F6 /* CropViewController.xib */,
 				E35A240E1F50B49A001047FD /* ConfirmViewController.swift */,
-				E35A24111F50B4A7001047FD /* ConfirmViewController.xib */,
+				BF5861FB1F61404C00B406F6 /* ConfirmViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -327,6 +329,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = FAF058361B31618D008E5592;
 			productRefGroup = FAF058401B31618D008E5592 /* Products */;
@@ -346,9 +349,9 @@
 			files = (
 				C482A0141CAEB1B100541D08 /* CameraView.strings in Resources */,
 				E35A24031F4FE3AD001047FD /* CameraViewController.xib in Resources */,
-				E35A24131F50B4A7001047FD /* ConfirmViewController.xib in Resources */,
+				BF5861F91F61404C00B406F6 /* ConfirmViewController.xib in Resources */,
 				C482A0151CAEB1B100541D08 /* CameraViewAssets.xcassets in Resources */,
-				C4768C011CAF2EAA00A084F8 /* CropViewController.xib in Resources */,
+				BF5861F41F613FB800B406F6 /* CropViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,8 +365,8 @@
 				FA5FA3451B3AFEB300497C62 /* CameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
-				C4768C001CAF2EA100A084F8 /* CropViewController.xib in Resources */,
-				E35A24121F50B4A7001047FD /* ConfirmViewController.xib in Resources */,
+				BF5861F31F613FB800B406F6 /* CropViewController.xib in Resources */,
+				BF5861F81F61404C00B406F6 /* ConfirmViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +437,27 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		BF5861F61F613FB800B406F6 /* CropViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF5861F51F613FB800B406F6 /* en */,
+				BF5861F71F613FC500B406F6 /* zh-Hans */,
+			);
+			name = CropViewController.xib;
+			sourceTree = "<group>";
+		};
+		BF5861FB1F61404C00B406F6 /* ConfirmViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF5861FA1F61404C00B406F6 /* en */,
+				BF5861FD1F61405000B406F6 /* zh-Hans */,
+			);
+			name = ConfirmViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		C482A0011CAEB16C00541D08 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -489,6 +513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -537,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
