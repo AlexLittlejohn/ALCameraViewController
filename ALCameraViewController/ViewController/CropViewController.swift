@@ -244,14 +244,13 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
     else {
       print("no borders")
     }
-    borderDetectionButton.setTitle("Select All", for: .normal)
+    borderDetectionButton.setTitle(localizedString("crop.selectAll"), for: .normal)
     borderDetectionButton.action = { [weak self] in self?.selectAllBorders() }
   }
   
   func selectAllBorders() {
     cropOverlay.layoutButtons()
-    
-    borderDetectionButton.setTitle("Find Borders", for: .normal)
+    borderDetectionButton.setTitle(localizedString("crop.borders"), for: .normal)
     borderDetectionButton.action = { [weak self] in self?.detectBorders() }
   }
 	

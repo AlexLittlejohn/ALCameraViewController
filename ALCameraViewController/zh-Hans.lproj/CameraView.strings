@@ -1,0 +1,20 @@
+/* 
+  ALCameraView.strings
+  ALCameraViewController
+
+  Created by Alex Littlejohn on 2015/06/25.
+  Copyright (c) 2015 zero. All rights reserved.
+*/
+"permissions.title" = "没有相机访问权限";
+"permissions.description" = "请在隐私设定中打开相机访问权限";
+
+"permissions.library.title" = "没有相册访问权限";
+"permissions.library.description" = "请在隐私设定中打开相册访问权限";
+
+"permissions.settings" = "设置";
+
+"error.cant-fetch-photo" = "无法获取图片";
+"error.cant-fetch-photo.description" = "请检查你的网络设置";
+
+"crop.borders" = "查找边缘";
+"crop.selectAll" = "全部选择";

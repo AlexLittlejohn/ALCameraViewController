@@ -1,9 +1,0 @@
-
-/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "Cqb-xM-psR"; */
-"Cqb-xM-psR.normalTitle" = "后退";
-
-/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "Qmn-Qj-BLU"; */
-"Qmn-Qj-BLU.normalTitle" = "完成";
-
-/* Class = "UILabel"; text = "Confirm"; ObjectID = "l6r-RK-gpT"; */
-"l6r-RK-gpT.text" = "确认";
