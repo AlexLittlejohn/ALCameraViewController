@@ -59,6 +59,7 @@ public class CameraView: UIView {
             session.startRunning()
             DispatchQueue.main.async() { [weak self] in
                 self?.createPreview()
+                self?.rotatePreview()
             }
         }
     }
