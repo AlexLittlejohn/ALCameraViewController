@@ -199,4 +199,17 @@ internal class CropOverlay: UIView {
 			}
 		}
 	}
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let view = super.hitTest(point, with: event)
+
+        if !isMovable && isResizable && view != nil {
+            let isButton = cornerButtons.reduce(false) { $1.hitTest(convert(point, to: $1), with: event) != nil || $0 }
+            if !isButton {
+                return nil
+            }
+        }
+
+        return view
+    }
 }
