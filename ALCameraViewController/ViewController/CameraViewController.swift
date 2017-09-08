@@ -612,6 +612,7 @@ open class CameraViewController: UIViewController {
         let spinner = UIActivityIndicatorView()
         spinner.activityIndicatorViewStyle = .white
         spinner.center = view.center
+        spinner.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         spinner.startAnimating()
         
         view.addSubview(spinner)

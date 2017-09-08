@@ -319,6 +319,7 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 		let spinner = UIActivityIndicatorView()
 		spinner.activityIndicatorViewStyle = .whiteLarge
 		spinner.center = view.center
+    spinner.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
 		spinner.startAnimating()
     spinner.sizeToFit()
 		
