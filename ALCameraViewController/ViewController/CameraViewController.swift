@@ -498,16 +498,16 @@ open class CameraViewController: UIViewController {
         if connection.isEnabled {
             toggleButtons(enabled: false)
             cameraView.capturePhoto { [weak self] imageData, image in
-                guard let image = image else {
+                guard let image = image, let imageData = imageData else {
                     self?.toggleButtons(enabled: true)
                     return
                 }
-                self?.saveImage(image: image)
+                self?.saveImage(imageData:imageData, image: image)
             }
         }
     }
     
-    internal func saveImage(image: UIImage) {
+    internal func saveImage(imageData: Data, image: UIImage) {
         let spinner = showSpinner()
         cameraView.preview.isHidden = true
 
@@ -526,7 +526,7 @@ open class CameraViewController: UIViewController {
             }
             .save()
 		} else {
-			layoutCameraResult(uiImage: image)
+            layoutCameraResult(imageData: imageData, uiImage: image)
 			hideSpinner(spinner)
 		}
     }
@@ -573,9 +573,9 @@ open class CameraViewController: UIViewController {
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
     }
 	
-	internal func layoutCameraResult(uiImage: UIImage) {
+    internal func layoutCameraResult(imageData: Data, uiImage: UIImage) {
 		cameraView.stopSession()
-		startConfirmController(uiImage: uiImage)
+        startConfirmController(imageData: imageData, uiImage: uiImage)
 		toggleButtons(enabled: true)
 	}
 	
@@ -585,14 +585,14 @@ open class CameraViewController: UIViewController {
         toggleButtons(enabled: true)
     }
 	
-	private func startConfirmController(uiImage: UIImage) {
-		let confirmViewController = ConfirmViewController(image: uiImage, allowsCropping: allowCropping)
+    private func startConfirmController(imageData: Data, uiImage: UIImage) {
+        let confirmViewController = ConfirmViewController(imageData:imageData, image: uiImage, allowsCropping: allowCropping)
 		confirmViewController.onComplete = { [weak self] imageData, image, asset in
 			defer {
 				self?.dismiss(animated: true, completion: nil)
 			}
 			
-			guard let image = image else {
+			guard let image = image, let imageData = imageData else {
 				return
 			}
 			
@@ -610,7 +610,7 @@ open class CameraViewController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
             }
 
-            guard let image = image, let asset = asset else {
+            guard let image = image, let asset = asset, let imageData = imageData else {
                 return
             }
 
