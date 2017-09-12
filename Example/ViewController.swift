@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     var minimumSize: CGSize = CGSize(width: 60, height: 60)
 
     var croppingParameters: CroppingParameters {
-        return CroppingParameters(isEnabled: croppingEnabled, allowResizing: allowResizing, allowMoving: allowMoving, minimumSize: minimumSize)
+        let resizingMode: CroppingParameters.ResizingMode = allowResizing ? .square : .none
+        return CroppingParameters(isEnabled: croppingEnabled, resizingMode: resizingMode, allowMoving: allowMoving, minimumSize: minimumSize)
     }
     
     @IBOutlet weak var imageView: UIImageView!

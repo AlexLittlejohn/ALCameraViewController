@@ -9,14 +9,20 @@
 import UIKit
 
 public struct CroppingParameters {
+    
+    public enum ResizingMode {
+        case none
+        case rectangle
+        case square
+    }
 
     /// Enable the cropping feature.
     /// Default value is set to false.
     var isEnabled: Bool
 
-    /// Allow the cropping area to be resized by the user.
-    /// Default value is set to true.
-    var allowResizing: Bool
+    /// Select resizing mode for the cropping frame.
+    /// Use .rectangle for free form resizing, .square for square resizing and .none if you want to disable resizing
+    var resizingMode: ResizingMode
 
     /// Allow the cropping area to be moved by the user.
     /// Default value is set to false.
@@ -27,12 +33,12 @@ public struct CroppingParameters {
     var minimumSize: CGSize
 
     public init(isEnabled: Bool = false,
-                allowResizing: Bool = true,
+                resizingMode: ResizingMode = .rectangle,
                 allowMoving: Bool = true,
          minimumSize: CGSize = CGSize(width: 60, height: 60)) {
 
         self.isEnabled = isEnabled
-        self.allowResizing = allowResizing
+        self.resizingMode = resizingMode
         self.allowMoving = allowMoving
         self.minimumSize = minimumSize
     }

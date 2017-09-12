@@ -20,7 +20,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 	
     var croppingParameters: CroppingParameters {
         didSet {
-            cropOverlay.isResizable = croppingParameters.allowResizing
+            cropOverlay.resizingMode = croppingParameters.resizingMode
             cropOverlay.minimumSize = croppingParameters.minimumSize
         }
     }
@@ -69,7 +69,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		scrollView.maximumZoomScale = 1
 		
         cropOverlay.isHidden = true
-        cropOverlay.isResizable = croppingParameters.allowResizing
+        cropOverlay.resizingMode = croppingParameters.resizingMode
         cropOverlay.isMovable = croppingParameters.allowMoving
         cropOverlay.minimumSize = croppingParameters.minimumSize
 
