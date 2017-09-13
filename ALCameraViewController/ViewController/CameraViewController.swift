@@ -53,6 +53,8 @@ open class CameraViewController: UIViewController {
     var lastInterfaceOrientation: UIInterfaceOrientation?
     open var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
+    
+    var outputScale: CGFloat = 1.0
 
     var animationDuration: TimeInterval = 0.5
     var animationSpring: CGFloat = 0.5
@@ -159,9 +161,10 @@ open class CameraViewController: UIViewController {
 
     private let allowsLibraryAccess: Bool
 
-    public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, allowsAudio: Bool = true, completion: @escaping CameraViewCompletion) {
+    public init(scale: CGFloat = 1.0, croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, allowsAudio: Bool = true, completion: @escaping CameraViewCompletion) {
         self.allowsLibraryAccess = allowsLibraryAccess
         super.init(nibName: nil, bundle: nil)
+        outputScale = scale
         onCompletion = completion
         allowCropping = croppingEnabled
         allowAudio = allowsAudio
@@ -500,13 +503,13 @@ open class CameraViewController: UIViewController {
 
         if connection.isEnabled {
             toggleButtons(enabled: false)
-            cameraView.capturePhoto { [weak self] imageData, image in
+            cameraView.capturePhoto(scale: outputScale, completion: { [weak self] imageData, image in
                 guard let image = image, let imageData = imageData else {
                     self?.toggleButtons(enabled: true)
                     return
                 }
                 self?.saveImage(imageData: imageData, image: image)
-            }
+            })
         }
     }
 
