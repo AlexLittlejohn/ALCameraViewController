@@ -23,7 +23,7 @@ extension CameraViewController {
      * camera.
      */
     func configCameraViewConstraints() {
-        [.left, .right, .top, .bottom].forEach({
+        [.left, .right, .top].forEach({
             view.addConstraint(NSLayoutConstraint(
                 item: cameraView,
                 attribute: $0,
@@ -33,6 +33,15 @@ extension CameraViewController {
                 multiplier: 1.0,
                 constant: 0))
         })
+        
+        view.addConstraint(NSLayoutConstraint(
+            item: cameraView,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: view,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: -35))
     }
 
     /**
@@ -259,10 +268,10 @@ extension CameraViewController {
             item: closeButton,
             attribute: attribute,
             relatedBy: .equal,
-            toItem: attribute != .centerX ? view : cameraButton,
+            toItem: attribute != .centerX ? cameraButton : cameraButton,
             attribute: attribute,
             multiplier: 1.0,
-            constant: attribute != .centerX ? 16 : 0)
+            constant: attribute != .centerX ? DeviceConfig.CLOSE_BUTTON_SPACING : 0)
         view.addConstraint(closeButtonEdgeConstraint!)
     }
 
