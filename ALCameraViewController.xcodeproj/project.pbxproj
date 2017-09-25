@@ -39,6 +39,7 @@
 		C4D9BA471CA73163004F70F7 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */; };
 		EBF7829C1CB2C04300DE3E63 /* CameraViewControllerConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF7829B1CB2C04300DE3E63 /* CameraViewControllerConstraint.swift */; };
 		EBFE097D1CAF1D1A00A8C637 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */; };
+		F0F32DA41F792DD0009F77E2 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
 		FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
 		FA5FA3451B3AFEB300497C62 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */; };
@@ -340,6 +341,7 @@
 				C482A0031CAEB18D00541D08 /* ImageFetcher.swift in Sources */,
 				C482A0041CAEB18D00541D08 /* SingleImageSaver.swift in Sources */,
 				C482A0051CAEB18D00541D08 /* SingleImageFetcher.swift in Sources */,
+				F0F32DA41F792DD0009F77E2 /* CroppingParameters.swift in Sources */,
 				C482A0061CAEB18D00541D08 /* Utilities.swift in Sources */,
 				C482A0071CAEB18D00541D08 /* CameraShot.swift in Sources */,
 				C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */,
