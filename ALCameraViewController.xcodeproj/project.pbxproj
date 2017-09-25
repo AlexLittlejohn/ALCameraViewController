@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F3C56291F701CA7009667E9 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		7AC96FA21F5B5166003E53F4 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
@@ -340,6 +341,7 @@
 				C482A0031CAEB18D00541D08 /* ImageFetcher.swift in Sources */,
 				C482A0041CAEB18D00541D08 /* SingleImageSaver.swift in Sources */,
 				C482A0051CAEB18D00541D08 /* SingleImageFetcher.swift in Sources */,
+				1F3C56291F701CA7009667E9 /* CroppingParameters.swift in Sources */,
 				C482A0061CAEB18D00541D08 /* Utilities.swift in Sources */,
 				C482A0071CAEB18D00541D08 /* CameraShot.swift in Sources */,
 				C482A0081CAEB18D00541D08 /* CameraGlobals.swift in Sources */,
