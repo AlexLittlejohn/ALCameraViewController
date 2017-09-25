@@ -20,11 +20,19 @@ A camera view controller with custom image picker and image cropping.
 This project requires Xcode 8.3 to run and compiles with swift 3.1
 > Note: This library makes use of the AVFoundation camera API's which are unavailable on the iOS simulator. You'll need a real device to run it.
 
-ALCameraViewController is available on CocoaPods. Add the following to your Podfile:
+CocoaPods:
+Add the following to your Podfile:
 
 ```ruby
 pod 'ALCameraViewController'
 ```
+
+Carthage:
+
+```ruby
+github "alexlittlejohn/CameraViewController"
+```
+
 
 ### Privacy (iOS 10) ###
 If you are building your app with iOS 10 or newer, you need to add two privacy keys to your app to allow the usage of the camera and photo library, or your app will crash.
