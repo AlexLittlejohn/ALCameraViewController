@@ -352,7 +352,7 @@ open class CameraViewController: UIViewController {
             object: nil)
     }
     
-    internal func notifyCameraReady() {
+    @objc internal func notifyCameraReady() {
         cameraButton.isEnabled = true
     }
     
@@ -391,7 +391,7 @@ open class CameraViewController: UIViewController {
             libraryButton].forEach({ $0.isEnabled = enabled })
     }
     
-    func rotateCameraView() {
+    @objc func rotateCameraView() {
         cameraView.rotatePreview()
     }
     
@@ -459,8 +459,8 @@ open class CameraViewController: UIViewController {
      * the user that it not allow the permissions.
      */
     private func checkPermissions() {
-        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) != .authorized {
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) != .authorized {
+            AVCaptureDevice.requestAccess(for: AVMediaType.video) { granted in
                 DispatchQueue.main.async() { [weak self] in
                     if !granted {
                         self?.showNoPermissionsView()
@@ -498,7 +498,7 @@ open class CameraViewController: UIViewController {
      */
     internal func capturePhoto() {
         guard let output = cameraView.imageOutput,
-            let connection = output.connection(withMediaType: AVMediaTypeVideo) else {
+            let connection = output.connection(with: AVMediaType.video) else {
             return
         }
         
@@ -577,7 +577,7 @@ open class CameraViewController: UIViewController {
     
     internal func swapCamera() {
         cameraView.swapCameraInput()
-        flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
+        flashButton.isHidden = cameraView.currentPosition == AVCaptureDevice.Position.front
     }
 	
 	internal func layoutCameraResult(uiImage: UIImage) {
