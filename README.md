@@ -30,7 +30,7 @@ pod 'ALCameraViewController'
 Carthage:
 
 ```ruby
-github "alexlittlejohn/CameraViewController"
+github "alexlittlejohn/ALCameraViewController"
 ```
 
 
