@@ -171,6 +171,7 @@ open class CameraViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         cameraOverlay.isHidden = !croppingParameters.isEnabled
+        cameraOverlay.isUserInteractionEnabled = false
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
 		swapButton.isEnabled = allowsSwapCameraOrientation

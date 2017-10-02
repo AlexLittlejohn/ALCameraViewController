@@ -25,6 +25,9 @@ Add the following to your Podfile:
 
 ```ruby
 pod 'ALCameraViewController'
+
+// For swift 3.2 support
+pod 'ALCameraViewController', '~> 2.0.3'
 ```
 
 Carthage:
