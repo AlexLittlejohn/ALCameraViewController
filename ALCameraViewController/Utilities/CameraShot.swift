@@ -21,14 +21,19 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
     videoConnection.videoOrientation = videoOrientation
 
     stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, _ in
-
+        
         guard let buffer = buffer,
+            let exifAttachments = CMGetAttachment(buffer, kCGImagePropertyExifDictionary, nil),
             let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer),
             var image = UIImage(data: imageData),
             let cgImage = image.cgImage else {
-            completion(nil, nil)
-            return
+                completion(nil, nil)
+                return
         }
+        
+        // TODO: Return EXIF attachments
+        
+        
         // flip the image to match the orientation of the preview
         // Half size is large for now
         if cameraPosition == .front {
