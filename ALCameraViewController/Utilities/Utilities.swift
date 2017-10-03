@@ -127,7 +127,7 @@ struct DeviceConfig {
         if UIDevice.current.userInterfaceIdiom == .phone {
             switch ScreenSize.SCREEN_MAX_LENGTH {
             case 568.0: return -54
-            case 667.0: return -54
+            case 667.0: return -66
             case 736.0: return -66
             default: return 1.0
             }
