@@ -8,17 +8,17 @@
 
 import UIKit
 import AVFoundation
-import Mixpanel
+//import Mixpanel
 
 public typealias CameraShotCompletion = (Data?, UIImage?) -> Void
 
 public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cameraPosition: AVCaptureDevicePosition, cropSize _: CGSize, outputScale: CGFloat, completion: @escaping CameraShotCompletion) {
-
+    
     guard let videoConnection: AVCaptureConnection = stillImageOutput.connection(withMediaType: AVMediaTypeVideo) else {
         completion(nil, nil)
         return
     }
-
+    
     videoConnection.videoOrientation = videoOrientation
     
     if !stillImageOutput.isCapturingStillImage {
@@ -26,7 +26,7 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
             stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, error in
                 
                 if let error = error {
-                    Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("Error in capture: \(error.localizedDescription)")
+                    print("Error in capture: \(error.localizedDescription)")
                 }
                 
                 guard let buffer = buffer,
@@ -38,12 +38,12 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
                             completion(nil, nil)
                             return
                         }
-                        Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("Error in something ")
+                        print("Error in something ")
                         return
                 }
                 
-                Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("Error in something \(exifAttachments)")
-
+                print("Error in something \(exifAttachments)")
+                
                 // flip the image to match the orientation of the preview
                 // Half size is large for now
                 if cameraPosition == .front {
@@ -77,3 +77,4 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
     }
     
 }
+
