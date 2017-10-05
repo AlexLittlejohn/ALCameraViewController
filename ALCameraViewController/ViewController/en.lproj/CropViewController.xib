@@ -31,13 +31,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUR-U3-uEM">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="613"/>
+                    <rect key="frame" x="0.0" y="20" width="414" height="593"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
                     </userDefinedRuntimeAttributes>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="OverlayView" customModule="ALCameraViewController" customModuleProvider="target">
-                    <rect key="frame" x="20" y="56" width="375" height="500"/>
+                    <rect key="frame" x="20" y="66" width="375" height="500"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="500" id="PGe-f0-GVI"/>
@@ -245,7 +245,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="dDd-ID-czX" secondAttribute="trailing" constant="20" id="2xA-2Z-vfc"/>
                 <constraint firstItem="oUR-U3-uEM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J3N-Vr-euu"/>
-                <constraint firstItem="oUR-U3-uEM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KfV-Bz-RUf"/>
+                <constraint firstItem="oUR-U3-uEM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="KfV-Bz-RUf"/>
                 <constraint firstItem="ESe-ZY-MPW" firstAttribute="top" secondItem="dDd-ID-czX" secondAttribute="bottom" id="VR7-s6-IgD"/>
                 <constraint firstItem="dDd-ID-czX" firstAttribute="top" secondItem="oUR-U3-uEM" secondAttribute="bottom" id="g3Q-Fv-sSc"/>
                 <constraint firstAttribute="bottom" secondItem="ESe-ZY-MPW" secondAttribute="bottom" id="grG-C5-hhK"/>

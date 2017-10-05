@@ -98,7 +98,7 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 			enable()
 		}
 	}
-	
+
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		let scale = calculateMinimumScale(scrollView.frame.size)
@@ -163,6 +163,8 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 		imageView.image = image
 		imageView.sizeToFit()
 		view.setNeedsLayout()
+    view.layoutIfNeeded()
+    self.selectAllBorders()
 	}
 	
 	private func calculateMinimumScale(_ size: CGSize) -> CGFloat {
