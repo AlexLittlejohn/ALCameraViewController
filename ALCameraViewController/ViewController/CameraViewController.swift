@@ -605,7 +605,7 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(imageData, image, asset)
             self?.onCompletion = nil
         }
-        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        confirmViewController.modalTransitionStyle = .crossDissolve
         present(confirmViewController, animated: true, completion: nil)
     }
 

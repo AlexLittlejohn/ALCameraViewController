@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Mixpanel
 
 public typealias CameraShotCompletion = (Data?, UIImage?) -> Void
 
@@ -31,8 +32,12 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
                 return
         }
         
+        
+        
         // TODO: Return EXIF attachments
         
+        
+        Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("--==EXIF==--", properties: {"data": exif})
         
         // flip the image to match the orientation of the preview
         // Half size is large for now
