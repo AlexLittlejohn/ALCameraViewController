@@ -76,7 +76,6 @@
 /* Begin PBXFileReference section */
 		BF1EE87A1F628BF50009F5A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/ConfirmViewController.xib"; sourceTree = "<group>"; };
 		BF5861F51F613FB800B406F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CropViewController.xib; sourceTree = "<group>"; };
-		BF5861F71F613FC500B406F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/CropViewController.xib"; sourceTree = "<group>"; };
 		BF5861FA1F61404C00B406F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ConfirmViewController.xib; sourceTree = "<group>"; };
 		BF5862001F625D0F00B406F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CameraView.strings; sourceTree = "<group>"; };
 		BF5862021F625D1200B406F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/CameraView.strings"; sourceTree = "<group>"; };
@@ -99,6 +98,7 @@
 		E35A24081F509FBD001047FD /* CGRectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtensions.swift; sourceTree = "<group>"; };
 		E35A240B1F509FFC001047FD /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtensions.swift; sourceTree = "<group>"; };
 		E35A240E1F50B49A001047FD /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		E3E9FED31F86CF480096CF5A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/CropViewController.strings"; sourceTree = "<group>"; };
 		EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
@@ -443,7 +443,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				BF5861F51F613FB800B406F6 /* en */,
-				BF5861F71F613FC500B406F6 /* zh-Hans */,
+				E3E9FED31F86CF480096CF5A /* zh-Hans */,
 			);
 			name = CropViewController.xib;
 			sourceTree = "<group>";

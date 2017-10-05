@@ -95,12 +95,11 @@ class OverlayView: UIView {
     return false
   }
   
-  func layoutButtons() {
-    let margin:CGFloat = 10.0
-    topLeftButton.center = self.bounds.topLeft.translate(margin, dy: margin)
-    topRightButton.center = self.bounds.topRight.translate(-margin, dy: margin)
-    bottomLeftButton.center = self.bounds.bottomLeft.translate(margin, dy: -margin)
-    bottomRightButton.center = self.bounds.bottomRight.translate(-margin, dy: -margin)
+  func layoutButtons(_ edgeInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)) {
+    topLeftButton.center = self.bounds.topLeft.translate(edgeInset.left, dy: edgeInset.top)
+    topRightButton.center = self.bounds.topRight.translate(-edgeInset.right, dy: edgeInset.top)
+    bottomLeftButton.center = self.bounds.bottomLeft.translate(edgeInset.left, dy: -edgeInset.bottom)
+    bottomRightButton.center = self.bounds.bottomRight.translate(-edgeInset.right, dy: -edgeInset.bottom)
     setNeedsDisplay()
   }
   

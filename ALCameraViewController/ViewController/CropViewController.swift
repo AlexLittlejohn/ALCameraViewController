@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import AVFoundation
 
 public class CropViewController: UIViewController, UIScrollViewDelegate {
 	
@@ -19,7 +20,11 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
   @IBOutlet weak var borderDetectionButton: UIButton!
-  
+  @IBOutlet weak var screenshotSizeButton: UIButton!
+  @IBOutlet weak var fullImageButton: UIButton!
+  @IBOutlet weak var squareImageButton: UIButton!
+  @IBOutlet weak var a4SizeButton: UIButton!
+
 	var allowsCropping: Bool = false
 
   public var onComplete: CameraViewCompletion?
@@ -235,6 +240,10 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 		confirmButton.action = { [weak self] in self?.confirmPhoto() }
 		cancelButton.action = { [weak self] in self?.cancel() }
     borderDetectionButton.action = { [weak self] in self?.detectBorders() }
+    fullImageButton.action = { [weak self] in self?.selectAllBorders()}
+    a4SizeButton.action  = { [weak self] in self?.selectA4Size()}
+    squareImageButton.action  = { [weak self] in self?.selectSquareSize()}
+    screenshotSizeButton.action  = { [weak self] in self?.selectWithoutStatusbar()}
 	}
   
   func detectBorders() {
@@ -244,14 +253,32 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
     else {
       print("no borders")
     }
-    borderDetectionButton.setTitle(localizedString("crop.selectAll"), for: .normal)
-    borderDetectionButton.action = { [weak self] in self?.selectAllBorders() }
   }
   
   func selectAllBorders() {
     cropOverlay.layoutButtons()
-    borderDetectionButton.setTitle(localizedString("crop.borders"), for: .normal)
-    borderDetectionButton.action = { [weak self] in self?.detectBorders() }
+  }
+  
+  func selectSquareSize() {
+    let imageRect = imageView.bounds.applying(CGAffineTransform(scaleX: scrollView.zoomScale, y: scrollView.zoomScale))
+      
+    let rect = AVMakeRect(aspectRatio: CGSize.init(width: 1, height: 1), insideRect: imageRect)
+    
+    cropOverlay.layoutButtons(UIEdgeInsetsMake(rect.topLeft.y, rect.topLeft.x, imageRect.size.height-rect.bottomRight.y, imageRect.size.width-rect.bottomRight.x))
+  }
+  
+  func selectA4Size() {
+    //calculate a size that's A4
+    let imageRect = imageView.bounds.applying(CGAffineTransform(scaleX: scrollView.zoomScale, y: scrollView.zoomScale))
+    
+    let rect = AVMakeRect(aspectRatio: CGSize.init(width: 1, height: 1.414), insideRect: imageRect)
+
+    cropOverlay.layoutButtons(UIEdgeInsetsMake(rect.topLeft.y, rect.topLeft.x, imageRect.size.height-rect.bottomRight.y, imageRect.size.width-rect.bottomRight.x))
+
+  }
+  
+  func selectWithoutStatusbar() {
+    cropOverlay.layoutButtons(UIEdgeInsetsMake(20, 0, 0, 0))
   }
 	
 	internal func cancel() {

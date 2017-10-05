@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "裁剪"; ObjectID = "9bz-3X-8gW"; */
+"9bz-3X-8gW.text" = "裁剪";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "ASf-ZD-cIs"; */
+"ASf-ZD-cIs.normalTitle" = "下一步";
+
+/* Class = "UIButton"; normalTitle = "查找边缘"; ObjectID = "d2B-xS-nCO"; */
+"d2B-xS-nCO.normalTitle" = "查找边缘";
+
+/* Class = "UIButton"; normalTitle = "重拍"; ObjectID = "yRi-ES-LfN"; */
+"yRi-ES-LfN.normalTitle" = "重拍";
