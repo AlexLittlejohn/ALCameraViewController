@@ -500,6 +500,7 @@ open class CameraViewController: UIViewController {
             let connection = output.connection(withMediaType: AVMediaTypeVideo) else {
             return
         }
+        
 
         if connection.isEnabled {
             toggleButtons(enabled: false)

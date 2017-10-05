@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import ImageIO
 
 internal func radians(_ degrees: CGFloat) -> CGFloat {
     return degrees / 180 * .pi

@@ -20,49 +20,60 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
     }
 
     videoConnection.videoOrientation = videoOrientation
+    
+    if !stillImageOutput.isCapturingStillImage {
+        DispatchQueue.global(qos: .background).async(execute: { () in
+            stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, error in
+                
+                if let error = error {
+                    Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("Error in capture: \(error.localizedDescription)")
+                }
+                
+                guard let buffer = buffer,
+                    let exifAttachments = CMGetAttachment(buffer, kCGImagePropertyExifDictionary, nil),
+                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer),
+                    var image = UIImage(data: imageData),
+                    let cgImage = image.cgImage else {
+                        DispatchQueue.main.async {
+                            completion(nil, nil)
+                            return
+                        }
+                        Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("Error in something ")
+                        return
+                }
+                
+                Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("Error in something \(exifAttachments)")
 
-    stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, _ in
-        
-        guard let buffer = buffer,
-            let exifAttachments = CMGetAttachment(buffer, kCGImagePropertyExifDictionary, nil),
-            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer),
-            var image = UIImage(data: imageData),
-            let cgImage = image.cgImage else {
-                completion(nil, nil)
-                return
-        }
-        
-        
-        
-        // TODO: Return EXIF attachments
-        
-        
-        Mixpanel.sharedInstance(withToken: "c1d6c864d27021f89cd630064b6b1454").track("--==EXIF==--", properties: {"data": exif})
-        
-        // flip the image to match the orientation of the preview
-        // Half size is large for now
-        if cameraPosition == .front {
-            switch image.imageOrientation {
-            case .leftMirrored:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .right)
-            case .left:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .rightMirrored)
-            case .rightMirrored:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .left)
-            case .right:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .leftMirrored)
-            case .up:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .upMirrored)
-            case .upMirrored:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .up)
-            case .down:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .downMirrored)
-            case .downMirrored:
-                image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .down)
-            }
-        } else {
-            image = UIImage(cgImage: cgImage, scale: outputScale, orientation: image.imageOrientation)
-        }
-        completion(imageData, image)
-    })
+                // flip the image to match the orientation of the preview
+                // Half size is large for now
+                if cameraPosition == .front {
+                    switch image.imageOrientation {
+                    case .leftMirrored:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .right)
+                    case .left:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .rightMirrored)
+                    case .rightMirrored:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .left)
+                    case .right:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .leftMirrored)
+                    case .up:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .upMirrored)
+                    case .upMirrored:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .up)
+                    case .down:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .downMirrored)
+                    case .downMirrored:
+                        image = UIImage(cgImage: cgImage, scale: outputScale, orientation: .down)
+                    }
+                } else {
+                    image = UIImage(cgImage: cgImage, scale: outputScale, orientation: image.imageOrientation)
+                }
+                
+                DispatchQueue.main.async {
+                    completion(imageData, image)
+                }
+            })
+        })
+    }
+    
 }
