@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-public typealias CameraViewCompletion = (Data?, UIImage?, PHAsset?) -> Void
+public typealias CameraViewCompletion = (Data?, UIImage?, PHAsset?, String?, String?) -> Void
 
 public extension CameraViewController {
     /// Provides an image picker wrapped inside a UINavigationController instance
@@ -25,9 +25,9 @@ public extension CameraViewController {
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
                 let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
-                confirmController.onComplete = { [weak imagePicker] imageData, image, asset in
+                confirmController.onComplete = { [weak imagePicker] imageData, image, asset, errorData, exifData in
                     if let image = image, let asset = asset {
-                        completion(imageData, image, asset)
+                        completion(imageData, image, asset, errorData, exifData)
                     } else {
                         imagePicker?.dismiss(animated: true, completion: nil)
                     }
@@ -35,7 +35,7 @@ public extension CameraViewController {
                 confirmController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
                 imagePicker?.present(confirmController, animated: true, completion: nil)
             } else {
-                completion(nil, nil, nil)
+                completion(nil, nil, nil, nil, nil)
             }
         }
 
@@ -539,12 +539,12 @@ open class CameraViewController: UIViewController {
     }
 
     internal func close() {
-        onCompletion?(nil, nil, nil)
+        onCompletion?(nil, nil, nil, nil, nil)
         onCompletion = nil
     }
 
     internal func showLibrary() {
-        let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] imageData, image, asset in
+        let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)
             }
@@ -553,7 +553,7 @@ open class CameraViewController: UIViewController {
                 return
             }
 
-            self?.onCompletion?(imageData, image, asset)
+            self?.onCompletion?(imageData, image, asset, errorData, exifData)
         }
 
         present(imagePicker, animated: true) { [weak self] in
@@ -594,7 +594,7 @@ open class CameraViewController: UIViewController {
 
     private func startConfirmController(imageData: Data, uiImage: UIImage) {
         let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, allowsCropping: allowCropping)
-        confirmViewController.onComplete = { [weak self] imageData, image, asset in
+        confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)
             }
@@ -603,7 +603,7 @@ open class CameraViewController: UIViewController {
                 return
             }
 
-            self?.onCompletion?(imageData, image, asset)
+            self?.onCompletion?(imageData, image, asset, errorData, exifData)
             self?.onCompletion = nil
         }
         confirmViewController.modalTransitionStyle = .crossDissolve
@@ -612,7 +612,7 @@ open class CameraViewController: UIViewController {
 
     private func startConfirmController(asset: PHAsset) {
         let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
-        confirmViewController.onComplete = { [weak self] imageData, image, asset in
+        confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)
             }
@@ -621,7 +621,7 @@ open class CameraViewController: UIViewController {
                 return
             }
 
-            self?.onCompletion?(imageData, image, asset)
+            self?.onCompletion?(imageData, image, asset, errorData, exifData)
             self?.onCompletion = nil
         }
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve

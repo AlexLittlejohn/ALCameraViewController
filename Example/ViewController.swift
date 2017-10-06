@@ -20,9 +20,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openCamera(_ sender: AnyObject) {
-        let cameraViewController = CameraViewController(scale: 3.0, croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled, allowsAudio: false) { [weak self] imageData, image, asset in
+        let cameraViewController = CameraViewController(scale: 3.0, croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled, allowsAudio: false) { [weak self] imageData, image, asset, errorData, exifData in
             self?.imageView.image = image
-            
+            print(exifData)
             self?.dismiss(animated: true, completion: nil)
         }
         
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openLibrary(_ sender: AnyObject) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] imageData, image, asset in
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] imageData, image, asset, errorData, exifData in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }

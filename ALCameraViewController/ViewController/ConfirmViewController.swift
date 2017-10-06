@@ -222,7 +222,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
 
     internal func cancel() {
-        onComplete?(nil, nil, nil)
+        onComplete?(nil, nil, nil, nil, nil)
     }
 
     internal func confirmPhoto() {
@@ -240,7 +240,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         if let asset = asset {
             var fetcher = SingleImageFetcher()
                 .onSuccess { [weak self] image in
-                self?.onComplete?(nil, image, self?.asset)
+                self?.onComplete?(nil, image, self?.asset, nil, nil)
                 self?.hideSpinner(spinner)
                 self?.enable()
             }
@@ -267,7 +267,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
                 newImage = image.crop(rect: resizedCropRect)
             }
 
-            onComplete?(imageData, newImage, nil)
+            onComplete?(imageData, newImage, nil, nil, nil)
             hideSpinner(spinner)
             enable()
         }
