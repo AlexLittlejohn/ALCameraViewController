@@ -504,7 +504,7 @@ open class CameraViewController: UIViewController {
 
         if connection.isEnabled {
             toggleButtons(enabled: false)
-            cameraView.capturePhoto(scale: outputScale, completion: { [weak self] imageData, image in
+            cameraView.capturePhoto(scale: outputScale, completion: { [weak self] imageData, image, errorData, exifData in
                 guard let image = image, let imageData = imageData else {
                     self?.toggleButtons(enabled: true)
                     return

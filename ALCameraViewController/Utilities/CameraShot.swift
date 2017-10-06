@@ -8,14 +8,14 @@
 
 import UIKit
 import AVFoundation
-//import Mixpanel
+import Mixpanel
 
-public typealias CameraShotCompletion = (Data?, UIImage?) -> Void
+public typealias CameraShotCompletion = (Data?, UIImage?, String?, String?) -> Void
 
 public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cameraPosition: AVCaptureDevicePosition, cropSize _: CGSize, outputScale: CGFloat, completion: @escaping CameraShotCompletion) {
     
     guard let videoConnection: AVCaptureConnection = stillImageOutput.connection(withMediaType: AVMediaTypeVideo) else {
-        completion(nil, nil)
+        completion(nil, nil, nil, nil)
         return
     }
     
@@ -35,14 +35,12 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
                     var image = UIImage(data: imageData),
                     let cgImage = image.cgImage else {
                         DispatchQueue.main.async {
-                            completion(nil, nil)
+                            completion(nil, nil, "NULL image buffer", nil)
                             return
                         }
-                        print("Error in something ")
+                        print()
                         return
                 }
-                
-                print("Error in something \(exifAttachments)")
                 
                 // flip the image to match the orientation of the preview
                 // Half size is large for now
@@ -70,7 +68,7 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
                 }
                 
                 DispatchQueue.main.async {
-                    completion(imageData, image)
+                    completion(imageData, image, nil, "EXIF \(exifAttachments)")
                 }
             })
         })

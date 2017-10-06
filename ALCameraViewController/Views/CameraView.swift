@@ -192,7 +192,7 @@ public class CameraView: UIView {
         isUserInteractionEnabled = false
 
         guard let output = imageOutput, let orientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) else {
-            completion(nil, nil)
+            completion(nil, nil, nil, nil)
             return
         }
 
@@ -200,10 +200,10 @@ public class CameraView: UIView {
         let size = frame.size
 
         cameraQueue.sync {
-            takePhoto(output, videoOrientation: orientation, cameraPosition: device.position, cropSize: size, outputScale: outputScale) { imageData, image in
+            takePhoto(output, videoOrientation: orientation, cameraPosition: device.position, cropSize: size, outputScale: outputScale) { imageData, image, errorData, exifData in
                 DispatchQueue.main.async() { [weak self] in
                     self?.isUserInteractionEnabled = true
-                    completion(imageData, image)
+                    completion(imageData, image, errorData, exifData)
                 }
             }
         }
