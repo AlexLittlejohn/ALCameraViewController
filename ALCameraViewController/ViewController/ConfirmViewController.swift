@@ -27,12 +27,16 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     let asset: PHAsset?
     let image: UIImage?
     let imageData: Data?
+    let errorData: String?
+    let exifData: String?
 
-    public init(imageData: Data, image: UIImage, allowsCropping: Bool) {
+    public init(imageData: Data, image: UIImage, errorData: String?, exifData: String?, allowsCropping: Bool) {
         self.allowsCropping = allowsCropping
         asset = nil
         self.imageData = imageData
         self.image = image
+        self.errorData = errorData
+        self.exifData = exifData
         super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
     }
 
@@ -41,6 +45,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         self.asset = asset
         image = nil
         imageData = nil
+        errorData = nil
+        exifData = nil
         super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
     }
 
@@ -48,6 +54,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         asset = nil
         image = nil
         imageData = nil
+        errorData = nil
+        exifData = nil
         super.init(coder: aDecoder)
     }
 
@@ -267,7 +275,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
                 newImage = image.crop(rect: resizedCropRect)
             }
 
-            onComplete?(imageData, newImage, nil, nil, nil)
+            onComplete?(imageData, newImage, nil, errorData, exifData)
             hideSpinner(spinner)
             enable()
         }

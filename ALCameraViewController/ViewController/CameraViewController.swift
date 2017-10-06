@@ -509,12 +509,12 @@ open class CameraViewController: UIViewController {
                     self?.toggleButtons(enabled: true)
                     return
                 }
-                self?.saveImage(imageData: imageData, image: image)
+                self?.saveImage(imageData: imageData, image: image, errorData: errorData, exifData: exifData)
             })
         }
     }
 
-    internal func saveImage(imageData: Data, image: UIImage) {
+    internal func saveImage(imageData: Data, image: UIImage, errorData: String?, exifData: String?) {
         let spinner = showSpinner()
         cameraView.preview.isHidden = true
 
@@ -533,7 +533,7 @@ open class CameraViewController: UIViewController {
                 }
                 .save()
         } else {
-            layoutCameraResult(imageData: imageData, uiImage: image)
+            layoutCameraResult(imageData: imageData, uiImage: image, errorData: errorData, exifData: exifData)
             hideSpinner(spinner)
         }
     }
@@ -580,9 +580,9 @@ open class CameraViewController: UIViewController {
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
     }
 
-    internal func layoutCameraResult(imageData: Data, uiImage: UIImage) {
+    internal func layoutCameraResult(imageData: Data, uiImage: UIImage, errorData: String?, exifData: String?) {
         cameraView.stopSession()
-        startConfirmController(imageData: imageData, uiImage: uiImage)
+        startConfirmController(imageData: imageData, uiImage: uiImage, errorData: errorData, exifData: exifData)
         toggleButtons(enabled: true)
     }
 
@@ -592,8 +592,8 @@ open class CameraViewController: UIViewController {
         toggleButtons(enabled: true)
     }
 
-    private func startConfirmController(imageData: Data, uiImage: UIImage) {
-        let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, allowsCropping: allowCropping)
+    private func startConfirmController(imageData: Data, uiImage: UIImage, errorData: String?, exifData: String?) {
+        let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData:errorData, exifData:exifData, allowsCropping: allowCropping)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)
