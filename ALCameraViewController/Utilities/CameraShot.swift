@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import Mixpanel
 
 public typealias CameraShotCompletion = (Data?, UIImage?, String?, String?) -> Void
 
@@ -26,7 +25,7 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
             stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, error in
                 
                 if let error = error {
-                    print("Error in capture: \(error.localizedDescription)")
+                    completion(nil, nil, "Error in image capture: \(error.localizedDescription)", nil)
                 }
                 
                 guard let buffer = buffer,
@@ -35,10 +34,9 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
                     var image = UIImage(data: imageData),
                     let cgImage = image.cgImage else {
                         DispatchQueue.main.async {
-                            completion(nil, nil, "NULL image buffer", nil)
+                            completion(nil, nil, "Error capture, NULL image buffer or NULL EXIF data", nil)
                             return
                         }
-                        print()
                         return
                 }
                 
