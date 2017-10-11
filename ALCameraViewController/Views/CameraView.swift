@@ -172,12 +172,9 @@ public class CameraView: UIView {
     }
 
     private func createPreview() {
-
         preview = AVCaptureVideoPreviewLayer(session: session)
         preview.videoGravity = AVLayerVideoGravityResizeAspect
-
         preview.frame = bounds
-
         layer.addSublayer(preview)
     }
 
