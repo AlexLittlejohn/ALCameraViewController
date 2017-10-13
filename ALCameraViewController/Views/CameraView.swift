@@ -83,6 +83,7 @@ public class CameraView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         preview?.frame = bounds
+        print("bounds updated: \(bounds)")
     }
 
     public func configureFocus() {
@@ -281,16 +282,16 @@ public class CameraView: UIView {
         }
         switch UIApplication.shared.statusBarOrientation {
         case .portrait:
-            preview?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+            preview?.connection.videoOrientation = .portrait
             break
         case .portraitUpsideDown:
-            preview?.connection.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
+            preview?.connection.videoOrientation = .portraitUpsideDown
             break
         case .landscapeRight:
-            preview?.connection.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+            preview?.connection.videoOrientation = .landscapeRight
             break
         case .landscapeLeft:
-            preview?.connection.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+            preview?.connection.videoOrientation = .landscapeLeft
             break
         default: break
         }

@@ -80,12 +80,28 @@ internal func normalizedRect(_ rect: CGRect, orientation: UIImageOrientation) ->
 
     switch orientation {
     case .up, .upMirrored:
+//        print("NXPosition: \(normalizedX) ")
+//        print("NYPosition: \(normalizedY) ")
+//        print("NWidthX: \(normalizedWidth)")
+//        print("NWidthY: \(normalizedHeight)")
         normalizedRect = CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
     case .down, .downMirrored:
+//        print("NXPosition: \(1 - normalizedX - normalizedWidth) ")
+//        print("NYPosition: \(1 - normalizedY - normalizedHeight) ")
+//        print("NWidthX: \(normalizedWidth)")
+//        print("NWidthY: \(normalizedHeight)")
         normalizedRect = CGRect(x: 1 - normalizedX - normalizedWidth, y: 1 - normalizedY - normalizedHeight, width: normalizedWidth, height: normalizedHeight)
     case .left, .leftMirrored:
+//        print("NXPosition: \(1 - normalizedY - normalizedHeight) ")
+//        print("NYPosition: \(normalizedX) ")
+//        print("NWidthX: \(normalizedHeight)")
+//        print("NWidthY: \(normalizedWidth)")
         normalizedRect = CGRect(x: 1 - normalizedY - normalizedHeight, y: normalizedX, width: normalizedHeight, height: normalizedWidth)
     case .right, .rightMirrored:
+//        print("NXPosition: \(normalizedY) ")
+//        print("NYPosition: \( 1 - normalizedX - normalizedWidth) ")
+//        print("NWidthX: \(normalizedHeight)")
+//        print("NWidthY: \(normalizedWidth)")
         normalizedRect = CGRect(x: normalizedY, y: 1 - normalizedX - normalizedWidth, width: normalizedHeight, height: normalizedWidth)
     }
 
