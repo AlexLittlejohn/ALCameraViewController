@@ -33,7 +33,7 @@ extension CameraViewController {
                 multiplier: 1.0,
                 constant: 0))
         })
-        
+
         view.addConstraint(NSLayoutConstraint(
             item: cameraView,
             attribute: .bottom,

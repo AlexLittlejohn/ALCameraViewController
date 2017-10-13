@@ -53,7 +53,7 @@ open class CameraViewController: UIViewController {
     var lastInterfaceOrientation: UIInterfaceOrientation?
     open var onCompletion: CameraViewCompletion?
     var volumeControl: VolumeControl?
-    
+
     var outputScale: CGFloat = 1.0
 
     var animationDuration: TimeInterval = 0.5
@@ -334,7 +334,7 @@ open class CameraViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(notifyCameraReady),
-            name: NSNotification.Name.AVCaptureSessionDidStartRunning,
+            name: .AVCaptureSessionDidStartRunning,
             object: nil)
     }
 
@@ -346,7 +346,7 @@ open class CameraViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(rotateCameraView),
-            name: NSNotification.Name.UIDeviceOrientationDidChange,
+            name: .UIDeviceOrientationDidChange,
             object: nil)
     }
 
@@ -500,7 +500,6 @@ open class CameraViewController: UIViewController {
             let connection = output.connection(withMediaType: AVMediaTypeVideo) else {
             return
         }
-        
 
         if connection.isEnabled {
             toggleButtons(enabled: false)
@@ -593,7 +592,7 @@ open class CameraViewController: UIViewController {
     }
 
     private func startConfirmController(imageData: Data, uiImage: UIImage, errorData: String?, exifData: String?) {
-        let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData:errorData, exifData:exifData, allowsCropping: allowCropping)
+        let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData: errorData, exifData: exifData, allowsCropping: allowCropping)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)

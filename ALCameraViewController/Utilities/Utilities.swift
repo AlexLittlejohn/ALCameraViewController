@@ -124,6 +124,7 @@ struct DeviceConfig {
             return 1.0
         }
     }()
+
     static let CLOSE_BUTTON_SPACING: CGFloat = {
         if UIDevice.current.userInterfaceIdiom == .phone {
             switch ScreenSize.SCREEN_MAX_LENGTH {

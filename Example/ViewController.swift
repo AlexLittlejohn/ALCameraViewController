@@ -12,9 +12,9 @@ class ViewController: UIViewController {
 
     var croppingEnabled: Bool = false
     var libraryEnabled: Bool = true
-    
+
     @IBOutlet weak var imageView: UIImageView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
+
         present(cameraViewController, animated: true, completion: nil)
     }
     
@@ -33,16 +33,15 @@ class ViewController: UIViewController {
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
+
         present(libraryViewController, animated: true, completion: nil)
     }
-    
-    @IBAction func libraryChanged(_ sender: AnyObject) {
+
+    @IBAction func libraryChanged(_: AnyObject) {
         libraryEnabled = !libraryEnabled
     }
-    
-    @IBAction func croppingChanged(_ sender: AnyObject) {
+
+    @IBAction func croppingChanged(_: AnyObject) {
         croppingEnabled = !croppingEnabled
     }
 }
-
