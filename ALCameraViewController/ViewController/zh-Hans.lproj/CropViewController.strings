@@ -1,12 +1,18 @@
 
-/* Class = "UILabel"; text = "裁剪"; ObjectID = "9bz-3X-8gW"; */
-"9bz-3X-8gW.text" = "裁剪";
+/* Class = "UILabel"; text = "Full"; ObjectID = "Iio-Kg-QnA"; */
+"Iio-Kg-QnA.text" = "完整图片";
 
-/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "ASf-ZD-cIs"; */
-"ASf-ZD-cIs.normalTitle" = "下一步";
+/* Class = "UILabel"; text = "Crop"; ObjectID = "Nu1-rL-d4h"; */
+"Nu1-rL-d4h.text" = "裁剪";
 
-/* Class = "UIButton"; normalTitle = "查找边缘"; ObjectID = "d2B-xS-nCO"; */
-"d2B-xS-nCO.normalTitle" = "查找边缘";
+/* Class = "UILabel"; text = "Screenshot"; ObjectID = "QBH-wN-Sld"; */
+"QBH-wN-Sld.text" = "截图";
 
-/* Class = "UIButton"; normalTitle = "重拍"; ObjectID = "yRi-ES-LfN"; */
-"yRi-ES-LfN.normalTitle" = "重拍";
+/* Class = "UILabel"; text = "Square"; ObjectID = "Yj4-1r-gUF"; */
+"Yj4-1r-gUF.text" = "正方形";
+
+/* Class = "UILabel"; text = "A4"; ObjectID = "pyk-uS-D60"; */
+"pyk-uS-D60.text" = "A4";
+
+/* Class = "UILabel"; text = "Border"; ObjectID = "vd8-B9-h7L"; */
+"vd8-B9-h7L.text" = "边缘检测";

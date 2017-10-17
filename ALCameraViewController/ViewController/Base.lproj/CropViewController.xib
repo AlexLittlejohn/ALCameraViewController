@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -61,7 +61,7 @@
                                     <state key="normal" backgroundImage="crop_detect_border_normal"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Border" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vd8-B9-h7L">
-                                    <rect key="frame" x="3" y="48.333333333333371" width="41" height="15.666666666666629"/>
+                                    <rect key="frame" x="3" y="48.333333333333371" width="41" height="15.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -92,7 +92,7 @@
                                     <state key="normal" backgroundImage="crop_no_statusbar_normal"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screenshot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBH-wN-Sld">
-                                    <rect key="frame" x="-10.666666666666671" y="48.333333333333371" width="69.000000000000014" height="15.666666666666629"/>
+                                    <rect key="frame" x="-11.333333333333329" y="48.333333333333371" width="69" height="15.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -122,7 +122,7 @@
                                     <state key="normal" backgroundImage="crop_full_image_normal"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iio-Kg-QnA">
-                                    <rect key="frame" x="12.666666666666657" y="48.333333333333371" width="21.333333333333343" height="15.666666666666629"/>
+                                    <rect key="frame" x="12.666666666666655" y="48.333333333333371" width="21.333333333333329" height="15.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -152,7 +152,7 @@
                                     <state key="normal" backgroundImage="crop_square_normal"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Square" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yj4-1r-gUF">
-                                    <rect key="frame" x="1.6666666666666856" y="48.333333333333371" width="43" height="15.666666666666629"/>
+                                    <rect key="frame" x="1.6666666666666856" y="48.333333333333371" width="43" height="15.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -182,7 +182,7 @@
                                     <state key="normal" backgroundImage="crop_a4_paper_normal"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyk-uS-D60">
-                                    <rect key="frame" x="14.666666666666686" y="48.333333333333371" width="17" height="15.666666666666629"/>
+                                    <rect key="frame" x="14.666666666666686" y="48.333333333333371" width="17" height="15.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -223,7 +223,7 @@
                             <state key="normal" image="libraryConfirm"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nu1-rL-d4h">
-                            <rect key="frame" x="189" y="12" width="37.333333333333343" height="20.333333333333371"/>
+                            <rect key="frame" x="189" y="11.999999999999998" width="37.333333333333343" height="20.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
