@@ -275,23 +275,23 @@ public class CameraView: UIView {
         session.commitConfiguration()
     }
 
-    public func rotatePreview() {
-
+    public func rotateCameraButtons(button:UIButton) {
+        
         guard preview != nil else {
             return
         }
         switch UIApplication.shared.statusBarOrientation {
         case .portrait:
-            preview?.connection.videoOrientation = .portrait
+            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .down), for: .normal)
             break
         case .portraitUpsideDown:
-            preview?.connection.videoOrientation = .portraitUpsideDown
+            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .up), for: .normal)
             break
         case .landscapeRight:
-            preview?.connection.videoOrientation = .landscapeRight
+            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .right), for: .normal)
             break
         case .landscapeLeft:
-            preview?.connection.videoOrientation = .landscapeLeft
+            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .left), for: .normal)
             break
         default: break
         }

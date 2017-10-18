@@ -392,7 +392,7 @@ open class CameraViewController: UIViewController {
     }
 
     func rotateCameraView() {
-        cameraView.rotatePreview()
+        cameraView.rotateCameraButtons(button: flashButton)
     }
 
     /**
