@@ -8,7 +8,7 @@ PODS:
   - SnapKit (3.2.0)
 
 DEPENDENCIES:
-  - ALCameraViewController (from `https://github.com/Cyclic/ALCameraViewController`, branch `feature/pinch-to-zoom-camera`)
+  - ALCameraViewController (from `https://github.com/Cyclic/ALCameraViewController`, branch `develop`)
   - Crashlytics
   - Fabric
   - Masonry
@@ -17,12 +17,12 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ALCameraViewController:
-    :branch: feature/pinch-to-zoom-camera
+    :branch: develop
     :git: https://github.com/Cyclic/ALCameraViewController
 
 CHECKOUT OPTIONS:
   ALCameraViewController:
-    :commit: e9bad72ace117683b7994f8311a2ae6f74e493d6
+    :commit: bc954da4ba25b4ea779e65a3c5ec31fe2163cec7
     :git: https://github.com/Cyclic/ALCameraViewController
 
 SPEC CHECKSUMS:
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   Mixpanel: 524c6880d45d71faa7d0dcd10f52221c99b6d820
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: f518b2f295e809e23e52674d38ec5a502299cbfe
+PODFILE CHECKSUM: 78686f3586dbabaa6b9428e3220eda91fc07b8dd
 
 COCOAPODS: 1.3.1
