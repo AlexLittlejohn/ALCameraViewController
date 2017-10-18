@@ -297,6 +297,7 @@ open class CameraViewController: UIViewController {
         if cameraView.session?.isRunning == true {
             notifyCameraReady()
         }
+        rotateCameraView()
     }
 
     open override func viewWillDisappear(_ animated: Bool) {
@@ -394,6 +395,8 @@ open class CameraViewController: UIViewController {
     func rotateCameraView() {
         cameraView.rotateCameraButtons(button: flashButton)
         cameraView.rotateCameraButtons(button: swapButton)
+        cameraView.rotateCameraButtons(button: libraryButton)
+        cameraView.rotateCameraButtons(button: closeButton)
     }
 
     /**

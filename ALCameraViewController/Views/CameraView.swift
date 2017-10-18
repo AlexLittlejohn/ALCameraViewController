@@ -276,20 +276,30 @@ public class CameraView: UIView {
     }
 
     public func rotateCameraButtons(button:UIButton) {
-        switch UIDevice.current.orientation {
-        case .portrait:
-            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .up), for: .normal)
-            break
-        case .portraitUpsideDown:
-            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .down), for: .normal)
-            break
-        case .landscapeRight:
-            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .left), for: .normal)
-            break
-        case .landscapeLeft:
-            button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: 1.0, orientation: .right), for: .normal)
-            break
-        default: break
+        if let currentImage = button.currentImage {
+            switch UIDevice.current.orientation {
+            case .portrait:
+                UIView.transition(with: button, duration: 0.5, options: .transitionFlipFromBottom, animations: {
+                    button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: currentImage.scale, orientation: .up), for: .normal)
+                }, completion: nil)
+                break
+            case .portraitUpsideDown:
+                UIView.transition(with: button, duration: 0.5, options: .transitionFlipFromTop, animations: {
+                    button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: currentImage.scale, orientation: .down), for: .normal)
+                }, completion: nil)
+                break
+            case .landscapeRight:
+                UIView.transition(with: button, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                    button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: currentImage.scale, orientation: .left), for: .normal)
+                }, completion: nil)
+                break
+            case .landscapeLeft:
+                UIView.transition(with: button, duration: 0.5, options: .transitionFlipFromRight, animations: {
+                    button.setImage(UIImage.init(cgImage: (button.currentImage?.cgImage)!, scale: currentImage.scale, orientation: .right), for: .normal)
+                }, completion: nil)
+                break
+            default: break
+            }
         }
     }
 }
