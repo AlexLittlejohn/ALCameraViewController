@@ -12,37 +12,36 @@ class ViewController: UIViewController {
 
     var croppingEnabled: Bool = false
     var libraryEnabled: Bool = true
-    
+
     @IBOutlet weak var imageView: UIImageView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func openCamera(_ sender: AnyObject) {
-        let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled) { [weak self] image, asset in
+        let cameraViewController = CameraViewController(scale: 3.0, croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled, allowsAudio: false) { [weak self] imageData, image, asset, errorData, exifData in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
+
         present(cameraViewController, animated: true, completion: nil)
     }
     
     @IBAction func openLibrary(_ sender: AnyObject) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] imageData, image, asset, errorData, exifData in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
+
         present(libraryViewController, animated: true, completion: nil)
     }
-    
-    @IBAction func libraryChanged(_ sender: AnyObject) {
+
+    @IBAction func libraryChanged(_: AnyObject) {
         libraryEnabled = !libraryEnabled
     }
-    
-    @IBAction func croppingChanged(_ sender: AnyObject) {
+
+    @IBAction func croppingChanged(_: AnyObject) {
         croppingEnabled = !croppingEnabled
     }
 }
-

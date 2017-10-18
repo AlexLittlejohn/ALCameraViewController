@@ -21,12 +21,12 @@ class PhotoLibraryAuthorizer {
         self.completion = completion
         handleAuthorization(status: PHPhotoLibrary.authorizationStatus())
     }
-    
+
     func onDeniedOrRestricted(completion: PhotoLibraryAuthorizerCompletion) {
         let error = errorWithKey("error.access-denied", domain: errorDomain)
         completion(error)
     }
-    
+
     func handleAuthorization(status: PHAuthorizationStatus) {
         switch status {
         case .notDetermined:
