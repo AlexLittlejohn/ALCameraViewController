@@ -1,5 +1,5 @@
 PODS:
-  - ALCameraViewController (1.10.0)
+  - ALCameraViewController (1.11.0)
   - Crashlytics (3.9.0):
     - Fabric (~> 1.7.0)
   - Fabric (1.7.0)
@@ -22,11 +22,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ALCameraViewController:
-    :commit: 496c93d9d034ed5114a69c1e1e1cf83d33d3f88c
+    :commit: ed4762eb8a9e901cce379dce42daaad99f092e73
     :git: https://github.com/Cyclic/ALCameraViewController
 
 SPEC CHECKSUMS:
-  ALCameraViewController: 01afa9276d32f238c3e2cd691baa08c71de6f7f8
+  ALCameraViewController: fd21d8da73f4e972b4461ef6cb97228bfc29b480
   Crashlytics: 64aad5dd97249dd3ff94b979fea140144590cdd3
   Fabric: e6be012366472553807dada21243c5ab8d904151
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
