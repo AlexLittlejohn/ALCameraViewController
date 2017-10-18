@@ -119,7 +119,7 @@ struct DeviceConfig {
             case 568.0: return 1.5
             case 667.0: return 2.0
             case 736.0: return 4.0
-            default: return 1.0
+            default: return 4.0
             }
         } else {
             return 1.0
@@ -132,7 +132,7 @@ struct DeviceConfig {
             case 568.0: return -54
             case 667.0: return -66
             case 736.0: return -66
-            default: return 1.0
+            default: return -66
             }
         } else {
             return 1.0
