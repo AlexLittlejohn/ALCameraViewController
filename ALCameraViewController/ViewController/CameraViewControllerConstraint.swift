@@ -56,9 +56,9 @@ extension CameraViewController {
         let attribute: NSLayoutAttribute = {
             switch statusBarOrientation {
             case .portrait: return .bottom
-            case .landscapeRight: return .right
-            case .landscapeLeft: return .left
-            default: return .top
+            case .landscapeRight: return .top
+            case .landscapeLeft: return .top
+            default: return .bottom
             }
         }()
 
@@ -69,7 +69,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: attribute == .right || attribute == .bottom ? -8 : 8)
+            constant: attribute == .right || attribute == .bottom ? -8 : -8)
         view.addConstraint(cameraButtonEdgeConstraint!)
     }
 
@@ -259,7 +259,7 @@ extension CameraViewController {
         let attribute: NSLayoutAttribute = {
             switch statusBarOrientation {
             case .portrait: return .left
-            case .landscapeRight, .landscapeLeft: return .centerX
+            case .landscapeRight, .landscapeLeft: return .left
             default: return .right
             }
         }()

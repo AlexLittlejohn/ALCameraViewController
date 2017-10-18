@@ -184,7 +184,7 @@ open class CameraViewController: UIViewController {
     }
 
     open override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return UIStatusBarAnimation.slide
+        return .slide
     }
 
     /**
@@ -595,6 +595,7 @@ open class CameraViewController: UIViewController {
         let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData: errorData, exifData: exifData, allowsCropping: allowCropping)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
+                confirmViewController.modalTransitionStyle = .crossDissolve
                 self?.dismiss(animated: true, completion: nil)
             }
 
@@ -613,6 +614,7 @@ open class CameraViewController: UIViewController {
         let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
+                self?.modalTransitionStyle = .partialCurl
                 self?.dismiss(animated: true, completion: nil)
             }
 
@@ -623,7 +625,7 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(imageData, image, asset, errorData, exifData)
             self?.onCompletion = nil
         }
-        confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        confirmViewController.modalTransitionStyle = .crossDissolve
         present(confirmViewController, animated: true, completion: nil)
     }
 
