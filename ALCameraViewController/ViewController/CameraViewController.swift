@@ -393,6 +393,7 @@ open class CameraViewController: UIViewController {
 
     func rotateCameraView() {
         cameraView.rotateCameraButtons(button: flashButton)
+        cameraView.rotateCameraButtons(button: swapButton)
     }
 
     /**
