@@ -9,7 +9,7 @@ pod 'Crashlytics'
 pod 'Masonry'
 pod 'SnapKit', '~> 3.2.0'
 pod 'Mixpanel'
-pod 'ALCameraViewController', :git => 'https://github.com/Cyclic/ALCameraViewController', :branch => 'feature/pinch-to-zoom-camera'
+pod 'ALCameraViewController', :git => 'https://github.com/Cyclic/ALCameraViewController', :branch => 'feature/develop'
 end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
