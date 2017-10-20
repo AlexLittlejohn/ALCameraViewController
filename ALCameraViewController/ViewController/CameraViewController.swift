@@ -599,7 +599,6 @@ open class CameraViewController: UIViewController {
         let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData: errorData, exifData: exifData, allowsCropping: allowCropping)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
-                confirmViewController.modalTransitionStyle = .crossDissolve
                 self?.dismiss(animated: true, completion: nil)
             }
 
@@ -610,7 +609,6 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(imageData, image, asset, errorData, exifData)
             self?.onCompletion = nil
         }
-        confirmViewController.modalTransitionStyle = .crossDissolve
         present(confirmViewController, animated: true, completion: nil)
     }
 
