@@ -395,9 +395,17 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	
   private func startConfimController(uiImage: UIImage) {
     
-    let filterController = FilterViewController(uiImage, asset)
-    filterController.onComplete = onComplete
-    self.navigationController?.pushViewController(filterController, animated: false)
+    let confirmController = ConfirmViewController(uiImage, asset)
+    confirmController.onComplete = { [weak self] image, asset in
+      guard let image = image else {
+        return
+      }
+      
+      self?.onComplete?(image, asset)
+      self?.onComplete = nil
+    }
+    
+    self.navigationController?.pushViewController(confirmController, animated: false)
   }
 
 }
