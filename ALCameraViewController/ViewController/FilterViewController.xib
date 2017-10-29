@@ -31,7 +31,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Usl-eK-CMT">
                     <rect key="frame" x="0.0" y="495" width="375" height="128"/>
                     <subviews>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.30000001192092896" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="lQ1-od-vPR">
+                        <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.30000001192092896" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQ1-od-vPR">
                             <rect key="frame" x="6" y="16" width="363" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="18" id="0Ia-kQ-rzE"/>
