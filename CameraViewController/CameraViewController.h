@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CIImage+Utilities.h"
+#import "UIImage+Filter.h"
+#import "UIImageView+Filter.h"
 #import "IRLRectangleFeature+Extensions.h"
 
 
