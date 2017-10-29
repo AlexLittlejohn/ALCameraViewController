@@ -25,7 +25,7 @@ class FilterViewController: UIViewController {
   let image: UIImage?
   let asset: PHAsset?
   
-  var filterType:ImageFilterPreset? {
+  var filterType:ImageFilterPreset = ImageFilterPresetOriginal {
     didSet {
       apply()
     }
@@ -89,7 +89,7 @@ class FilterViewController: UIViewController {
   }
   
   internal func confirmPhoto() {
-    guard let image = imageView.image else {
+    guard let image = imageView.image?.withFilterPreset(filterType, intensity: filterIntensity) else {
       return
     }
     let confirmController = ConfirmViewController(image, asset)
@@ -123,9 +123,6 @@ class FilterViewController: UIViewController {
   }
   
   internal func apply() {
-    guard let filterType = filterType else {
-      return
-    }
     imageView.applyFilter(with: filterType, intensity: filterIntensity)
   }
   
