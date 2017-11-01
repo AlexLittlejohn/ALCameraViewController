@@ -22,23 +22,23 @@ public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrient
 
     if !stillImageOutput.isCapturingStillImage {
         stillImageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { buffer, error in
-            
+
             if let error = error {
                 completion(nil, nil, "Error in image capture: \(error.localizedDescription)", nil)
             }
-            
+
             guard let buffer = buffer,
                 let exifAttachments = CMGetAttachment(buffer, kCGImagePropertyExifDictionary, nil),
                 let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer),
                 var image = UIImage(data: imageData),
                 let cgImage = image.cgImage else {
-                    DispatchQueue.main.async {
-                        completion(nil, nil, "Error capture, NULL image buffer or NULL EXIF data", nil)
-                        return
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, nil, "Error capture, NULL image buffer or NULL EXIF data", nil)
                     return
+                }
+                return
             }
-            
+
             // flip the image to match the orientation of the preview
             // Half size is large for now
             if cameraPosition == .front {

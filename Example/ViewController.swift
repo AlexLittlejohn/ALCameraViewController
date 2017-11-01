@@ -18,18 +18,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    @IBAction func openCamera(_ sender: AnyObject) {
-        let cameraViewController = CameraViewController(scale: 3.0, croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled, allowsAudio: false) { [weak self] imageData, image, asset, errorData, exifData in
+
+    @IBAction func openCamera(_: AnyObject) {
+        let cameraViewController = CameraViewController(scale: 3.0, croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled, allowsAudio: false) { [weak self] _, image, _, _, _ in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
 
         present(cameraViewController, animated: true, completion: nil)
     }
-    
-    @IBAction func openLibrary(_ sender: AnyObject) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] imageData, image, asset, errorData, exifData in
+
+    @IBAction func openLibrary(_: AnyObject) {
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] _, image, _, _, _ in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
