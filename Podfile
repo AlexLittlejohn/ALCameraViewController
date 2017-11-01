@@ -7,7 +7,7 @@ target 'ALCameraViewController' do
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'Masonry'
-pod 'SnapKit', '~> 3.2.0'
+pod 'SnapKit'
 pod 'Mixpanel'
 pod 'ALCameraViewController', :git => 'https://github.com/Cyclic/ALCameraViewController', :branch => 'develop'
 end
@@ -16,7 +16,7 @@ post_install do |installer|
     target.build_configurations.each do |config|
       config.build_settings['ENABLE_BITCODE'] = 'NO'
       config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
-      config.build_settings['SWIFT_VERSION'] = '3.1'
+      config.build_settings['SWIFT_VERSION'] = '4.0'
     end
   end
 end
