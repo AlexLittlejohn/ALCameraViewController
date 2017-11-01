@@ -93,7 +93,7 @@ internal func normalizedRect(_ rect: CGRect, orientation: UIImageOrientation) ->
     return normalizedRect
 }
 
-internal func flashImage(_ mode: AVCaptureFlashMode) -> String {
+internal func flashImage(_ mode: AVCaptureDevice.FlashMode) -> String {
     let image: String
     switch mode {
     case .auto:
