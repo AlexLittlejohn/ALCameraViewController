@@ -9,7 +9,7 @@ pod 'Crashlytics'
 pod 'Masonry'
 pod 'SnapKit'
 pod 'Mixpanel'
-pod 'ALCameraViewController', :git => 'https://github.com/Cyclic/ALCameraViewController', :branch => 'develop'
+pod 'ALCameraViewController', :git => 'https://github.com/AlexLittlejohn/ALCameraViewController', :branch => 'develop'
 end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
