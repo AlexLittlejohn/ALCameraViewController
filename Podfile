@@ -9,12 +9,12 @@ pod 'Crashlytics'
 pod 'Masonry'
 pod 'SnapKit'
 pod 'Mixpanel'
-pod 'ALCameraViewController', :git => 'https://github.com/AlexLittlejohn/ALCameraViewController', :branch => 'develop'
+pod 'ALCameraViewController', :git => 'https://github.com/cyclic/ALCameraViewController', :branch => 'develop'
 end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['ENABLE_BITCODE'] = 'NO'
+      config.build_settings['ENABLE_BITCODE'] = 'YES'
       config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
       config.build_settings['SWIFT_VERSION'] = '4.0'
     end
