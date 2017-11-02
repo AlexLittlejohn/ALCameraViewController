@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D4BC6A7CE46F52C503BE81A /* Pods_ALCameraViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA3B6D5F07E9E32F0AF2A75 /* Pods_ALCameraViewController.framework */; };
 		1F3C56291F701CA7009667E9 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		7AC96FA21F5B5166003E53F4 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
@@ -60,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30992D3B789B4F8CA8705055 /* Pods-ALCameraViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALCameraViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ALCameraViewController/Pods-ALCameraViewController.release.xcconfig"; sourceTree = "<group>"; };
+		5EA3B6D5F07E9E32F0AF2A75 /* Pods_ALCameraViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ALCameraViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CroppingParameters.swift; sourceTree = "<group>"; };
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
 		C40665451C73A94100EB9751 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 		C4829FFF1CAEB16C00541D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
 		C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		D4AD3E148CB26CAF275AC0AC /* Pods-ALCameraViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALCameraViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ALCameraViewController/Pods-ALCameraViewController.debug.xcconfig"; sourceTree = "<group>"; };
 		EBF7829B1CB2C04300DE3E63 /* CameraViewControllerConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = CameraViewControllerConstraint.swift; sourceTree = "<group>"; tabWidth = 4; };
 		EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
@@ -106,12 +110,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D4BC6A7CE46F52C503BE81A /* Pods_ALCameraViewController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43256C8F415F4382CB1B01FE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D4AD3E148CB26CAF275AC0AC /* Pods-ALCameraViewController.debug.xcconfig */,
+				30992D3B789B4F8CA8705055 /* Pods-ALCameraViewController.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C4829FFC1CAEB16C00541D08 /* CameraViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +133,14 @@
 				C4829FFF1CAEB16C00541D08 /* Info.plist */,
 			);
 			path = CameraViewController;
+			sourceTree = "<group>";
+		};
+		FA87334AA8FE91546E22FE97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EA3B6D5F07E9E32F0AF2A75 /* Pods_ALCameraViewController.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FAB50BEA1B413E41009905B9 /* ViewController */ = {
@@ -169,6 +191,8 @@
 				FAF058411B31618D008E5592 /* ALCameraViewController */,
 				C4829FFC1CAEB16C00541D08 /* CameraViewController */,
 				FAF058401B31618D008E5592 /* Products */,
+				43256C8F415F4382CB1B01FE /* Pods */,
+				FA87334AA8FE91546E22FE97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,9 +274,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAF0585E1B31618D008E5592 /* Build configuration list for PBXNativeTarget "ALCameraViewController" */;
 			buildPhases = (
+				B7EE613AF2C8F9F3F680AD43 /* [CP] Check Pods Manifest.lock */,
 				FAF0583B1B31618D008E5592 /* Sources */,
 				FAF0583C1B31618D008E5592 /* Frameworks */,
 				FAF0583D1B31618D008E5592 /* Resources */,
+				18CD297EA4D45E5795E3F66F /* [CP] Embed Pods Frameworks */,
+				52854F814B04225D8FBC2683 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -329,6 +356,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18CD297EA4D45E5795E3F66F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ALCameraViewController/Pods-ALCameraViewController-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ALCameraViewController/ALCameraViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ALCameraViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ALCameraViewController/Pods-ALCameraViewController-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52854F814B04225D8FBC2683 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ALCameraViewController/Pods-ALCameraViewController-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B7EE613AF2C8F9F3F680AD43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ALCameraViewController-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4829FF61CAEB16C00541D08 /* Sources */ = {
@@ -540,6 +627,7 @@
 		};
 		FAF0585F1B31618D008E5592 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4AD3E148CB26CAF275AC0AC /* Pods-ALCameraViewController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -557,6 +645,7 @@
 		};
 		FAF058601B31618D008E5592 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30992D3B789B4F8CA8705055 /* Pods-ALCameraViewController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
