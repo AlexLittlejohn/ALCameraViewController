@@ -280,7 +280,7 @@ open class CameraViewController: UIViewController {
         setupActions()
         checkPermissions()
         cameraView.configureFocus()
-//        cameraView.configureZoom()
+        //        cameraView.configureZoom()
     }
 
     /**

@@ -26,8 +26,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		self.imageView.contentMode = .scaleAspectFit
+
+        imageView.contentMode = .scaleAspectFit
     }
 
     @IBAction func openCamera(_: AnyObject) {
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     @IBAction func libraryChanged(_: AnyObject) {
         libraryEnabled = !libraryEnabled
     }
-    
+
     @IBAction func croppingChanged(_ sender: UISwitch) {
         croppingEnabled = sender.isOn
         croppingParametersView.isHidden = !sender.isOn

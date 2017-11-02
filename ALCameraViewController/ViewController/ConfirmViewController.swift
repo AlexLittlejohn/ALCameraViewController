@@ -37,7 +37,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     let exifData: String?
 
     public init(imageData: Data, image: UIImage, errorData: String?, exifData: String?, croppingParameters: CroppingParameters) {
-		self.croppingParameters = croppingParameters
+        self.croppingParameters = croppingParameters
         asset = nil
         self.imageData = imageData
         self.image = image
@@ -46,8 +46,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
     }
 
-	public init(asset: PHAsset, croppingParameters: CroppingParameters) {
-		self.croppingParameters = croppingParameters
+    public init(asset: PHAsset, croppingParameters: CroppingParameters) {
+        self.croppingParameters = croppingParameters
         self.asset = asset
         image = nil
         imageData = nil
@@ -101,7 +101,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
                     self?.hideSpinner(spinner)
                     self?.enable()
                 }
-				.onFailure { [weak self] error in
+                .onFailure { [weak self] _ in
                     self?.hideSpinner(spinner)
                 }
                 .fetch()
@@ -115,7 +115,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let scale = calculateMinimumScale(view.frame.size)
-		let frame = croppingParameters.isEnabled ? cropOverlay.frame : view.bounds
+        let frame = croppingParameters.isEnabled ? cropOverlay.frame : view.bounds
 
         scrollView.contentInset = calculateScrollViewInsets(frame)
         scrollView.minimumZoomScale = scale
@@ -130,17 +130,17 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         let scale = calculateMinimumScale(size)
         var frame = view.bounds
 
-		if croppingParameters.isEnabled {
+        if croppingParameters.isEnabled {
             frame = cropOverlay.frame
             let centeringFrame = centeringView.frame
             var origin: CGPoint
 
             if size.width > size.height { // landscape
                 let offset = (size.width - centeringFrame.height)
-				let expectedX = (centeringFrame.height/2 - frame.height/2) + offset
+                let expectedX = (centeringFrame.height / 2 - frame.height / 2) + offset
                 origin = CGPoint(x: expectedX, y: frame.origin.x)
             } else {
-				let expectedY = (centeringFrame.width/2 - frame.width/2)
+                let expectedY = (centeringFrame.width / 2 - frame.width / 2)
                 origin = CGPoint(x: frame.origin.y, y: expectedY)
             }
 
@@ -161,7 +161,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func configureWithImage(_ image: UIImage) {
-		cropOverlay.isHidden = !croppingParameters.isEnabled
+        cropOverlay.isHidden = !croppingParameters.isEnabled
 
         buttonActions()
 
@@ -173,7 +173,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     private func calculateMinimumScale(_ size: CGSize) -> CGFloat {
         var _size = size
 
-		if croppingParameters.isEnabled {
+        if croppingParameters.isEnabled {
             _size = cropOverlay.frame.size
         }
 
@@ -186,7 +186,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 
         var scale: CGFloat
 
-		if croppingParameters.isEnabled {
+        if croppingParameters.isEnabled {
             scale = max(scaleWidth, scaleHeight)
         } else {
             scale = min(scaleWidth, scaleHeight)
@@ -203,8 +203,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func centerImageViewOnRotate() {
-		if croppingParameters.isEnabled {
-			let size = cropOverlay.frame.size
+        if croppingParameters.isEnabled {
+            let size = cropOverlay.frame.size
             let scrollInsets = scrollView.contentInset
             let imageSize = imageView.frame.size
             var contentOffset = CGPoint(x: -scrollInsets.left, y: -scrollInsets.top)
@@ -215,7 +215,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func centerScrollViewContents() {
-		let size = croppingParameters.isEnabled ? cropOverlay.frame.size : scrollView.frame.size
+        let size = croppingParameters.isEnabled ? cropOverlay.frame.size : scrollView.frame.size
         let imageSize = imageView.frame.size
         var imageOrigin = CGPoint.zero
 
@@ -241,7 +241,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 
     internal func confirmPhoto() {
 
-		guard let image = imageView.image else {
+        guard let image = imageView.image else {
             return
         }
 
@@ -263,7 +263,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
                 self?.showNoImageScreen(error)
             }
             .setAsset(asset)
-			if croppingParameters.isEnabled {
+            if croppingParameters.isEnabled {
                 let rect = normalizedRect(makeProportionalCropRect(), orientation: image.imageOrientation)
                 fetcher = fetcher.setCropRect(rect)
             }
@@ -272,7 +272,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         } else {
             var newImage = image
 
-			if croppingParameters.isEnabled {
+            if croppingParameters.isEnabled {
                 let cropRect = makeProportionalCropRect()
                 let resizedCropRect = CGRect(x: (image.size.width) * cropRect.origin.x,
                                              y: (image.size.height) * cropRect.origin.y,
@@ -329,10 +329,10 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func makeProportionalCropRect() -> CGRect {
-		var cropRect = CGRect(x: cropOverlay.frame.origin.x + cropOverlay.outterGap,
-		                      y: cropOverlay.frame.origin.y + cropOverlay.outterGap,
-		                      width: cropOverlay.frame.size.width - 2 * cropOverlay.outterGap,
-		                      height: cropOverlay.frame.size.height - 2 * cropOverlay.outterGap)
+        var cropRect = CGRect(x: cropOverlay.frame.origin.x + cropOverlay.outterGap,
+                              y: cropOverlay.frame.origin.y + cropOverlay.outterGap,
+                              width: cropOverlay.frame.size.width - 2 * cropOverlay.outterGap,
+                              height: cropOverlay.frame.size.height - 2 * cropOverlay.outterGap)
         cropRect.origin.x += scrollView.contentOffset.x
         cropRect.origin.y += scrollView.contentOffset.y
 
@@ -344,7 +344,6 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 
         return CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
     }
-	
 }
 
 extension UIImage {
