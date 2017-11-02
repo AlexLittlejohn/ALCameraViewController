@@ -103,7 +103,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9kG-Md-eO9" userLabel="B&amp;W Filter">
-                                    <rect key="frame" x="199.33333333333334" y="0.0" width="60.000000000000028" height="70"/>
+                                    <rect key="frame" x="199.33333333333337" y="0.0" width="60.000000000000028" height="70"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxR-kU-W2F">
                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -218,15 +218,15 @@
             </subviews>
             <color key="backgroundColor" red="0.1803921568627451" green="0.20392156862745098" blue="0.23921568627450979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="V3l-Vh-V5I" secondAttribute="trailing" id="6Ef-9t-8qs"/>
-                <constraint firstAttribute="trailing" secondItem="Usl-eK-CMT" secondAttribute="trailing" id="DWx-8P-4ky"/>
-                <constraint firstItem="V3l-Vh-V5I" firstAttribute="leading" secondItem="gkh-Q1-bKG" secondAttribute="leading" id="V7x-Vy-5CS"/>
+                <constraint firstItem="C6y-yg-HOr" firstAttribute="trailing" secondItem="V3l-Vh-V5I" secondAttribute="trailing" id="6Ef-9t-8qs"/>
+                <constraint firstItem="C6y-yg-HOr" firstAttribute="trailing" secondItem="Usl-eK-CMT" secondAttribute="trailing" id="DWx-8P-4ky"/>
+                <constraint firstItem="V3l-Vh-V5I" firstAttribute="leading" secondItem="C6y-yg-HOr" secondAttribute="leading" id="V7x-Vy-5CS"/>
                 <constraint firstItem="IZE-ts-G1g" firstAttribute="top" secondItem="C6y-yg-HOr" secondAttribute="top" id="W93-73-gKq"/>
                 <constraint firstItem="V3l-Vh-V5I" firstAttribute="top" secondItem="Usl-eK-CMT" secondAttribute="bottom" id="WNe-J0-xtO"/>
                 <constraint firstItem="C6y-yg-HOr" firstAttribute="bottom" secondItem="V3l-Vh-V5I" secondAttribute="bottom" id="a65-6T-cG8"/>
-                <constraint firstItem="Usl-eK-CMT" firstAttribute="leading" secondItem="gkh-Q1-bKG" secondAttribute="leading" id="aZw-Wp-E5j"/>
-                <constraint firstItem="IZE-ts-G1g" firstAttribute="leading" secondItem="gkh-Q1-bKG" secondAttribute="leading" id="fzp-fC-E56"/>
-                <constraint firstAttribute="trailing" secondItem="IZE-ts-G1g" secondAttribute="trailing" id="hwZ-Iv-yk0"/>
+                <constraint firstItem="Usl-eK-CMT" firstAttribute="leading" secondItem="C6y-yg-HOr" secondAttribute="leading" id="aZw-Wp-E5j"/>
+                <constraint firstItem="IZE-ts-G1g" firstAttribute="leading" secondItem="C6y-yg-HOr" secondAttribute="leading" id="fzp-fC-E56"/>
+                <constraint firstItem="C6y-yg-HOr" firstAttribute="trailing" secondItem="IZE-ts-G1g" secondAttribute="trailing" id="hwZ-Iv-yk0"/>
                 <constraint firstItem="Usl-eK-CMT" firstAttribute="top" secondItem="IZE-ts-G1g" secondAttribute="bottom" id="pjn-ya-yQU"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="C6y-yg-HOr"/>

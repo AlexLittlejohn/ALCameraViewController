@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import Crashlytics
 
 class FilterViewController: UIViewController {
   
@@ -123,6 +124,8 @@ class FilterViewController: UIViewController {
   }
   
   internal func apply() {
+    Answers.logCustomEvent(withName: "ALCamera.Filter.ApplyFilter", customAttributes: ["Filter":filterType.rawValue,"Intensity":filterIntensitySlider.value])
+
     imageView.applyFilter(with: filterType, intensity: filterIntensity)
   }
   

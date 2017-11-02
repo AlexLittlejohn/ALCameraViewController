@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 import CoreMotion
+import Crashlytics
 
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
@@ -471,6 +472,7 @@ open class CameraViewController: UIViewController {
         
         if connection.isEnabled {
             toggleButtons(enabled: false)
+            Answers.logCustomEvent(withName: "ALCamera.Camera.CapturePhoto", customAttributes: nil)
             cameraView.capturePhoto(lastInterfaceOrientation!, { [weak self] (image) in
                 guard let image = image else {
                     self?.toggleButtons(enabled: true)
@@ -511,6 +513,7 @@ open class CameraViewController: UIViewController {
     }
     
     internal func showLibrary() {
+        Answers.logCustomEvent(withName: "ALCamera.Camera.OpenLibrary", customAttributes: nil)
         let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] image, asset in
             defer {
                 self?.dismiss(animated: true, completion: nil)
@@ -535,6 +538,7 @@ open class CameraViewController: UIViewController {
             return
         }
   
+        Answers.logCustomEvent(withName: "ALCamera.Camera.ToggleFlash", customAttributes: nil)
         let image = UIImage(named: flashImage(device.flashMode),
                             in: CameraGlobals.shared.bundle,
                             compatibleWith: nil)
@@ -543,6 +547,7 @@ open class CameraViewController: UIViewController {
     }
     
     internal func swapCamera() {
+        Answers.logCustomEvent(withName: "ALCamera.Camera.Swap", customAttributes: nil)
         cameraView.swapCameraInput()
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
     }

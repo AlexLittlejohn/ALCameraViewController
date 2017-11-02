@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import AVFoundation
+import Crashlytics
 
 public class CropViewController: UIViewController, UIScrollViewDelegate {
 	
@@ -249,6 +250,8 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	}
   
   func detectBorders() {
+    Answers.logCustomEvent(withName: "ALCamera.Crop.ChangeSize", customAttributes: ["Type":"BorderDetection"])
+
     if cropOverlay.detectBorders(imageView) {
       print("found borders")
     }
@@ -258,10 +261,14 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
   }
   
   func selectAllBorders() {
+    Answers.logCustomEvent(withName: "ALCamera.Crop.ChangeSize", customAttributes: ["Type":"AllBorder"])
+
     cropOverlay.layoutButtons()
   }
   
   func selectSquareSize() {
+    Answers.logCustomEvent(withName: "ALCamera.Crop.ChangeSize", customAttributes: ["Type":"Square"])
+
     let imageRect = imageView.bounds.applying(CGAffineTransform(scaleX: scrollView.zoomScale, y: scrollView.zoomScale))
       
     let rect = AVMakeRect(aspectRatio: CGSize.init(width: 1, height: 1), insideRect: imageRect)
@@ -271,6 +278,8 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
   
   func selectA4Size() {
     //calculate a size that's A4
+    Answers.logCustomEvent(withName: "ALCamera.Crop.ChangeSize", customAttributes: ["Type":"A4"])
+
     let imageRect = imageView.bounds.applying(CGAffineTransform(scaleX: scrollView.zoomScale, y: scrollView.zoomScale))
     
     let rect = AVMakeRect(aspectRatio: CGSize.init(width: 1, height: 1.414), insideRect: imageRect)
@@ -280,6 +289,7 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
   }
   
   func selectWithoutStatusbar() {
+    Answers.logCustomEvent(withName: "ALCamera.Crop.ChangeSize", customAttributes: ["Type":"Screenshot"])
     cropOverlay.layoutButtons(UIEdgeInsetsMake(20, 0, 0, 0))
   }
 	

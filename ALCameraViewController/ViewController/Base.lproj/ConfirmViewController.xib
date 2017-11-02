@@ -70,15 +70,15 @@
             </subviews>
             <color key="backgroundColor" red="0.1803921568627451" green="0.20392156862745098" blue="0.23921568627450979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="K0s-nd-Nie" secondAttribute="trailing" id="A9Q-Ae-fF2"/>
-                <constraint firstAttribute="trailing" secondItem="UDi-0L-oOL" secondAttribute="trailing" id="Fdf-oe-Wjg"/>
+                <constraint firstItem="mPo-Ul-qZ4" firstAttribute="trailing" secondItem="K0s-nd-Nie" secondAttribute="trailing" id="A9Q-Ae-fF2"/>
+                <constraint firstItem="mPo-Ul-qZ4" firstAttribute="trailing" secondItem="UDi-0L-oOL" secondAttribute="trailing" id="Fdf-oe-Wjg"/>
                 <constraint firstItem="UDi-0L-oOL" firstAttribute="top" secondItem="mPo-Ul-qZ4" secondAttribute="top" id="G2W-OG-dbx"/>
-                <constraint firstAttribute="trailing" secondItem="O7z-e0-vGh" secondAttribute="trailing" constant="70" id="VtU-w3-9tf"/>
-                <constraint firstItem="K0s-nd-Nie" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dOY-Hu-MyD"/>
+                <constraint firstItem="mPo-Ul-qZ4" firstAttribute="trailing" secondItem="O7z-e0-vGh" secondAttribute="trailing" constant="70" id="VtU-w3-9tf"/>
+                <constraint firstItem="K0s-nd-Nie" firstAttribute="leading" secondItem="mPo-Ul-qZ4" secondAttribute="leading" id="dOY-Hu-MyD"/>
                 <constraint firstItem="O7z-e0-vGh" firstAttribute="top" secondItem="K0s-nd-Nie" secondAttribute="bottom" id="hac-Ga-0DC"/>
-                <constraint firstItem="UDi-0L-oOL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="o8K-Ge-jPe"/>
+                <constraint firstItem="UDi-0L-oOL" firstAttribute="leading" secondItem="mPo-Ul-qZ4" secondAttribute="leading" id="o8K-Ge-jPe"/>
                 <constraint firstItem="K0s-nd-Nie" firstAttribute="top" secondItem="UDi-0L-oOL" secondAttribute="bottom" id="tUg-4A-120"/>
-                <constraint firstItem="O7z-e0-vGh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="70" id="w5o-bc-N6T"/>
+                <constraint firstItem="O7z-e0-vGh" firstAttribute="leading" secondItem="mPo-Ul-qZ4" secondAttribute="leading" constant="70" id="w5o-bc-N6T"/>
                 <constraint firstItem="mPo-Ul-qZ4" firstAttribute="bottom" secondItem="O7z-e0-vGh" secondAttribute="bottom" id="wBd-TB-5vj"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
