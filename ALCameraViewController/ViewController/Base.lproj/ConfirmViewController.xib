@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,14 +20,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDi-0L-oOL">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6r-RK-gpT">
-                            <rect key="frame" x="126" y="11.5" width="68" height="21.5"/>
+                            <rect key="frame" x="153.66666666666666" y="11.333333333333337" width="68" height="21.666666666666671"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -39,11 +41,11 @@
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K0s-nd-Nie">
-                    <rect key="frame" x="0.0" y="44" width="320" height="313"/>
+                    <rect key="frame" x="0.0" y="88" width="375" height="567"/>
                     <color key="backgroundColor" red="0.18039215689999999" green="0.20392156859999999" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="O7z-e0-vGh">
-                    <rect key="frame" x="70" y="357" width="180" height="123"/>
+                    <rect key="frame" x="70" y="655" width="235" height="123"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cqb-xM-psR">
                             <rect key="frame" x="0.0" y="41" width="38" height="41"/>
@@ -52,10 +54,10 @@
                             <state key="normal" title="Back"/>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="7EA-01-xSo">
-                            <rect key="frame" x="87.5" y="48" width="2" height="27"/>
+                            <rect key="frame" x="115" y="48" width="2" height="27"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmn-Qj-BLU">
-                            <rect key="frame" x="139" y="41" width="41" height="41"/>
+                            <rect key="frame" x="194" y="41" width="41" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                             <state key="normal" title="Done"/>
@@ -70,16 +72,17 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="K0s-nd-Nie" secondAttribute="trailing" id="A9Q-Ae-fF2"/>
                 <constraint firstAttribute="trailing" secondItem="UDi-0L-oOL" secondAttribute="trailing" id="Fdf-oe-Wjg"/>
-                <constraint firstItem="UDi-0L-oOL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="G2W-OG-dbx"/>
+                <constraint firstItem="UDi-0L-oOL" firstAttribute="top" secondItem="mPo-Ul-qZ4" secondAttribute="top" id="G2W-OG-dbx"/>
                 <constraint firstAttribute="trailing" secondItem="O7z-e0-vGh" secondAttribute="trailing" constant="70" id="VtU-w3-9tf"/>
                 <constraint firstItem="K0s-nd-Nie" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dOY-Hu-MyD"/>
                 <constraint firstItem="O7z-e0-vGh" firstAttribute="top" secondItem="K0s-nd-Nie" secondAttribute="bottom" id="hac-Ga-0DC"/>
                 <constraint firstItem="UDi-0L-oOL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="o8K-Ge-jPe"/>
                 <constraint firstItem="K0s-nd-Nie" firstAttribute="top" secondItem="UDi-0L-oOL" secondAttribute="bottom" id="tUg-4A-120"/>
                 <constraint firstItem="O7z-e0-vGh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="70" id="w5o-bc-N6T"/>
-                <constraint firstAttribute="bottom" secondItem="O7z-e0-vGh" secondAttribute="bottom" id="wBd-TB-5vj"/>
+                <constraint firstItem="mPo-Ul-qZ4" firstAttribute="bottom" secondItem="O7z-e0-vGh" secondAttribute="bottom" id="wBd-TB-5vj"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
+            <viewLayoutGuide key="safeArea" id="mPo-Ul-qZ4"/>
         </view>
     </objects>
     <resources>
