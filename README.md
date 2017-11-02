@@ -1,5 +1,5 @@
 # ALCameraViewController
-A camera view controller with custom image picker and image cropping. Written in Swift.
+A camera view controller with custom image picker and image cropping.
 
 ![camera](https://cloud.githubusercontent.com/assets/932822/8455694/c61de812-2006-11e5-85c0-a57e3d980561.jpg)
 ![cropper](https://cloud.githubusercontent.com/assets/932822/8455697/c627ac44-2006-11e5-82be-7f96e73d9b1f.jpg)
@@ -8,20 +8,43 @@ A camera view controller with custom image picker and image cropping. Written in
 
 ### Features
 
-- Front facing and rear facing camera support
-- Simple and clean look
-- Custom image picker with permission checking
-- Image cropping (square only)
-- Flash light support
+- [x] Front facing and rear facing camera
+- [x] Simple and clean look
+- [x] Custom image picker with permission checking
+- [x] Image cropping
+- [x] Flash light
+- [x] Zoom
+- [x] Tap to focus
 
 ### Installation & Requirements
-This project requires Xcode 8.3 to run and compiles with swift 3.1
+This project requires Xcode 9 to run and compiles with swift 4
 > Note: This library makes use of the AVFoundation camera API's which are unavailable on the iOS simulator. You'll need a real device to run it.
 
-ALCameraViewController is available on CocoaPods. Add the following to your Podfile:
+CocoaPods:
+Add the following to your Podfile:
 
 ```ruby
 pod 'ALCameraViewController'
+
+// For swift 3.2 support
+pod 'ALCameraViewController', '~> 2.0.3'
+```
+
+Carthage:
+
+```ruby
+github "alexlittlejohn/ALCameraViewController"
+```
+
+
+### Privacy (iOS 10) ###
+If you are building your app with iOS 10 or newer, you need to add two privacy keys to your app to allow the usage of the camera and photo library, or your app will crash.
+
+Add the keys below to your `Info.plist`, adding strings with the description you want to provide when prompting the user.
+
+```
+    NSPhotoLibraryUsageDescription
+    NSCameraUsageDescription
 ```
 
 ### Usage
@@ -32,16 +55,44 @@ Add `import ALCameraViewController` to the top of you controller file.
 In the viewController
 ```swift
 
-let croppingEnabled = true
-let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+let cameraViewController = CameraViewController { [weak self] image, asset in
 	// Do something with your image here.
-	// If cropping is enabled this image will be the cropped version
-
 	self?.dismiss(animated: true, completion: nil)
 }
 
 present(cameraViewController, animated: true, completion: nil)
 ```
+
+### Parameters
+
+There are a number of configurable options available for `CameraViewController`
+
+```swift
+init(croppingParameters: CroppingParameters = CroppingParameters(),
+     allowsLibraryAccess: Bool = true,
+     allowsSwapCameraOrientation: Bool = true,
+     allowVolumeButtonCapture: Bool = true,
+     completion: @escaping CameraViewCompletion)
+```
+
+The Cropping Parameters struct accepts the following parameters
+
+```swift
+init(isEnabled: Bool = false,
+     allowResizing: Bool = true,
+     allowMoving: Bool = true,
+     minimumSize: CGSize = CGSize(width: 60, height: 60))
+```
+
+The success parameter returns a `UIImage?` and a `PHAsset?` for more advanced use cases.
+If the user canceled photo capture ten both of these options will be `nil`
+
+```swift
+typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
+```
+> Note: To prevent retain cycles, it is best to use a `[weak self]` reference within the success parameter
+
+### Other usage options
 
 You can also instantiate the image picker component by itself as well.
 ```swift
