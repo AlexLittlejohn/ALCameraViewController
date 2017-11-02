@@ -14,7 +14,7 @@ public typealias CameraViewCompletion = (Data?, UIImage?, PHAsset?, String?, Str
 
 public extension CameraViewController {
     /// Provides an image picker wrapped inside a UINavigationController instance
-    public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> UINavigationController {
+    public class func imagePickerViewController(croppingParameters: CroppingParameters, completion: @escaping CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
 
@@ -24,7 +24,7 @@ public extension CameraViewController {
 
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
-                let confirmController = ConfirmViewController(asset: asset, allowsCropping: croppingEnabled)
+                let confirmController = ConfirmViewController(asset: asset, croppingParameters: croppingParameters)
                 confirmController.onComplete = { [weak imagePicker] imageData, image, asset, errorData, exifData in
                     if let image = image, let asset = asset {
                         completion(imageData, image, asset, errorData, exifData)
@@ -46,9 +46,10 @@ public extension CameraViewController {
 open class CameraViewController: UIViewController {
 
     var didUpdateViews = false
-    var allowCropping = false
+    var croppingParameters: CroppingParameters
     var allowAudio = false
     var animationRunning = false
+    let allowVolumeButtonCapture: Bool
 
     var lastInterfaceOrientation: UIInterfaceOrientation?
     open var onCompletion: CameraViewCompletion?
@@ -161,14 +162,20 @@ open class CameraViewController: UIViewController {
 
     private let allowsLibraryAccess: Bool
 
-    public init(scale: CGFloat = 1.0, croppingEnabled: Bool, allowsLibraryAccess: Bool = true, allowsSwapCameraOrientation: Bool = true, allowsAudio: Bool = true, completion: @escaping CameraViewCompletion) {
+    public init(croppingParameters: CroppingParameters = CroppingParameters(),
+                allowsLibraryAccess: Bool = true,
+                allowsSwapCameraOrientation: Bool = true,
+                allowVolumeButtonCapture: Bool = true,
+                completion: @escaping CameraViewCompletion) {
+
+        self.croppingParameters = croppingParameters
         self.allowsLibraryAccess = allowsLibraryAccess
+        self.allowVolumeButtonCapture = allowVolumeButtonCapture
         super.init(nibName: nil, bundle: nil)
         outputScale = scale
         onCompletion = completion
-        allowCropping = croppingEnabled
-        allowAudio = allowsAudio
-        cameraOverlay.isHidden = !allowCropping
+        cameraOverlay.isHidden = !croppingParameters.isEnabled
+        cameraOverlay.isUserInteractionEnabled = false
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
         swapButton.isEnabled = allowsSwapCameraOrientation
@@ -273,6 +280,7 @@ open class CameraViewController: UIViewController {
         setupActions()
         checkPermissions()
         cameraView.configureFocus()
+//        cameraView.configureZoom()
     }
 
     /**
@@ -283,7 +291,8 @@ open class CameraViewController: UIViewController {
         cameraView.startSession()
         addCameraObserver()
         addRotateObserver()
-        if allowAudio {
+
+        if allowVolumeButtonCapture {
             setupVolumeControl()
         }
     }
@@ -547,7 +556,7 @@ open class CameraViewController: UIViewController {
     }
 
     internal func showLibrary() {
-        let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] imageData, image, asset, errorData, exifData in
+        let imagePicker = CameraViewController.imagePickerViewController(croppingParameters: croppingParameters) { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)
             }
@@ -596,7 +605,8 @@ open class CameraViewController: UIViewController {
     }
 
     private func startConfirmController(imageData: Data, uiImage: UIImage, errorData: String?, exifData: String?) {
-        let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData: errorData, exifData: exifData, allowsCropping: allowCropping)
+
+        let confirmViewController = ConfirmViewController(imageData: imageData, image: uiImage, errorData: errorData, exifData: exifData, croppingParameters: croppingParameters)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.dismiss(animated: true, completion: nil)
@@ -613,7 +623,7 @@ open class CameraViewController: UIViewController {
     }
 
     private func startConfirmController(asset: PHAsset) {
-        let confirmViewController = ConfirmViewController(asset: asset, allowsCropping: allowCropping)
+        let confirmViewController = ConfirmViewController(asset: asset, croppingParameters: croppingParameters)
         confirmViewController.onComplete = { [weak self] imageData, image, asset, errorData, exifData in
             defer {
                 self?.modalTransitionStyle = .partialCurl
