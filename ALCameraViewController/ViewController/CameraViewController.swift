@@ -162,7 +162,7 @@ open class CameraViewController: UIViewController {
 
     private let allowsLibraryAccess: Bool
 
-    public init(croppingParameters: CroppingParameters = CroppingParameters(),
+    public init(scaleFactor: CGFloat, croppingParameters: CroppingParameters = CroppingParameters(),
                 allowsLibraryAccess: Bool = true,
                 allowsSwapCameraOrientation: Bool = true,
                 allowVolumeButtonCapture: Bool = true,
@@ -172,7 +172,7 @@ open class CameraViewController: UIViewController {
         self.allowsLibraryAccess = allowsLibraryAccess
         self.allowVolumeButtonCapture = allowVolumeButtonCapture
         super.init(nibName: nil, bundle: nil)
-        outputScale = scale
+        outputScale = scaleFactor
         onCompletion = completion
         cameraOverlay.isHidden = !croppingParameters.isEnabled
         cameraOverlay.isUserInteractionEnabled = false
