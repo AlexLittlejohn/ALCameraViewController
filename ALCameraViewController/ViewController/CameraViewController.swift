@@ -470,8 +470,8 @@ open class CameraViewController: UIViewController {
      * the user that it not allow the permissions.
      */
     private func checkPermissions() {
-        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) != .authorized {
-            AVCaptureDevice.requestAccess(for: AVMediaType.video) { granted in
+        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) != .authorized {
+            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
                 DispatchQueue.main.async() { [weak self] in
                     if !granted {
                         self?.showNoPermissionsView()
@@ -509,7 +509,7 @@ open class CameraViewController: UIViewController {
      */
     internal func capturePhoto() {
         guard let output = cameraView.imageOutput,
-            let connection = output.connection(with: AVMediaType.video) else {
+            let connection = output.connection(withMediaType: AVMediaTypeVideo) else {
             return
         }
 

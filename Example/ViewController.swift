@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func openCamera(_: AnyObject) {
-        let cameraViewController = CameraViewController(croppingParameters: croppingParameters, allowsLibraryAccess: libraryEnabled, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: false) { [weak self] _, image, _, _, _ in
+        let cameraViewController = CameraViewController(scaleFactor: 3.0, croppingParameters: croppingParameters, allowsLibraryAccess: libraryEnabled, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: false) { [weak self] _, image, _, _, _ in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }

@@ -1,19 +1,8 @@
 PODS:
-  - ALCameraViewController (3.0.3)
-  - Crashlytics (3.9.3):
-    - Fabric (~> 1.7.2)
-  - Fabric (1.7.2)
-  - Masonry (1.1.0)
-  - Mixpanel (3.2.3)
-  - SnapKit (4.0.0)
+  - ALCameraViewController (3.0.4)
 
 DEPENDENCIES:
   - ALCameraViewController (from `https://github.com/cyclic/ALCameraViewController`, branch `develop`)
-  - Crashlytics
-  - Fabric
-  - Masonry
-  - Mixpanel
-  - SnapKit
 
 EXTERNAL SOURCES:
   ALCameraViewController:
@@ -22,17 +11,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ALCameraViewController:
-    :commit: c4cafd7db07966cfaeadcc486148f13f1e9f4273
+    :commit: 8fbea7392c235658fef6274522a115b8bd8c3809
     :git: https://github.com/cyclic/ALCameraViewController
 
 SPEC CHECKSUMS:
-  ALCameraViewController: f4a52c7b2d75df179d5e34c1c5c4a2a219c8f368
-  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
-  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  Mixpanel: 7bd8e176f088936bf6e283ade0d1f512f8e723bc
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  ALCameraViewController: e29ad2b4967dd2550235f5222fffe83138956fdb
 
-PODFILE CHECKSUM: 046c4794531b2023333725c208f36c3b87383103
+PODFILE CHECKSUM: a59bd38ffaa1def3b32b28ba453b82b6514b2947
 
 COCOAPODS: 1.3.1
