@@ -10,6 +10,7 @@
 		1D4BC6A7CE46F52C503BE81A /* Pods_ALCameraViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA3B6D5F07E9E32F0AF2A75 /* Pods_ALCameraViewController.framework */; };
 		1F3C56291F701CA7009667E9 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		7AC96FA21F5B5166003E53F4 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
+		7C6AF41F1FB340CA006CB4ED /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6AF41E1FB340CA006CB4ED /* LaunchScreen.xib */; };
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
 		C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */; };
@@ -64,6 +65,7 @@
 		30992D3B789B4F8CA8705055 /* Pods-ALCameraViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALCameraViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ALCameraViewController/Pods-ALCameraViewController.release.xcconfig"; sourceTree = "<group>"; };
 		5EA3B6D5F07E9E32F0AF2A75 /* Pods_ALCameraViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ALCameraViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CroppingParameters.swift; sourceTree = "<group>"; };
+		7C6AF41E1FB340CA006CB4ED /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
 		C40665451C73A94100EB9751 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
 		C40665471C73B72D00EB9751 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		FAF058421B31618D008E5592 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7C6AF41E1FB340CA006CB4ED /* LaunchScreen.xib */,
 				FAF0584B1B31618D008E5592 /* Images.xcassets */,
 				FAF058431B31618D008E5592 /* Info.plist */,
 			);
@@ -348,6 +351,7 @@
 			files = (
 				FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */,
 				FA8231381B3BF8F700A837BE /* CameraView.strings in Resources */,
+				7C6AF41F1FB340CA006CB4ED /* LaunchScreen.xib in Resources */,
 				FA5FA3451B3AFEB300497C62 /* CameraViewAssets.xcassets in Resources */,
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
@@ -630,11 +634,10 @@
 			baseConfigurationReference = D4AD3E148CB26CAF275AC0AC /* Pods-ALCameraViewController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alx.zero.CameraViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -648,11 +651,10 @@
 			baseConfigurationReference = 30992D3B789B4F8CA8705055 /* Pods-ALCameraViewController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alx.zero.CameraViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";

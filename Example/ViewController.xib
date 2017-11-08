@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,10 +32,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHP-Db-zQM">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgD-PF-WNE">
-                            <rect key="frame" x="70" y="28" width="41" height="29"/>
+                            <rect key="frame" x="70" y="48" width="41" height="29"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <state key="normal" title="Library">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,13 +45,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cropping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-yb-h3L">
-                            <rect key="frame" x="258" y="65" width="53.5" height="17"/>
+                            <rect key="frame" x="258" y="85" width="53.5" height="17"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-W6-S2W">
-                            <rect key="frame" x="15" y="28" width="45" height="29"/>
+                            <rect key="frame" x="15" y="48" width="45" height="29"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <state key="normal" title="Camera">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,19 +61,19 @@
                             </connections>
                         </button>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kvv-7d-Re7">
-                            <rect key="frame" x="260.5" y="28" width="51" height="31"/>
+                            <rect key="frame" x="260.5" y="48" width="51" height="31"/>
                             <connections>
                                 <action selector="croppingChanged:" destination="-1" eventType="valueChanged" id="fjU-Hs-bwf"/>
                             </connections>
                         </switch>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPj-mG-Hu1">
-                            <rect key="frame" x="176" y="28" width="51" height="31"/>
+                            <rect key="frame" x="176" y="48" width="51" height="31"/>
                             <connections>
                                 <action selector="libraryChanged:" destination="-1" eventType="valueChanged" id="Bt6-HK-b05"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Library Access" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFc-CF-Vtc">
-                            <rect key="frame" x="158" y="65" width="84.5" height="17"/>
+                            <rect key="frame" x="158" y="85" width="84.5" height="17"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -82,21 +83,20 @@
                     <constraints>
                         <constraint firstItem="kvv-7d-Re7" firstAttribute="centerX" secondItem="3e8-yb-h3L" secondAttribute="centerX" id="03O-8V-75Q"/>
                         <constraint firstItem="3e8-yb-h3L" firstAttribute="leading" secondItem="VFc-CF-Vtc" secondAttribute="trailing" constant="15.5" id="4Jt-tB-SUL"/>
+                        <constraint firstAttribute="bottom" secondItem="3e8-yb-h3L" secondAttribute="bottom" constant="16" id="5p4-dS-pea"/>
                         <constraint firstItem="VFc-CF-Vtc" firstAttribute="top" secondItem="JPj-mG-Hu1" secondAttribute="bottom" constant="6" id="6Pj-pH-zeh"/>
                         <constraint firstItem="JPj-mG-Hu1" firstAttribute="top" secondItem="kvv-7d-Re7" secondAttribute="top" id="7aB-or-fz9"/>
                         <constraint firstItem="JPj-mG-Hu1" firstAttribute="centerX" secondItem="VFc-CF-Vtc" secondAttribute="centerX" id="9gI-Mi-9w4"/>
                         <constraint firstItem="3e8-yb-h3L" firstAttribute="top" secondItem="kvv-7d-Re7" secondAttribute="bottom" constant="6" id="SdV-Ft-rmy"/>
-                        <constraint firstItem="kvv-7d-Re7" firstAttribute="top" secondItem="QHP-Db-zQM" secondAttribute="top" constant="28" id="W5O-yZ-i38"/>
                         <constraint firstAttribute="trailing" secondItem="3e8-yb-h3L" secondAttribute="trailing" constant="8.5" id="ZKC-Ah-kcn"/>
+                        <constraint firstItem="kvv-7d-Re7" firstAttribute="top" secondItem="YHP-W6-S2W" secondAttribute="top" id="bj8-Oa-dOs"/>
                         <constraint firstItem="cgD-PF-WNE" firstAttribute="centerY" secondItem="YHP-W6-S2W" secondAttribute="centerY" id="cYp-Ej-9Ae"/>
                         <constraint firstItem="YHP-W6-S2W" firstAttribute="leading" secondItem="QHP-Db-zQM" secondAttribute="leading" constant="15" id="lWS-ni-lO4"/>
                         <constraint firstItem="cgD-PF-WNE" firstAttribute="leading" secondItem="YHP-W6-S2W" secondAttribute="trailing" constant="10" id="qr4-NW-qgn"/>
-                        <constraint firstAttribute="height" constant="100" id="s71-ge-v5z"/>
-                        <constraint firstItem="YHP-W6-S2W" firstAttribute="top" secondItem="QHP-Db-zQM" secondAttribute="top" constant="28" id="xrT-P5-K1h"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZk-39-lei">
-                    <rect key="frame" x="0.0" y="463" width="320" height="105"/>
+                    <rect key="frame" x="0.0" y="470" width="320" height="98"/>
                     <subviews>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k5h-ry-m8S">
                             <rect key="frame" x="15" y="28" width="51" height="31"/>
@@ -153,7 +153,6 @@
                         <constraint firstItem="k5h-ry-m8S" firstAttribute="top" secondItem="cSR-t6-yJv" secondAttribute="bottom" constant="8" id="Fb1-4H-MtS"/>
                         <constraint firstItem="DSI-Wk-w93" firstAttribute="centerY" secondItem="k5h-ry-m8S" secondAttribute="centerY" id="GXP-Jm-a8F"/>
                         <constraint firstItem="DXi-q2-e5s" firstAttribute="top" secondItem="wMe-QX-l9A" secondAttribute="bottom" constant="6" id="JKt-OZ-OfS"/>
-                        <constraint firstAttribute="height" constant="105" id="MTP-Zi-Sp6"/>
                         <constraint firstItem="wMe-QX-l9A" firstAttribute="top" secondItem="k5h-ry-m8S" secondAttribute="top" id="Oi9-A3-OeO"/>
                         <constraint firstItem="k5h-ry-m8S" firstAttribute="top" secondItem="aZk-39-lei" secondAttribute="top" constant="28" id="YVP-87-gmz"/>
                         <constraint firstItem="cSR-t6-yJv" firstAttribute="leading" secondItem="aZk-39-lei" secondAttribute="leading" constant="8" id="bIT-h5-U4i"/>
@@ -175,12 +174,15 @@
                 <constraint firstAttribute="trailing" secondItem="aZk-39-lei" secondAttribute="trailing" id="4zq-u4-Caf"/>
                 <constraint firstItem="QHP-Db-zQM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6X2-HK-7yY"/>
                 <constraint firstItem="aZk-39-lei" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Mbt-ze-5GF"/>
+                <constraint firstItem="YHP-W6-S2W" firstAttribute="top" secondItem="jeK-tH-kgg" secondAttribute="top" constant="28" id="TMC-0K-IHv"/>
                 <constraint firstAttribute="trailing" secondItem="QHP-Db-zQM" secondAttribute="trailing" id="UKI-40-dOB"/>
                 <constraint firstAttribute="trailing" secondItem="I4G-in-XtY" secondAttribute="trailing" id="YSb-RL-EaX"/>
                 <constraint firstItem="I4G-in-XtY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hv9-n7-2WA"/>
                 <constraint firstAttribute="bottom" secondItem="aZk-39-lei" secondAttribute="bottom" id="sdt-XQ-KKp"/>
+                <constraint firstItem="jeK-tH-kgg" firstAttribute="bottom" secondItem="In7-Or-H5s" secondAttribute="bottom" constant="16" id="wr8-YB-gpQ"/>
                 <constraint firstItem="QHP-Db-zQM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x5W-Fe-hte"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="jeK-tH-kgg"/>
             <point key="canvasLocation" x="366" y="492"/>
         </view>
     </objects>
