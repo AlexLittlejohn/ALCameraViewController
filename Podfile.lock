@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ALCameraViewController:
-    :commit: 8fbea7392c235658fef6274522a115b8bd8c3809
+    :commit: b08905b95642ed6e89b01054b1a38c035eb4725e
     :git: https://github.com/cyclic/ALCameraViewController
 
 SPEC CHECKSUMS:
