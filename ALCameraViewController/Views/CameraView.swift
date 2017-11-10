@@ -29,7 +29,7 @@ public class CameraView: UIView {
 
     public func startSession() {
         session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSessionPresetPhoto
+        session.sessionPreset = AVCaptureSession.Preset.photo
 
         device = cameraWithPosition(position: currentPosition)
         if let device = device, device.hasFlash {
@@ -174,13 +174,13 @@ public class CameraView: UIView {
 
     private func createPreview() {
         preview = AVCaptureVideoPreviewLayer(session: session)
-        preview.videoGravity = AVLayerVideoGravityResizeAspect
+        preview.videoGravity = AVLayerVideoGravity.resizeAspect
         preview.frame = bounds
         layer.addSublayer(preview)
     }
 
     private func cameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        guard let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as? [AVCaptureDevice] else {
+        guard let devices = AVCaptureDevice.devices(for: AVMediaType.video) as? [AVCaptureDevice] else {
             return nil
         }
         return devices.filter { $0.position == position }.first
@@ -217,7 +217,7 @@ public class CameraView: UIView {
             return false
         }
 
-        let focusPoint = preview.captureDevicePointOfInterest(for: toPoint)
+        let focusPoint = preview.captureDevicePointConverted(fromLayerPoint: toPoint)
 
         device.focusPointOfInterest = focusPoint
         device.focusMode = .continuousAutoFocus
