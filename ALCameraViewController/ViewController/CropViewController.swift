@@ -18,8 +18,16 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
   @IBOutlet weak var cropOverlayHeight: NSLayoutConstraint!
   @IBOutlet weak var cropOverlayWidth: NSLayoutConstraint!
 	@IBOutlet weak var cropOverlay: OverlayView!
-	@IBOutlet weak var cancelButton: UIButton!
-	@IBOutlet weak var confirmButton: UIButton!
+  lazy var nextBarButtonItem: UIBarButtonItem = {
+    var item = UIBarButtonItem(title: localizedString("crop.next"), style: .plain, target: nil, action: nil)
+    return item
+  }()
+  
+  lazy var backBarButtonItem: UIBarButtonItem = {
+    var item = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: nil, action: nil)
+    return item
+  }()
+  
   @IBOutlet weak var borderDetectionButton: UIButton!
   @IBOutlet weak var screenshotSizeButton: UIButton!
   @IBOutlet weak var fullImageButton: UIButton!
@@ -67,9 +75,11 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
-		
-    self.navigationController?.isNavigationBarHidden = true
-		
+    
+    self.navigationItem.title = localizedString("crop.viewtitle")
+    self.navigationItem.rightBarButtonItem = self.nextBarButtonItem
+    self.navigationItem.leftBarButtonItem = self.backBarButtonItem
+    
 		scrollView.addSubview(imageView)
 		scrollView.delegate = self
 		scrollView.maximumZoomScale = 1
@@ -99,7 +109,7 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 			enable()
 		}
 	}
-
+ 
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		let scale = calculateMinimumScale(scrollView.frame.size)
@@ -240,8 +250,8 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
   }
 	
 	private func buttonActions() {
-		confirmButton.action = { [weak self] in self?.confirmPhoto() }
-		cancelButton.action = { [weak self] in self?.cancel() }
+		nextBarButtonItem.itemAction = { [weak self] in self?.confirmPhoto() }
+    backBarButtonItem.itemAction = { [weak self] in self?.cancel() }
     borderDetectionButton.action = { [weak self] in self?.detectBorders() }
     fullImageButton.action = { [weak self] in self?.selectAllBorders()}
     a4SizeButton.action  = { [weak self] in self?.selectA4Size()}
@@ -374,11 +384,11 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
 	}
 	
 	func disable() {
-		confirmButton.isEnabled = false
+		nextBarButtonItem.isEnabled = false
 	}
 	
 	func enable() {
-		confirmButton.isEnabled = true
+		nextBarButtonItem.isEnabled = true
 	}
 	
 	func showNoImageScreen(_ error: NSError) {
@@ -407,7 +417,7 @@ public class CropViewController: UIViewController, UIScrollViewDelegate {
     
     let filterController = FilterViewController(uiImage, asset)
     filterController.onComplete = onComplete
-    self.navigationController?.pushViewController(filterController, animated: false)
+    self.navigationController?.pushViewController(filterController, animated: true)
   }
 
 }

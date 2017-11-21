@@ -20,8 +20,10 @@ public extension CameraViewController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
         
-        navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.barTintColor = UIColor.white
+        navigationController.navigationBar.tintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
 
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
@@ -229,6 +231,7 @@ open class CameraViewController: UIViewController {
      */
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
         cameraView.startSession()
         addCameraObserver()
         addRotateObserver()
@@ -248,6 +251,7 @@ open class CameraViewController: UIViewController {
 
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.removeObserver(self)
         volumeControl = nil
     }
@@ -582,8 +586,11 @@ open class CameraViewController: UIViewController {
         
         let navigationController = UINavigationController(rootViewController: cropViewController)
         
-        navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.barTintColor = UIColor.white
+        navigationController.navigationBar.tintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+
         navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         
 		present(navigationController, animated: true, completion: nil)
@@ -606,8 +613,11 @@ open class CameraViewController: UIViewController {
         
         let navigationController = UINavigationController(rootViewController: cropViewController)
         
-        navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.barTintColor = UIColor.white
+        navigationController.navigationBar.tintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        
         navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
 
         present(navigationController, animated: true, completion: nil)

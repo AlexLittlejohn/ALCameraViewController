@@ -163,7 +163,7 @@ class OverlayView: UIView {
     
     let lineWidth:CGFloat = 1.5
     path.lineWidth = lineWidth
-    UIColor.white.setStroke()
+    #colorLiteral(red: 0.1803921569, green: 0.2039215686, blue: 0.2392156863, alpha: 1).setStroke()
     path.stroke()
     
   }

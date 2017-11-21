@@ -14,8 +14,19 @@ class FilterViewController: UIViewController {
   
   @IBOutlet var filterView: UIView!
   
-  @IBOutlet var doneButton: UIButton!
-  @IBOutlet var backButton: UIButton!
+//  @IBOutlet var doneButton: UIButton!
+  lazy var nextBarButtonItem: UIBarButtonItem = {
+    var item = UIBarButtonItem(title: localizedString("crop.next"), style: .plain, target: nil, action: nil)
+    return item
+  }()
+  
+  lazy var backBarButtonItem: UIBarButtonItem = {
+    var item = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: nil, action: nil)
+    return item
+  }()
+
+
+//  @IBOutlet var backButton: UIButton!
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var grayFilter: UIButton!
   @IBOutlet var colorFilter: UIButton!
@@ -66,12 +77,20 @@ class FilterViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     imageView.image = image
+    self.title = localizedString("filter.viewtitle")
+    self.navigationItem.rightBarButtonItem = nextBarButtonItem
+    self.navigationItem.leftBarButtonItem = self.backBarButtonItem
     setupButtonActions()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+  }
+  
   internal func setupButtonActions() {
-    backButton.action = {[weak self] in self?.navigationController?.popViewController(animated: false)}
-    doneButton.action = { [weak self] in self?.confirmPhoto() }
+    nextBarButtonItem.itemAction = { [weak self] in self?.confirmPhoto() }
+    backBarButtonItem.itemAction = { [weak self] in self?.navigationController?.popViewController(animated: true)}
+
     grayFilter.action = { [weak self] in
       guard let strongSelf = self else {return}
       strongSelf.applyFilter(sender: strongSelf.grayFilter)
@@ -104,7 +123,7 @@ class FilterViewController: UIViewController {
       self?.onComplete = nil
     }
     
-    self.navigationController?.pushViewController(confirmController, animated: false)
+    self.navigationController?.pushViewController(confirmController, animated: true)
   }
   
   internal func applyFilter (sender: UIButton) {

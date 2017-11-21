@@ -68,7 +68,9 @@ public class PhotoLibraryViewController: UIViewController {
     public func present(_ inViewController: UIViewController, animated: Bool) {
         let navigationController = UINavigationController(rootViewController: self)
         navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.tintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         inViewController.present(navigationController, animated: animated, completion: nil)
     }
     

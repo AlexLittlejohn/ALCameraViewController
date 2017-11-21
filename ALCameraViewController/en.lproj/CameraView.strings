@@ -19,4 +19,11 @@
 
 "crop.borders" = "Find Borders";
 "crop.selectAll" = "Select All";
+"crop.viewtitle" = "Crop";
+"crop.next" = "Next";
 
+"filter.viewtitle" = "Filter";
+"filter.done" = "Next";
+
+"confirm.viewtitle" = "Confirm";
+"confirm.done" = "Done";

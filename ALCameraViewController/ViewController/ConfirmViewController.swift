@@ -15,8 +15,19 @@ public class ConfirmViewController: UIViewController {
   
   @IBOutlet weak var imageView: UIImageView!
   
-  @IBOutlet weak var backButton: UIButton!
-  @IBOutlet weak var doneButton: UIButton!
+//  @IBOutlet weak var backButton: UIButton!
+//  @IBOutlet weak var doneButton: UIButton!
+  lazy var nextBarButtonItem: UIBarButtonItem = {
+    var item = UIBarButtonItem(title: localizedString("confirm.done"), style: .plain, target: nil, action: nil)
+    item.tintColor = #colorLiteral(red: 0.2392156863, green: 0.8274509804, blue: 0.3960784314, alpha: 1)
+    return item
+  }()
+  
+  lazy var backBarButtonItem: UIBarButtonItem = {
+    var item = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: nil, action: nil)
+    return item
+  }()
+
   
   public var onComplete: CameraViewCompletion?
   
@@ -48,8 +59,12 @@ public class ConfirmViewController: UIViewController {
   public override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.title = localizedString("confirm.viewtitle")
+    self.navigationItem.leftBarButtonItem = backBarButtonItem
+    
     if let image = image {
       configureWithImage(image)
+      self.navigationItem.rightBarButtonItem = nextBarButtonItem
     }
   }
   
@@ -60,8 +75,8 @@ public class ConfirmViewController: UIViewController {
   }
   
   func setupButtonActions() {
-    backButton.action = { [weak self] in self?.navigationController?.popViewController(animated: false) }
-    doneButton.action = { [weak self] in self?.confirmPhoto() }
+    backBarButtonItem.itemAction = { [weak self] in self?.navigationController?.popViewController(animated: true) }
+    nextBarButtonItem.itemAction = { [weak self] in self?.confirmPhoto() }
   }
   
   func confirmPhoto() {
@@ -125,11 +140,11 @@ public class ConfirmViewController: UIViewController {
   }
   
   func disable() {
-    doneButton.isEnabled = false
+    nextBarButtonItem.isEnabled = false
   }
   
   func enable() {
-    doneButton.isEnabled = true
+    nextBarButtonItem.isEnabled = true
   }
   
   func showNoImageScreen(_ error: NSError) {

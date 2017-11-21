@@ -16,5 +16,15 @@
 "error.cant-fetch-photo" = "无法获取图片";
 "error.cant-fetch-photo.description" = "请检查你的网络设置";
 
-"crop.borders" = "查找边缘";
+"crop.borders" = "边缘检测";
 "crop.selectAll" = "全部选择";
+"crop.viewtitle" = "裁剪";
+"crop.next" = "下一步";
+
+"filter.viewtitle" = "滤镜";
+"filter.done" = "下一步";
+
+"confirm.viewtitle" = "确认";
+"confirm.done" = "完成";
+
+
