@@ -548,6 +548,11 @@ open class CameraViewController: UIViewController {
                             compatibleWith: nil)
         
         flashButton.setImage(image, for: .normal)
+        
+        let highlight = UIImage(named: flashHighlightImage(device.flashMode),
+                            in: CameraGlobals.shared.bundle,
+                            compatibleWith: nil)
+        flashButton.setImage(highlight, for: .highlighted)
     }
     
     internal func swapCamera() {

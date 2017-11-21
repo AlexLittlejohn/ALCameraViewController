@@ -35,11 +35,13 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T05-DW-nx9">
                             <rect key="frame" x="945" y="0.0" width="47" height="47"/>
-                            <state key="normal" image="flashAutoIcon"/>
+                            <state key="normal" image="camera_flash_auto"/>
+                            <state key="highlighted" image="camera_flash_auto_highlight"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIC-aq-pXR">
                             <rect key="frame" x="32" y="0.0" width="47" height="47"/>
-                            <state key="normal" image="swapButton"/>
+                            <state key="normal" image="camera_swap"/>
+                            <state key="highlighted" image="camera_swap_highlight"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -57,16 +59,17 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31q-oP-VTF">
                             <rect key="frame" x="474.5" y="24.5" width="76" height="76"/>
-                            <state key="normal" image="cameraButton"/>
-                            <state key="highlighted" image="cameraButtonHighlighted"/>
+                            <state key="normal" image="camera_capture"/>
+                            <state key="highlighted" image="camera_capture_highlight"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERQ-At-bZe">
                             <rect key="frame" x="945" y="39.5" width="47" height="47"/>
-                            <state key="normal" image="libraryButton"/>
+                            <state key="normal" image="camera_library"/>
+                            <state key="highlighted" image="camera_library_highlight"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0T3-fj-1PF">
                             <rect key="frame" x="32" y="39.5" width="47" height="47"/>
-                            <state key="normal" image="closeButton"/>
+                            <state key="normal" image="camera_close"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -100,11 +103,14 @@
         </view>
     </objects>
     <resources>
-        <image name="cameraButton" width="76" height="76"/>
-        <image name="cameraButtonHighlighted" width="76" height="76"/>
-        <image name="closeButton" width="47" height="47"/>
-        <image name="flashAutoIcon" width="47" height="47"/>
-        <image name="libraryButton" width="47" height="47"/>
-        <image name="swapButton" width="47" height="47"/>
+        <image name="camera_capture" width="76" height="76"/>
+        <image name="camera_capture_highlight" width="76" height="76"/>
+        <image name="camera_close" width="47" height="47"/>
+        <image name="camera_flash_auto" width="47" height="47"/>
+        <image name="camera_flash_auto_highlight" width="47" height="47"/>
+        <image name="camera_library" width="47" height="47"/>
+        <image name="camera_library_highlight" width="47" height="47"/>
+        <image name="camera_swap" width="47" height="47"/>
+        <image name="camera_swap_highlight" width="47" height="47"/>
     </resources>
 </document>

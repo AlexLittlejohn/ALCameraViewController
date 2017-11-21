@@ -96,11 +96,24 @@ internal func flashImage(_ mode: AVCaptureFlashMode) -> String {
     let image: String
     switch mode {
     case .auto:
-        image = "flashAutoIcon"
+        image = "camera_flash_auto"
     case .on:
-        image = "flashOnIcon"
+        image = "camera_flash_on"
     case .off:
-        image = "flashOffIcon"
+        image = "camera_flash_off"
+    }
+    return image
+}
+
+internal func flashHighlightImage(_ mode: AVCaptureFlashMode) -> String {
+    let image: String
+    switch mode {
+    case .auto:
+        image = "camera_flash_auto_highlight"
+    case .on:
+        image = "camera_flash_on_highlight"
+    case .off:
+        image = "camera_flash_off_highlight"
     }
     return image
 }

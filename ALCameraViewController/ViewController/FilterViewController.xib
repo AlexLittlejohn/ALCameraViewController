@@ -71,9 +71,9 @@
                                                 <constraint firstAttribute="height" constant="60" id="Ft8-Zb-LYn"/>
                                                 <constraint firstAttribute="width" constant="60" id="MYa-I1-SYn"/>
                                             </constraints>
-                                            <state key="normal" image="colorFilterNormal"/>
-                                            <state key="selected" image="colorFilterHighlight"/>
-                                            <state key="highlighted" image="colorFilterHighlight"/>
+                                            <state key="normal" image="filter_color"/>
+                                            <state key="selected" image="filter_color_highlight"/>
+                                            <state key="highlighted" image="filter_color_highlight"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFt-9T-uYL">
                                             <rect key="frame" x="12.666666666666668" y="56.666666666666629" width="35" height="13.333333333333329"/>
@@ -100,9 +100,9 @@
                                                 <constraint firstAttribute="width" constant="60" id="6q7-qW-hcO"/>
                                                 <constraint firstAttribute="height" constant="60" id="wVc-xi-QG8"/>
                                             </constraints>
-                                            <state key="normal" image="exposureFilterNormal"/>
-                                            <state key="selected" image="exposureFilterHighlight"/>
-                                            <state key="highlighted" image="exposureFilterHighlight"/>
+                                            <state key="normal" image="filter_exposure"/>
+                                            <state key="selected" image="filter_exposure_highlight"/>
+                                            <state key="highlighted" image="filter_exposure_highlight"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exposure+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfe-V4-yfh">
                                             <rect key="frame" x="2" y="56.666666666666629" width="56" height="13.333333333333329"/>
@@ -129,9 +129,9 @@
                                                 <constraint firstAttribute="height" constant="60" id="AYh-Kj-PO9"/>
                                                 <constraint firstAttribute="width" constant="60" id="y8i-qd-yHZ"/>
                                             </constraints>
-                                            <state key="normal" image="bwFilterNormal"/>
-                                            <state key="selected" image="bwFilterHighlight"/>
-                                            <state key="highlighted" image="bwFilterHighlight"/>
+                                            <state key="normal" image="filter_bw"/>
+                                            <state key="selected" image="filter_bw_highlight"/>
+                                            <state key="highlighted" image="filter_bw_highlight"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B&amp;W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3W-3n-9Jn">
                                             <rect key="frame" x="17.333333333333314" y="56.666666666666629" width="25.666666666666671" height="13.333333333333329"/>
@@ -158,9 +158,9 @@
                                                 <constraint firstAttribute="width" constant="60" id="9fb-no-uc0"/>
                                                 <constraint firstAttribute="height" constant="60" id="dzn-fT-phz"/>
                                             </constraints>
-                                            <state key="normal" image="grayFilterNormal"/>
-                                            <state key="selected" image="grayFilterHighlight"/>
-                                            <state key="highlighted" image="grayFilterHighlight"/>
+                                            <state key="normal" image="filter_gray"/>
+                                            <state key="selected" image="filter_gray_highlight"/>
+                                            <state key="highlighted" image="filter_gray_highlight"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gray Scale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXA-bf-oh0">
                                             <rect key="frame" x="1.6666666666666856" y="56.666666666666629" width="56.333333333333336" height="13.333333333333329"/>
@@ -216,13 +216,13 @@
         </view>
     </objects>
     <resources>
-        <image name="bwFilterHighlight" width="50" height="50"/>
-        <image name="bwFilterNormal" width="50" height="50"/>
-        <image name="colorFilterHighlight" width="50" height="50"/>
-        <image name="colorFilterNormal" width="50" height="50"/>
-        <image name="exposureFilterHighlight" width="50" height="50"/>
-        <image name="exposureFilterNormal" width="50" height="50"/>
-        <image name="grayFilterHighlight" width="50" height="50"/>
-        <image name="grayFilterNormal" width="50" height="50"/>
+        <image name="filter_bw" width="50" height="50"/>
+        <image name="filter_bw_highlight" width="50" height="50"/>
+        <image name="filter_color" width="50" height="50"/>
+        <image name="filter_color_highlight" width="50" height="50"/>
+        <image name="filter_exposure" width="50" height="50"/>
+        <image name="filter_exposure_highlight" width="50" height="50"/>
+        <image name="filter_gray" width="50" height="50"/>
+        <image name="filter_gray_highlight" width="50" height="50"/>
     </resources>
 </document>
