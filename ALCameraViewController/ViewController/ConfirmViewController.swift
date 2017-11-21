@@ -88,7 +88,7 @@ public class ConfirmViewController: UIViewController {
     
     disable()
     
-    imageView.isHidden = true
+//    imageView.isHidden = true
     
     let spinner = showSpinner()
     
