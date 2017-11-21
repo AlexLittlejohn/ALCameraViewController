@@ -24,7 +24,8 @@ public class ConfirmViewController: UIViewController {
   }()
   
   lazy var backBarButtonItem: UIBarButtonItem = {
-    var item = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: nil, action: nil)
+    let buttonImage = UIImage(named: "nav_back", in: CameraGlobals.shared.bundle, compatibleWith: nil)
+    var item = UIBarButtonItem(image: buttonImage, style: .plain, target: nil, action: nil)
     return item
   }()
 
