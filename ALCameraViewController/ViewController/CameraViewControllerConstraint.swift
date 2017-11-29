@@ -69,7 +69,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: attribute == .right || attribute == .bottom ? -8 : -8)
+            constant: attribute == .right || attribute == .bottom ? -16 : -16)
         view.addConstraint(cameraButtonEdgeConstraint!)
     }
 
