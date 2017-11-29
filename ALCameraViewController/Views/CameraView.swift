@@ -43,7 +43,14 @@ public class CameraView: UIView {
         let outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
 
         do {
-            input = try AVCaptureDeviceInput(device: device)
+            if TARGET_OS_SIMULATOR != 0 {
+                input = nil
+                return
+            }
+            else {
+                input = try AVCaptureDeviceInput(device: device)
+            }
+            
         } catch let error as NSError {
             input = nil
             print("Error: \(error.localizedDescription)")
