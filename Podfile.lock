@@ -1,0 +1,22 @@
+PODS:
+  - ALCameraViewController (3.0.4)
+
+DEPENDENCIES:
+  - ALCameraViewController (from `https://github.com/cyclic/ALCameraViewController`, branch `develop`)
+
+EXTERNAL SOURCES:
+  ALCameraViewController:
+    :branch: develop
+    :git: https://github.com/cyclic/ALCameraViewController
+
+CHECKOUT OPTIONS:
+  ALCameraViewController:
+    :commit: ce8df44bba96f506869022bbf86c4723b3e5d0f3
+    :git: https://github.com/cyclic/ALCameraViewController
+
+SPEC CHECKSUMS:
+  ALCameraViewController: e29ad2b4967dd2550235f5222fffe83138956fdb
+
+PODFILE CHECKSUM: a59bd38ffaa1def3b32b28ba453b82b6514b2947
+
+COCOAPODS: 1.3.1

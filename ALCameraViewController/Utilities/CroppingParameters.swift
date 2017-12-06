@@ -29,7 +29,7 @@ public struct CroppingParameters {
     public init(isEnabled: Bool = false,
                 allowResizing: Bool = true,
                 allowMoving: Bool = true,
-         minimumSize: CGSize = CGSize(width: 60, height: 60)) {
+                minimumSize: CGSize = CGSize(width: 60, height: 60)) {
 
         self.isEnabled = isEnabled
         self.allowResizing = allowResizing

@@ -19,39 +19,39 @@ class ViewController: UIViewController {
     var croppingParameters: CroppingParameters {
         return CroppingParameters(isEnabled: croppingEnabled, allowResizing: allowResizing, allowMoving: allowMoving, minimumSize: minimumSize)
     }
-    
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var croppingParametersView: UIView!
     @IBOutlet weak var minimumSizeLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		self.imageView.contentMode = .scaleAspectFit
+
+        imageView.contentMode = .scaleAspectFit
     }
-    
-    @IBAction func openCamera(_ sender: Any) {
-        let cameraViewController = CameraViewController(croppingParameters: croppingParameters, allowsLibraryAccess: libraryEnabled) { [weak self] image, asset in
+
+    @IBAction func openCamera(_: AnyObject) {
+        let cameraViewController = CameraViewController(scaleFactor: 3.0, croppingParameters: croppingParameters, allowsLibraryAccess: libraryEnabled, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: false) { [weak self] _, image, _, _, _ in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
+
         present(cameraViewController, animated: true, completion: nil)
     }
-    
-    @IBAction func openLibrary(_ sender: Any) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingParameters: croppingParameters) { [weak self] image, asset in
+
+    @IBAction func openLibrary(_: AnyObject) {
+        let libraryViewController = CameraViewController.imagePickerViewController(croppingParameters: croppingParameters) { [weak self] _, image, _, _, _ in
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
+
         present(libraryViewController, animated: true, completion: nil)
     }
-    
-    @IBAction func libraryChanged(_ sender: Any) {
+
+    @IBAction func libraryChanged(_: AnyObject) {
         libraryEnabled = !libraryEnabled
     }
-    
+
     @IBAction func croppingChanged(_ sender: UISwitch) {
         croppingEnabled = sender.isOn
         croppingParametersView.isHidden = !sender.isOn
@@ -71,4 +71,3 @@ class ViewController: UIViewController {
         minimumSizeLabel.text = "Minimum size: \(newValue.rounded())"
     }
 }
-
