@@ -10,21 +10,20 @@ import UIKit
 import AVFoundation
 import Photos
 import CoreMotion
-import Crashlytics
 
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
 public extension CameraViewController {
     /// Provides an image picker wrapped inside a UINavigationController instance
-    public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> UINavigationController {
+    public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> PhotoLibraryViewController {
         let imagePicker = PhotoLibraryViewController()
-        let navigationController = UINavigationController(rootViewController: imagePicker)
-        
-        navigationController.navigationBar.barTintColor = UIColor.white
-        navigationController.navigationBar.tintColor = UIColor.black
-        navigationController.navigationBar.barStyle = UIBarStyle.black
-        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//        let navigationController = UINavigationController(rootViewController: imagePicker)
+//
+//        navigationController.navigationBar.barTintColor = UIColor.white
+//        navigationController.navigationBar.tintColor = UIColor.black
+//        navigationController.navigationBar.barStyle = UIBarStyle.black
+//        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+//        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
 
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
@@ -43,7 +42,7 @@ public extension CameraViewController {
             }
         }
         
-        return navigationController
+        return imagePicker
     }
 }
 
@@ -215,6 +214,12 @@ open class CameraViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.tintColor = UIColor.black
+        navigationController?.navigationBar.barStyle = UIBarStyle.black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+
+        
         cameraOverlay.isHidden = !allowCropping
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
@@ -252,6 +257,7 @@ open class CameraViewController: UIViewController {
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.cameraView.stopSession()
         NotificationCenter.default.removeObserver(self)
         volumeControl = nil
     }
@@ -476,7 +482,6 @@ open class CameraViewController: UIViewController {
         
         if connection.isEnabled {
             toggleButtons(enabled: false)
-            Answers.logCustomEvent(withName: "ALCamera.Camera.CapturePhoto", customAttributes: nil)
             cameraView.capturePhoto(lastInterfaceOrientation!, { [weak self] (image) in
                 guard let image = image else {
                     self?.toggleButtons(enabled: true)
@@ -517,7 +522,6 @@ open class CameraViewController: UIViewController {
     }
     
     internal func showLibrary() {
-        Answers.logCustomEvent(withName: "ALCamera.Camera.OpenLibrary", customAttributes: nil)
         let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] image, asset in
             defer {
                 self?.dismiss(animated: true, completion: nil)
@@ -530,9 +534,11 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(image, asset)
         }
         
-        present(imagePicker, animated: true) { [weak self] in
-            self?.cameraView.stopSession()
-        }
+        navigationController?.pushViewController(imagePicker, animated: true)
+        
+//        present(imagePicker, animated: true) { [weak self] in
+//            self?.cameraView.stopSession()
+//        }
     }
     
     internal func toggleFlash() {
@@ -542,7 +548,6 @@ open class CameraViewController: UIViewController {
             return
         }
   
-        Answers.logCustomEvent(withName: "ALCamera.Camera.ToggleFlash", customAttributes: nil)
         let image = UIImage(named: flashImage(device.flashMode),
                             in: CameraGlobals.shared.bundle,
                             compatibleWith: nil)
@@ -556,7 +561,6 @@ open class CameraViewController: UIViewController {
     }
     
     internal func swapCamera() {
-        Answers.logCustomEvent(withName: "ALCamera.Camera.Swap", customAttributes: nil)
         cameraView.swapCameraInput()
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
     }
@@ -589,16 +593,17 @@ open class CameraViewController: UIViewController {
 			self?.onCompletion = nil
 		}
         
-        let navigationController = UINavigationController(rootViewController: cropViewController)
-        
-        navigationController.navigationBar.barTintColor = UIColor.white
-        navigationController.navigationBar.tintColor = UIColor.black
-        navigationController.navigationBar.barStyle = UIBarStyle.black
-        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-
-        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        
-		present(navigationController, animated: true, completion: nil)
+//        let navigationController = UINavigationController(rootViewController: cropViewController)
+//
+//        navigationController.navigationBar.barTintColor = UIColor.white
+//        navigationController.navigationBar.tintColor = UIColor.black
+//        navigationController.navigationBar.barStyle = UIBarStyle.black
+//        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+//
+//        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//
+//        present(navigationController, animated: true, completion: nil)
+        navigationController?.pushViewController(cropViewController, animated: true)
 	}
 	
     private func startCropController(asset: PHAsset) {
@@ -616,16 +621,18 @@ open class CameraViewController: UIViewController {
             self?.onCompletion = nil
         }
         
-        let navigationController = UINavigationController(rootViewController: cropViewController)
-        
-        navigationController.navigationBar.barTintColor = UIColor.white
-        navigationController.navigationBar.tintColor = UIColor.black
-        navigationController.navigationBar.barStyle = UIBarStyle.black
-        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-        
-        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//        let navigationController = UINavigationController(rootViewController: cropViewController)
+//
+//        navigationController.navigationBar.barTintColor = UIColor.white
+//        navigationController.navigationBar.tintColor = UIColor.black
+//        navigationController.navigationBar.barStyle = UIBarStyle.black
+//        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+//
+//        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//
+//        present(navigationController, animated: true, completion: nil)
+        navigationController?.pushViewController(cropViewController, animated: true)
 
-        present(navigationController, animated: true, completion: nil)
     }
 
     private func showSpinner() -> UIActivityIndicatorView {

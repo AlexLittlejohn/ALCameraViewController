@@ -64,10 +64,6 @@
 		E35A24101F50B49A001047FD /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35A240E1F50B49A001047FD /* ConfirmViewController.swift */; };
 		E3669CC11F96848D00CCDD01 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3669CC41F96848D00CCDD01 /* CameraViewController.xib */; };
 		E3669CC21F96848D00CCDD01 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3669CC41F96848D00CCDD01 /* CameraViewController.xib */; };
-		E36A37BA1FABB5C100485FD4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36A37B81FABB5C000485FD4 /* Crashlytics.framework */; };
-		E36A37BB1FABB5C100485FD4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36A37B81FABB5C000485FD4 /* Crashlytics.framework */; };
-		E36A37BC1FABB5C100485FD4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36A37B91FABB5C100485FD4 /* Fabric.framework */; };
-		E36A37BD1FABB5C100485FD4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36A37B91FABB5C100485FD4 /* Fabric.framework */; };
 		E36A37BF1FABBB7E00485FD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36A37BE1FABBB7E00485FD4 /* LaunchScreen.storyboard */; };
 		EBFE097D1CAF1D1A00A8C637 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */; };
 		FA52EE0B1B44129B00E16B6F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA52EE0A1B44129B00E16B6F /* ViewController.xib */; };
@@ -121,8 +117,6 @@
 		E3669CC91F96855500CCDD01 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/CropViewController.strings"; sourceTree = "<group>"; };
 		E3669CCB1F96859000CCDD01 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/CameraViewController.strings"; sourceTree = "<group>"; };
 		E3669CCD1F96859A00CCDD01 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ConfirmViewController.strings"; sourceTree = "<group>"; };
-		E36A37B81FABB5C000485FD4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		E36A37B91FABB5C100485FD4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		E36A37BE1FABBB7E00485FD4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		FA52EE0A1B44129B00E16B6F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
@@ -150,8 +144,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E36A37BB1FABB5C100485FD4 /* Crashlytics.framework in Frameworks */,
-				E36A37BD1FABB5C100485FD4 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,8 +151,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E36A37BA1FABB5C100485FD4 /* Crashlytics.framework in Frameworks */,
-				E36A37BC1FABB5C100485FD4 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,8 +225,6 @@
 		FAF058361B31618D008E5592 = {
 			isa = PBXGroup;
 			children = (
-				E36A37B81FABB5C000485FD4 /* Crashlytics.framework */,
-				E36A37B91FABB5C100485FD4 /* Fabric.framework */,
 				FAF058641B316628008E5592 /* Example */,
 				FAF058411B31618D008E5592 /* ALCameraViewController */,
 				C4829FFC1CAEB16C00541D08 /* CameraViewController */,

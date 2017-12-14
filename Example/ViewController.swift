@@ -24,8 +24,12 @@ class ViewController: UIViewController {
             self?.imageView.image = image
             self?.dismiss(animated: true, completion: nil)
         }
+      
+      let navigationVC = UINavigationController(rootViewController: cameraViewController)
+      
+      present(navigationVC, animated: true, completion: nil)
         
-        present(cameraViewController, animated: true, completion: nil)
+//        present(cameraViewController, animated: true, completion: nil)
     }
     
     @IBAction func openLibrary(_ sender: AnyObject) {
