@@ -25,9 +25,14 @@ class ViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         }
       
-      let navigationVC = UINavigationController(rootViewController: cameraViewController)
+      let navigationController = UINavigationController(rootViewController: cameraViewController)
       
-      present(navigationVC, animated: true, completion: nil)
+      navigationController.navigationBar.barTintColor = UIColor.white
+      navigationController.navigationBar.tintColor = UIColor.black
+      navigationController.navigationBar.barStyle = UIBarStyle.blackOpaque
+      navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+
+      present(navigationController, animated: true, completion: nil)
         
 //        present(cameraViewController, animated: true, completion: nil)
     }

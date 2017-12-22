@@ -17,13 +17,13 @@ public extension CameraViewController {
     /// Provides an image picker wrapped inside a UINavigationController instance
     public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> PhotoLibraryViewController {
         let imagePicker = PhotoLibraryViewController()
-//        let navigationController = UINavigationController(rootViewController: imagePicker)
-//
-//        navigationController.navigationBar.barTintColor = UIColor.white
-//        navigationController.navigationBar.tintColor = UIColor.black
-//        navigationController.navigationBar.barStyle = UIBarStyle.black
-//        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-//        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        
+        
+//        self.navigationController?.navigationBar.barTintColor = UIColor.white
+//        self.navigationController?.navigationBar.tintColor = UIColor.black
+//        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+//        self.navigationController?.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
 
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
@@ -213,12 +213,6 @@ open class CameraViewController: UIViewController {
      */
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.barTintColor = UIColor.white
-        navigationController?.navigationBar.tintColor = UIColor.black
-        navigationController?.navigationBar.barStyle = UIBarStyle.black
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-
         
         cameraOverlay.isHidden = !allowCropping
         libraryButton.isEnabled = allowsLibraryAccess

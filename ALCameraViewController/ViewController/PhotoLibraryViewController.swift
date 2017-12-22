@@ -21,6 +21,13 @@ public class PhotoLibraryViewController: UIViewController {
     
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
+    
+    lazy var backBarButtonItem: UIBarButtonItem = {
+        let buttonImage = UIImage(named: "nav_back", in: CameraGlobals.shared.bundle, compatibleWith: nil)
+        var item = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(dismissLibrary))
+        return item
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -40,14 +47,10 @@ public class PhotoLibraryViewController: UIViewController {
         
         setNeedsStatusBarAppearanceUpdate()
         
-        let buttonImage = UIImage(named: "libraryCancel", in: CameraGlobals.shared.bundle, compatibleWith: nil)?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        self.title = localizedString("libray.title")
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonImage,
-                                                           style: UIBarButtonItemStyle.plain,
-                                                           target: self,
-                                                           action: #selector(dismissLibrary))
-        
-        view.backgroundColor = UIColor(white: 0.2, alpha: 1)
+        navigationItem.leftBarButtonItem = self.backBarButtonItem
+        view.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
         view.addSubview(collectionView)
         
         _ = ImageFetcher()
