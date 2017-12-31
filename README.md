@@ -50,7 +50,7 @@ Add the keys below to your `Info.plist`, adding strings with the description you
 ### Usage
 
 To use this component couldn't be simpler.
-Add `import ALCameraViewController` to the top of you controller file.
+Add `import ALCameraViewController` to the top of your controller file.
 
 In the viewController
 ```swift
