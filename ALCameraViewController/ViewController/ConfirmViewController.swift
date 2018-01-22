@@ -106,7 +106,6 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		scrollView.minimumZoomScale = scale
 		scrollView.zoomScale = scale
 		centerScrollViewContents()
-		centerImageViewOnRotate()
 	}
 	
 	public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
