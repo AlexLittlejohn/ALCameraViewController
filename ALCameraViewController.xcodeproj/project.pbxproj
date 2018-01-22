@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B2357AB11FA50D51003F9ACF /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2357AAF1FA50D51003F9ACF /* FilterViewController.xib */; };
 		B2357AB21FA50D51003F9ACF /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2357AB01FA50D51003F9ACF /* FilterViewController.swift */; };
-		B2357AB41FA50E13003F9ACF /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2357AAF1FA50D51003F9ACF /* FilterViewController.xib */; };
 		B255EDB41FA6648A00681E70 /* UIImageView+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2357AB61FA51155003F9ACF /* UIImageView+Filter.m */; };
 		B255EDB51FA6648A00681E70 /* UIImageView+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2357AB61FA51155003F9ACF /* UIImageView+Filter.m */; };
 		B255EDB61FA6648E00681E70 /* UIImageView+Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = B2357AB51FA51155003F9ACF /* UIImageView+Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,6 +45,8 @@
 		C484580B1D0AA44400ECDB15 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */; };
 		C4D9BA451CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */; };
 		C4D9BA471CA73163004F70F7 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */; };
+		E335B4832015ADC7007DC281 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E335B4862015ADC7007DC281 /* FilterViewController.xib */; };
+		E335B4842015ADC7007DC281 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E335B4862015ADC7007DC281 /* FilterViewController.xib */; };
 		E33BE71D1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71E1F5134C1005842DC /* CIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */; };
 		E33BE71F1F5134C1005842DC /* CIImage+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,7 +85,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B2357AAF1FA50D51003F9ACF /* FilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		B2357AB01FA50D51003F9ACF /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		B2357AB51FA51155003F9ACF /* UIImageView+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Filter.h"; sourceTree = "<group>"; };
 		B2357AB61FA51155003F9ACF /* UIImageView+Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Filter.m"; sourceTree = "<group>"; };
@@ -102,6 +101,8 @@
 		C4829FFF1CAEB16C00541D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4D9BA441CA7224B004F70F7 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
 		C4D9BA461CA73163004F70F7 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		E335B4852015ADC7007DC281 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FilterViewController.xib; sourceTree = "<group>"; };
+		E335B4882015ADC9007DC281 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/FilterViewController.strings"; sourceTree = "<group>"; };
 		E33BE71B1F5134C1005842DC /* CIImage+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIImage+Utilities.m"; sourceTree = "<group>"; };
 		E33BE71C1F5134C1005842DC /* CIImage+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIImage+Utilities.h"; sourceTree = "<group>"; };
 		E33BE7251F546920005842DC /* IRLRectangleFeature+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IRLRectangleFeature+Extensions.h"; sourceTree = "<group>"; };
@@ -176,7 +177,7 @@
 				FA7E6B9A1B429012000E1B14 /* CropViewController.swift */,
 				BF5861F61F613FB800B406F6 /* CropViewController.xib */,
 				B2357AB01FA50D51003F9ACF /* FilterViewController.swift */,
-				B2357AAF1FA50D51003F9ACF /* FilterViewController.xib */,
+				E335B4862015ADC7007DC281 /* FilterViewController.xib */,
 				E35A240E1F50B49A001047FD /* ConfirmViewController.swift */,
 				BF5861FB1F61404C00B406F6 /* ConfirmViewController.xib */,
 			);
@@ -380,7 +381,7 @@
 				E3669CC21F96848D00CCDD01 /* CameraViewController.xib in Resources */,
 				BF5861F91F61404C00B406F6 /* ConfirmViewController.xib in Resources */,
 				C482A0151CAEB1B100541D08 /* CameraViewAssets.xcassets in Resources */,
-				B2357AB41FA50E13003F9ACF /* FilterViewController.xib in Resources */,
+				E335B4842015ADC7007DC281 /* FilterViewController.xib in Resources */,
 				BF5861F41F613FB800B406F6 /* CropViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +397,7 @@
 				FAF0584C1B31618D008E5592 /* Images.xcassets in Resources */,
 				FA778A411B8319D8005807E7 /* image.jpg in Resources */,
 				BF5861F31F613FB800B406F6 /* CropViewController.xib in Resources */,
-				B2357AB11FA50D51003F9ACF /* FilterViewController.xib in Resources */,
+				E335B4832015ADC7007DC281 /* FilterViewController.xib in Resources */,
 				E36A37BF1FABBB7E00485FD4 /* LaunchScreen.storyboard in Resources */,
 				BF5861F81F61404C00B406F6 /* ConfirmViewController.xib in Resources */,
 			);
@@ -501,6 +502,15 @@
 				BF5862021F625D1200B406F6 /* zh-Hans */,
 			);
 			name = CameraView.strings;
+			sourceTree = "<group>";
+		};
+		E335B4862015ADC7007DC281 /* FilterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E335B4852015ADC7007DC281 /* Base */,
+				E335B4882015ADC9007DC281 /* zh-Hans */,
+			);
+			name = FilterViewController.xib;
 			sourceTree = "<group>";
 		};
 		E3669CC41F96848D00CCDD01 /* CameraViewController.xib */ = {

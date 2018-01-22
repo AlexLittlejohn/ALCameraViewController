@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Color+"; ObjectID = "MFt-9T-uYL"; */
+"MFt-9T-uYL.text" = "色彩+";
+
+/* Class = "UILabel"; text = "Exposure+"; ObjectID = "Wfe-V4-yfh"; */
+"Wfe-V4-yfh.text" = "亮度+";
+
+/* Class = "UILabel"; text = "Gray Scale"; ObjectID = "jXA-bf-oh0"; */
+"jXA-bf-oh0.text" = "灰度";
+
+/* Class = "UILabel"; text = "B&W"; ObjectID = "p3W-3n-9Jn"; */
+"p3W-3n-9Jn.text" = "黑白";
