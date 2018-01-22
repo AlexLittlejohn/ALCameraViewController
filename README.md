@@ -52,7 +52,7 @@ Add the keys below to your `Info.plist`, adding strings with the description you
 ### Usage
 
 To use this component couldn't be simpler.
-Add `import ALCameraViewController` to the top of you controller file.
+Add `import ALCameraViewController` to the top of your controller file.
 
 In the viewController
 ```swift
@@ -87,7 +87,7 @@ init(isEnabled: Bool = false,
 ```
 
 The success parameter returns a `UIImage?` and a `PHAsset?` for more advanced use cases.
-If the user canceled photo capture ten both of these options will be `nil`
+If the user canceled photo capture then both of these options will be `nil`
 
 ```swift
 typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void

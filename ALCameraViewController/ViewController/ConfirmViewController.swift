@@ -106,7 +106,6 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		scrollView.minimumZoomScale = scale
 		scrollView.zoomScale = scale
 		centerScrollViewContents()
-		centerImageViewOnRotate()
 	}
 	
 	public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -163,21 +162,13 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		}
 		
 		guard let image = imageView.image else {
-			return 1
+            return 1
 		}
 		
 		let scaleWidth = _size.width / image.size.width
 		let scaleHeight = _size.height / image.size.height
-		
-		var scale: CGFloat
-		
-		if croppingParameters.isEnabled {
-			scale = max(scaleWidth, scaleHeight)
-		} else {
-			scale = min(scaleWidth, scaleHeight)
-		}
-		
-		return scale
+
+		return min(scaleWidth, scaleHeight)
 	}
 	
 	private func calculateScrollViewInsets(_ frame: CGRect) -> UIEdgeInsets {
@@ -318,14 +309,17 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		                      y: cropOverlay.frame.origin.y + cropOverlay.outterGap,
 		                      width: cropOverlay.frame.size.width - 2 * cropOverlay.outterGap,
 		                      height: cropOverlay.frame.size.height - 2 * cropOverlay.outterGap)
-		cropRect.origin.x += scrollView.contentOffset.x
-		cropRect.origin.y += scrollView.contentOffset.y
-		
-		let normalizedX = cropRect.origin.x / imageView.frame.width
-		let normalizedY = cropRect.origin.y / imageView.frame.height
-		
-		let normalizedWidth = cropRect.width / imageView.frame.width
-		let normalizedHeight = cropRect.height / imageView.frame.height
+        cropRect.origin.x += scrollView.contentOffset.x - imageView.frame.origin.x
+        cropRect.origin.y += scrollView.contentOffset.y - imageView.frame.origin.y
+
+		let normalizedX = max(0, cropRect.origin.x / imageView.frame.width)
+		let normalizedY = max(0, cropRect.origin.y / imageView.frame.height)
+
+        let extraWidth = min(0, cropRect.origin.x)
+        let extraHeight = min(0, cropRect.origin.y)
+
+		let normalizedWidth = min(1, (cropRect.width + extraWidth) / imageView.frame.width)
+		let normalizedHeight = min(1, (cropRect.height + extraHeight) / imageView.frame.height)
 		
 		return CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
 	}
