@@ -46,10 +46,10 @@ extension CameraViewController {
         
         let attribute : NSLayoutAttribute = {
             switch statusBarOrientation {
-            case .portrait: return .bottom
-            case .landscapeRight: return .right
-            case .landscapeLeft: return .left
-            default: return .top
+            case .portrait: return .bottomMargin
+            case .landscapeRight: return .rightMargin
+            case .landscapeLeft: return .leftMargin
+            default: return .topMargin
             }
         }()
         
@@ -60,7 +60,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: attribute == .right || attribute == .bottom ? -8 : 8)
+            constant: -8)
         view.addConstraint(cameraButtonEdgeConstraint!)
     }
     
@@ -401,7 +401,7 @@ extension CameraViewController {
         view.autoRemoveConstraint(flashButtonEdgeConstraint)
         
         let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let attribute : NSLayoutAttribute = constraintRight ? .top : .bottom
+        let attribute : NSLayoutAttribute = constraintRight ? .topMargin : .bottomMargin
         
         flashButtonEdgeConstraint = NSLayoutConstraint(
             item: flashButton,
