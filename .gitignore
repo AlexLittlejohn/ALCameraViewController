@@ -31,3 +31,5 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+ALCameraViewController.xcodeproj/project.pbxproj
