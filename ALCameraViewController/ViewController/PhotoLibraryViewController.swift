@@ -14,12 +14,16 @@ internal let ImageCellIdentifier = "ImageCell"
 internal let defaultItemSpacing: CGFloat = 1
 
 public typealias PhotoLibraryViewSelectionComplete = (PHAsset?) -> Void
+public typealias PhotoLibraryViewMultipleSelectionComplete = ([PHAsset]?) -> Void
 
 public class PhotoLibraryViewController: UIViewController {
     
     internal var assets: PHFetchResult<PHAsset>? = nil
     
+    /// Controls whether multiple cells can be selected, default is `false`.
+    public var allowsMultipleSelection = false
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
+    public var onMultipleSelectionComplete: PhotoLibraryViewMultipleSelectionComplete?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,6 +36,7 @@ public class PhotoLibraryViewController: UIViewController {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = UIColor.clear
+        collectionView.allowsMultipleSelection = self.allowsMultipleSelection
         return collectionView
     }()
     
@@ -46,6 +51,12 @@ public class PhotoLibraryViewController: UIViewController {
                                                            style: UIBarButtonItemStyle.plain,
                                                            target: self,
                                                            action: #selector(dismissLibrary))
+        
+        if allowsMultipleSelection {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                                target: self,
+                                                                action: #selector(selectMultiple))
+        }
         
         view.backgroundColor = UIColor(white: 0.2, alpha: 1)
         view.addSubview(collectionView)
@@ -73,7 +84,12 @@ public class PhotoLibraryViewController: UIViewController {
     }
     
     @objc public func dismissLibrary() {
-        onSelectionComplete?(nil)
+        allowsMultipleSelection ? onMultipleSelectionComplete?(nil) : onSelectionComplete?(nil)
+    }
+
+    @objc public func selectMultiple() {
+        let assets: [PHAsset]? = collectionView.indexPathsForSelectedItems?.flatMap { self.itemAtIndexPath($0) }
+        onMultipleSelectionComplete?(assets)
     }
     
     private func onSuccess(_ photos: PHFetchResult<PHAsset>) {
@@ -122,6 +138,23 @@ extension PhotoLibraryViewController : UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate -
 extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !allowsMultipleSelection else {
+            return
+        }
         onSelectionComplete?(itemAtIndexPath(indexPath))
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard allowsMultipleSelection else {
+            return true
+        }
+        
+        if let selectedItems = collectionView.indexPathsForSelectedItems {
+            if selectedItems.contains(indexPath) {
+                collectionView.deselectItem(at: indexPath, animated: true)
+                return false
+            }
+        }
+        return true
     }
 }

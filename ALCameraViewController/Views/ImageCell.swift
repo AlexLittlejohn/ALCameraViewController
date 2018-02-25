@@ -42,6 +42,13 @@ class ImageCell: UICollectionViewCell {
                                   compatibleWith: nil)
     }
     
+    override var isSelected: Bool {
+        didSet {
+            contentView.layer.borderWidth = 2.0
+            contentView.layer.borderColor = isSelected ? UIColor.blue.cgColor : UIColor.clear.cgColor
+        }
+    }
+    
     func configureWithModel(_ model: PHAsset) {
         
         if tag != 0 {

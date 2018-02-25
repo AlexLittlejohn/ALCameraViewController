@@ -23,7 +23,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var croppingParametersView: UIView!
     @IBOutlet weak var minimumSizeLabel: UILabel!
-
+    @IBOutlet weak var multipleSelectionSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -40,12 +41,23 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openLibrary(_ sender: Any) {
-        let libraryViewController = CameraViewController.imagePickerViewController(croppingParameters: croppingParameters) { [weak self] image, asset in
-            self?.imageView.image = image
-            self?.dismiss(animated: true, completion: nil)
+        if multipleSelectionSwitch.isOn  {
+            let libraryViewController = CameraViewController.imagePickerViewController(completion: { [weak self] assets in
+                if let assets = assets {
+                    let images = ImageFetcher.resolveAssets(assets, size: largestPhotoSize())
+                    self?.imageView.image = images.last
+                }
+                self?.dismiss(animated: true, completion: nil)
+            })
+            present(libraryViewController, animated: true, completion: nil)
+        } else {
+            let libraryViewController = CameraViewController.imagePickerViewController(croppingParameters: croppingParameters) {
+                [weak self] image, asset in
+                self?.imageView.image = image
+                self?.dismiss(animated: true, completion: nil)
+            }
+            present(libraryViewController, animated: true, completion: nil)
         }
-        
-        present(libraryViewController, animated: true, completion: nil)
     }
     
     @IBAction func libraryChanged(_ sender: Any) {
