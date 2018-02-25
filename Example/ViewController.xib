@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,6 +20,7 @@
                 <outlet property="croppingParametersView" destination="aZk-39-lei" id="iih-He-zYC"/>
                 <outlet property="imageView" destination="I4G-in-XtY" id="U1I-c7-fHk"/>
                 <outlet property="minimumSizeLabel" destination="DXi-q2-e5s" id="NxY-Mc-zZv"/>
+                <outlet property="multipleSelectionSwitch" destination="gVG-zP-Dbh" id="oTo-4p-JDL"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NQI-AD-Uhb"/>
             </connections>
         </placeholder>
@@ -28,11 +29,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I4G-in-XtY">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHP-Db-zQM">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="177"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgD-PF-WNE">
                             <rect key="frame" x="70" y="48" width="41" height="29"/>
@@ -45,7 +43,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cropping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-yb-h3L">
-                            <rect key="frame" x="258" y="85" width="53.5" height="17"/>
+                            <rect key="frame" x="258" y="85" width="54" height="17"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -61,7 +59,7 @@
                             </connections>
                         </button>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kvv-7d-Re7">
-                            <rect key="frame" x="260.5" y="48" width="51" height="31"/>
+                            <rect key="frame" x="261" y="48" width="51" height="31"/>
                             <connections>
                                 <action selector="croppingChanged:" destination="-1" eventType="valueChanged" id="fjU-Hs-bwf"/>
                             </connections>
@@ -73,7 +71,16 @@
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Library Access" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFc-CF-Vtc">
-                            <rect key="frame" x="158" y="85" width="84.5" height="17"/>
+                            <rect key="frame" x="158" y="85" width="85" height="17"/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gVG-zP-Dbh">
+                            <rect key="frame" x="176" y="110" width="51" height="31"/>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multiple Selection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Bq-QY-3gS">
+                            <rect key="frame" x="148" y="148" width="105" height="17"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -82,12 +89,16 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="kvv-7d-Re7" firstAttribute="centerX" secondItem="3e8-yb-h3L" secondAttribute="centerX" id="03O-8V-75Q"/>
+                        <constraint firstItem="5Bq-QY-3gS" firstAttribute="centerX" secondItem="gVG-zP-Dbh" secondAttribute="centerX" id="1fg-i4-G4k"/>
                         <constraint firstItem="3e8-yb-h3L" firstAttribute="leading" secondItem="VFc-CF-Vtc" secondAttribute="trailing" constant="15.5" id="4Jt-tB-SUL"/>
-                        <constraint firstAttribute="bottom" secondItem="3e8-yb-h3L" secondAttribute="bottom" constant="16" id="5p4-dS-pea"/>
+                        <constraint firstAttribute="bottom" secondItem="3e8-yb-h3L" secondAttribute="bottom" constant="75" id="5p4-dS-pea"/>
                         <constraint firstItem="VFc-CF-Vtc" firstAttribute="top" secondItem="JPj-mG-Hu1" secondAttribute="bottom" constant="6" id="6Pj-pH-zeh"/>
                         <constraint firstItem="JPj-mG-Hu1" firstAttribute="top" secondItem="kvv-7d-Re7" secondAttribute="top" id="7aB-or-fz9"/>
                         <constraint firstItem="JPj-mG-Hu1" firstAttribute="centerX" secondItem="VFc-CF-Vtc" secondAttribute="centerX" id="9gI-Mi-9w4"/>
+                        <constraint firstItem="gVG-zP-Dbh" firstAttribute="top" secondItem="VFc-CF-Vtc" secondAttribute="bottom" constant="8" symbolic="YES" id="Ko5-KT-AwX"/>
                         <constraint firstItem="3e8-yb-h3L" firstAttribute="top" secondItem="kvv-7d-Re7" secondAttribute="bottom" constant="6" id="SdV-Ft-rmy"/>
+                        <constraint firstItem="gVG-zP-Dbh" firstAttribute="trailing" secondItem="JPj-mG-Hu1" secondAttribute="trailing" id="UQx-B3-kh2"/>
+                        <constraint firstItem="5Bq-QY-3gS" firstAttribute="top" secondItem="gVG-zP-Dbh" secondAttribute="bottom" constant="7" id="Wjn-jU-jjU"/>
                         <constraint firstAttribute="trailing" secondItem="3e8-yb-h3L" secondAttribute="trailing" constant="8.5" id="ZKC-Ah-kcn"/>
                         <constraint firstItem="kvv-7d-Re7" firstAttribute="top" secondItem="YHP-W6-S2W" secondAttribute="top" id="bj8-Oa-dOs"/>
                         <constraint firstItem="cgD-PF-WNE" firstAttribute="centerY" secondItem="YHP-W6-S2W" secondAttribute="centerY" id="cYp-Ej-9Ae"/>
@@ -121,7 +132,7 @@
                             </connections>
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum size: 60" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXi-q2-e5s">
-                            <rect key="frame" x="185" y="64" width="105.5" height="17"/>
+                            <rect key="frame" x="184" y="64" width="106" height="17"/>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -166,6 +177,9 @@
                         <constraint firstItem="k5h-ry-m8S" firstAttribute="centerX" secondItem="In7-Or-H5s" secondAttribute="centerX" id="z4S-xt-ZNI"/>
                     </constraints>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I4G-in-XtY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>

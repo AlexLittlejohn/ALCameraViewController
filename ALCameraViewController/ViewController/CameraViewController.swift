@@ -41,6 +41,20 @@ public extension CameraViewController {
         
         return navigationController
     }
+    
+    /// Provides an multiple image picker wrapped inside a UINavigationController instance
+    public class func imagePickerViewController(completion: @escaping PhotoLibraryViewMultipleSelectionComplete) -> UINavigationController {
+        let imagePicker = PhotoLibraryViewController()
+        imagePicker.allowsMultipleSelection = true
+        imagePicker.onMultipleSelectionComplete = completion
+        
+        let navigationController = UINavigationController(rootViewController: imagePicker)
+        navigationController.navigationBar.barTintColor = UIColor.black
+        navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+    
+        return navigationController
+    }
 }
 
 open class CameraViewController: UIViewController {
