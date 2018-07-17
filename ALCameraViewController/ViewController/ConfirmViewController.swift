@@ -273,12 +273,20 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 	
 	func showSpinner() -> UIActivityIndicatorView {
 		let spinner = UIActivityIndicatorView()
+        #if swift(>=4.2)
+        spinner.style = .white
+        #else
 		spinner.activityIndicatorViewStyle = .white
+        #endif
 		spinner.center = view.center
 		spinner.startAnimating()
 		
 		view.addSubview(spinner)
+        #if swift(>=4.2)
+        view.bringSubviewToFront(spinner)
+        #else
 		view.bringSubview(toFront: spinner)
+        #endif
 		
 		return spinner
 	}

@@ -39,7 +39,11 @@ internal class PermissionsView: UIView {
         descriptionLabel.text = description
         
         closeButton.action = completion
+        #if swift(>=4.2)
+        closeButton.setImage(UIImage(named: "retakeButton", in: CameraGlobals.shared.bundle, compatibleWith: nil), for: UIControl.State())
+        #else
         closeButton.setImage(UIImage(named: "retakeButton", in: CameraGlobals.shared.bundle, compatibleWith: nil), for: UIControlState())
+        #endif
         closeButton.sizeToFit()
         
         let size = view.frame.size
@@ -69,13 +73,23 @@ internal class PermissionsView: UIView {
         let icon = UIImage(named: "permissionsIcon", in: CameraGlobals.shared.bundle, compatibleWith: nil)!
         iconView.image = icon
         
+        #if swift(>=4.2)
+        settingsButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+        settingsButton.setTitle(localizedString("permissions.settings"), for: UIControl.State())
+        settingsButton.setTitleColor(UIColor.white, for: UIControl.State())
+        #else
         settingsButton.contentEdgeInsets = UIEdgeInsetsMake(6, 12, 6, 12)
         settingsButton.setTitle(localizedString("permissions.settings"), for: UIControlState())
         settingsButton.setTitleColor(UIColor.white, for: UIControlState())
+        #endif
         settingsButton.layer.cornerRadius = 4
         settingsButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         settingsButton.backgroundColor = UIColor(red: 52.0/255.0, green: 183.0/255.0, blue: 250.0/255.0, alpha: 1)
+        #if swift(>=4.2)
+        settingsButton.addTarget(self, action: #selector(PermissionsView.openSettings), for: UIControl.Event.touchUpInside)
+        #else
         settingsButton.addTarget(self, action: #selector(PermissionsView.openSettings), for: UIControlEvents.touchUpInside)
+        #endif
         
         addSubview(iconView)
         addSubview(titleLabel)
@@ -84,9 +98,15 @@ internal class PermissionsView: UIView {
     }
     
     @objc func openSettings() {
+        #if swift(>=4.2)
+        if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.openURL(appSettings)
+        }
+        #else
         if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
             UIApplication.shared.openURL(appSettings)
         }
+        #endif
     }
     
     override func layoutSubviews() {

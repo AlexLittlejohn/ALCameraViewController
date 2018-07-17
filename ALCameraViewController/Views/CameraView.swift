@@ -119,8 +119,32 @@ public class CameraView: UIView {
         focusView.alpha = 0
         focusView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         
+        #if swift(>=4.2)
+        bringSubviewToFront(focusView)
+        #else
         bringSubview(toFront: focusView)
+        #endif
         
+        #if swift(>=4.2)
+        UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: UIView.KeyframeAnimationOptions(), animations: {
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.15, animations: { [weak self] in
+                self?.focusView.alpha = 1
+                self?.focusView.transform = CGAffineTransform.identity
+            })
+
+            UIView.addKeyframe(withRelativeStartTime: 0.80, relativeDuration: 0.20, animations: { [weak self] in
+                self?.focusView.alpha = 0
+                self?.focusView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            })
+
+
+        }, completion: { [weak self] finished in
+            if finished {
+                self?.focusView.isHidden = true
+            }
+        })
+        #else
         UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.15, animations: { [weak self] in
@@ -139,6 +163,8 @@ public class CameraView: UIView {
                     self?.focusView.isHidden = true
                 }
         })
+        #endif
+            
     }
 
     @objc internal func pinch(gesture: UIPinchGestureRecognizer) {
