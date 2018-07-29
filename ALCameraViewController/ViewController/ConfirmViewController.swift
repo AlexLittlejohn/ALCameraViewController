@@ -158,7 +158,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		var _size = size
 		
 		if croppingParameters.isEnabled {
-			_size = cropOverlay.frame.size
+			_size = scrollView.frame.size
 		}
 		
 		guard let image = imageView.image else {
