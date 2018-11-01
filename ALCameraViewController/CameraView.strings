@@ -14,5 +14,5 @@
 
 "permissions.settings" = "Settings";
 
-"error.cant-fetch-photo" = "Unable to fetch image";
-"error.cant-fetch-photo.description" = "Please check your network settings";
+"error.cant_fetch_photo" = "Unable to fetch image";
+"error.cant_fetch_photo.description" = "Please check your network settings";

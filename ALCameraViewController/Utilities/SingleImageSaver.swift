@@ -88,7 +88,7 @@ public class SingleImageSaver {
     }
     
     private func invokeFailure() {
-        let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
+        let error = errorWithKey("error.cant_fetch_photo", domain: errorDomain)
         failure?(error)
     }
 }

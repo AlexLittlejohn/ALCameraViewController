@@ -299,7 +299,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 	func showNoImageScreen(_ error: NSError) {
 		let permissionsView = PermissionsView(frame: view.bounds)
 		
-		let desc = localizedString("error.cant-fetch-photo.description")
+		let desc = localizedString("error.cant_fetch_photo.description")
 		
 		permissionsView.configureInView(view, title: error.localizedDescription, description: desc, completion: { [weak self] in self?.cancel() })
 	}
