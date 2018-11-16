@@ -11,7 +11,7 @@ import MediaPlayer
 
 typealias VolumeChangeAction = (Float) -> Void
 
-public class VolumeControl {
+public class VolumeControl : NSObject {
     
     let changeKey = "AVSystemController_SystemVolumeDidChangeNotification"
     
@@ -25,12 +25,15 @@ public class VolumeControl {
     var onVolumeChange: VolumeChangeAction?
     
     init(view: UIView, onVolumeChange: VolumeChangeAction?) {
+        super.init()
         self.onVolumeChange = onVolumeChange
         view.addSubview(volumeView)
         view.sendSubview(toBack: volumeView)
-        
-        try? AVAudioSession.sharedInstance().setActive(true)
-        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: NSNotification.Name(rawValue: changeKey), object: nil)
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+            NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: NSNotification.Name(rawValue: changeKey), object: nil)
+            
+        } catch {}
     }
 
     deinit {
@@ -40,10 +43,18 @@ public class VolumeControl {
         volumeView.removeFromSuperview()
     }
 
-    @objc func volumeChanged() {
-        guard let slider = volumeView.subviews.filter({ $0 is UISlider }).first as? UISlider else { return }
+    @objc func volumeChanged(notif: Notification) {
+        guard
+            let reason = notif.userInfo?["AVSystemController_AudioVolumeChangeReasonNotificationParameter"] as? String,
+            reason == "ExplicitVolumeChange" else {
+                return
+        }
         let volume = AVAudioSession.sharedInstance().outputVolume
-        slider.setValue(volume, animated: false)
+        let slider = volumeView.subviews.filter({ $0 is UISlider }).first as? UISlider
+        slider?.setValue(volume, animated: false)
         onVolumeChange?(volume)
     }
+
+
 }
+    

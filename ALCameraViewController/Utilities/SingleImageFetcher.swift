@@ -63,7 +63,7 @@ public class SingleImageFetcher {
     private func _fetch() {
     
         guard let asset = asset else {
-            let error = errorWithKey("error.cant-fetch-photo", domain: errorDomain)
+            let error = errorWithKey("error.cant_fetch_photo", domain: errorDomain)
             failure?(error)
             return
         }
@@ -87,7 +87,7 @@ public class SingleImageFetcher {
             if let image = image {
                 self.success?(image)
             } else {
-                let error = errorWithKey("error.cant-fetch-photo", domain: self.errorDomain)
+                let error = errorWithKey("error.cant_fetch_photo", domain: self.errorDomain)
                 self.failure?(error)
             }
         }
