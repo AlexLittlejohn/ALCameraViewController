@@ -349,7 +349,7 @@ open class CameraViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(rotateCameraView),
-            name: NSNotification.Name.UIDevice.orientationDidChangeNotification,
+            name: UIDevice.orientationDidChangeNotification,
             object: nil)
     }
     
