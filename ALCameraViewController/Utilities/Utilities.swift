@@ -68,7 +68,7 @@ internal func errorWithKey(_ key: String, domain: String) -> NSError {
     return error
 }
 
-internal func normalizedRect(_ rect: CGRect, orientation: UIImageOrientation) -> CGRect {
+internal func normalizedRect(_ rect: CGRect, orientation: UIImage.Orientation) -> CGRect {
     let normalizedX = rect.origin.x
     let normalizedY = rect.origin.y
     
