@@ -1,0 +1,18 @@
+/* 
+  ALCameraView.strings
+  ALCameraViewController
+
+  Created by Alex Littlejohn on 2015/06/25.
+  Copyright (c) 2015 zero. All rights reserved.
+*/
+
+"permissions.title" = "عفوا لا يمكنك استخدام الكاميرا فى الوقت الحالى";
+"permissions.description" = "لا توجد صلاحية .. قم بتعديل الصلاحية من الاعدادات";
+
+"permissions.library.title" = "عفوا لا توجد صلاحية لفتح مكتبة الصور";
+"permissions.library.description" = "من فضلك قم بتعديل الصلاحية من الاعدادات";
+
+"permissions.settings" = "الاعدادت";
+
+"error.cant-fetch-photo" = "عفوا لا يمكننا استخدام الصوره";
+"error.cant-fetch-photo.description" = "من فضلك تحقق من وجود اتصال";

@@ -1,0 +1,18 @@
+/* 
+  ALCameraView.strings
+  ALCameraViewController
+
+  Created by Alex Littlejohn on 2015/06/25.
+  Copyright (c) 2015 zero. All rights reserved.
+*/
+
+"permissions.title" = "Camera Access Denied";
+"permissions.description" = "Please enable camera access in your privacy settings";
+
+"permissions.library.title" = "Photos Access Denied";
+"permissions.library.description" = "Please enable photo library access in your privacy settings";
+
+"permissions.settings" = "Settings";
+
+"error.cant-fetch-photo" = "Unable to fetch image";
+"error.cant-fetch-photo.description" = "Please check your network settings";
