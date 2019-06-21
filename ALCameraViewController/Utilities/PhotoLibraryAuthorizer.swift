@@ -42,6 +42,8 @@ class PhotoLibraryAuthorizer {
                 self.onDeniedOrRestricted(completion: self.completion)
             }
             break
+        @unknown default:
+            break
         }
     }
 }
