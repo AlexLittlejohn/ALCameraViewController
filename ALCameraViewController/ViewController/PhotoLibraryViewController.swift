@@ -69,6 +69,7 @@ public class PhotoLibraryViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: self)
         navigationController.navigationBar.barTintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
+        navigationController.modalPresentationStyle = .fullScreen
         inViewController.present(navigationController, animated: animated, completion: nil)
     }
     
