@@ -28,13 +28,14 @@ public class CameraView: UIView {
         session.sessionPreset = AVCaptureSession.Preset.photo
 
         device = cameraWithPosition(position: currentPosition)
-        if let device = device , device.hasFlash {
-            do {
-                try device.lockForConfiguration()
-                device.flashMode = .auto
-                device.unlockForConfiguration()
-            } catch _ {}
+        guard  let device = device , device.hasFlash else {
+            return
         }
+        do {
+            try device.lockForConfiguration()
+            device.flashMode = .auto
+            device.unlockForConfiguration()
+        } catch _ {}
 
         let outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
 
