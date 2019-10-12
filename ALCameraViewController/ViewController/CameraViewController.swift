@@ -78,22 +78,11 @@ open class CameraViewController: UIViewController {
     
     var flashButtonEdgeConstraint: NSLayoutConstraint?
     var flashButtonGravityConstraint: NSLayoutConstraint?
-    
-    var cameraOverlayEdgeOneConstraint: NSLayoutConstraint?
-    var cameraOverlayEdgeTwoConstraint: NSLayoutConstraint?
-    var cameraOverlayWidthConstraint: NSLayoutConstraint?
-    var cameraOverlayCenterConstraint: NSLayoutConstraint?
-    
+
     let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         return cameraView
-    }()
-
-    let cameraOverlay : CropOverlay = {
-        let cameraOverlay = CropOverlay()
-        cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
-        return cameraOverlay
     }()
     
     let cameraButton : UIButton = {
@@ -170,8 +159,6 @@ open class CameraViewController: UIViewController {
         self.allowVolumeButtonCapture = allowVolumeButtonCapture
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
-        cameraOverlay.isHidden = !croppingParameters.isEnabled
-        cameraOverlay.isUserInteractionEnabled = false
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
 		swapButton.isEnabled = allowsSwapCameraOrientation
@@ -199,7 +186,6 @@ open class CameraViewController: UIViewController {
         super.loadView()
         view.backgroundColor = UIColor.black
         [cameraView,
-            cameraOverlay,
             cameraButton,
             closeButton,
             flashButton,
@@ -247,14 +233,7 @@ open class CameraViewController: UIViewController {
         
         configFlashEdgeButtonConstraint(statusBarOrientation)
         configFlashGravityButtonConstraint(statusBarOrientation)
-        
-        let padding : CGFloat = portrait ? 16.0 : -16.0
-        removeCameraOverlayEdgesConstraints()
-        configCameraOverlayEdgeOneContraint(portrait, padding: padding)
-        configCameraOverlayEdgeTwoConstraint(portrait, padding: padding)
-        configCameraOverlayWidthConstraint(portrait)
-        configCameraOverlayCenterConstraint(portrait)
-        
+                
         rotate(actualInterfaceOrientation: statusBarOrientation)
         
         super.updateViewConstraints()
