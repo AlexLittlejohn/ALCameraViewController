@@ -233,7 +233,7 @@ open class CameraViewController: UIViewController {
         
         configFlashEdgeButtonConstraint(statusBarOrientation)
         configFlashGravityButtonConstraint(statusBarOrientation)
-                
+
         rotate(actualInterfaceOrientation: statusBarOrientation)
         
         super.updateViewConstraints()
@@ -252,7 +252,6 @@ open class CameraViewController: UIViewController {
         super.viewDidLoad()
         setupActions()
         checkPermissions()
-        cameraView.configureFocus()
         cameraView.configureZoom()
     }
 
