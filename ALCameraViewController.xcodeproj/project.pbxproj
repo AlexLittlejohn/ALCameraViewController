@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F3C56291F701CA7009667E9 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
 		7AC96FA21F5B5166003E53F4 /* CroppingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */; };
+		7AD3B52D23521955002BAD73 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD3B52C23521955002BAD73 /* CropOverlay.swift */; };
 		7C6AF41F1FB340CA006CB4ED /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6AF41E1FB340CA006CB4ED /* LaunchScreen.xib */; };
 		C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665431C73A47C00EB9751 /* SingleImageSaver.swift */; };
 		C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40665451C73A94100EB9751 /* CameraGlobals.swift */; };
@@ -32,7 +33,6 @@
 		C482A00F1CAEB18D00541D08 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB50BEE1B413E8C009905B9 /* ImageCell.swift */; };
 		C482A0101CAEB18D00541D08 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
 		C482A0111CAEB18D00541D08 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF058671B3175C5008E5592 /* CameraView.swift */; };
-		C482A0121CAEB18D00541D08 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* CropOverlay.swift */; };
 		C482A0141CAEB1B100541D08 /* CameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8231371B3BF8F700A837BE /* CameraView.strings */; };
 		C482A0151CAEB1B100541D08 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */; };
 		C484580B1D0AA44400ECDB15 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE097C1CAF1D1A00A8C637 /* UIViewExtensions.swift */; };
@@ -45,7 +45,6 @@
 		FA5FA3431B3AFA2B00497C62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */; };
 		FA5FA3451B3AFEB300497C62 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */; };
 		FA778A411B8319D8005807E7 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA778A401B8319D8005807E7 /* image.jpg */; };
-		FA787F1C1B4326F100B6B86E /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA787F1B1B4326F100B6B86E /* CropOverlay.swift */; };
 		FA7E6B9B1B429012000E1B14 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */; };
 		FA8231381B3BF8F700A837BE /* CameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8231371B3BF8F700A837BE /* CameraView.strings */; };
 		FA82313A1B3C296C00A837BE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8231391B3C296C00A837BE /* Utilities.swift */; };
@@ -62,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		7AC96FA11F5B5166003E53F4 /* CroppingParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CroppingParameters.swift; sourceTree = "<group>"; };
+		7AD3B52C23521955002BAD73 /* CropOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
 		7C6AF41E1FB340CA006CB4ED /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		C40665431C73A47C00EB9751 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
 		C40665451C73A94100EB9751 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
@@ -79,7 +79,6 @@
 		FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		FA5FA3441B3AFEB300497C62 /* CameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CameraViewAssets.xcassets; sourceTree = "<group>"; };
 		FA778A401B8319D8005807E7 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
-		FA787F1B1B4326F100B6B86E /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
 		FA7E6B9A1B429012000E1B14 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		FA8231371B3BF8F700A837BE /* CameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = CameraView.strings; sourceTree = "<group>"; };
 		FA8231391B3C296C00A837BE /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -141,7 +140,7 @@
 				FAB50BEE1B413E8C009905B9 /* ImageCell.swift */,
 				FA5FA3421B3AFA2B00497C62 /* PermissionsView.swift */,
 				FAF058671B3175C5008E5592 /* CameraView.swift */,
-				FA787F1B1B4326F100B6B86E /* CropOverlay.swift */,
+				7AD3B52C23521955002BAD73 /* CropOverlay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,7 +358,6 @@
 				C482A00F1CAEB18D00541D08 /* ImageCell.swift in Sources */,
 				C482A0101CAEB18D00541D08 /* PermissionsView.swift in Sources */,
 				C482A0111CAEB18D00541D08 /* CameraView.swift in Sources */,
-				C482A0121CAEB18D00541D08 /* CropOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,12 +380,12 @@
 				EBFE097D1CAF1D1A00A8C637 /* UIViewExtensions.swift in Sources */,
 				C40665481C73B72D00EB9751 /* SingleImageFetcher.swift in Sources */,
 				FAF058471B31618D008E5592 /* ViewController.swift in Sources */,
+				7AD3B52D23521955002BAD73 /* CropOverlay.swift in Sources */,
 				FAF058681B3175C5008E5592 /* CameraView.swift in Sources */,
 				C4D9BA471CA73163004F70F7 /* UIButtonExtensions.swift in Sources */,
 				C40665461C73A94100EB9751 /* CameraGlobals.swift in Sources */,
 				FAF058451B31618D008E5592 /* AppDelegate.swift in Sources */,
 				C40665441C73A47C00EB9751 /* SingleImageSaver.swift in Sources */,
-				FA787F1C1B4326F100B6B86E /* CropOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

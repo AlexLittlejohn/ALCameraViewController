@@ -9,14 +9,21 @@
 import UIKit
 import Photos
 
-public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
+public class ConfirmViewController: UIViewController {
 	
 	let imageView = UIImageView()
 	@IBOutlet weak var scrollView: UIScrollView!
-	@IBOutlet weak var cropOverlay: CropOverlay!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
-	@IBOutlet weak var centeringView: UIView!
+	@IBOutlet weak var centeredView: UIView!
+
+    private let cropOverlay = CropOverlay()
+    private var spinner: UIActivityIndicatorView? = nil
+    private var cropOverlayLeftConstraint = NSLayoutConstraint()
+    private var cropOverlayTopConstraint = NSLayoutConstraint()
+    private var cropOverlayWidthConstraint = NSLayoutConstraint()
+    private var cropOverlayHeightConstraint = NSLayoutConstraint()
+    private var isFirstLayout = true
 	
     var croppingParameters: CroppingParameters {
         didSet {
@@ -25,8 +32,45 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-	var verticalPadding: CGFloat = 30
-	var horizontalPadding: CGFloat = 30
+    private var scrollViewVisibleSize: CGSize {
+        let contentInset = scrollView.contentInset
+        let scrollViewSize = scrollView.bounds.standardized.size
+        let width = scrollViewSize.width - contentInset.left - contentInset.right
+        let height = scrollViewSize.height - contentInset.top - contentInset.bottom
+        return CGSize(width:width, height:height)
+    }
+
+    private var scrollViewCenter: CGPoint {
+        let scrollViewSize = scrollViewVisibleSize
+        return CGPoint(x: scrollViewSize.width / 2.0,
+                       y: scrollViewSize.height / 2.0)
+    }
+
+    private let cropOverlayDefaultPadding: CGFloat = 20
+    private var cropOverlayDefaultFrame: CGRect {
+        let buttonsViewGap: CGFloat = 20 * 2 + 64
+        let centeredViewBounds: CGRect
+        if view.bounds.size.height > view.bounds.size.width {
+            centeredViewBounds = CGRect(x: 0,
+                                        y: 0,
+                                        width: view.bounds.size.width,
+                                        height: view.bounds.size.height - buttonsViewGap)
+        } else {
+            centeredViewBounds = CGRect(x: 0,
+                                        y: 0,
+                                        width: view.bounds.size.width - buttonsViewGap,
+                                        height: view.bounds.size.height)
+        }
+        
+        let cropOverlayWidth = min(centeredViewBounds.size.width, centeredViewBounds.size.height) - 2 * cropOverlayDefaultPadding
+        let cropOverlayX = centeredViewBounds.size.width / 2 - cropOverlayWidth / 2
+        let cropOverlayY = centeredViewBounds.size.height / 2 - cropOverlayWidth / 2
+
+        return CGRect(x: cropOverlayX,
+                      y: cropOverlayY,
+                      width: cropOverlayWidth,
+                      height: cropOverlayWidth)
+    }
 	
 	public var onComplete: CameraViewCompletion?
 
@@ -63,17 +107,11 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		super.viewDidLoad()
 
 		view.backgroundColor = UIColor.black
-		
-		scrollView.addSubview(imageView)
-		scrollView.delegate = self
-		scrollView.maximumZoomScale = 1
-		
-        cropOverlay.isHidden = true
-        cropOverlay.isResizable = croppingParameters.allowResizing
-        cropOverlay.isMovable = croppingParameters.allowMoving
-        cropOverlay.minimumSize = croppingParameters.minimumSize
 
-		let spinner = showSpinner()
+        loadScrollView()
+        loadCropOverlay()
+
+		showSpinner()
 		
 		disable()
 		
@@ -83,82 +121,86 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 				.setTargetSize(largestPhotoSize())
 				.onSuccess { [weak self] image in
 					self?.configureWithImage(image)
-					self?.hideSpinner(spinner)
+					self?.hideSpinner()
 					self?.enable()
 				}
 				.onFailure { [weak self] error in
-					self?.hideSpinner(spinner)
+					self?.hideSpinner()
 				}
 				.fetch()
 		} else if let image = image {
 			configureWithImage(image)
-			hideSpinner(spinner)
+			hideSpinner()
 			enable()
 		}
 	}
-	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		let scale = calculateMinimumScale(view.frame.size)
-		let frame = croppingParameters.isEnabled ? cropOverlay.frame : view.bounds
-		
-		scrollView.contentInset = calculateScrollViewInsets(frame)
-		scrollView.minimumZoomScale = scale
-		scrollView.zoomScale = scale
-		centerScrollViewContents()
-	}
-	
-	public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-		super.viewWillTransition(to: size, with: coordinator)
-		
-		let scale = calculateMinimumScale(size)
-		var frame = view.bounds
-		
-		if croppingParameters.isEnabled {
-			frame = cropOverlay.frame
-			let centeringFrame = centeringView.frame
-			var origin: CGPoint
-			
-			if size.width > size.height { // landscape
-				let offset = (size.width - centeringFrame.height)
-				let expectedX = (centeringFrame.height/2 - frame.height/2) + offset
-				origin = CGPoint(x: expectedX, y: frame.origin.x)
-			} else {
-				let expectedY = (centeringFrame.width/2 - frame.width/2)
-				origin = CGPoint(x: frame.origin.y, y: expectedY)
-			}
-			
-			frame.origin = origin
-		} else {
-			frame.size = size
-		}
-		
-		let insets = calculateScrollViewInsets(frame)
-		
-		coordinator.animate(alongsideTransition: { [weak self] context in
-			self?.scrollView.contentInset = insets
-			self?.scrollView.minimumZoomScale = scale
-			self?.scrollView.zoomScale = scale
-			self?.centerScrollViewContents()
-			self?.centerImageViewOnRotate()
-			}, completion: nil)
-	}
+
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if isFirstLayout {
+            isFirstLayout = false
+            activateCropOverlayConstraint()
+            spinner?.center = centeredView.center
+        }
+    }
+
+    private func activateCropOverlayConstraint() {
+        cropOverlayLeftConstraint.constant = cropOverlayDefaultFrame.origin.x
+        cropOverlayTopConstraint.constant = cropOverlayDefaultFrame.origin.y
+        cropOverlayWidthConstraint.constant = cropOverlayDefaultFrame.size.width
+        cropOverlayHeightConstraint.constant = cropOverlayDefaultFrame.size.height
+
+        cropOverlayLeftConstraint.isActive = true
+        cropOverlayTopConstraint.isActive = true
+        cropOverlayWidthConstraint.isActive = true
+        cropOverlayHeightConstraint.isActive = true
+    }
+
+    private func loadScrollView() {
+        scrollView.addSubview(imageView)
+        scrollView.delegate = self
+        scrollView.maximumZoomScale = 1
+    }
+
+    private func prepareScrollView() {
+        let scale = calculateMinimumScale(view.bounds.size)
+
+        scrollView.minimumZoomScale = scale
+        scrollView.zoomScale = scale
+
+        centerScrollViewContent()
+    }
+
+    private func loadCropOverlay() {
+        cropOverlay.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(cropOverlay)
+
+        cropOverlayLeftConstraint = cropOverlay.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0)
+        cropOverlayTopConstraint = cropOverlay.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+        cropOverlayWidthConstraint = cropOverlay.widthAnchor.constraint(equalToConstant: 0)
+        cropOverlayHeightConstraint = cropOverlay.heightAnchor.constraint(equalToConstant: 0)
+
+        cropOverlay.delegate = self
+        cropOverlay.isHidden = !croppingParameters.isEnabled
+        cropOverlay.isResizable = croppingParameters.allowResizing
+        cropOverlay.isMovable = croppingParameters.allowMoving
+        cropOverlay.minimumSize = croppingParameters.minimumSize
+    }
 	
 	private func configureWithImage(_ image: UIImage) {
-		cropOverlay.isHidden = !croppingParameters.isEnabled
-		
 		buttonActions()
 		
 		imageView.image = image
 		imageView.sizeToFit()
-		view.setNeedsLayout()
+        prepareScrollView()
 	}
 	
 	private func calculateMinimumScale(_ size: CGSize) -> CGFloat {
 		var _size = size
 		
 		if croppingParameters.isEnabled {
-			_size = cropOverlay.frame.size
+            _size = cropOverlayDefaultFrame.size
 		}
 		
 		guard let image = imageView.image else {
@@ -171,39 +213,32 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		return min(scaleWidth, scaleHeight)
 	}
 	
-	private func calculateScrollViewInsets(_ frame: CGRect) -> UIEdgeInsets {
-		let bottom = view.frame.height - (frame.origin.y + frame.height)
-		let right = view.frame.width - (frame.origin.x + frame.width)
-		let insets = UIEdgeInsets(top: frame.origin.y, left: frame.origin.x, bottom: bottom, right: right)
-		return insets
-	}
-	
-	private func centerImageViewOnRotate() {
-		if croppingParameters.isEnabled {
-			let size = cropOverlay.frame.size
-			let scrollInsets = scrollView.contentInset
-			let imageSize = imageView.frame.size
-			var contentOffset = CGPoint(x: -scrollInsets.left, y: -scrollInsets.top)
-			contentOffset.x -= (size.width - imageSize.width) / 2
-			contentOffset.y -= (size.height - imageSize.height) / 2
-			scrollView.contentOffset = contentOffset
-		}
-	}
-	
-	private func centerScrollViewContents() {
-		let size = croppingParameters.isEnabled ? cropOverlay.frame.size : scrollView.frame.size
-		let imageSize = imageView.frame.size
-		var imageOrigin = CGPoint.zero
-		
-		if imageSize.width < size.width {
-			imageOrigin.x = (size.width - imageSize.width) / 2
-		}
-		
-		if imageSize.height < size.height {
-			imageOrigin.y = (size.height - imageSize.height) / 2
-		}
-		
-		imageView.frame.origin = imageOrigin
+	private func centerScrollViewContent() {
+        guard let image = imageView.image else {
+            return
+        }
+
+        let imgViewSize = imageView.frame.size
+        let imageSize = image.size
+
+        var realImgSize: CGSize
+        if imageSize.width / imageSize.height > imgViewSize.width / imgViewSize.height {
+            realImgSize = CGSize(width: imgViewSize.width,height: imgViewSize.width / imageSize.width * imageSize.height)
+        } else {
+            realImgSize = CGSize(width: imgViewSize.height / imageSize.height * imageSize.width, height: imgViewSize.height)
+        }
+
+        var frame = CGRect.zero
+        frame.size = realImgSize
+        imageView.frame = frame
+
+        let screenSize  = scrollView.frame.size
+        let offx = screenSize.width > realImgSize.width ? (screenSize.width - realImgSize.width) / 2 : 0
+        let offy = screenSize.height > realImgSize.height ? (screenSize.height - realImgSize.height) / 2 : 0
+        scrollView.contentInset = UIEdgeInsets(top: offy,
+                                               left: offx,
+                                               bottom: offy,
+                                               right: offx)
 	}
 	
 	private func buttonActions() {
@@ -225,17 +260,17 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		
 		imageView.isHidden = true
 		
-		let spinner = showSpinner()
+		showSpinner()
 		
 		if let asset = asset {
 			var fetcher = SingleImageFetcher()
 				.onSuccess { [weak self] image in
 					self?.onComplete?(image, self?.asset)
-					self?.hideSpinner(spinner)
+					self?.hideSpinner()
 					self?.enable()
 				}
 				.onFailure { [weak self] error in
-					self?.hideSpinner(spinner)
+					self?.hideSpinner()
 					self?.showNoImageScreen(error)
 				}
 				.setAsset(asset)
@@ -258,34 +293,24 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 			}
 			
 			onComplete?(newImage, nil)
-			hideSpinner(spinner)
+			hideSpinner()
 			enable()
 		}
 	}
 	
-	public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-		return imageView
-	}
-	
-	public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-		centerScrollViewContents()
-	}
-	
-	func showSpinner() -> UIActivityIndicatorView {
-		let spinner = UIActivityIndicatorView()
-		spinner.style = .white
-		spinner.center = view.center
-		spinner.startAnimating()
+	func showSpinner() {
+		spinner = UIActivityIndicatorView()
+		spinner!.style = .white
+        spinner!.center = centeredView.center
+		spinner!.startAnimating()
 		
-		view.addSubview(spinner)
-		view.bringSubviewToFront(spinner)
-		
-		return spinner
-	}
+		view.addSubview(spinner!)
+		view.bringSubviewToFront(spinner!)
+    }
 	
-	func hideSpinner(_ spinner: UIActivityIndicatorView) {
-		spinner.stopAnimating()
-		spinner.removeFromSuperview()
+	func hideSpinner() {
+		spinner?.stopAnimating()
+		spinner?.removeFromSuperview()
 	}
 	
 	func disable() {
@@ -305,10 +330,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 	}
 	
 	private func makeProportionalCropRect() -> CGRect {
-		var cropRect = CGRect(x: cropOverlay.frame.origin.x + cropOverlay.outterGap,
-		                      y: cropOverlay.frame.origin.y + cropOverlay.outterGap,
-		                      width: cropOverlay.frame.size.width - 2 * cropOverlay.outterGap,
-		                      height: cropOverlay.frame.size.height - 2 * cropOverlay.outterGap)
+        var cropRect = cropOverlay.croppedRect
         cropRect.origin.x += scrollView.contentOffset.x - imageView.frame.origin.x
         cropRect.origin.y += scrollView.contentOffset.y - imageView.frame.origin.y
 
@@ -324,6 +346,27 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		return CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
 	}
 	
+}
+
+extension ConfirmViewController: UIScrollViewDelegate {
+
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        centerScrollViewContent()
+    }
+}
+
+extension ConfirmViewController: CropOverlayDelegate {
+
+    func didMoveCropOverlay(newFrame: CGRect) {
+        cropOverlayLeftConstraint.constant = newFrame.origin.x
+        cropOverlayTopConstraint.constant = newFrame.origin.y
+        cropOverlayWidthConstraint.constant = newFrame.size.width
+        cropOverlayHeightConstraint.constant = newFrame.size.height
+    }
 }
 
 extension UIImage {
