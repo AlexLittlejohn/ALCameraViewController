@@ -327,7 +327,7 @@ open class CameraViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(rotateCameraView),
-            name: NSNotification.Name.UIDeviceOrientationDidChange,
+            name: UIDevice.orientationDidChangeNotification,
             object: nil)
     }
     
@@ -609,12 +609,12 @@ open class CameraViewController: UIViewController {
 
     private func showSpinner() -> UIActivityIndicatorView {
         let spinner = UIActivityIndicatorView()
-        spinner.activityIndicatorViewStyle = .white
+        spinner.style = .white
         spinner.center = view.center
         spinner.startAnimating()
         
         view.addSubview(spinner)
-        view.bringSubview(toFront: spinner)
+        view.bringSubviewToFront(spinner)
         
         return spinner
     }

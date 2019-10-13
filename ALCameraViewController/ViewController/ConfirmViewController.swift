@@ -300,12 +300,12 @@ public class ConfirmViewController: UIViewController {
 	
 	func showSpinner() {
 		spinner = UIActivityIndicatorView()
-        spinner!.activityIndicatorViewStyle = .white
+        spinner!.style = .white
         spinner!.center = centeredView.center
 		spinner!.startAnimating()
 		
 		view.addSubview(spinner!)
-        view.bringSubview(toFront: spinner!)
+        view.bringSubviewToFront(spinner!)
     }
 	
 	func hideSpinner() {
