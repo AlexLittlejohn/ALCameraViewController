@@ -18,6 +18,7 @@ internal class CropOverlay: UIView {
                            UIButton(),  // top right
                            UIButton(),  // bottom left
                            UIButton()]  // bottom right
+    private let precisionView = UIView()    // view containing lines
 
     private var cornerButtonWidth: CGFloat = 45
 
@@ -73,7 +74,7 @@ internal class CropOverlay: UIView {
         addGestureRecognizer(panGesture)
 
         loadButtons()
-        loadLines()
+        loadPrecisionView()
     }
 
     private func loadButtons() {
@@ -106,55 +107,32 @@ internal class CropOverlay: UIView {
         buttons[3].heightAnchor.constraint(equalTo: buttons[3].widthAnchor).isActive = true
     }
 
-    private func loadLines() {
-        loadBorders()
+    private func loadPrecisionView() {
+        precisionView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(precisionView)
+
+        precisionView.isUserInteractionEnabled = false
+        precisionView.layer.borderWidth = 1
+        precisionView.layer.borderColor = UIColor.white.cgColor
+
+        precisionView.topAnchor.constraint(equalTo: topAnchor, constant: outterGap).isActive = true
+        precisionView.leftAnchor.constraint(equalTo: leftAnchor, constant: outterGap).isActive = true
+        precisionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -outterGap).isActive = true
+        precisionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -outterGap).isActive = true
+
         loadCornerLines()
-    }
-
-    private func loadBorders() {
-        let borders = [UIView(),    // top
-                       UIView(),    // left
-                       UIView(),    // bottom
-                       UIView()]    // right
-
-        borders.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            addSubview($0)
-
-            $0.isUserInteractionEnabled = false
-            $0.backgroundColor = .white
-        }
-
-        borders[0].heightAnchor.constraint(equalToConstant: 1).isActive = true
-        borders[0].topAnchor.constraint(equalTo: topAnchor, constant: outterGap).isActive = true
-        borders[0].leftAnchor.constraint(equalTo: leftAnchor, constant: outterGap).isActive = true
-        borders[0].rightAnchor.constraint(equalTo: rightAnchor, constant: -outterGap).isActive = true
-
-        borders[1].widthAnchor.constraint(equalToConstant: 1).isActive = true
-        borders[1].topAnchor.constraint(equalTo: topAnchor, constant: outterGap).isActive = true
-        borders[1].leftAnchor.constraint(equalTo: leftAnchor, constant: outterGap).isActive = true
-        borders[1].bottomAnchor.constraint(equalTo: bottomAnchor, constant: -outterGap).isActive = true
-
-        borders[2].heightAnchor.constraint(equalToConstant: 1).isActive = true
-        borders[2].leftAnchor.constraint(equalTo: leftAnchor, constant: outterGap).isActive = true
-        borders[2].bottomAnchor.constraint(equalTo: bottomAnchor, constant: -outterGap).isActive = true
-        borders[2].rightAnchor.constraint(equalTo: rightAnchor, constant: -outterGap).isActive = true
-
-        borders[3].widthAnchor.constraint(equalToConstant: 1).isActive = true
-        borders[3].topAnchor.constraint(equalTo: topAnchor, constant: outterGap).isActive = true
-        borders[3].bottomAnchor.constraint(equalTo: bottomAnchor, constant: -outterGap).isActive = true
-        borders[3].rightAnchor.constraint(equalTo: rightAnchor, constant: -outterGap).isActive = true
+        loadPrecisionLines()
     }
 
     private func loadCornerLines() {
         let cornerLines = [UIView(), UIView(),  // top left
-                       UIView(), UIView(),  // top right
-                       UIView(), UIView(),  // bottom left
-                       UIView(), UIView()]  // bottom right
+            UIView(), UIView(),  // top right
+            UIView(), UIView(),  // bottom left
+            UIView(), UIView()]  // bottom right
 
         cornerLines.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            addSubview($0)
+            precisionView.addSubview($0)
 
             $0.isUserInteractionEnabled = false
             $0.backgroundColor = .white
@@ -166,33 +144,59 @@ internal class CropOverlay: UIView {
                 $0.heightAnchor.constraint(equalToConstant: cornerLineLength).isActive = true
 
                 if index <= 3 {
-                    $0.topAnchor.constraint(equalTo: topAnchor, constant: outterGap).isActive = true
+                    $0.topAnchor.constraint(equalTo: precisionView.topAnchor, constant: -cornerLineDepth).isActive = true
                 } else {
-                    $0.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -outterGap).isActive = true
+                    $0.bottomAnchor.constraint(equalTo: precisionView.bottomAnchor, constant: cornerLineDepth).isActive = true
                 }
 
                 if index % 4 == 0 {
-                    $0.leftAnchor.constraint(equalTo: leftAnchor, constant: outterGap).isActive = true
+                    $0.rightAnchor.constraint(equalTo: precisionView.leftAnchor).isActive = true
                 } else {
-                    $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -outterGap).isActive = true
+                    $0.leftAnchor.constraint(equalTo: precisionView.rightAnchor).isActive = true
                 }
             } else {
                 $0.widthAnchor.constraint(equalToConstant: cornerLineLength).isActive = true
                 $0.heightAnchor.constraint(equalToConstant: cornerLineDepth).isActive = true
 
                 if index <= 3 {
-                    $0.leftAnchor.constraint(equalTo: leftAnchor, constant: outterGap).isActive = true
+                    $0.leftAnchor.constraint(equalTo: precisionView.leftAnchor, constant: -cornerLineDepth).isActive = true
                 } else {
-                    $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -outterGap).isActive = true
+                    $0.rightAnchor.constraint(equalTo: precisionView.rightAnchor, constant: cornerLineDepth).isActive = true
                 }
 
                 if index % 4 == 1 {
-                    $0.topAnchor.constraint(equalTo: topAnchor, constant: outterGap).isActive = true
+                    $0.bottomAnchor.constraint(equalTo: precisionView.topAnchor).isActive = true
                 } else {
-                    $0.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -outterGap).isActive = true
+                    $0.topAnchor.constraint(equalTo: precisionView.bottomAnchor).isActive = true
                 }
             }
         }
+    }
+
+    private func loadPrecisionLines() {
+        let centeredViews = [UIView(), UIView()]
+
+        centeredViews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            precisionView.addSubview($0)
+
+            $0.isUserInteractionEnabled = false
+
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.white.cgColor
+        }
+
+        // Horizontal view
+        centeredViews[0].leftAnchor.constraint(equalTo: precisionView.leftAnchor).isActive = true
+        centeredViews[0].rightAnchor.constraint(equalTo: precisionView.rightAnchor).isActive = true
+        centeredViews[0].heightAnchor.constraint(equalTo: precisionView.heightAnchor, multiplier: 1/3).isActive = true
+        centeredViews[0].centerYAnchor.constraint(equalTo: precisionView.centerYAnchor).isActive = true
+
+        // Vertical view
+        centeredViews[1].topAnchor.constraint(equalTo: precisionView.topAnchor).isActive = true
+        centeredViews[1].bottomAnchor.constraint(equalTo: precisionView.bottomAnchor).isActive = true
+        centeredViews[1].widthAnchor.constraint(equalTo: precisionView.widthAnchor, multiplier: 1/3).isActive = true
+        centeredViews[1].centerXAnchor.constraint(equalTo: precisionView.centerXAnchor).isActive = true
     }
 
     @objc func move(gestureRecognizer: UIPanGestureRecognizer) {
