@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
   spec.name               = "ALCameraViewController"
-  spec.version            = "3.0.3"
+  spec.version            = "3.1"
   spec.summary            = "A camera view controller with custom image picker and image cropping."
-  spec.source             = { :git => "https://github.com/AlexLittlejohn/ALCameraViewController.git", :tag => spec.version.to_s }
+  spec.source             = { :git => "https://github.com/Tulleb/ALCameraViewController.git", :tag => spec.version.to_s }
   spec.requires_arc       = true
-  spec.platform           = :ios, "8.0"
+  spec.platform           = :ios, "9.0"
   spec.license            = "MIT"
   spec.source_files       = "ALCameraViewController/**/*.{swift}"
   spec.resources          = ["ALCameraViewController/ViewController/ConfirmViewController.xib", "ALCameraViewController/CameraViewAssets.xcassets", "ALCameraViewController/CameraView.strings"]
-  spec.homepage           = "https://github.com/AlexLittlejohn/ALCameraViewController"
-  spec.author             = { "Alex Littlejohn" => "alexlittlejohn@me.com" }
-  spec.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  spec.homepage           = "https://github.com/AlexLittlejohn/ALCameraViewController.git"
+  spec.author             = { "Alex Littlejohn" => "alexlittlejohn@me.com", "Guillaume Bellut" => "guillaume@bellut.com" }
+  spec.swift_version      = '5.0'
 end
