@@ -579,6 +579,7 @@ open class CameraViewController: UIViewController {
 			}
 			
 			guard let image = image else {
+				self?.cameraView.startSession()
 				return
 			}
 			
