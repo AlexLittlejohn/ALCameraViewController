@@ -525,6 +525,7 @@ open class CameraViewController: UIViewController {
     internal func showLibrary() {
         let imagePicker = CameraViewController.imagePickerViewController(croppingParameters: croppingParameters) { [weak self] image, asset in
             defer {
+                self?.cameraView.startSession()
                 self?.dismiss(animated: true, completion: nil)
             }
 
@@ -575,6 +576,7 @@ open class CameraViewController: UIViewController {
 		let confirmViewController = ConfirmViewController(image: uiImage, croppingParameters: croppingParameters)
 		confirmViewController.onComplete = { [weak self] image, asset in
 			defer {
+                self?.cameraView.startSession()
 				self?.dismiss(animated: true, completion: nil)
 			}
 			
@@ -593,6 +595,7 @@ open class CameraViewController: UIViewController {
         let confirmViewController = ConfirmViewController(asset: asset, croppingParameters: croppingParameters)
         confirmViewController.onComplete = { [weak self] image, asset in
             defer {
+                self?.cameraView.startSession()
                 self?.dismiss(animated: true, completion: nil)
             }
 
