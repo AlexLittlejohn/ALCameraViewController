@@ -609,6 +609,7 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(image, asset)
             self?.onCompletion = nil
         }
+        confirmViewController.modalPresentationStyle = .fullScreen
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(confirmViewController, animated: true, completion: nil)
     }
@@ -628,6 +629,7 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(image, asset)
             self?.onCompletion = nil
         }
+        confirmViewController.modalPresentationStyle = .fullScreen
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(confirmViewController, animated: true, completion: nil)
     }

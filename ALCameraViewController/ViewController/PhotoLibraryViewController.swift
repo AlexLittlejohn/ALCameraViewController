@@ -16,7 +16,7 @@ internal let defaultItemSpacing: CGFloat = 1
 public typealias PhotoLibraryViewSelectionComplete = (PHAsset?) -> Void
 
 public class PhotoLibraryViewController: UIViewController {
-    
+        
     internal var assets: PHFetchResult<PHAsset>? = nil
     
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
