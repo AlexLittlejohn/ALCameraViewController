@@ -42,6 +42,10 @@ class PhotoLibraryAuthorizer {
                 self.onDeniedOrRestricted(completion: self.completion)
             }
             break
+        @unknown default:
+            DispatchQueue.main.async {
+                self.onDeniedOrRestricted(completion: self.completion)
+            }
         }
     }
 }

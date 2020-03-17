@@ -68,7 +68,7 @@ internal func errorWithKey(_ key: String, domain: String) -> NSError {
     return error
 }
 
-internal func normalizedRect(_ rect: CGRect, orientation: UIImageOrientation) -> CGRect {
+internal func normalizedRect(_ rect: CGRect, orientation: UIImage.Orientation) -> CGRect {
     let normalizedX = rect.origin.x
     let normalizedY = rect.origin.y
     
@@ -86,6 +86,8 @@ internal func normalizedRect(_ rect: CGRect, orientation: UIImageOrientation) ->
         normalizedRect = CGRect(x: 1-normalizedY-normalizedHeight, y: normalizedX, width: normalizedHeight, height: normalizedWidth)
     case .right, .rightMirrored:
         normalizedRect = CGRect(x: normalizedY, y: 1-normalizedX-normalizedWidth, width: normalizedHeight, height: normalizedWidth)
+    @unknown default:
+        normalizedRect = CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight)
     }
     
     return normalizedRect
@@ -100,6 +102,8 @@ internal func flashImage(_ mode: AVCaptureDevice.FlashMode) -> String {
         image = "flashOnIcon"
     case .off:
         image = "flashOffIcon"
+    @unknown default:
+        image = "flashAutoIcon"
     }
     return image
 }

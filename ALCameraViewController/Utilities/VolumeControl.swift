@@ -28,7 +28,7 @@ public class VolumeControl : NSObject {
         super.init()
         self.onVolumeChange = onVolumeChange
         view.addSubview(volumeView)
-        view.sendSubview(toBack: volumeView)
+        view.sendSubviewToBack(volumeView)
         do {
             try AVAudioSession.sharedInstance().setActive(true)
             NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged), name: NSNotification.Name(rawValue: changeKey), object: nil)
