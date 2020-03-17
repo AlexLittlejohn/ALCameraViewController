@@ -557,7 +557,7 @@ open class CameraViewController: UIViewController {
             
             self?.onCompletion?(image, asset)
         }
-        
+        imagePicker.modalPresentationStyle = .fullScreen
         present(imagePicker, animated: true) { [weak self] in
             self?.cameraView.stopSession()
         }
