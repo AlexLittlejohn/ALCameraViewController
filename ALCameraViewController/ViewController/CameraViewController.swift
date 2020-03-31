@@ -519,7 +519,6 @@ open class CameraViewController: UIViewController {
 	
     internal func close() {
         onCompletion?(nil, nil)
-        onCompletion = nil
     }
     
     internal func showLibrary() {
@@ -585,7 +584,6 @@ open class CameraViewController: UIViewController {
 			}
 			
 			self?.onCompletion?(image, asset)
-			self?.onCompletion = nil
 		}
 		confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
 		present(confirmViewController, animated: true, completion: nil)
@@ -604,7 +602,6 @@ open class CameraViewController: UIViewController {
             }
 
             self?.onCompletion?(image, asset)
-            self?.onCompletion = nil
         }
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(confirmViewController, animated: true, completion: nil)
