@@ -17,7 +17,7 @@ internal let scale = UIScreen.main.scale
 public class CameraGlobals {
     public static let shared = CameraGlobals()
     
-    public var bundle = Bundle(for: CameraViewController.self)
+    public var bundle = Bundle.module
     public var stringsTable = "CameraView"
     public var photoLibraryThumbnailSize = CGSize(width: thumbnailDimension, height: thumbnailDimension)
     public var defaultCameraPosition = AVCaptureDevice.Position.back
