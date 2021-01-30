@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,7 +29,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="474"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="CropOverlay" customModule="ALCameraViewController" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="CropOverlay" customModuleProvider="target">
                     <rect key="frame" x="15" y="92" width="290" height="290"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -113,6 +110,10 @@
                     <exclude reference="vnU-ey-3GX"/>
                     <exclude reference="wTn-DN-uQO"/>
                     <exclude reference="wn3-We-BBK"/>
+                    <exclude reference="7A6-HH-MEu"/>
+                    <exclude reference="8mU-82-Hf6"/>
+                    <exclude reference="92s-g3-wfK"/>
+                    <exclude reference="Cuy-cw-jOk"/>
                     <exclude reference="1uu-Bd-bz3"/>
                     <exclude reference="GAL-ck-d0B"/>
                     <exclude reference="P5N-Xh-C1z"/>
@@ -123,10 +124,6 @@
                     <exclude reference="fPc-8D-E0O"/>
                     <exclude reference="hpa-Qn-uzT"/>
                     <exclude reference="ohf-4f-yKs"/>
-                    <exclude reference="7A6-HH-MEu"/>
-                    <exclude reference="8mU-82-Hf6"/>
-                    <exclude reference="92s-g3-wfK"/>
-                    <exclude reference="Cuy-cw-jOk"/>
                     <exclude reference="89L-rE-rmd"/>
                     <exclude reference="DZ5-WA-3ZQ"/>
                     <exclude reference="Rwi-4K-QRb"/>
@@ -186,14 +183,14 @@
                     <include reference="YBv-2a-KdQ"/>
                     <include reference="hPp-8q-A1p"/>
                     <include reference="vnU-ey-3GX"/>
-                    <include reference="GAL-ck-d0B"/>
-                    <include reference="bRR-fN-fEb"/>
-                    <include reference="dbm-T2-OgB"/>
-                    <include reference="fPc-8D-E0O"/>
                     <include reference="7A6-HH-MEu"/>
                     <include reference="8mU-82-Hf6"/>
                     <include reference="92s-g3-wfK"/>
                     <include reference="Cuy-cw-jOk"/>
+                    <include reference="GAL-ck-d0B"/>
+                    <include reference="bRR-fN-fEb"/>
+                    <include reference="dbm-T2-OgB"/>
+                    <include reference="fPc-8D-E0O"/>
                     <include reference="89L-rE-rmd"/>
                     <include reference="iar-0y-gBe"/>
                     <include reference="H4a-3r-r5r"/>
@@ -201,6 +198,7 @@
                     <include reference="xFc-F1-V7I"/>
                 </mask>
             </variation>
+            <point key="canvasLocation" x="-1016" y="154"/>
         </view>
     </objects>
     <resources>
