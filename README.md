@@ -1,3 +1,7 @@
+# ⚠️ This project is unmaintained
+
+---
+
 # ALCameraViewController
 A camera view controller with custom image picker and image cropping.
 
