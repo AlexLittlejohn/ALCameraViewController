@@ -133,6 +133,12 @@ public class ConfirmViewController: UIViewController {
 			hideSpinner()
 			enable()
 		}
+    
+    if #available(iOS 9.0, *) {
+      self.view.semanticContentAttribute = .forceLeftToRight
+    } else {
+      // Fallback on earlier versions
+    }
 	}
 
     public override func viewDidLayoutSubviews() {
